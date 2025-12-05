@@ -48,7 +48,7 @@ const fetchRooms = async () => {
         capacity: item.capacity,
         tags: item.equipment ? item.equipment.split(',') : [],
         image: item.image || roomImg,
-        status: item.isActive ? 'available' : 'maintenance'
+        status: !item.status ? 'available' : 'maintenance'
       }));
       pagination.value.total = Number(res.data.total);
     }
