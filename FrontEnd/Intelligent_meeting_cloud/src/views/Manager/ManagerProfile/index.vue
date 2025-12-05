@@ -237,6 +237,13 @@ const handleSave = async () => {
 .form-row { display: flex; gap: 20px; }
 .form-group { flex: 1; display: flex; flex-direction: column; gap: 8px; }
 
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  max-height: 200px;
+  transition: all 0ms ease;
+}
+
 label { color: #475569; font-size: 0.9rem; font-weight: 500; }
 
 .glass-input {

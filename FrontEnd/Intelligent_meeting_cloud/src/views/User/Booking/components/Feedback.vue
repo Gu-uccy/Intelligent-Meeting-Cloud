@@ -118,6 +118,12 @@ onMounted(fetchRoomsForSelect);
 .form-group input:focus, 
 .form-group select:focus { border-color: #20ae7c; }
 
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  max-height: 200px;
+}
+
 /* --- 单选卡片组 --- */
 .radio-group { display: flex; gap: 1rem; }
 .radio-card { 
