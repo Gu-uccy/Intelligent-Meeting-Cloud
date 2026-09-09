@@ -2,18 +2,20 @@
 import { ref,onMounted,onUnmounted } from 'vue';
 import SideBar from "@/views/Manager/Layout/components/SideBar.vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/userStore";
 import { toast } from "@/utils/message";
 import BreadcrumbNav from "@/components/BreadcrumbNav.vue";
 import managerAvatar from '@/assets/imgs/avatar.svg';
 
 const router = useRouter();
+const userStore = useUserStore();
 
 const showMenu = ref(false);
 const showUserMenu = ref(false); 
 
 const user = ref({
-  name: '张三',
-  avatarUrl: managerAvatar
+  name: userStore.userInfo.user.username || '张三',
+  avatarUrl: userStore.userInfo.user.image || managerAvatar
 });
 
 const viewProfile = () => {

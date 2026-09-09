@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onActivated } from 'vue';
 import dayjs from 'dayjs';
 import { getMyReservations, cancelReservation } from "@/apis/reservation";
 import { getUserRoomPage } from "@/apis/room";
@@ -32,6 +32,7 @@ const fetchRecords = async () => {
         const end = dayjs(item.endTime);
         let status = 'upcoming';
         if (item.status === -1) status = 'cancelled';
+        else if (item.status === 0) status = 'pending';
         else if (end.isBefore(dayjs())) status = 'finished';
 
         return {
@@ -81,6 +82,13 @@ onMounted(async () => {
   await fetchRoomDict();
   await fetchRecords();
 });
+
+onActivated(async () => {
+  if (!Object.keys(roomDict.value).length) {
+    await fetchRoomDict();
+  }
+  await fetchRecords();
+});
 </script>
 
 <template>
@@ -100,7 +108,7 @@ onMounted(async () => {
             <td class="text-sm text-gray-400"><div>{{ item.date }}</div><div>{{ item.time }}</div></td>
             <td><span class="badge" :class="getBadge(item.status).cls">{{ getBadge(item.status).text }}</span></td>
             <td class="actions">
-              <button v-if="item.status === 'upcoming'" class="btn-text text-red" title="取消" @click="handleCancel(item.id)">
+              <button v-if="item.status === 'upcoming' || item.status === 'pending'" class="btn-text text-red" title="取消" @click="handleCancel(item.id)">
                 <i class="fa-solid fa-ban"></i>
               </button>
             </td>

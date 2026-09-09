@@ -1,0 +1,126 @@
+--- PAGE 1 ---
+!7#%莓'多)感+环-监/系1实3指5书!!.#实%目'!!建#个%成'种)感+的议/ê35，7â9温;度=距?和A体C动的7Eê3与G视KMÊO7，Q|S：U!!了d和掌Y'种)感+的工[原]U!!Q习)感+G_%与处]afU!!掌Ycee服g!建与G视K技iU!!培k综m应o能q和5~思uU2.#实%)材!!!树w派#y（建议{a}peeyUiUB更版OU!!DT温;度)感+#个U!!CS{超波距?)感+#个U!!{A体红)感+#个U!!{GBUED块#个U!!包=杜¡线£干U!!¥：小§扇=©源（o«3试温;度­KU+.#实%原-!!.# %H'##温)度+感-!DT)感+内¯%成了高±度的温度3量³件和;度3量³件，能µ提·G字¹号»出½工[原]如¿：U
+
+--- PAGE 2 ---
+!!;度3量原]：_o电Á式;Ã³件，当;度­KE，;Ã³件的电ÁÅ发|­K，MÊ3量电ÁÅ­K~Ç相9;度U!!温度3量原]：_oÉTC©Ã电Á，½电ÁÅ随温度­KË­K)感+内¯ADCSÍ量转Ï为G字¹号»出U!!M¹Ñ议：DT使oÓ总线Ñ议与Õ机M¹，×次M¹Ùm}，GÛ式为:UÝ起ß¹号U+UÝGÝ（áÝ;度整GU+UáÝ;度小GU+UáÝ温度整GU+UáÝ温度小GU+UáÝãÝU!!_样å：DT的_样周ç建议不小«é秒，Ê«ë繁的í取ï致)感+发©，ñ响3量±度U!.2 H/41R345j7距9+感-!超波)感+MÊ3量超波ó发射õ接÷的E间ù来~Ç距?，原]如¿：U!!发射原]：MÊT{Gû脚接÷ý少ÿ}的高电î¹号F，)感+内¯#动发送á个z的超波Ê:U!!接÷原]：超波<空+中-õt/物F1射回来，@接÷+接÷õECOû脚»出高电î，高电îPþE间X是超波ó发射õ接÷的总E间U!!距?~Ç：U距?9cm;U=U9高电îPþE间9};U=U速9?m/};;UAUéU=UU½中，Aé是因为超波C历了E发射→1射→接÷E的G返I程U!!3量K围：CS{的~型3量K围是écmOcm，超出此K围的3量Q果不SU!.! P;R人=红?+感-!{)感+能µ检3|物体（如A发出的红Ä射，½工[原]如¿：U!!检3原]：A体表温度Ù为?W°C，Ä射出波YÙ为ÿm的红线{)感+
+
+--- PAGE 3 ---
+内¯的©释电³件9[种红Ä射Ã感U!!¹号处]：)感+内¯包含]个更'检3Ó³，当A体移动E，[ÐÓ³依次检3õ红¹号­K，a成电ÝùU!!Fe}ceÎe镜：)感+¯的Þ色i球ak是Fe}ceÎe镜，增m检3角度和K围，~型检3角度为°，距?为W¨左qU!!»出¹号：当检3õ移动的A体E，»出û脚产|高电î¹号（Ù?s?¦´®A移动E»出ì电î（¦U!.4 RGA LC%模E!{GBUED是%成了红=绿=y三种Ü色ED的复m³件，MÊc}¹号控三种基色的度，óË混m产|种Ü色U!!Ü色原]：基«加色混m原]，红+绿+y三原色不同例混m产|几所见谱中的Ü色U!!控a式：MÊ9三个û脚别»出c}¹号，控9应色的度c}占空K围为，9应度ó暗õU!!见Ü色组m：Un!红色：红，绿，yUn!绿色：红，绿，yUn!y色：红，绿，yUn!色：红，绿，yUn!紫色：红，绿，yUn!色：红，绿，yUn!Þ色：红，绿，yU
+
+--- PAGE 4 ---
++.5#/e1可3化实%原-!!.L.# G础I构!议/ê35的cee视K基«客端服g+!~，Õ要¡¿组件!成：U!!F端服g+：运£<树w派上的y¥h§cUFÎa}应o，负©G_%=处]和提·AU!!前端«：基«T}O=CSS?和Ja­aScip¥的响应式cee«，负©G展¯和o交±U!!G交Ï：MÊ{ESTf³ÎUA7â前F端G交ÏU!!G视K：使o图表=µ表盘和·态¹¯+展¯7E和历史GU!.L.2 KlMsO WQbSI原U!FÎa}是#个»量级的y¥h§cUcee½，<O7中的核¿功能包Á：Us!I¡管]：SÃ{请Å映射õ相应的处]ÇGU@apps§³¥e9É/É;UU#UËI径映射õicÍexÇGUÍefUicÍex9;:UUUUUe¥³cUecÍeÏ¥empÎa¥e9ÉicÍexsh¥mÎÉ;Ués!渲Ñ：MÊJicjaéûÓS动态G注ÕõT}中UecÍeÏ¥empÎa¥e9ÉicÍexsh¥mÎÉ;UU#U渲ÑicÍexsh¥mÎU?s!静态×源服g：提·9图表=CSS和Ja­aScip¥文件的Ù问U@apps§³¥e9É/cha¥/¥empÏh³miÍi¥yÉ;UÍefUcha¥Ï¥empÏh³miÍi¥y9;:UUUUUe¥³cU}ecÍÏfiÎe9fEÛOTÏD{}/¥empÏh³miÍi¥yÏcha¥spcÝE,Umime¥ype=ÉimaÝe/pcÝÉ;Us!JSOÉUA：提·G交Ï接ß，返回Q!K的)感+GU
+
+--- PAGE 5 ---
+@apps§³¥e9É/api/c³ec¥É;UÍefUÝe¥Ïc³ec¥ÏÍa¥a9;:UUUUU#U返回JSOÉÛ式的当前)感+GUUUUUe¥³cUj}§cify9ÛUUUUUUUUUE¥empea¥³eE:Uc³ec¥Ï¥emp,UUUUUUUUUEh³miÍi¥yE:Uc³ec¥Ïh³miÍi¥y,UUUUUUUUU#U½他GsssUUUUU};UOs!Fy线程：同E运£)感+G_%和cee服g，±不干áU#U启动)感+í取线程U}ec}§Ï¥heaÍU=UTheaÍ9¥aÝe¥=}ec}§Ï¥heaÍÏf³cc¥i§c,UÍaem§c=T³e;U}ec}§Ï¥heaÍs}¥a¥9;U!.L.! 前W可Y化[术!s!响应式~：使oB§§¥}¥ap½7âã配不同å屏ç尺é的«U<Íi­UcÎa}}=E§ëE>UUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUU<íU<m屏上占/宽度，小屏上#动ï叠U>UUUUU</Íi­>U</Íi­>Ués!Gñ片：Só键Gñ片a式展¯，增õ视觉÷次U<Íi­UcÎa}}=EcaÍE>UUUUU<Íi­UcÎa}}=EcaÍheaÍeE>温度</Íi­>U
+
+--- PAGE 6 ---
+UUUU<Íi­UcÎa}}=EcaÍe§ÍyE>UUUUUUUUU<Íi­UcÎa}}=EÍi}pÎay­aÎ³eEUiÍ=Ec³ec¥¥empea¥³eE></Íi­>UUUUU</Íi­>U</Íi­>U?s!·态¹¯+：使oÜ色和图标ù观展¯·态­KU<}pacUiÍ=Em§¥i§cicÍica¥§EUcÎa}}=Em§¥i§cicÍica¥§Um§¥i§cicac¥i­eE></}pac>Us!图表视K：MÊ}a¥pÎ§¥Îie<服g+|成图表，<前端使oCha¥sj}动态渲Ñ图表U//Uûç刷图表U}e¥c¥e­aÎ9efe}hCha¥},Uý;;U//U×ÿ刷图表UOs!AJA!异#G获取：ûçó服g+获取%G，7â7E更Uf³cc¥i§cU³pÍa¥eC³ec¥Da¥a9;UÛUUUUUfe¥ch9É/api/c³ec¥É;UUUUUUUUUs¥hec9e}p§c}eU=>Ue}p§c}esj}§c9;;UUUUUUUUUs¥hec9Ía¥aU=>UÛUUUUUUUUUUUUU//U更DO}³素UUUUUUUUU};;U}U}e¥c¥e­aÎ9³pÍa¥eC³ec¥Da¥a,Ué;;UU//U×é秒更U!.L.4 ]据_U与可Y化a程!s!G_%：)感+线程Pþó)感+_%GUÍefUeaÍÏaÎÎÏ}ec}§}9;:U
+
+--- PAGE 7 ---
+UUUU¥emp,Uh³miÍi¥yU=UeaÍÏÍh¥Ï}ec}§9;UUUUUÍi}¥acceU=UeaÍÏÍi}¥acceÏ}ec}§9;UUUUUm§¥i§cU=UeaÍÏpiÏ}ec}§9;UUUUU#U处]'存)GsssUés!G存)：保存历史Gõ内存G组，¥存)õ文件G+Uhi}¥§yÏÍa¥asappecÍ9Ía¥aÏp§ic¥;UU#U添加õ历史-录U?s!图表|成：ûçË历史G|成/势图UÍefUÝecea¥eÏ¥empea¥³eÏh³miÍi¥yÏcha¥9;:UUUUU#U使oma¥pÎ§¥Îie1建图表UUUUUpÎ¥sfiÝ³e9fiÝ}ize=9,Uý;;UUUUU#U绘3线=置标5sssUUUUUpÎ¥s}a­efiÝ9fiÎeÏpa¥h;UU#U保存为图片文件Us!前端获取：浏7+ûç请Å%G和图表U//U刷图表Uf³cc¥i§cUefe}hCha¥}9;UÛUUUUUc§c}¥U¥ime}¥ampU=UceëUDa¥e9;sÝe¥Time9;;UUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9É¥emph³miÍi¥ycha¥É;s}cU=UUUUUUUUUU`/cha¥/¥empÏh³miÍi¥y9¥=$Û¥ime}¥amp}`;U}UOs!视觉;â：更DO}³素，1映%·态UÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Éc³ec¥¥empea¥³eÉ;s¥ex¥C§c¥ec¥U=UUUUUUÍa¥as¥empea¥³es¥§FixeÍ9;;U
+
+--- PAGE 8 ---
+!.L.L c向e信g制!O5_oi双工M¹式：Us!Õ动=询：前端ûç=询F端A获取%GU}e¥c¥e­aÎ9³pÍa¥eC³ec¥Da¥a,Ué;;UU//U×é秒?询#次Ués!图表缓存：使oE间AÃ{参GC免浏7+缓存图表Ucha¥s}cU=U`/cha¥/¥empÏh³miÍi¥y9¥=$Û¥ime}¥amp}`;U?s!Gï出：MÊA端E提·CS¦Û式的历史G¿载U@apps§³¥e9É/api/exp§¥/c}­É;UÍefUexp§¥Ïc}­9;:UUUUU#U|成CS¦GG'返回U!.L.i 系k优化[术!s!G压I：仅保存KG量的历史GE（个UifUÎec9hi}¥§yÏÍa¥a;U>UmaxÏhi}¥§yÏp§ic¥}:UUUUUhi}¥§yÏÍa¥aU=Uhi}¥§yÏÍa¥a[maxÏhi}¥§yÏp§ic¥}:MUés!图表更策O：_oûE更Ë非7E更，»5负担U#U×ý秒更#次图表UifUc³ec¥Ï¥imeUUÎa}¥Ïcha¥Ï³pÍa¥eU>Uý:UUUUUÝecea¥eÏaÎÎÏcha¥}9;U?s!S误US：组件添加异处]，提高5稳ûWU¥y:UUUUU#U操[Y码Uexcep¥UExcep¥i§cUa}Ue:U
+
+--- PAGE 9 ---
+UUUUÎ§ÝÏme}}aÝe9fE出S:UÛe}E;UUUUU#U使o[Å上次]ÅUs!线程安_：_o_局­量交ÏG，C免复a的线程同#UÝÎ§eaÎUc³ec¥Ï¥emp,Uc³ec¥Ïh³miÍi¥yU#U更_局­量U#实%5J7P9!UUU/e1技;选=说?!s!F端½¥择Un!FÎa}：»量级，ãm×源cK的树w派Un!TheaÍicÝ：简K'发，C免Áecee服gU
+
+--- PAGE 10 ---
+n!}a¥pÎ§¥Îie：õm的图表|成能q，支P服g+端渲ÑUés!前端技i¥择Un!B§§¥}¥ap：g速!建响应式«Un!原|Ja­aScip¥：C免ûÕ重量级½，提高W能Un!Fe¥chUA：âYK的i络请ÅUn!图片a式展¯图表：C免客端渲Ñ复a图表，»浏7+负担U?s!G)»Û式Un!JSOÉ：»量=kd析的GÛ式Un!CS¦：o«Gï出，m«电子表Ûo件打~UU4.#AJ连C!4.# m路o接q!树w派GOUUUUUUU→UUUUU)感+UUUUUUUUUUUUUUUUO¦/?s?¦UUUUUUUU→UUUUU¦CC（所)感+UGÉDUUUUUUUUUUUU→UUUUUGÉD（所)感+UGOOU9DO;UUUUU→UUUUUDTGû脚UGOéUUUUUUUUU→UUUUU{A体红)感+¹号û脚UGOWUUUUUUUUU→UUUUUCS{UT{Gû脚UGOáUUUUUUUUU→UUUUUCS{UECOû脚UGO9UUUUUUUUU→UUUUU{GBUED红色û脚UGOéWUUUUUUUUU→UUUUU{GBUED绿色û脚U
+
+--- PAGE 11 ---
+GOééUUUUUUUUU→UUUUU{GBUEDy色û脚U4.2 注s事u!!!DT建议使o?s?¦·电U!!CS{s须使oO¦·电，u保ECOû脚»出不超Ê?s?¦（使o压电ÁU!!{)感+#个预©E间，w接F等yÙéÿy¹号稳ûU!!{GBUED三个û脚MÊKG电Á（ééΩ??Ωw接õGOU5.#软JE境G置!L.# 系k准w!#U更5U}³Í§Uap¥Ýe¥U³pÍa¥eU}³Í§Uap¥Ýe¥U³pÝaÍeUU#U安{s要的依赖+U}³Í§Uap¥Ýe¥Uic}¥aÎÎUyUpy¥h§c?pipUpy¥h§c?Íe­U}³Í§Uap¥Ýe¥Uic}¥aÎÎUyUpy¥h§c?fÎa}U}³Í§Uap¥Ýe¥Uic}¥aÎÎUyUf§c¥}ë}ymic§heiUf§c¥}ë}yzecheiUU#U中文字体支PUU#U安{y¥h§c+Upip?Uic}¥aÎÎU{isGOUpip?Uic}¥aÎÎUaÍaf³i¥cic³i¥py¥h§cÍh¥Upip?Uic}¥aÎÎUma¥pÎ§¥ÎieU
+
+--- PAGE 12 ---
+L.2 文y结构!p§jec¥/U├Uic¥eÝa¥eÍÏ}ec}§Ï}y}¥emspyUU#UÕ程序U├UÍa¥a/UUUUUUUUUUUUUUUUUUUUUUUU#UG存)录U├UpÎ§¥}/UUUUUUUUUUUUUUUUUUUUUUU#U图表存)录U└U¥empÎa¥e}/UUUUUUUUUUUUUUUUUUU#Ucee录UUUUU└UicÍexsh¥mÎUUUUUUUUUUUUUUU#Ucee«UI.#实%步K!i.# 程{SI!¿是5的基O½，¯ó键Y码要Q|#£7âU#í/³}/eic/ec­Upy¥h§c?U#U*Uc§ÍicÝ:U³¥fáU*U#U议/ê35UU%成温;度=超波距?=A体红)感+UUimp§¥U¥imeUimp§¥Uj}§cUimp§¥Ue§aÍUimp§¥UaÍaf³i¥ÏÍh¥Uimp§¥U§}Uimp§¥U{isGOUa}UGOUimp§¥U}§ce¥Uf§mUÍa¥e¥imeUimp§¥UÍa¥e¥imeU
+
+--- PAGE 13 ---
+imp§¥Uma¥pÎ§¥ÎieUma¥pÎ§¥Îies³}e9ÉAÝÝÉ;UU#U使o非交±式F端U#U置中文字体支PUma¥pÎ§¥Îiescaam}[Éf§c¥s}ac}}eifÉMU=U[ÉSimeiÉ,UÉcec³acYiU}ic§UeiÉ,UÉDeja¦³USac}ÉMUma¥pÎ§¥Îiescaam}[Éaxe}s³cic§ÍeÏmic³}ÉMU=UFaÎ}eUimp§¥Uma¥pÎ§¥ÎiespypÎ§¥Ua}UpÎ¥Uf§mUfÎa}Uimp§¥UFÎa},UecÍeÏ¥empÎa¥e,Uj}§cify,U}ecÍÏfiÎe,U{e}p§c}eUf§mU¥heaÍicÝUimp§¥UTheaÍUimp§¥Uc}­Uimp§¥Ui§UU#U]能占o的GO×源U§}s}y}¥em9ÉpiÎÎUfUÎieÝpi§ÍÉ;U¥imes}Îeep9;UU#U_局­量，o«存))感+G和历史-录Uc³ec¥Ï¥empU=UÉ§ceUc³ec¥Ïh³miÍi¥yU=UÉ§ceUc³ec¥ÏÍi}¥acceU=UÉ§ceUc³ec¥Ïm§¥i§cU=UFaÎ}eUÎa}¥Ïm§¥i§cÏ¥imeU=UU
+
+--- PAGE 14 ---
+m§¥i§cÏc§³c¥U=UUhi}¥§yÏÍa¥aU=U[MUmaxÏhi}¥§yÏp§ic¥}U=UUU#U%'保存个历史GEUU#U)感+配置UDTÏÉU=Ue§aÍsDOUU#UDT温;度)感+û脚U{ÏÉU=UéUUUUUUUU#UA体红)感+û脚UÃT{ASOÉCÏT{GU=UWUU#U超波)感+T{Gû脚UÃT{ASOÉCÏECOU=UáUU#U超波)感+ECOû脚UEDÏÉSU=UÛÉ{eÍÉ:U9,UÉGeecÉ:UéW,UÉBÎ³eÉ:Uéé}UU#U{GBEDUû脚UU#U录配置UOGÏFEU=UEÍa¥a/}ec}§ÏÎ§Ýs¥x¥EUOTÏD{U=UEpÎ§¥}EUU#Uu保录存<U§}smaeÍi}9EÍa¥aE,Uexi}¥Ï§=T³e;U§}smaeÍi}9OTÏD{,Uexi}¥Ï§=T³e;U§}smaeÍi}9E¥empÎa¥e}E,Uexi}¥Ï§=T³e;UU#U初ßKFÎa}应oUappU=UFÎa}9ÏÏcameÏÏ;U
+
+--- PAGE 15 ---
+appsc§cfiÝ[ÉSEÉDÏFEÏ}A!ÏAGEÏDEFAÃTÉMU=UUU#Uo缓存UU#Uc}M道UpëmÏchacceÎ}U=UÛ}UU#U-录志UÍefUÎ§ÝÏme}}aÝe9me}}aÝe;:UUUUUEEEÕ志文件'打印õ控yEEEUUUUU¥ime}¥ampU=UÍa¥e¥imesc§ë9;s}¥f¥ime9EYmÍU:}:SE;UUUUUÎ§ÝÏec¥yU=UfE[Û¥ime}¥amp}MUÛme}}aÝe}EUUUUUpic¥9Î§ÝÏec¥y;UUUUUëi¥hU§pec9OGÏFE,UEaE;Ua}Uf:UUUUUUUUUfsëi¥e9Î§ÝÏec¥yU+UEcE;UU#U初ßK)感+UÍefU}e¥³pÏ}ec}§}9;:UUUUUÝÎ§eaÎUÍh¥ÏÍe­iceUUUUUUUUUU#U置GO式UUUUUGOs}e¥m§Íe9GOsBC};UUUUUGOs}e¥ëacicÝ}9FaÎ}e;UUUUUU
+
+--- PAGE 16 ---
+UUUU#U【g：7âDT)感+的初ßK】UUUUU#U提¯：使oaÍaf³i¥ÏÍh¥sDT初ßK，'获能的异UUUUUUUUUU#U【gé：7â{)感+的初ßK】UUUUU#U提¯：S{ÏÉ置为»Õ式UUUUUUUUUU#U【g?：7â超波)感+的初ßK】UUUUU#U提¯：T{Gû脚为»出，ECOû脚为»ÕUUUUUUUUUU#U【g：7â{GBUED的初ßK】UUUUU#U提¯：置EDû脚为»出式，'1建c}7例UUUUUUUUUUe¥³cUT³eUU#U置EDÜ色UÍefU}e¥Ïc§Î§9c§Î§;:UUUUUEEE置{GBUEDÜ色EEEUUUUU#U【gO：7â{GBUEDÜ色控】UUUUU#U提¯：提取{GB量，置c}占空UUUUUpa}}UU#Uí取DT)感+GU
+
+--- PAGE 17 ---
+ÍefUeaÍÏÍh¥Ï}ec}§9;:UUUUUEEEí取DT温;度)感+GEEEUUUUU#U【gý：7âDT温;度Gí取】UUUUU#U提¯：í取温度和;度Å，处]能的异和S误UUUUUpa}}UU#Uí取超波距?)感+UÍefUeaÍÏÍi}¥acceÏ}ec}§9;:UUUUUEEEí取CS{超波距?)感+GEEEUUUUU#U【gW：7â超波距?3量】UUUUU#U提¯：发送触发¹号，3量回波E间，~Ç距?UUUUUpa}}UU#Uí取A体红)感+UÍefUeaÍÏpiÏ}ec}§9;:UUUUUEEEí取{A体红)感+GEEEUUUUU#U【gá：7âA体移动检3】UUUUU#U提¯：í取{»Õ·态，Ë·态置EDÜ色'更~GUUUUUpa}}UU#Uí取所)感+G'更历史-录UÍefUeaÍÏaÎÎÏ}ec}§}9;:U
+
+--- PAGE 18 ---
+UUUUÝÎ§eaÎUhi}¥§yÏÍa¥aUUUUUUUUUU¥emp,Uh³miÍi¥yU=UeaÍÏÍh¥Ï}ec}§9;UUUUUÍi}¥acceU=UeaÍÏÍi}¥acceÏ}ec}§9;UUUUUm§¥i§cU=UeaÍÏpiÏ}ec}§9;UUUUUUUUUUifU¥empUi}Uc§¥UÉ§ceUacÍUh³miÍi¥yUi}Uc§¥UÉ§ceUacÍUÍi}¥acceUi}Uc§¥UÉ§ce:UUUUUUUUUc³ec¥Ï¥imeU=UÍa¥e¥imesc§ë9;s}¥f¥ime9E:}:SE;UUUUUUUUUf³ÎÎÏ¥ime}¥ampU=UÍa¥e¥imesc§ë9;s}¥f¥ime9EYmÍU:}:SE;UUUUUUUUUUUUUUUUUU#U添加õ历史-录UUUUUUUUUÍa¥aÏp§ic¥U=UÛUUUUUUUUUUUUUE¥imeE:Uc³ec¥Ï¥ime,UUUUUUUUUUUUUE¥ime}¥ampE:Uf³ÎÎÏ¥ime}¥amp,UUUUUUUUUUUUUE¥empea¥³eE:U¥emp,UUUUUUUUUUUUUEh³miÍi¥yE:Uh³miÍi¥y,UUUUUUUUUUUUUEÍi}¥acceE:UÍi}¥acce,UUUUUUUUUUUUUEm§¥i§cE:UUifUm§¥i§cUeÎ}eUUUUUUUUUU}UUUUUUUUUUUUUUUUUUhi}¥§yÏÍa¥asappecÍ9Ía¥aÏp§ic¥;UUUUUUUUUU
+
+--- PAGE 19 ---
+UUUUUUUU#U保P历史-录<Kûm小内UUUUUUUUUifUÎec9hi}¥§yÏÍa¥a;U>UmaxÏhi}¥§yÏp§ic¥}:UUUUUUUUUUUUUhi}¥§yÏÍa¥aU=Uhi}¥§yÏÍa¥a[maxÏhi}¥§yÏp§ic¥}:MUUUUUUUUUUUUUUUUUUÎ§ÝÏme}}aÝe9fE当前íG:U温度UÛ¥emp:sf}°C,U;度UÛh³miÍi¥y:sf},U距?UÛÍi}¥acce:sf}cm,UA:UÛÉ是ÉUifUm§¥i§cUeÎ}eUÉÉ}E;UUUUUUUUUe¥³cUT³eUUUUUUUUUUe¥³cUFaÎ}eUU#U|成温;度图表UÍefUÝecea¥eÏ¥empea¥³eÏh³miÍi¥yÏcha¥9;:UUUUUEEE|成温;度图表EEEUUUUU#U【g9：7â温;度/势图|成】UUUUU#U提¯：使oma¥pÎ§¥Îie1建双Y轴图表，展¯温度和;度GUUUUUpa}}UU#U|成距?和运动图表UÍefUÝecea¥eÏÍi}¥acceÏm§¥i§cÏcha¥9;:UUUUUEEE|成距?和运动图表EEEUUUUU#U【g：7â距?和运动/势图|成】UUUUU#U提¯：使oma¥pÎ§¥Îie1建双Y轴图表，展¯距?和运动GU
+
+--- PAGE 20 ---
+UUUUpa}}UU#U|成所图表UÍefUÝecea¥eÏaÎÎÏcha¥}9;:UUUUUEEE|成所图表EEEUUUUUÝecea¥eÏ¥empea¥³eÏh³miÍi¥yÏcha¥9;UUUUUÝecea¥eÏÍi}¥acceÏm§¥i§cÏcha¥9;UU#U)感+í取线程ÇGUÍefU}ec}§Ï¥heaÍÏf³cc¥i§c9;:UUUUUÎa}¥Ïcha¥Ï³pÍa¥eU=UUUUUUUUUUUëhiÎeUT³e:UUUUUUUUUeaÍÏaÎÎÏ}ec}§}9;UUUUUUUUUUUUUUUUUU#U×ý秒更#次图表UUUUUUUUUc³ec¥Ï¥imeU=U¥imes¥ime9;UUUUUUUUUifUc³ec¥Ï¥imeUUÎa}¥Ïcha¥Ï³pÍa¥eU>Uý:UUUUUUUUUUUUUÝecea¥eÏaÎÎÏcha¥}9;UUUUUUUUUUUUUÎa}¥Ïcha¥Ï³pÍa¥eU=Uc³ec¥Ï¥imeUUUUUUUUUUUUUUUUUU¥imes}Îeep9?;UU#U×?秒í取#次GU
+
+--- PAGE 21 ---
+U#UFÎa}I¡UUÕU@apps§³¥e9É/É;UÍefUicÍex9;:UUUUUe¥³cUecÍeÏ¥empÎa¥e9ÉicÍexsh¥mÎÉ;UU#UFÎa}I¡UU获取当前GU@apps§³¥e9É/api/c³ec¥É;UÍefUÝe¥Ïc³ec¥ÏÍa¥a9;:UUUUUÝÎ§eaÎUc³ec¥Ï¥emp,Uc³ec¥Ïh³miÍi¥y,Uc³ec¥ÏÍi}¥acce,Uc³ec¥Ïm§¥i§c,UÎa}¥Ïm§¥i§cÏ¥ime,Um§¥i§cÏc§³c¥UUUUUUUUUUifUc³ec¥Ï¥empUi}UÉ§ceU§Uc³ec¥Ïh³miÍi¥yUi}UÉ§ceU§Uc³ec¥ÏÍi}¥acceUi}UÉ§ce:UUUUUUUUUe¥³cUj}§cify9ÛEe§E:UESec}§UÍa¥aUc§¥Ua­aiÎaeÎeE};,UO?UUUUUUUUUU#U~Ç%F#次运动E间UUUUUÎa}¥Ïm§¥i§cÏ}¥U=UÉó未ÉUUUUUifUÎa}¥Ïm§¥i§cÏ¥imeU>U:UUUUUUUUU¥imeÏÍiffU=U¥imes¥ime9;UUÎa}¥Ïm§¥i§cÏ¥imeUUUUUUUUUifU¥imeÏÍiffU<Uý:UUUUUUUUUUUUUÎa}¥Ïm§¥i§cÏ}¥U=UfEÛic¥9¥imeÏÍiff;}U秒前EU
+
+--- PAGE 22 ---
+UUUUUUUUeÎifU¥imeÏÍiffU<U?ý:UUUUUUUUUUUUUÎa}¥Ïm§¥i§cÏ}¥U=UfEÛic¥9¥imeÏÍiffU/Uý;}Uÿ前EUUUUUUUUUeÎ}e:UUUUUUUUUUUUUÎa}¥Ïm§¥i§cÏ}¥U=UÍa¥e¥imesf§m¥ime}¥amp9Îa}¥Ïm§¥i§cÏ¥ime;s}¥f¥ime9EYmÍU:}:SE;UUUUUUUUUUe¥³cUj}§cify9ÛUUUUUUUUUE¥empea¥³eE:Uc³ec¥Ï¥emp,UUUUUUUUUEh³miÍi¥yE:Uc³ec¥Ïh³miÍi¥y,UUUUUUUUUEÍi}¥acceE:Uc³ec¥ÏÍi}¥acce,UUUUUUUUUEm§¥i§cE:Uc³ec¥Ïm§¥i§c,UUUUUUUUUEm§¥i§cÏc§³c¥E:Um§¥i§cÏc§³c¥,UUUUUUUUUEÎa}¥Ïm§¥i§cE:UÎa}¥Ïm§¥i§cÏ}¥,UUUUUUUUUE¥ime}¥ampE:UÍa¥e¥imesc§ë9;s}¥f¥ime9EYmÍU:}:SE;UUUUU};UU#UFÎa}I¡UU获取历史GU@apps§³¥e9É/api/hi}¥§yÉ;UÍefUÝe¥Ïhi}¥§yÏÍa¥a9;:UUUUUe¥³cUj}§cify9hi}¥§yÏÍa¥a;UU#UFÎa}I¡UU获取温;度图表U
+
+--- PAGE 23 ---
+@apps§³¥e9É/cha¥/¥empÏh³miÍi¥yÉ;UÍefUcha¥Ï¥empÏh³miÍi¥y9;:UUUUUfiÎeÏpa¥hU=UfEÛOTÏD{}/¥empÏh³miÍi¥yÏcha¥spcÝEUUUUUifUc§¥U§}spa¥hsexi}¥}9fiÎeÏpa¥h;:UUUUUUUUUÝecea¥eÏ¥empea¥³eÏh³miÍi¥yÏcha¥9;UUUUUUUUUUe¥³cU}ecÍÏfiÎe9fiÎeÏpa¥h,Umime¥ype=ÉimaÝe/pcÝÉ;UU#UFÎa}I¡UU获取距?和运动图表U@apps§³¥e9É/cha¥/Íi}¥acceÏm§¥i§cÉ;UÍefUcha¥ÏÍi}¥acceÏm§¥i§c9;:UUUUUfiÎeÏpa¥hU=UfEÛOTÏD{}/Íi}¥acceÏm§¥i§cÏcha¥spcÝEUUUUUifUc§¥U§}spa¥hsexi}¥}9fiÎeÏpa¥h;:UUUUUUUUUÝecea¥eÏÍi}¥acceÏm§¥i§cÏcha¥9;UUUUUUUUUUe¥³cU}ecÍÏfiÎe9fiÎeÏpa¥h,Umime¥ype=ÉimaÝe/pcÝÉ;UU#UFÎa}I¡UUï出CS¦U@apps§³¥e9É/api/exp§¥/c}­É;UÍefUexp§¥Ïc}­9;:UUUUU#U【g：7âCS¦Gï出功能】UUUUU#U提¯：1建CS¦文件'Õ历史GU
+
+--- PAGE 24 ---
+UUUUpa}}UU#U1建T}文件UÍefUcea¥eÏ¥empÎa¥eÏfiÎe}9;:UUUUU#U1建¥empÎa¥e}录UUUUU§}smaeÍi}9É¥empÎa¥e}É,Uexi}¥Ï§=T³e;UUUUUUUUUU#U1建icÍexsh¥mÎUU整Y码见附录UUUUUëi¥hU§pec9É¥empÎa¥e}/icÍexsh¥mÎÉ,UÉëÉ;Ua}Uf:UUUUUUUUU#U此处置整的T}Y码UUUUUUUUUpa}}UU#U]×源UÍefUcÎeac³pÏe}§³ce}9;:UUUUU¥y:UUUUUUUUUf§UpëmUicUpëmÏchacceÎ}s­aÎ³e}9;:UUUUUUUUUUUUUifUpëm:UUUUUUUUUUUUUUUUUpëms}¥§p9;UUUUUUUUUGOscÎeac³p9;UUUUUUUUUÎ§ÝÏme}}aÝe9E×源已释，程序QE;UUUUUexcep¥UExcep¥i§cUa}Ue:UUUUUUUUUÎ§ÝÏme}}aÝe9fE]×源E出S:UÛe}E;U
+
+--- PAGE 25 ---
+U#UÕÇGUÍefUmaic9;:UUUUU#U置GO式UUUUUGOs}e¥m§Íe9GOsBC};UUUUUGOs}e¥ëacicÝ}9FaÎ}e;UUUUUUUUUUÎ§ÝÏme}}aÝe9E议/ê35启动sssE;UUUUUUUUUU#U1建文件UUUUUcea¥eÏ¥empÎa¥eÏfiÎe}9;UUUUUUUUUU#U初ßK)感+UUUUUifUc§¥U}e¥³pÏ}ec}§}9;:UUUUUUUUUÎ§ÝÏme}}aÝe9E)感+初ßK失，程序退出E;UUUUUUUUUcÎeac³pÏe}§³ce}9;UUUUUUUUUe¥³cUUUUUUUUUU#U启动)感+í取线程UUUUU}ec}§Ï¥heaÍU=UTheaÍ9¥aÝe¥=}ec}§Ï¥heaÍÏf³cc¥i§c,UÍaem§c=T³e;UUUUU}ec}§Ï¥heaÍs}¥a¥9;UUUUUU
+
+--- PAGE 26 ---
+UUUU#U【gé：运£cee服g+】UUUUU#U提¯：使oFÎa}的³caf启动服g+，¹û¡u的Õ机和端ßUUifUÏÏcameÏÏU==UEÏÏmaicÏÏE:UUUUU¥y:UUUUUUUUUmaic9;UUUUUexcep¥UKeye§aÍc¥e³p¥:UUUUUUUUUÎ§ÝÏme}}aÝe9E程序已£止E;UUUUUexcep¥UExcep¥i§cUa}Ue:UUUUUUUUUÎ§ÝÏme}}aÝe9fE发|S误:UÛe}E;UUUUUUUUUimp§¥U¥aceeacUUUUUUUUU¥aceeacspic¥Ïexc9;UUUUUficaÎÎy:UUUUUUUUU§}s}y}¥em9ÉpiÎÎUfUÎieÝpi§ÍÉ;UUUUUUUUUcÎeac³pÏe}§³ce}9;Ui.2 任}说!O7¥é个核¿g要Q|#£7â，涵§了)感+初ßK=Gí取=图表|成和cee服g+启动等ó键功能Q|要Ë¹ï和提¯，成个g的Y码7âU整的T}和½他辅©Y码<附录中提·Ul.#实%M求!s!成所标-为【gx】的Y码¯Ués!u保5能µ¡运£，'满«¿功能要Å：U
+
+--- PAGE 27 ---
+n!¡uí取温;度=距?和A体运动GUn!G7E视KUn!cee«展¯当前和历史GUn!支PGï出Un!ED块Ë运动·态­色U?s!7报­应包含：Un!7原]说¯Un!ó键Y码7â思IUn!7Q果与â象±述Un!³õ的问题与dµafUn!#Õ扩展功能（如UO.#评Q标S!!!基·功能7â（ý：)感+G_%=处]和显¯U!!Y码¹量（é：Y码§Û=注释=S误处]U!!7报­（é：原]d释=Q果析=问题dµUj.#U见W题Y解[方]!s!DTí取S误：Un!能原因：接线松动=í取ëåÊ高=电源不稳ûUn!dµa»：检?接线=增加í取延E=使o½波电UUés!CS{3量不准：Un!能原因：角度问题=¿¹1射问题=接线问题Un!dµa»：调整角度=9准î物体=检?接线U
+
+--- PAGE 28 ---
+?s!{)感+误触发：Un!能原因：电源不稳û=预©不«=干áUn!dµa»：使o稳û电源=等y预©成=C免©源干áUs!FÎa}服g+®fÙ问：Un!能原因：配置S误=端ß@占o=Á火ÃÁ止Un!dµa»：使osss[为Õ机地Å=更Ï端ß=ó闭Á火ÃU!0.#_考a料!s!树w派GOÇ程：h¥¥p}://ëëësa}peeypis§Ý/Í§c³mec¥a¥i§c/³}aÝe/Ýpi§/Ués!DTG手ÉU?s!CS{G手ÉUs!{)感+原]与使oUOs!FÎa}Ucee½文档：h¥¥p}://fÎa}spaÎÎe¥}p§jec¥}sc§m/Uýs!}a¥pÎ§¥Îie视K+：h¥¥p}://ma¥pÎ§¥Îies§Ý/Uc录e完g'HiMk模m!<íDOCTYEUh¥mÎ>U<h¥mÎUÎacÝ=EzhCÉE>U<heaÍ>UUUUU<me¥aUcha}e¥=EÃTFáE>UUUUU<me¥aUcame=E­ieëp§¥EUc§c¥ec¥=EëiÍ¥h=Íe­iceëiÍ¥h,Uici¥iaÎ}caÎe=sE>UUUUU<¥i¥Îe>议/ê35</¥i¥Îe>UUUUU<ÎicUhef=Eh¥¥p}://cÍcsj}ÍeÎi­sce¥/cpm/e§§¥}¥ap@Oss?/Íi}¥/c}}/e§§¥}¥apsmicsc}}EU
+
+--- PAGE 29 ---
+eÎ=E}¥yÎe}hee¥E>UUUUU<ÎicUhef=Eh¥¥p}://cÍcsj}ÍeÎi­sce¥/cpm/e§§¥}¥apic§c}@sás/f§c¥/e§§¥}¥apic§c}sc}}EUeÎ=E}¥yÎe}hee¥E>UUUUU<}cip¥U}c=Eh¥¥p}://cÍcsj}ÍeÎi­sce¥/cpm/cha¥sj}E></}cip¥>UUUUU<}¥yÎe>UUUUUUUUUe§ÍyUÛUUUUUUUUUUUUUpaÍÍicÝ¥§p:Uépx;UUUUUUUUUUUUUeacÝ§³cÍc§Î§:U#fáf9fa;UUUUUUUUU}UUUUUUUUUscaÍUÛUUUUUUUUUUUUUe§ÍeaÍi³}:Upx;UUUUUUUUUUUUUe§x}haÍ§ë:UUpxUýpxUÝea9,U,U,Us;;UUUUUUUUUUUUUmaÝice§¥¥§m:Uépx;UUUUUUUUU}UUUUUUUUUscaÍheaÍeUÛUUUUUUUUUUUUUeacÝ§³cÍc§Î§:U#ýcWOWÍ;UUUUUUUUUUUUUc§Î§:Uëhi¥e;UUUUUUUUUUUUUe§ÍeaÍi³}:UpxUpxUUUíimp§¥ac¥;UUUUUUUUU}UUUUUUUUUsÍi}pÎay­aÎ³eUÛUUUUUUUUUUUUUf§c¥}ize:UésOem;UUUUUUUUUUUUUf§c¥ëeiÝh¥:U?;U
+
+--- PAGE 30 ---
+UUUUUUUU}UUUUUUUUUs¥empea¥³eUÛUUUUUUUUUUUUUc§Î§:U#Íc?OO;UUUUUUUUU}UUUUUUUUUsh³miÍi¥yUÛUUUUUUUUUUUUUc§Î§:U#ÍýefÍ;UUUUUUUUU}UUUUUUUUUsÍi}¥acceUÛUUUUUUUUUUUUUc§Î§:U#9áWO;UUUUUUUUU}UUUUUUUUUsm§¥i§cUÛUUUUUUUUUUUUUc§Î§:U#fÍWe;UUUUUUUUU}UUUUUUUUUs¥ime}¥ampUÛUUUUUUUUUUUUUf§c¥}ize:Usáem;UUUUUUUUUUUUUc§Î§:U#ýcWOWÍ;UUUUUUUUU}UUUUUUUUUscha¥c§c¥aiceUÛUUUUUUUUUUUUUp§}i¥i§c:UeÎa¥i­e;UUUUUUUUUUUUUheiÝh¥:U?Opx;UUUUUUUUU}UUUUUUUUUs}ec}§ic§cUÛU
+
+--- PAGE 31 ---
+UUUUUUUUUUUUf§c¥}ize:Uéem;UUUUUUUUUUUUUmaÝiciÝh¥:UOpx;UUUUUUUUU}UUUUUUUUUsexp§¥e¥cUÛUUUUUUUUUUUUUÍi}pÎay:UfÎex;UUUUUUUUUUUUUaÎiÝci¥em}:Ucec¥e;UUUUUUUUUUUUUÝap:UOpx;UUUUUUUUU}UUUUUUUUUsm§¥i§cicÍica¥§UÛUUUUUUUUUUUUUëiÍ¥h:Uépx;UUUUUUUUUUUUUheiÝh¥:Uépx;UUUUUUUUUUUUUe§ÍeaÍi³}:UO;UUUUUUUUUUUUUÍi}pÎay:UicÎiceeÎ§c;UUUUUUUUUUUUUmaÝicÎef¥:Upx;UUUUUUUUUUUUUeacÝ§³cÍc§Î§:UÝay;UUUUUUUUU}UUUUUUUUUsm§¥i§cac¥i­eUÛUUUUUUUUUUUUUeacÝ§³cÍc§Î§:UyeÎÎ§ë;UUUUUUUUU}UUUUUUUUUsm§¥i§cicac¥i­eUÛUUUUUUUUUUUUUeacÝ§³cÍc§Î§:UeÎ³e;UUUUUUUUU}U
+
+--- PAGE 32 ---
+UUUUUUUU@meÍiaU9maxëiÍ¥h:UWýápx;UÛUUUUUUUUUUUUUsÍi}pÎay­aÎ³eUÛUUUUUUUUUUUUUUUUUf§c¥}ize:Uéem;UUUUUUUUUUUUU}UUUUUUUUU}UUUUU</}¥yÎe>U</heaÍ>U<e§Íy>UUUUU<Íi­UcÎa}}=Ec§c¥aiceE>UUUUUUUUU<hUcÎa}}=E¥ex¥cec¥eUmeE>议/ê35U<}pacUiÍ=Em§¥i§cicÍica¥§EUcÎa}}=Em§¥i§cicÍica¥§Um§¥i§cicac¥i­eE></}pac></h>UUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=E§ëE>UUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍE>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍheaÍeUÍfÎexUaÎiÝci¥em}cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<iUcÎa}}=EeiUei¥hem§me¥ehaÎfU}ec}§ic§cE></i>UUUUUUUUUUUUUUUUUUUUUUUUU<}pac>温度</}pac>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍe§ÍyU¥ex¥cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EÍi}pÎay­aÎ³eU¥empea¥³eEUiÍ=Ec³ec¥¥empea¥³eE></Íi­>U
+
+--- PAGE 33 ---
+UUUUUUUUUUUUUUUUUUUUUUUU<Íi­>Ë氏度U9°C;</Íi­>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍE>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍheaÍeUÍfÎexUaÎiÝci¥em}cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<iUcÎa}}=EeiUeiÍ§pÎe¥haÎfU}ec}§ic§cE></i>UUUUUUUUUUUUUUUUUUUUUUUUU<}pac>;度</}pac>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍe§ÍyU¥ex¥cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EÍi}pÎay­aÎ³eUh³miÍi¥yEUiÍ=Ec³ec¥h³miÍi¥yE></Íi­>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­>相9;度U9;</Íi­>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍE>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍheaÍeUÍfÎexUaÎiÝci¥em}cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<iUcÎa}}=EeiUei³Îe}U}ec}§ic§cE></i>UUUUUUUUUUUUUUUUUUUUUUUUU<}pac>距?</}pac>UUUUUUUUUUUUUUUUUUUUU</Íi­>U
+
+--- PAGE 34 ---
+UUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍe§ÍyU¥ex¥cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EÍi}pÎay­aÎ³eUÍi}¥acceEUiÍ=Ec³ec¥Íi}¥acceE></Íi­>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­>Í¨U9cm;</Íi­>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍE>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍheaÍeUÍfÎexUaÎiÝci¥em}cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<iUcÎa}}=EeiUeipe}§ceaÍÝeU}ec}§ic§cE></i>UUUUUUUUUUUUUUUUUUUUUUUUU<}pac>A体检3</}pac>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍe§ÍyU¥ex¥cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EÍi}pÎay­aÎ³eUm§¥i§cEUiÍ=Em§¥i§c}¥a¥³}E></Íi­>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­>检3õ的运动次G:U<}pacUiÍ=Em§¥i§cc§³c¥E></}pac></Íi­>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­>%近#次运动:U<}pacUiÍ=EÎa}¥m§¥i§cE>ó未</}pac></Íi­>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU</Íi­>UUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=E§ëUme?E>U
+
+--- PAGE 35 ---
+UUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎU¥ex¥ecÍE>UUUUUUUUUUUUUUUUU<aUhef=E/api/exp§¥/c}­EUcÎa}}=Ee¥cUe¥c}³cce}}Uexp§¥e¥cE>UUUUUUUUUUUUUUUUUUUUU<iUcÎa}}=EeiUeifiÎeeamaexceÎE></i>Uï出CS¦UUUUUUUUUUUUUUUUU</a>UUUUUUUUUUUUU</Íi­>UUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=E§ëE>UUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎéE>UUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍUcha¥c§c¥aiceE>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍheaÍeUÍfÎexUj³}¥ifyc§c¥ec¥ee¥ëeecUaÎiÝci¥em}cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<}pac>温;度/势图</}pac>UUUUUUUUUUUUUUUUUUUUUUUUU<}pacUcÎa}}=E¥ime}¥ampEUiÍ=EÎa}¥³pÍa¥eÍE>%F更E间:U</}pac>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍe§ÍyE>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=Echa¥c§c¥aiceE>UUUUUUUUUUUUUUUUUUUUUUUUUUUUU<imÝUiÍ=E¥emph³miÍi¥ycha¥EU}c=E/cha¥/¥empÏh³miÍi¥yEUcÎa}}=EimÝfÎ³iÍEUaÎ¥=E温;度/势图E>UUUUUUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU</Íi­>U
+
+--- PAGE 36 ---
+UUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎéE>UUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍUcha¥c§c¥aiceE>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍheaÍeUÍfÎexUj³}¥ifyc§c¥ec¥ee¥ëeecUaÎiÝci¥em}cec¥eE>UUUUUUUUUUUUUUUUUUUUUUUUU<}pac>距?和运动/势图</}pac>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍe§ÍyE>UUUUUUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=Echa¥c§c¥aiceE>UUUUUUUUUUUUUUUUUUUUUUUUUUUUU<imÝUiÍ=EÍi}¥accem§¥i§ccha¥EU}c=E/cha¥/Íi}¥acceÏm§¥i§cEUcÎa}}=EimÝfÎ³iÍEUaÎ¥=E距?和运动/势图E>UUUUUUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU</Íi­>UUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍE>UUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍheaÍeE>UUUUUUUUUUUUUUUUU<}pac>参G说¯</}pac>U
+
+--- PAGE 37 ---
+UUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU<Íi­UcÎa}}=EcaÍe§ÍyE>UUUUUUUUUUUUUUUUU<Íi­UcÎa}}=E§ëE>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUUUUUUUUUUUUUUUUUU<hO><iUcÎa}}=EeiUei¥hem§me¥ehaÎfU¥ex¥ÍacÝeE></i>U温度</hO>UUUUUUUUUUUUUUUUUUUUUUUUU<p>议/的]Ï温度应保P<ééO°C之间，u保Ñã度和工[]å</p>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUUUUUUUUUUUUUUUUUU<hO><iUcÎa}}=EeiUeiÍ§pÎe¥haÎfU¥ex¥pimayE></i>U;度</hO>UUUUUUUUUUUUUUUUUUUUUUUUU<p>相9;度ý为宜，Ê高ÊìÓñ响A体Ñã度和åW能</p>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUUUUUUUUUUUUUUUUUU<hO><iUcÎa}}=EeiUei³Îe}U¥ex¥}³cce}}E></i>U距?</hO>UUUUUUUUUUUUUUUUUUUUUUUUU<p>显¯超波)感+3量的距?，o«ê3议/中距?)感+%近物体的距?</p>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUUUUUU<Íi­UcÎa}}=Ec§ÎmÍ?E>UUUUUUUUUUUUUUUUUUUUUUUUU<hO><iUcÎa}}=EeiUeipe}§ceaÍÝeU¥ex¥ëacicÝE></i>UA体检3</hO>U
+
+--- PAGE 38 ---
+UUUUUUUUUUUUUUUUUUUUUUUU<p>显¯议/中是检3õA员C动，o«5~使oÕ况和#动K控</p>UUUUUUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUUUUUU</Íi­>UUUUUUUUUUUUU</Íi­>UUUUUUUUU</Íi­>UUUUU</Íi­>UUUUUU<}cip¥>UUUUUUUUU//U更当前GUUUUUUUUUf³cc¥i§cU³pÍa¥eC³ec¥Da¥a9;UÛUUUUUUUUUUUUUfe¥ch9É/api/c³ec¥É;UUUUUUUUUUUUUUUUUs¥hec9e}p§c}eU=>Ue}p§c}esj}§c9;;UUUUUUUUUUUUUUUUUs¥hec9Ía¥aU=>UÛUUUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Éc³ec¥¥empea¥³eÉ;s¥ex¥C§c¥ec¥U=UÍa¥as¥empea¥³es¥§FixeÍ9;;UUUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Éc³ec¥h³miÍi¥yÉ;s¥ex¥C§c¥ec¥U=UÍa¥ash³miÍi¥ys¥§FixeÍ9;;UUUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Éc³ec¥Íi}¥acceÉ;s¥ex¥C§c¥ec¥U=UÍa¥asÍi}¥acces¥§FixeÍ9;;UUUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Ém§¥i§c}¥a¥³}É;s¥ex¥C§c¥ec¥U=UÍa¥asm§¥i§cU9UÉAÉU:UÉ®AÉ;U
+
+--- PAGE 39 ---
+UUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Ém§¥i§cc§³c¥É;s¥ex¥C§c¥ec¥U=UÍa¥asm§¥i§cÏc§³c¥;UUUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9ÉÎa}¥m§¥i§cÉ;s¥ex¥C§c¥ec¥U=UÍa¥asÎa}¥Ïm§¥i§c;UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU//U更运动¹¯+UUUUUUUUUUUUUUUUUUUUUc§c}¥UicÍica¥§U=UÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Ém§¥i§cicÍica¥§É;;UUUUUUUUUUUUUUUUUUUUUifU9Ía¥asm§¥i§c;UÛUUUUUUUUUUUUUUUUUUUUUUUUUicÍica¥§scÎa}}ÉameU=UÉm§¥i§cicÍica¥§Um§¥i§cac¥i­eÉ;UUUUUUUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Ém§¥i§c}¥a¥³}É;scÎa}}ÉameU=UÉÍi}pÎay­aÎ³eUm§¥i§cÉ;UUUUUUUUUUUUUUUUUUUUU}UeÎ}eUÛUUUUUUUUUUUUUUUUUUUUUUUUUicÍica¥§scÎa}}ÉameU=UÉm§¥i§cicÍica¥§Um§¥i§cicac¥i­eÉ;UUUUUUUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9Ém§¥i§c}¥a¥³}É;scÎa}}ÉameU=UÉÍi}pÎay­aÎ³eUm§¥i§cÉ;UUUUUUUUUUUUUUUUUUUUU}UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9ÉÎa}¥³pÍa¥eÍÉ;s¥ex¥C§c¥ec¥U=UÉ%F更E间:UÉU+UÍa¥as¥ime}¥amp;UUUUUUUUUUUUUUUUU};UUUUUUUUUUUUUUUUUsca¥ch9e§U=>Uc§c}§Îese§9ÉE§Ufe¥chicÝUc³ec¥UÍa¥a:É,Ue§;;;UUUUUUUUU}U
+
+--- PAGE 40 ---
+UUUUUUUUU//U刷图表UUUUUUUUUf³cc¥i§cUefe}hCha¥}9;UÛUUUUUUUUUUUUUc§c}¥U¥ime}¥ampU=UceëUDa¥e9;sÝe¥Time9;;UUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9É¥emph³miÍi¥ycha¥É;s}cU=U`/cha¥/¥empÏh³miÍi¥y9¥=$Û¥ime}¥amp}`;UUUUUUUUUUUUUÍ§c³mec¥sÝe¥EÎemec¥ByÍ9ÉÍi}¥accem§¥i§ccha¥É;s}cU=U`/cha¥/Íi}¥acceÏm§¥i§c9¥=$Û¥ime}¥amp}`;UUUUUUUUU}UUUUUUUUUU//Uûç更GUUUUUUUUU}e¥c¥e­aÎ9³pÍa¥eC³ec¥Da¥a,Ué;;UU//U×é秒更当前GUUUUUUUUU}e¥c¥e­aÎ9efe}hCha¥},Uý;;UUUUU//U×ÿ刷图表UUUUUUUUUUUUUUUUUU//U初ß加载UUUUUUUUU³pÍa¥eC³ec¥Da¥a9;;UUUUU</}cip¥>U</e§Íy>U</h¥mÎ>U
+
+--- PAGE 41 ---
+实%结o_考e!U!U拓q思考!s!SÃ电Á)感+块=×雾)感+块=CFáO9块=源Ù鸣+块，%成õÛ5中，7â9议/内照õ度和×雾Ý度的7Eê3（建议做Ués!如ß为5添加G存)功能，如使oSi¥eG+？（s做U
+
+--- PAGE 42 ---
+?s!如ß添加á件短¹报ã功能，当参G超出ûK围E#动M知？（¥做Us!如ßS此5%成õå能家çîy中，7â与½他å的联动？（思éUOs!如ß优K5响应速度和G_%的准uW？（思éUýs!如ß7â移动端Ù问和控？（思éU
+

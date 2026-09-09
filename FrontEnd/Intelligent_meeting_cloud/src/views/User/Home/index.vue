@@ -1,9 +1,11 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, onActivated, computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import qrCodeImg from '@/assets/imgs/qr.png'; 
+import { getMyReservations, cancelReservation } from '@/apis/reservation';
+import { getMyNotifications } from '@/apis/notification';
 
 dayjs.locale('zh-cn');
 
@@ -24,14 +26,11 @@ const greeting = computed(() => {
   return h >= 5 && h < 12 ? '上午好' : (h >= 18 || h < 5) ? '晚上好' : '下午好';
 });
 
-const nextMeeting = ref({
-  title: 'Q4 产品迭代复盘会',
-  room: '305 会议室',
-  timeRange: '14:30 - 16:00',
-  host: '张总',
-  minutesLeft: 15, 
-  status: 'upcoming'
-});
+const nextReservation = ref(null);
+const isLoading = ref(false);
+const isCanceling = ref(false);
+const approvalNotifications = ref([]);
+const isMessagesLoading = ref(false);
 
 const notices = ref([
   { id: 1, type: 'urgent', icon: 'fa-fire-extinguisher', title: '消防演习通知', date: '10:00', content: '下午14:00进行全员演习，请走楼梯。' },
@@ -40,19 +39,85 @@ const notices = ref([
   { id: 4, type: 'info', icon: 'fa-snowflake', title: '行政通知', date: '11-15', content: '气温骤降，空调已开启制热模式。' },
 ]);
 
-// --- 公告弹窗逻辑 ---
+// 公告弹窗
 const showNoticeModal = ref(false);
 const openNotices = () => showNoticeModal.value = true;
 const closeNotices = () => showNoticeModal.value = false;
 
-// --- 签到二维码弹窗逻辑 ---
-const showQrModal = ref(false);
-const openCheckIn = () => showQrModal.value = true;
-const closeCheckIn = () => showQrModal.value = false;
+// 门禁凭证弹窗
+const showVoucherModal = ref(false);
+const openVoucher = () => showVoucherModal.value = true;
+const closeVoucher = () => showVoucherModal.value = false;
+
+const upcomingReservationTag = computed(() => {
+  if (!nextReservation.value) return '';
+  return Number(nextReservation.value.status) === 0 ? '审核中' : '即将开始';
+});
+
+const canUseVoucher = computed(() => Number(nextReservation.value?.status) === 1);
+const unreadApprovalCount = computed(() => approvalNotifications.value.filter((item) => !item.isRead).length);
+
+const fetchLatestReservation = async () => {
+  isLoading.value = true;
+  try {
+    const res = await getMyReservations();
+    const list = res.data || [];
+    const upcomingList = list
+      .filter(item => item.status !== -1 && new Date(item.endTime) > new Date())
+      .sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+    if (upcomingList.length > 0) {
+      nextReservation.value = upcomingList[0];
+    } else {
+      nextReservation.value = null;
+    }
+  } catch (error) {
+    console.error('获取预约数据失败:', error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+const fetchApprovalNotifications = async () => {
+  isMessagesLoading.value = true;
+  try {
+    const res = await getMyNotifications();
+    approvalNotifications.value = (res.data || []).slice(0, 5);
+  } catch (error) {
+    console.error('获取审批通知失败:', error);
+    approvalNotifications.value = [];
+  } finally {
+    isMessagesLoading.value = false;
+  }
+};
+
+const handleCancel = async () => {
+  if (!nextReservation.value || !nextReservation.value.id) return;
+  const confirmed = window.confirm('确定要取消这个会议室预约吗？该操作不可恢复。');
+  if (!confirmed) return;
+  isCanceling.value = true;
+  try {
+    await cancelReservation(nextReservation.value.id);
+    alert('预约已成功取消');
+    nextReservation.value = null;
+  } catch (error) {
+    console.error('取消预约失败:', error);
+    alert('取消失败，请稍后重试或联系管理员');
+  } finally {
+    isCanceling.value = false;
+  }
+};
 
 onMounted(() => {
   timer = setInterval(() => { now.value = new Date() }, 1000);
+  fetchLatestReservation();
+  fetchApprovalNotifications();
 });
+
+onActivated(() => {
+  fetchLatestReservation();
+  fetchApprovalNotifications();
+});
+
 onUnmounted(() => {
   if (timer) clearInterval(timer);
 });
@@ -80,45 +145,92 @@ onUnmounted(() => {
       <section class="left-section">
         <div class="card status-card">
           <div class="card-header">
-            <h3><i class="fa-solid fa-hourglass-half"></i> 下一场会议</h3>
-            <span v-if="nextMeeting" class="tag-status">即将开始</span>
+            <h3><i class="fa-solid fa-hourglass-half"></i> 我的近期预约</h3>
+            <span v-if="nextReservation" class="tag-status" :class="{ pending: Number(nextReservation.status) === 0 }">
+              {{ upcomingReservationTag }}
+            </span>
           </div>
-
-          <div v-if="nextMeeting" class="meeting-details">
-            <h1 class="meeting-title">{{ nextMeeting.title }}</h1>
-            
+          <div v-if="isLoading" class="empty-state">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>正在获取最新预约...</p>
+          </div>
+          <div v-else-if="nextReservation" class="meeting-details">
+            <h1 class="meeting-title">{{ nextReservation.title }}</h1>
             <div class="meeting-meta">
               <div class="meta-item">
                 <i class="fa-solid fa-clock"></i>
-                <span>{{ nextMeeting.timeRange }}</span>
+                <span>{{ nextReservation.timeRange }}</span>
               </div>
               <div class="meta-item">
                 <i class="fa-solid fa-map-location-dot"></i>
-                <span>{{ nextMeeting.room }}</span>
+                <span>{{ nextReservation.room }}</span>
               </div>
               <div class="meta-item">
-                <i class="fa-solid fa-user-tie"></i>
-                <span>主持人：{{ nextMeeting.host }}</span>
+                <i class="fa-solid fa-user-pen"></i>
+                <span>预约人：{{ nextReservation.booker }}</span>
               </div>
             </div>
 
             <div class="action-area">
-              <button class="btn-checkin" @click="openCheckIn">
-                <i class="fa-solid fa-qrcode"></i> 立即签到
+              <button class="btn-primary" :disabled="!canUseVoucher" @click="openVoucher">
+                <i class="fa-solid" :class="canUseVoucher ? 'fa-qrcode' : 'fa-hourglass-half'"></i>
+                {{ canUseVoucher ? '门禁凭证' : '等待审核' }}
               </button>
-            </div>
+              <button 
+                class="btn-danger" 
+                @click="handleCancel" 
+                :disabled="isCanceling"
+              >
+                <i class="fa-solid" :class="isCanceling ? 'fa-spinner fa-spin' : 'fa-calendar-xmark'"></i>
+                {{ isCanceling ? '取消中...' : '取消预约' }}
+              </button>
+            </div>  
           </div>
 
           <div v-else class="empty-state">
             <i class="fa-solid fa-mug-hot"></i>
-            <p>今天暂时没有会议安排</p>
+            <p>近期暂无会议室预约</p>
             <span class="sub-empty">去左侧导航栏预约一个吧</span>
           </div>
         </div>
       </section>
 
-      <!-- 右侧：公告通知 -->
+      <!-- 公告通知 -->
       <section class="right-section">
+        <div class="card message-card">
+          <div class="card-header border-b">
+            <h3><i class="fa-solid fa-bell" style="color: #38bdf8;"></i> 审批消息</h3>
+            <span v-if="unreadApprovalCount" class="message-count">{{ unreadApprovalCount }} 条新消息</span>
+          </div>
+
+          <div v-if="isMessagesLoading" class="empty-state compact-state">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>正在加载审批结果...</p>
+          </div>
+
+          <div v-else-if="approvalNotifications.length" class="notice-list-wrapper">
+            <ul class="notice-list">
+              <li v-for="item in approvalNotifications" :key="item.id" class="notice-item">
+                <div class="notice-icon" :class="item.status === 1 ? 'approval-pass' : 'approval-reject'">
+                  <i class="fa-solid" :class="item.status === 1 ? 'fa-circle-check' : 'fa-circle-xmark'"></i>
+                </div>
+                <div class="notice-info">
+                  <div class="notice-top">
+                    <span class="notice-title">{{ item.title }}</span>
+                    <span class="notice-time">{{ dayjs(item.createTime).format('MM-DD HH:mm') }}</span>
+                  </div>
+                  <p class="notice-desc full-text">{{ item.content }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div v-else class="empty-state compact-state">
+            <i class="fa-regular fa-bell-slash"></i>
+            <p>还没有新的审批结果通知</p>
+          </div>
+        </div>
+
         <div class="card notice-card">
           <div class="card-header border-b">
             <h3><i class="fa-solid fa-bullhorn" style="color: #fb923c;"></i> 公告栏</h3>
@@ -187,24 +299,23 @@ onUnmounted(() => {
         </div>
       </Transition>
 
-      <!-- 二维码签到弹窗 -->
+      <!-- 凭证弹窗 -->
       <Transition name="zoom">
-        <div v-if="showQrModal" class="modal-overlay" @click.self="closeCheckIn">
+        <div v-if="showVoucherModal" class="modal-overlay" @click.self="closeVoucher">
           <div class="qr-modal-card">
-            <button class="qr-close-btn" @click="closeCheckIn">
+            <button class="qr-close-btn" @click="closeVoucher">
               <i class="fa-solid fa-xmark"></i>
             </button>
-            <h3 class="qr-title">扫码签到</h3>
-            <p class="qr-desc">请使用手机扫描下方二维码完成会议签到</p>
+            <h3 class="qr-title">预约凭证</h3>
+            <p class="qr-desc">请在 {{ nextReservation.room }} 门口终端扫描此码解锁</p>
             
             <div class="qr-box">
-              <img :src="qrCodeImg" alt="Check-in QR Code" class="qr-img" />
-              <!-- 扫描线动画 -->
+              <img :src="qrCodeImg" alt="Access QR Code" class="qr-img" />
               <div class="scan-line"></div>
             </div>
             
             <div class="qr-footer">
-              <i class="fa-solid fa-rotate-right"></i> 二维码每 60 秒自动刷新
+              <i class="fa-solid fa-shield-halved"></i> 动态安全码，每 60 秒刷新
             </div>
           </div>
         </div>
@@ -237,23 +348,88 @@ onUnmounted(() => {
 .big-clock { font-size: 2.5rem; font-weight: 700; font-family: monospace; line-height: 1; color: #f1f5f9; }
 .date-info { color: #94a3b8; font-size: 0.9rem; margin-top: 4px; }
 .dashboard-content { flex: 1; display: grid; grid-template-columns: 3fr 2fr; gap: 1.5rem; min-height: 0; }
-.card { min-height: 500px; max-height: 500px; background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; backdrop-filter: blur(10px); display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+.card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; backdrop-filter: blur(10px); display: flex; flex-direction: column; overflow: hidden; }
+.left-section { min-height: 0; }
+.status-card { min-height: 500px; max-height: 500px; height: 100%; }
+.right-section { min-height: 0; display: flex; flex-direction: column; gap: 1.5rem; }
+.message-card { min-height: 210px; max-height: 210px; }
+.notice-card { min-height: 274px; max-height: 274px; }
 .card-header { padding: 1.25rem; display: flex; justify-content: space-between; align-items: center; }
 .card-header h3 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; color: #e2e8f0; }
 .border-b { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
 .meeting-details { padding: 0 2rem 2rem 2rem; display: flex; flex-direction: column; justify-content: center; flex: 1; }
 .tag-status { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+.tag-status.pending { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
 .meeting-title { font-size: 2rem; margin: 0 0 1.5rem 0; line-height: 1.2; }
 .meeting-meta { display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
 .meta-item { display: flex; align-items: center; gap: 8px; color: #94a3b8; font-size: 0.95rem; }
 .meta-item i { color: #2dd4bf; }
-.btn-checkin { background: linear-gradient(135deg, #0f766e 0%, #115e59 100%); color: white; border: none; padding: 12px 32px; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3); }
-.btn-checkin:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(15, 118, 110, 0.4); }
+.action-area { 
+  display: flex; 
+  gap: 1rem; 
+}
+.btn-primary { 
+  background: rgba(30, 41, 59, 0.5);
+  color: white; 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  padding: 12px 28px; 
+  border-radius: 8px; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  transition: all 0.2s ease; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+}
+.btn-primary:hover { 
+  background: #14b8a517;
+  color: #14b8a6;
+  border-color: #14b8a6; 
+  transform: translateY(-2px); 
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn-primary:disabled:hover {
+  transform: none;
+  color: white;
+  background: rgba(30, 41, 59, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.btn-danger { 
+  background: rgba(30, 41, 59, 0.5); 
+  color: #94a3b8; 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  padding: 12px 28px; 
+  border-radius: 8px; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  transition: all 0.2s ease; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+}
+.btn-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn-danger:not(:disabled):hover { 
+  background: rgba(239, 68, 68, 0.15); 
+  color: #ef4444; 
+  border-color: rgba(239, 68, 68, 0.4); 
+  transform: translateY(-2px); 
+}
+.btn-primary:active, .btn-danger:active {
+  transform: translateY(0);
+}
 .empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #64748b; gap: 1rem; }
+.compact-state { min-height: 120px; }
 .empty-state i { font-size: 3rem; opacity: 0.5; }
 .sub-empty { font-size: 0.8rem; opacity: 0.7; }
 .more-link { font-size: 0.8rem; color: #64748b; cursor: pointer; }
 .more-link:hover { color: #fff; }
+.message-count { font-size: 0.78rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(56, 189, 248, 0.14); color: #7dd3fc; }
 .notice-list-wrapper { flex: 1; overflow-y: auto; padding: 0 1rem 1rem 1rem; }
 .notice-list { list-style: none; padding: 0; margin: 0; }
 .notice-item { display: flex; gap: 1rem; padding: 1rem; border-radius: 12px; transition: background 0.2s; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.03); }
@@ -263,11 +439,14 @@ onUnmounted(() => {
 .notice-icon.urgent { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
 .notice-icon.maintenance { background: rgba(249, 115, 22, 0.15); color: #f97316; }
 .notice-icon.info { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.notice-icon.approval-pass { background: rgba(32, 174, 124, 0.16); color: #34d399; }
+.notice-icon.approval-reject { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 .notice-info { flex: 1; min-width: 0; }
 .notice-top { display: flex; justify-content: space-between; margin-bottom: 4px; }
 .notice-title { font-weight: 600; font-size: 0.95rem; color: #e2e8f0; }
 .notice-time { font-size: 0.75rem; color: #64748b; }
 .notice-desc { margin: 0; font-size: 0.85rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.notice-desc.full-text { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .custom-scrollbar::-webkit-scrollbar { width: 6px; }
 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
@@ -301,7 +480,7 @@ onUnmounted(() => {
 
 @keyframes wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(20deg); } 75% { transform: rotate(-15deg); } }
 
-/* --- 二维码弹窗样式 --- */
+/* 二维码弹窗样式 */
 .qr-modal-card {
   background: white;
   width: 340px;
@@ -390,4 +569,27 @@ onUnmounted(() => {
 /* Zoom Transition */
 .zoom-enter-active, .zoom-leave-active { transition: all 0.2s ease; }
 .zoom-enter-from, .zoom-leave-to { opacity: 0; transform: scale(0.9); }
+
+@media (max-width: 980px) {
+  .home-header,
+  .dashboard-content {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .home-header {
+    gap: 1rem;
+  }
+
+  .header-time {
+    text-align: left;
+  }
+
+  .status-card,
+  .message-card,
+  .notice-card {
+    min-height: auto;
+    max-height: none;
+  }
+}
 </style>

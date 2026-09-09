@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "vite",
+    "agent": "node scripts/deepseek-agent-proxy.mjs",
+    "agent:watch": "node --watch scripts/deepseek-agent-proxy.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -20,6 +22,7 @@
     "element-plus": "^2.11.5",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.5.0",
+    "three": "^0.184.0",
     "vue": "^3.5.22",
     "vue-cropper": "^1.1.4",
     "vue-router": "^4.6.3"

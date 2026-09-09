@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
 import { useUserStore } from '@/stores/userStore';
-import { updateUser } from '@/apis/user-manage';
+import { updateUser,getByIdAPI } from '@/apis/user-manage';
 import { uploadFile } from '@/apis/common';
 import { toast } from "@/utils/message";
 import avatarImg from "@/assets/imgs/avatar.svg";
@@ -22,7 +22,47 @@ const form = reactive({
   image: ''
 });
 
+const displayJoinDate = ref('2023-01-01');
+const fetchLatestUserInfo = async () => {
+  const storeUser = userStore.userInfo.user || {};
+  const userId = storeUser.id;
+
+  if (!userId) {
+    toast.error('无法获取用户信息，请重新登录');
+    return;
+  }
+
+  try {
+    isLoading.value = true;
+    const res = await getByIdAPI(userId);
+    const data = res.data;
+
+    form.id = data.id;
+    form.username = data.username || '';
+    form.loginAccount = data.loginAccount || storeUser.loginAccount;
+    form.email = data.email || '';
+    form.phone = data.phone || '';
+    form.remark = data.remark || ''; 
+    form.gender = data.gender || 0;
+    form.image = data.image || storeUser.image;
+
+    if (data.createTime) {
+      displayJoinDate.value = data.createTime.substring(0, 10);
+    }
+
+    if (data.image) {
+      currentAvatar.value = data.image;
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error('获取用户详情失败');
+  } finally {
+    isLoading.value = false;
+  }
+};
+
 onMounted(() => {
+  fetchLatestUserInfo();
   const user = userStore.userInfo || {};
   
   // 初始化表单
@@ -111,7 +151,7 @@ const handleSave = async () => {
           <input type="file" ref="fileInputRef" accept="image/*" hidden @change="handleFileChange" />
         </div>
         <h2 class="user-title">{{ form.username || '管理员' }}</h2>
-        <p class="user-role">超级管理员</p>
+        <p class="user-role">管理员</p>
       </div>
 
       <!-- 右侧：表单区 -->

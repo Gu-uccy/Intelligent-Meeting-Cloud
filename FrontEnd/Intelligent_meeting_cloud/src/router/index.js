@@ -5,6 +5,8 @@ import Home from "@/views/User/Home";
 import Booking from "@/views/User/Booking";
 import Schedule from "@/views/User/Schedule";
 import Control from "@/views/User/Control"; 
+import FaceAccess from "@/views/User/FaceAccess";
+import Room3D from "@/views/User/Room3D";
 import UserProfile from "@/views/User/UserProfile";
 import ChangePassword from "@/views/User/ChangePassword";
 import ManagerLayout from '@/views/Manager/Layout';
@@ -45,13 +47,28 @@ const router = createRouter({
           component: Control,
         },
         {
-          path: '/profile',
+          path: 'climate-control',
+          name: 'ClimateControl',
+          redirect: '/control',
+        },
+        {
+          path: 'face-access',
+          name: 'FaceAccess',
+          component: FaceAccess,
+        },
+        {
+          path: 'room-3d',
+          name: 'Room3D',
+          component: Room3D,
+        },
+        {
+          path: 'profile',
           name: 'UserProfile',
           component: UserProfile,
           meta: { requiresAuth: true }
         },
         {
-          path: '/change-password',
+          path: 'change-password',
           name: 'ChangePassword',
           component: ChangePassword,
           meta: { requiresAuth: true }

@@ -9,13 +9,11 @@ import {
   getAdminReservationPage, 
   addReservation, 
   updateReservation, 
-  cancelReservation 
+  cancelReservation,
+  auditReservation 
 } from '@/apis/reservation'
-import { getAdminRoomPage } from '@/apis/room'
-import { getUserPage } from '@/apis/user-manage' 
-import { auditReservation } from '@/apis/reservation'
 
-// --- 状态定义 ---
+// 状态定义
 const loading = ref(false)
 const list = ref([])
 const pagination = reactive({
@@ -25,13 +23,6 @@ const pagination = reactive({
 })
 
 const searchQuery = ref('')
-
-// 字典映射 (ID -> Name)
-const roomDict = ref({})
-const userDict = ref({})
-// 下拉框选项
-const roomOptions = ref([])
-const userOptions = ref([])
 
 // 弹窗表单状态
 const dialog = ref(false)
@@ -46,31 +37,7 @@ const form = reactive({
   endTime: ''
 })
 
-const initDicts = async () => {
-  // 1. 获取所有房间
-  try {
-    const roomRes = await getAdminRoomPage({ page: 1, pageSize: 10 });
-    if(roomRes.data?.records) {
-      roomOptions.value = roomRes.data.records.map(r => ({ id: r.id, name: r.roomCode }));
-      roomRes.data.records.forEach(r => roomDict.value[r.id] = r.roomCode);
-    }
-  } catch(e) {
-    toast.error('加载会议室列表失败');
-  }
-
-  // 2. 获取所有用户
-  try {
-    const userRes = await getUserPage({ page: 1, pageSize: 10 });
-    if(userRes.data?.records) {
-      userOptions.value = userRes.data.records.map(u => ({ id: u.id, name: u.username }));
-      userRes.data.records.forEach(u => userDict.value[u.id] = u.username);
-    }
-  } catch(e) {
-    toast.error('加载用户列表失败');
-  }
-}
-
-// --- 核心方法：获取预订列表 ---
+// 获取预订列表
 const fetchData = async () => {
   loading.value = true
   try {
@@ -101,11 +68,10 @@ const handlePageChange = (newPage) => {
   fetchData()
 }
 
-// --- 表单操作 ---
+// 表单操作
 const openAdd = () => {
   isEdit.value = false
   editId.value = null
-  // 重置表单
   Object.assign(form, { userId: '', roomId: '', meetingTopic: '', startTime: '', endTime: '' })
   dialog.value = true
 }
@@ -113,7 +79,6 @@ const openAdd = () => {
 const openEdit = (row) => {
   isEdit.value = true
   editId.value = row.id
-  // 填充表单 (注意时间格式转换：后端 "2023-01-01 12:00:00" -> input "2023-01-01T12:00")
   Object.assign(form, {
     userId: row.userId,
     roomId: row.roomId,
@@ -132,10 +97,9 @@ const submit = async () => {
     return toast.warning('结束时间必须晚于开始时间')
   }
 
-  // 格式化数据：input "T" -> 后端 " " + ":00"
   const payload = {
-    userId: form.userId,
-    roomId: form.roomId,
+    userId: Number(form.userId),
+    roomId: Number(form.roomId),
     meetingTopic: form.meetingTopic,
     startTime: form.startTime.replace('T', ' ') + ':00',
     endTime: form.endTime.replace('T', ' ') + ':00'
@@ -143,25 +107,13 @@ const submit = async () => {
 
   try {
     if (isEdit.value) {
-      const res = await updateReservation({ ...payload, id: editId.value })
-      if (res.code === 1) {
-        toast.success('更新成功')
-      } else {
-        toast.error(res.msg || '更新失败');
-        throw new Error(res.msg || '更新失败');
-      }      
+      await updateReservation({ ...payload, id: editId.value })
     } else {
-      // 管理员帮用户预约，通常需要 user_id
-      const res = await addReservation({ ...payload, participantNum: 1 }) 
-      if (res.code === 1) {
-        toast.success('更新成功')
-      } else {
-        toast.error(res.msg || '更新失败');
-        throw new Error(res.msg || '更新失败');
-      }      
+      await addReservation({ ...payload, participantNum: 1 }) 
     }
+    toast.success(isEdit.value ? '更新成功' : '预约申请已创建，待审核')
     dialog.value = false
-    fetchData() // 刷新列表
+    fetchData() 
   } catch (error) {
     toast.error('操作失败：' + (error.message || '系统错误'))
   }
@@ -170,7 +122,7 @@ const submit = async () => {
 const handleCancel = async (id) => {
   if (!confirm('确定取消该预订？此操作不可恢复。')) return
   try {
-    await cancelReservation(id) // 注意：这里调用的是取消接口，有些系统可能是 DELETE
+    await cancelReservation(id)
     toast.success('已取消')
     fetchData()
   } catch (error) {
@@ -178,13 +130,16 @@ const handleCancel = async (id) => {
   }
 }
 
-// --- 辅助显示 ---
+// 辅助显示
 const formatTime = (t) => t ? dayjs(t).format('YYYY-MM-DD HH:mm') : '-'
-const getRoomName = (id) => roomDict.value[id] || `ID:${id}`
-const getUserName = (id) => userDict.value[id] || `ID:${id}`
-// 状态显示
+
 const getStatusLabel = (status) => {
-  const map = { 0: '待审核', 1: '已预约', 2: '已结束', '-1': '已取消' } // 根据实际后端枚举调整
+  const map = { 
+    0: '待审核', 
+    1: '已预约', 
+    2: '已结束', 
+    '-1': '已取消/驳回' 
+  }
   return map[status] || status
 }
 
@@ -196,17 +151,16 @@ const handleAudit = async (row, newStatus) => {
     await auditReservation({
       id: row.id,
       status: newStatus,
-      remark: newStatus === 1 ? '管理员通过' : '管理员驳回' // 可选
+      remark: newStatus === 1 ? '管理员通过' : '管理员驳回'
     });
-    alert('操作成功');
-    fetchData(); // 刷新列表
+    toast.success('操作成功');
+    fetchData();
   } catch (e) {
-    alert('操作失败');
+    toast.error('操作失败');
   }
 }
 
-onMounted(async () => {
-  await initDicts()
+onMounted(() => {
   fetchData()
 })
 </script>
@@ -231,7 +185,6 @@ onMounted(async () => {
       </div>
     </header>
 
-    <!-- 加载状态 -->
     <div v-if="loading" class="loading-state">
       <i class="fas fa-spinner fa-spin"></i> 加载中...
     </div>
@@ -240,10 +193,10 @@ onMounted(async () => {
       <table class="data-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>预订人</th>
+            <th>预订编号</th>
+            <th>预订人ID</th>
+            <th>会议室ID</th>
             <th>会议主题</th>
-            <th>会议室</th>
             <th>开始时间</th>
             <th>结束时间</th>
             <th>状态</th>
@@ -252,10 +205,10 @@ onMounted(async () => {
         </thead>
         <tbody>
           <tr v-for="row in list" :key="row.id">
-            <td>#{{ row.id }}</td>
-            <td>{{ getUserName(row.username) }}</td>
+            <td class="font-mono">{{ row.reservationNo || row.id }}</td>
+            <td class="font-bold">{{ row.userId }}</td>
+            <td class="font-bold">{{ row.roomId }}</td>
             <td>{{ row.meetingTopic || '-' }}</td>
-            <td>{{ getRoomName(row.roomId) }}</td>
             <td>{{ formatTime(row.startTime) }}</td>
             <td>{{ formatTime(row.endTime) }}</td>
             <td>
@@ -288,7 +241,6 @@ onMounted(async () => {
         </tbody>
       </table>
 
-      <!-- 分页器 -->
       <div class="pagination" v-if="pagination.total > 0">
         <button :disabled="pagination.current === 1" @click="handlePageChange(pagination.current - 1)">上一页</button>
         <span>第 {{ pagination.current }} 页 / 共 {{ Math.ceil(pagination.total / pagination.size) }} 页</span>
@@ -296,28 +248,23 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!-- 弹窗 -->
     <ModalDialog
       :show="dialog"
-      :title="isEdit ? '编辑预订信息' : '添加新的预订'"
+      :title="isEdit ? '编辑预订' : '添加预订'"
       @close="dialog = false"
       @submit="submit"
     >
-      <label>
-        预订用户
-        <select v-model="form.userId" required>
-          <option value="" disabled>请选择用户</option>
-          <option v-for="u in userOptions" :key="u.id" :value="u.id">{{ u.name }}</option>
-        </select>
-      </label>
-      
-      <label>
-        会议室
-        <select v-model="form.roomId" required>
-          <option value="" disabled>请选择会议室</option>
-          <option v-for="r in roomOptions" :key="r.id" :value="r.id">{{ r.name }}</option>
-        </select>
-      </label>
+      <div class="form-row">
+        <label>
+          预订用户 ID
+          <input type="number" v-model="form.userId" placeholder="输入用户ID" required />
+        </label>
+        
+        <label>
+          会议室 ID
+          <input type="number" v-model="form.roomId" placeholder="输入房间ID" required />
+        </label>
+      </div>
 
       <label>
         会议主题
@@ -400,6 +347,7 @@ onMounted(async () => {
 .data-table tr:last-child td { border-bottom: none; }
 
 .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.status-0 { background: rgba(249, 115, 22, 0.14); color: #ea580c; } /* 待审核 */
 .status-1 { background: rgba(32, 174, 124, 0.15); color: #20ae7c; } /* 已预约 */
 .status-2 { background: #f1f5f9; color: #64748b; } /* 已结束 */
 .status--1 { background: #fee2e2; color: #ef4444; } /* 已取消 */

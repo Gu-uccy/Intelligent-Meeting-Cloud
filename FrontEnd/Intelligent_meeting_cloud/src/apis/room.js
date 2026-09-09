@@ -1,63 +1,88 @@
 import request from '@/utils/http';
+import {
+  addRoomMock,
+  deleteRoomsMock,
+  getAdminRoomPageMock,
+  getTimeSlotsMock,
+  getUserRoomDetailMock,
+  getUserRoomPageMock,
+  setRoomActiveMock,
+  updateRoomMock,
+} from '@/mocks/platform/mockApi';
 
-// 用户端：分页查询会议室
+const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false';
+
 export function getUserRoomPage(params) {
+  if (USE_MOCK) return getUserRoomPageMock(params);
+
   return request({
     url: '/user/room/page',
     method: 'get',
-    params
+    params,
   });
 }
 
-// 用户端：获取会议室详情
 export function getUserRoomDetail(id) {
+  if (USE_MOCK) return getUserRoomDetailMock(id);
+
   return request({
     url: `/user/room/${id}`,
-    method: 'get'
+    method: 'get',
   });
 }
 
-// 管理端：新增会议室
+export function getTimeSlots(params) {
+  if (USE_MOCK) return getTimeSlotsMock(params);
+
+  return request.get('/user/reservation/slots', { params });
+}
+
 export function addRoom(data) {
+  if (USE_MOCK) return addRoomMock(data);
+
   return request({
     url: '/admin/room',
     method: 'post',
-    data
+    data,
   });
 }
 
-// 管理端：修改会议室
 export function updateRoom(data) {
+  if (USE_MOCK) return updateRoomMock(data);
+
   return request({
     url: '/admin/room',
     method: 'put',
-    data
+    data,
   });
 }
 
-// 管理端：删除会议室 (ids 为数组)
 export function deleteRooms(ids) {
+  if (USE_MOCK) return deleteRoomsMock(ids);
+
   return request({
     url: '/admin/room',
     method: 'delete',
-    params: { ids: ids.join(',') }
+    params: { ids: ids.join(',') },
   });
 }
 
-// 管理端：设置激活状态
 export function setRoomActive(id, active) {
+  if (USE_MOCK) return setRoomActiveMock(id, active);
+
   return request({
     url: '/admin/room/active',
     method: 'put',
-    params: { id, active }
+    params: { id, active },
   });
 }
 
-// 管理端：分页查询会议室
 export function getAdminRoomPage(params) {
+  if (USE_MOCK) return getAdminRoomPageMock(params);
+
   return request({
     url: '/admin/room/page',
     method: 'get',
-    params
+    params,
   });
 }

@@ -137,7 +137,7 @@ const handleCropConfirm = () => {
       const res = await uploadFile(file);
       const url = res.data; 
       currentAvatar.value = url;
-      form.avatar = url;
+      form.image = url;
       toast.success('头像裁剪上传成功，记得保存哦！');
       showCropper.value = false;
     } catch (error) {

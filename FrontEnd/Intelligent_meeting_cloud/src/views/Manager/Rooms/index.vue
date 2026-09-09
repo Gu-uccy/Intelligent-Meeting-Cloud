@@ -34,12 +34,12 @@ const form = reactive({
   roomCode: '',
   capacity: '',
   location: '',
-  equipment: '', // 后端是字符串，逗号分隔
+  equipment: '',
   image: '',
-  isActive: true // 默认启用
+  isActive: 1
 })
 
-// 图片裁剪相关
+// 图片裁剪
 const showRoomCropper = ref(false)
 const roomCropperRef = ref(null)
 const roomUploadLoading = ref(false)
@@ -60,25 +60,20 @@ const roomCropperOption = reactive({
   high: true,          
 })
 
-const selectedIds = ref([]) // 存储选中的ID
+const selectedIds = ref([])
 
-// 计算属性：判断是否全选
 const isAllSelected = computed(() => {
   if (list.value.length === 0) return false
-  // 检查当前页的所有ID是否都在 selectedIds 中
   return list.value.every(item => selectedIds.value.includes(item.id))
 })
 
 // 全选/取消全选
 const toggleSelectAll = () => {
   if (isAllSelected.value) {
-    // 如果已经是全选，则清空当前页的选中项
     const currentPageIds = list.value.map(item => item.id)
     selectedIds.value = selectedIds.value.filter(id => !currentPageIds.includes(id))
   } else {
-    // 否则将当前页所有未选中的ID加进去
     const currentPageIds = list.value.map(item => item.id)
-    // 使用 Set 去重，防止重复添加
     const newSet = new Set([...selectedIds.value, ...currentPageIds])
     selectedIds.value = Array.from(newSet)
   }
@@ -92,10 +87,10 @@ const handleBatchDelete = async () => {
 
   try {
     loading.value = true
-    await deleteRooms(selectedIds.value) // 传入 ID 数组
+    await deleteRooms(selectedIds.value)
     toast.success('批量删除成功')
-    selectedIds.value = [] // 清空选中状态
-    fetchData() // 刷新列表
+    selectedIds.value = []
+    fetchData()
   } catch (error) {
     toast.error('删除失败')
   } finally {
@@ -141,7 +136,7 @@ const openAdd = () => {
     location: '', 
     equipment: '', 
     image: '',
-    isActive: true 
+    isActive: 1 
   })
   dialog.value = true
 }
@@ -356,7 +351,6 @@ onMounted(fetchData)
         </tbody>
       </table>
 
-      <!-- 分页 -->
       <div class="pagination" v-if="pagination.total > 0">
         <button :disabled="pagination.current === 1" @click="handlePageChange(pagination.current - 1)">上一页</button>
         <span>第 {{ pagination.current }} 页 / 共 {{ Math.ceil(pagination.total / pagination.size) }} 页</span>
@@ -364,7 +358,6 @@ onMounted(fetchData)
       </div>
     </div>
 
-    <!-- 弹窗 -->
     <ModalDialog
       :show="dialog"
       :title="isEdit ? '编辑会议室' : '添加会议室'"
@@ -397,8 +390,8 @@ onMounted(fetchData)
       <label>
         初始状态
         <select v-model="form.isActive">
-          <option :value="true">启用 (可预订)</option>
-          <option :value="false">禁用 (维护中)</option>
+          <option :value="1">启用 (可预订)</option>
+          <option :value="0">禁用 (维护中)</option>
         </select>
       </label>
     </ModalDialog>

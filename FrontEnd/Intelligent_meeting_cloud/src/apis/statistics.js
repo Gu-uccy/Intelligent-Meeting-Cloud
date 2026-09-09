@@ -1,6 +1,10 @@
-import request from '@/utils/http'
+import request from '@/utils/http';
+import { getStatisticsMock } from '@/mocks/platform/mockApi';
 
-// 获取统计数据
+const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false';
+
 export function getStatistics() {
-  return request.get('/admin/statistics/近7天')
+  if (USE_MOCK) return getStatisticsMock();
+
+  return request.get('/admin/statistics');
 }

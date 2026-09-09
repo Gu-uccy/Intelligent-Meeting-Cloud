@@ -102,7 +102,7 @@ const handleRegister = async () => {
 
   try {
     const res = await registerAPI(registerData);
-    if (res.code === 0) {
+    if (res.code === 1) {
       toast.success('注册成功！请登录。');
       loginForm.value.loginAccount = registerForm.value.phone;
       handleModeSwitch(false);

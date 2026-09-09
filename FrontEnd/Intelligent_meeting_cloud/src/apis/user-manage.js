@@ -1,54 +1,70 @@
 import request from '@/utils/http';
+import {
+  addUserMock,
+  deleteUsersMock,
+  getUserByIdMock,
+  getUserPageMock,
+  setUserActiveMock,
+  updateUserMock,
+} from '@/mocks/platform/mockApi';
 
-// 分页获取用户列表
+const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false';
+
 export function getUserPage(params) {
+  if (USE_MOCK) return getUserPageMock(params);
+
   return request({
     url: '/admin/user/page',
     method: 'get',
-    params
+    params,
   });
 }
 
-// 新增用户
 export function addUser(data) {
+  if (USE_MOCK) return addUserMock(data);
+
   return request({
     url: '/admin/user',
     method: 'post',
-    data
+    data,
   });
 }
 
-// 修改用户
 export function updateUser(data) {
+  if (USE_MOCK) return updateUserMock(data);
+
   return request({
     url: '/admin/user',
     method: 'put',
-    data
+    data,
   });
 }
 
-// 删除用户
 export function deleteUsers(ids) {
+  if (USE_MOCK) return deleteUsersMock(ids);
+
   return request({
     url: '/admin/user',
     method: 'delete',
-    params: { ids: ids.join(',') }
+    params: { ids: ids.join(',') },
   });
 }
 
-// 设置用户状态（激活/禁用）
 export function setUserActive(status, id) {
+  if (USE_MOCK) return setUserActiveMock(status, id);
+
   return request({
     url: `/admin/user/active/${status}`,
     method: 'put',
-    params: { id }
+    params: { id },
   });
 }
 
-// 根据ID获取用户详情
 export const getByIdAPI = (id) => {
+  if (USE_MOCK) return getUserByIdMock(id);
+
   return request({
     url: `/admin/user/${id}`,
-    method: 'GET'
-  })
-}
+    method: 'GET',
+  });
+};

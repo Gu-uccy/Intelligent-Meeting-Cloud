@@ -1,26 +1,29 @@
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
-import { logoutAPI } from "@/apis/user";
-import logo from "@/assets/imgs/logo.svg"; 
-import avatar from "@/assets/imgs/avatar.svg";
+import { logoutAPI } from '@/apis/user';
+import logo from '@/assets/imgs/logo.svg';
+import avatar from '@/assets/imgs/avatar.svg';
 
 const route = useRoute();
 const router = useRouter();
 const userStore = useUserStore();
-const userInfo = computed(() => userStore.userInfo.user || { username: 'Admin', avatar: avatar });
+const userInfo = computed(() => userStore.userInfo.user || { username: '用户', image: avatar });
 
 const menuItems = [
   { name: '首页公告', path: '/', icon: 'fas fa-chart-pie' },
   { name: '会议预定', path: '/booking', icon: 'fas fa-calendar-alt' },
   { name: '日程管理', path: '/schedule', icon: 'fas fa-clock' },
-  { name: '智能物联', path: '/control', icon: 'fas fa-wifi' },
+  { name: '环境控制', path: '/control', icon: 'fas fa-sliders' },
+  { name: '人脸门禁', path: '/face-access', icon: 'fas fa-id-card' },
+  { name: '3D会议室', path: '/room-3d', icon: 'fas fa-cube' },
 ];
 
-// --- 导航栏滑块 ---
 const navRefs = ref([]);
 const sliderStyle = ref({ left: '0px', width: '0px', opacity: 0 });
+const showUserMenu = ref(false);
+const userMenuRef = ref(null);
 
 const setNavRef = (el, index) => {
   if (el) navRefs.value[index] = el.$el || el;
@@ -28,24 +31,18 @@ const setNavRef = (el, index) => {
 
 const updateSlider = async () => {
   await nextTick();
-  const activeIndex = menuItems.findIndex(item => item.path === route.path);
+  const activeIndex = menuItems.findIndex((item) => item.path === route.path);
   if (activeIndex !== -1 && navRefs.value[activeIndex]) {
     const activeEl = navRefs.value[activeIndex];
     sliderStyle.value = {
       left: `${activeEl.offsetLeft}px`,
       width: `${activeEl.offsetWidth}px`,
-      opacity: 1
+      opacity: 1,
     };
   } else {
     sliderStyle.value = { ...sliderStyle.value, opacity: 0 };
   }
 };
-
-watch(() => route.path, () => { updateSlider(); }, { immediate: true });
-
-// --- 用户下拉菜单 ---
-const showUserMenu = ref(false);
-const userMenuRef = ref(null);
 
 const toggleUserMenu = () => {
   showUserMenu.value = !showUserMenu.value;
@@ -71,13 +68,15 @@ const handleLogout = async () => {
   try {
     await logoutAPI();
   } catch (error) {
-    console.error('登出失败', error);
+    console.error('退出登录失败', error);
   } finally {
     userStore.clearUserInfo();
     localStorage.removeItem('token');
     router.replace('/login');
   }
 };
+
+watch(() => route.path, updateSlider, { immediate: true });
 
 onMounted(() => {
   window.addEventListener('resize', updateSlider);
@@ -94,21 +93,21 @@ onUnmounted(() => {
 <template>
   <nav class="transparent-nav">
     <div class="nav-brand" @click="router.push('/')">
-      <img :src="logo" alt="Logo" class="nav-logo" /> 
+      <img :src="logo" alt="Logo" class="nav-logo">
       <span class="brand-text">智会云</span>
     </div>
 
     <div class="nav-links">
       <div class="nav-slider" :style="sliderStyle"></div>
-      <router-link 
-        v-for="(item, index) in menuItems" 
-        :key="item.path" 
+      <router-link
+        v-for="(item, index) in menuItems"
+        :key="item.path"
         :to="item.path"
         class="nav-item"
         :class="{ active: route.path === item.path }"
         :ref="(el) => setNavRef(el, index)"
       >
-        <div class="glass-bg"></div> 
+        <div class="glass-bg"></div>
         <span class="content">
           <i :class="item.icon"></i>
           <span>{{ item.name }}</span>
@@ -118,16 +117,18 @@ onUnmounted(() => {
 
     <div class="nav-user" ref="userMenuRef">
       <div class="user-profile nav-item" :class="{ active: showUserMenu }" @click.stop="toggleUserMenu">
-         <div class="glass-bg"></div>
-         <span class="content user-content">
-            <div class="avatar-circle"><img v-if="userInfo.avatar" :src="userInfo.avatar" class="avatar-img" /></div>
-            <span class="username">{{ userInfo.username }}</span>
-            <i class="fas fa-chevron-down arrow-icon" :class="{ 'rotate': showUserMenu }"></i>
-         </span>
+        <div class="glass-bg"></div>
+        <span class="content user-content">
+          <span class="avatar-circle">
+            <img v-if="userInfo.image" :src="userInfo.image" class="avatar-img" alt="">
+          </span>
+          <span class="username">{{ userInfo.username || '用户' }}</span>
+          <i class="fas fa-chevron-down arrow-icon" :class="{ rotate: showUserMenu }"></i>
+        </span>
       </div>
 
       <transition name="fade-slide">
-        <div class="user-dropdown" v-show="showUserMenu">
+        <div v-show="showUserMenu" class="user-dropdown">
           <div class="dropdown-item" @click="handleViewProfile">
             <i class="fas fa-user-circle"></i>
             <span>用户信息</span>
@@ -155,7 +156,7 @@ onUnmounted(() => {
   padding: 0 3rem;
   height: 80px;
   width: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
   position: relative;
   z-index: 100;
 }
@@ -164,14 +165,25 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   cursor: pointer;
-  gap:1rem;
+  gap: 1rem;
 }
-.nav-logo { width:40px; height:40px; border-radius:8px; }
-.brand-text { font-size: 1.6rem; font-weight: 700; color: #20ae7c; letter-spacing: 1px; }
 
-.nav-links { 
-  display: flex; 
-  gap: 20px; 
+.nav-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.brand-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #20ae7c;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
   position: relative;
 }
 
@@ -180,7 +192,7 @@ onUnmounted(() => {
   height: 100%;
   top: 0;
   border-radius: 12px;
-  background: rgba(32, 174, 124, 0.85); 
+  background: rgba(32, 174, 124, 0.85);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(32, 174, 124, 0.5);
   box-shadow: 0 0 15px rgba(32, 174, 124, 0.4);
@@ -193,7 +205,7 @@ onUnmounted(() => {
   position: relative;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.75);
-  padding: 10px 24px;
+  padding: 10px 20px;
   border-radius: 12px;
   transition: color 0.5s ease;
   overflow: visible;
@@ -211,11 +223,12 @@ onUnmounted(() => {
   gap: 8px;
   font-weight: 500;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 .nav-item .glass-bg {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  inset: 0;
   z-index: 1;
   background: rgba(255, 255, 255, 0.1);
   opacity: 0;
@@ -232,31 +245,39 @@ onUnmounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.nav-item:not(.active):hover {
-  color: #fff;
-}
-
+.nav-item:not(.active):hover,
 .nav-item.active {
   color: #fff;
 }
+
 .nav-links .nav-item.active .glass-bg {
   opacity: 0;
 }
+
 .user-profile.active .glass-bg {
   opacity: 1;
 }
 
-.user-content { display: flex; align-items: center; gap: 10px; }
+.user-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .avatar-circle {
-  width: 32px; height: 32px;
+  width: 32px;
+  height: 32px;
   background: #20ae7c;
   color: #fff;
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.9rem;
   text-transform: uppercase;
 }
-.avatar-circle img {
+
+.avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -271,6 +292,7 @@ onUnmounted(() => {
   font-size: 0.8rem;
   transition: transform 0.3s ease;
 }
+
 .arrow-icon.rotate {
   transform: rotate(180deg);
 }
@@ -332,5 +354,19 @@ onUnmounted(() => {
 .fade-slide-leave-to {
   opacity: 0;
   transform: translateY(-10px) scale(0.95);
+}
+
+@media (max-width: 1180px) {
+  .transparent-nav {
+    padding: 0 1rem;
+  }
+
+  .nav-links {
+    gap: 8px;
+  }
+
+  .nav-item {
+    padding: 10px 12px;
+  }
 }
 </style>

@@ -1,50 +1,80 @@
 import request from '@/utils/http';
+import {
+  addReservationMock,
+  auditReservationMock,
+  cancelReservationMock,
+  getAdminReservationPageMock,
+  getMyReservationsMock,
+  getReservationsByRoomIdMock,
+  updateReservationMock,
+} from '@/mocks/platform/mockApi';
 
-// 用户：提交预约
+const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false';
+
 export function addReservation(data) {
+  if (USE_MOCK) return addReservationMock(data);
+
   return request({
     url: '/user/reservation',
     method: 'post',
     data,
-    timeout: 15000
+    timeout: 15000,
   });
 }
 
-// 用户：获取我的预约
 export function getMyReservations() {
+  if (USE_MOCK) return getMyReservationsMock();
+
   return request({
     url: '/user/reservation/my',
-    method: 'get'
+    method: 'get',
   });
 }
 
-// 用户：取消预约
+export function getReservationsByRoomId(roomId) {
+  if (USE_MOCK) return getReservationsByRoomIdMock(roomId);
+
+  return request.get('/admin/reservation/page', {
+    params: { roomId, pageSize: 100 },
+  });
+}
+
 export function cancelReservation(id) {
+  if (USE_MOCK) return cancelReservationMock(id);
+
   return request({
     url: `/user/reservation/cancel/${id}`,
-    method: 'put'
+    method: 'put',
   });
 }
 
-// 管理员：分页查询预约列表
 export function getAdminReservationPage(params) {
+  if (USE_MOCK) return getAdminReservationPageMock(params);
+
   return request({
     url: '/admin/reservation/page',
     method: 'get',
-    params
+    params,
   });
 }
 
-// 管理员：根据ID更新预约
 export function updateReservation(data) {
+  if (USE_MOCK) return updateReservationMock(data);
+
   return request({
     url: '/admin/reservation',
     method: 'put',
-    data
+    data,
   });
 }
 
 export function auditReservation(data) {
-  // data: { id: 1, status: 1, remark: "通过" }
-  return request.post('/admin/reservation/audit', data)
+  if (USE_MOCK) return auditReservationMock(data);
+
+  return request({
+    url: '/admin/reservation/audit',
+    method: 'post',
+    data,
+    timeout: 15000,
+  });
 }

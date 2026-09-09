@@ -1,25 +1,32 @@
 import request from '@/utils/http';
+import { getFaultPageMock, handleFaultMock, reportFaultMock } from '@/mocks/platform/mockApi';
 
-// 用户：上报故障
+const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false';
+
 export function reportFault(data) {
+  if (USE_MOCK) return reportFaultMock(data);
+
   return request({
     url: '/user/equipment/fault',
     method: 'post',
-    data
+    data,
   });
 }
 
-// 管理员：处理故障
 export function getFaultPage(params) {
-  return request.get('/admin/equipment/page', { 
-    params // { page, pageSize, status, faultNo ... }
-  })
+  if (USE_MOCK) return getFaultPageMock(params);
+
+  return request.get('/admin/equipment/page', {
+    params,
+  });
 }
 
 export function handleFault(params) {
+  if (USE_MOCK) return handleFaultMock(params);
+
   return request({
     url: '/admin/equipment/handle',
     method: 'put',
-    params
+    params,
   });
 }
