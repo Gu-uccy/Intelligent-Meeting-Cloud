@@ -12,6 +12,7 @@ node_modules/
 **/debug.log
 Flask/data/
 Flask/plots/
+Flask/chapter8/data/
 
 # Frontend build and local inspection output
 FrontEnd/Intelligent_meeting_cloud/dist/
@@ -28,3 +29,5 @@ ppt_media_extract/
 video_assets/
 video_frames/
 sanxingdui_assets/
+report_*.png
+room3d-*.png
