@@ -1,0 +1,11 @@
+{
+  "name": "intelligent-meeting-cloud",
+  "private": true,
+  "scripts": {
+    "dev": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-dev.ps1",
+    "demo": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-demo.ps1",
+    "dev:frontend": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-frontend.ps1",
+    "dev:backend": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-backend.ps1",
+    "build:frontend": "npm --prefix .\\FrontEnd\\Intelligent_meeting_cloud run build"
+  }
+}
