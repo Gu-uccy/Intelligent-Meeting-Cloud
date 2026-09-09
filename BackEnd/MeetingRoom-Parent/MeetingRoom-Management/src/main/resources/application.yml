@@ -1,10 +1,10 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   address: 0.0.0.0
+
 spring:
-  #为了加载dev文件
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   main:
     allow-circular-references: true
   datasource:
@@ -13,7 +13,6 @@ spring:
       url: jdbc:mysql://${room.datasource.host}:${room.datasource.port}/${room.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: ${room.datasource.username}
       password: ${room.datasource.password}
-  #文件上传的配置
   servlet:
     multipart:
       max-file-size: 10MB
@@ -25,48 +24,49 @@ spring:
     host: ${room.redis.host}
     port: ${room.redis.port}
     database: ${room.redis.database}
+    password: ${room.redis.password:}
   mail:
-    host: smtp.qq.com  # 邮件服务器地址（QQ邮箱为smtp.qq.com，163为smtp.163.com）
-    port: 587           # 端口（TLS加密通常用587，SSL用465）
-    username: 2281613734@qq.com  # 发送邮件的邮箱账号
-    password: jbbhamiiekeweafc
-    default-encoding: UTF-8 # 邮箱授权码（非登录密码，需在邮箱设置中开启SMTP并获取）
+    host: ${MAIL_HOST:smtp.qq.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    default-encoding: UTF-8
     properties:
       mail:
         smtp:
-          auth: true     # 启用认证
+          auth: ${MAIL_SMTP_AUTH:true}
           starttls:
-            enable: true # 启用TLS加密
-        debug: true
+            enable: ${MAIL_SMTP_STARTTLS_ENABLE:true}
+        debug: ${MAIL_DEBUG:false}
+
 mybatis:
-  #mapper配置文件
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.sky.entity
   configuration:
-    #开启驼峰命名
     map-underscore-to-camel-case: true
 
 logging:
   level:
-    com:
-      sky:
-        mapper: debug
-        service: debug
-        controller: debug
-        org.apache.ibatis.reflection: DEBUG
+    com.sky.mapper: debug
+    com.sky.service: debug
+    com.sky.controller: debug
+    org.apache.ibatis.reflection: DEBUG
 
 sky:
   jwt:
-    user-secret-key: fydkd
-    user-token-name: token
-    user-ttl: 864000000000
-    alioss:
-      access-key-id: ${sky.alioss.access-key-id}
-      endpoint: ${sky.alioss.endpoint}
-      access-key-secret: ${sky.alioss.access-key-secret}
-      bucket-name: ${sky.alioss.bucket-name}
-pagehelper:
-  helper-dialect: mysql # 对应你的数据库（如oracle、postgresql）
-  reasonable: true # 页码<=0时查第1页，页码>总页数时查最后1页
-  support-methods-arguments: true # 支持通过Mapper接口参数传递分页参数
+    admin-secret-key: ${JWT_ADMIN_SECRET_KEY:admin-dev-secret}
+    admin-token-name: ${JWT_ADMIN_TOKEN_NAME:adminToken}
+    admin-ttl: ${JWT_ADMIN_TTL:86400000}
+    user-secret-key: ${JWT_USER_SECRET_KEY:fydkd}
+    user-token-name: ${JWT_USER_TOKEN_NAME:token}
+    user-ttl: ${JWT_USER_TTL:864000000000}
+  alioss:
+    endpoint: ${OSS_ENDPOINT:}
+    access-key-id: ${OSS_ACCESS_KEY_ID:}
+    access-key-secret: ${OSS_ACCESS_KEY_SECRET:}
+    bucket-name: ${OSS_BUCKET_NAME:}
 
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true

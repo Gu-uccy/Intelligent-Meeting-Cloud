@@ -1,19 +1,13 @@
 room:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    host: localhost
-    port: 3306
-    database: meeting_room_db
-    username: root
-    password: a912812618
+    driver-class-name: ${MYSQL_DRIVER:com.mysql.cj.jdbc.Driver}
+    host: ${MYSQL_HOST:127.0.0.1}
+    port: ${MYSQL_PORT:3306}
+    database: ${MYSQL_DB:meeting_room_db}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:}
   redis:
-    host: localhost
-    port: 6379
-    database: 0
-
-sky:
-  alioss:
-    endpoint: oss-cn-hangzhou.aliyuncs.com
-    accessKeyId: LTAI5t9jZi4ReiaXpDNB4srr
-    accessKeySecret: xlgJdb8APPwYFSz0AVrEwqD5xlv6Eg
-    bucketName: web-fengyi-tlias
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    database: ${REDIS_DB:0}
+    password: ${REDIS_PASSWORD:}

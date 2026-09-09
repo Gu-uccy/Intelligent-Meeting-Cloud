@@ -1,0 +1,71 @@
+# ============================================================
+# 智能会议室物联网监测系统 - systemd 服务文件
+# ============================================================
+# 将以下服务文件保存到 /etc/systemd/system/ 目录下
+# 然后执行: sudo systemctl daemon-reload
+#          sudo systemctl enable xxx.service
+#          sudo systemctl start xxx.service
+
+# ----------------------------------------------------------
+# 服务1: DHT11温湿度 MQTT 数据采集服务
+# 文件名: /etc/systemd/system/dht11_mqtt.service
+# ----------------------------------------------------------
+[Unit]
+Description=DHT11 Temperature and Humidity MQTT Service
+After=network.target mosquitto.service
+Wants=mosquitto.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/pi/docker/homeassistant
+ExecStart=/usr/bin/python3 /home/pi/docker/homeassistant/dht11_mqtt.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
+# ----------------------------------------------------------
+# 服务2: 智能门禁系统 MQTT 服务
+# 文件名: /etc/systemd/system/smart_door.service
+# ----------------------------------------------------------
+[Unit]
+Description=Smart Door System with Face Recognition
+After=network.target mosquitto.service dht11_mqtt.service
+Wants=mosquitto.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/pi/docker/homeassistant
+ExecStart=/usr/bin/python3 /home/pi/docker/homeassistant/smart_door_system_mqtt.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
+# ----------------------------------------------------------
+# 安装与启用命令:
+# ----------------------------------------------------------
+# sudo cp dht11_mqtt.service /etc/systemd/system/
+# sudo cp smart_door.service /etc/systemd/system/
+# sudo systemctl daemon-reload
+# sudo systemctl enable dht11_mqtt.service smart_door.service
+# sudo systemctl start dht11_mqtt.service smart_door.service
+#
+# 查看状态:
+# sudo systemctl status dht11_mqtt.service
+# sudo systemctl status smart_door.service
+#
+# 查看日志:
+# sudo journalctl -u dht11_mqtt.service -f
+# sudo journalctl -u smart_door.service -f
+#
+# 停止服务:
+# sudo systemctl stop dht11_mqtt.service smart_door.service

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会议室环境监测系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #6c757d;
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        .display-value {
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .temperature {
+            color: #dc3545;
+        }
+        .humidity {
+            color: #0d6efd;
+        }
+        .distance {
+            color: #198754;
+        }
+        .motion {
+            color: #fd7e14;
+        }
+        .timestamp {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+        .sensor-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+        .export-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .motion-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 10px;
+            background-color: gray;
+        }
+        .motion-active {
+            background-color: yellow;
+        }
+        .motion-inactive {
+            background-color: blue;
+        }
+        @media (max-width: 768px) {
+            .display-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">会议室环境监测系统 <span id="motion-indicator" class="motion-indicator motion-inactive"></span></h1>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="bi bi-thermometer-half sensor-icon"></i>
+                        <span>温度</span>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="display-value temperature" id="current-temperature">--</div>
+                        <div>摄氏度 (°C)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="bi bi-droplet-half sensor-icon"></i>
+                        <span>湿度</span>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="display-value humidity" id="current-humidity">--</div>
+                        <div>相对湿度 (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="bi bi-rulers sensor-icon"></i>
+                        <span>距离</span>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="display-value distance" id="current-distance">--</div>
+                        <div>厘米 (cm)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="bi bi-person-badge sensor-icon"></i>
+                        <span>人体检测</span>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="display-value motion" id="motion-status">--</div>
+                        <div>检测到的运动次数: <span id="motion-count">0</span></div>
+                        <div>最近一次运动: <span id="last-motion">从未</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col text-end">
+                <a href="/api/export/csv" class="btn btn-success export-btn">
+                    <i class="bi bi-file-earmark-excel"></i> 导出CSV
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card chart-container">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>温湿度趋势图</span>
+                        <span class="timestamp" id="last-updated">最后更新时间: --</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <img id="temp-humidity-chart" src="/chart/temp_humidity" class="img-fluid" alt="温湿度趋势图">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card chart-container">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>距离和运动趋势图</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <img id="distance-motion-chart" src="/chart/distance_motion" class="img-fluid" alt="距离和运动趋势图">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>环境参数说明</span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5><i class="bi bi-thermometer-half text-danger"></i> 温度</h5>
+                        <p>会议室的理想温度应保持在20-25°C之间，以确保舒适度和工作效率。</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5><i class="bi bi-droplet-half text-primary"></i> 湿度</h5>
+                        <p>相对湿度以40-60%为宜，过高或过低都会影响人体舒适度和设备性能。</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5><i class="bi bi-rulers text-success"></i> 距离</h5>
+                        <p>显示超声波传感器测量的距离，可用于监测会议室中距离传感器最近物体的距离。</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5><i class="bi bi-person-badge text-warning"></i> 人体检测</h5>
+                        <p>显示会议室中是否检测到人员活动，可用于统计使用情况和自动化控制。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateCurrentData() {
+            fetch('/api/current')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('current-temperature').textContent = data.temperature.toFixed(1);
+                    document.getElementById('current-humidity').textContent = data.humidity.toFixed(1);
+                    document.getElementById('current-distance').textContent = data.distance.toFixed(1);
+                    document.getElementById('motion-status').textContent = data.motion ? '有人' : '无人';
+                    document.getElementById('motion-count').textContent = data.motion_count;
+                    document.getElementById('last-motion').textContent = data.last_motion;
+
+                    const indicator = document.getElementById('motion-indicator');
+                    if (data.motion) {
+                        indicator.className = 'motion-indicator motion-active';
+                        document.getElementById('motion-status').className = 'display-value motion';
+                    } else {
+                        indicator.className = 'motion-indicator motion-inactive';
+                        document.getElementById('motion-status').className = 'display-value motion';
+                    }
+
+                    document.getElementById('last-updated').textContent = '最后更新时间: ' + data.timestamp;
+                })
+                .catch(error => console.error('Error fetching current data:', error));
+        }
+
+        function refreshCharts() {
+            const timestamp = new Date().getTime();
+            document.getElementById('temp-humidity-chart').src = `/chart/temp_humidity?t=${timestamp}`;
+            document.getElementById('distance-motion-chart').src = `/chart/distance_motion?t=${timestamp}`;
+        }
+
+        setInterval(updateCurrentData, 2000);
+        setInterval(refreshCharts, 60000);
+
+        updateCurrentData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+FrontEnd/Intelligent_meeting_cloud/.env.local
+BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/resources/application-local.yml
+BackEnd/MeetingRoom-Parent/MeetingRoom-Management/target/
+BackEnd/MeetingRoom-Parent/MeetingRoom-common/target/
+BackEnd/MeetingRoom-Parent/MeetingRoom-pojo/target/
+node_modules/
+
+# Local runtime output
+.codex-run-logs/
+**/__pycache__/
+**/*.pyc
+**/debug.log
+Flask/data/
+Flask/plots/
+
+# Frontend build and local inspection output
+FrontEnd/Intelligent_meeting_cloud/dist/
+FrontEnd/Intelligent_meeting_cloud/dist-room3d-check/
+
+# Generated media and report exports
+*.zip
+*.pptx
+*.docx
+*.mp4
+report_assets/
+report_render_check/
+ppt_media_extract/
+video_assets/
+video_frames/
+sanxingdui_assets/

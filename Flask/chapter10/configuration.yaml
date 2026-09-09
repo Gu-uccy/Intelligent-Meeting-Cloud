@@ -1,0 +1,49 @@
+# Home Assistant MQTT集成配置
+# 将此文件内容添加到 ~/docker/homeassistant/configuration.yaml
+
+mqtt:
+  sensor:
+    # DHT11温湿度传感器
+    - name: "室内温度"
+      state_topic: "home/sensors/dht11"
+      unit_of_measurement: "°C"
+      value_template: "{{ value_json.temperature }}"
+      device_class: temperature
+
+    - name: "室内湿度"
+      state_topic: "home/sensors/dht11"
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.humidity }}"
+      device_class: humidity
+
+    # 超声波距离传感器
+    - name: "门前距离"
+      state_topic: "home/meetingroom/distance"
+      unit_of_measurement: "cm"
+      value_template: "{{ value_json.distance }}"
+
+  binary_sensor:
+    # 会议室人员存在状态
+    - name: "会议室人员存在"
+      state_topic: "home/meetingroom/presence"
+      payload_on: "present"
+      payload_off: "absent"
+      device_class: occupancy
+
+    # 人脸识别状态
+    - name: "人脸识别状态"
+      state_topic: "home/meetingroom/face_detected"
+      payload_on: "on"
+      payload_off: "off"
+      device_class: motion
+
+  switch:
+    # 会议室门控制
+    - name: "会议室门控制"
+      state_topic: "home/meetingroom/door_state"
+      command_topic: "home/meetingroom/door_control"
+      payload_on: "open"
+      payload_off: "close"
+      state_on: "open"
+      state_off: "closed"
+      optimistic: false

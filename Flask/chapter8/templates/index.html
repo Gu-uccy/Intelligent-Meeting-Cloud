@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能温湿度控制系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { padding-top: 20px; background-color: #f8f9fa; }
+        .card { border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .card-header { background-color: #6c757d; color: white; border-radius: 10px 10px 0 0 !important; }
+        .display-value { font-size: 2.5rem; font-weight: 300; }
+        .temperature { color: #dc3545; }
+        .humidity { color: #0d6efd; }
+        .light { color: #ffc107; }
+        .smoke { color: #6f42c1; }
+        .timestamp { font-size: 0.8rem; color: #6c757d; }
+        .device-indicator { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .device-on { background-color: #198754; }
+        .device-off { background-color: #6c757d; }
+        .export-btn { display: flex; align-items: center; gap: 5px; }
+        @media (max-width: 768px) { .display-value { font-size: 2rem; } }
+        .presence-active { color: #fd7e14; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-3">智能温湿度控制系统</h1>
+        <div class="text-center mb-3">
+            <span class="timestamp" id="last-updated">最后更新时间: --</span>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col text-center">
+                <div class="btn-group" role="group">
+                    <button id="auto-on-btn" class="btn btn-success" onclick="setAutoMode(true)">自动模式</button>
+                    <button id="auto-off-btn" class="btn btn-outline-danger" onclick="setAutoMode(false)">手动模式</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">环境参数设置</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label">温度范围: <span id="temp-range-label">20-26°C</span></label>
+                                <input type="range" class="form-range" id="temp-min" min="10" max="30" value="20" onchange="updateParams()">
+                                <input type="range" class="form-range" id="temp-max" min="15" max="40" value="26" onchange="updateParams()">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">湿度范围: <span id="hum-range-label">40-60%</span></label>
+                                <input type="range" class="form-range" id="humidity-min" min="10" max="80" value="40" onchange="updateParams()">
+                                <input type="range" class="form-range" id="humidity-max" min="30" max="95" value="60" onchange="updateParams()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">设备状态</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4 mb-2"><span class="device-indicator" id="cooling-ind"></span>制冷 <span id="cooling-status">关闭</span></div>
+                            <div class="col-4 mb-2"><span class="device-indicator" id="heating-ind"></span>加热 <span id="heating-status">关闭</span></div>
+                            <div class="col-4 mb-2"><span class="device-indicator" id="humidifier-ind"></span>加湿 <span id="humidifier-status">关闭</span></div>
+                            <div class="col-4 mb-2"><span class="device-indicator" id="dehumidifier-ind"></span>除湿 <span id="dehumidifier-status">关闭</span></div>
+                            <div class="col-4 mb-2"><span class="device-indicator" id="lighting-ind"></span>照明 <span id="lighting-status">关闭</span></div>
+                            <div class="col-4 mb-2"><span class="device-indicator" id="alarm-ind"></span>报警 <span id="alarm-status">关闭</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card"><div class="card-header"><i class="bi bi-thermometer-half"></i> 温度</div><div class="card-body text-center"><div class="display-value temperature" id="current-temp">--</div><div>°C</div></div></div>
+            </div>
+            <div class="col-md-3">
+                <div class="card"><div class="card-header"><i class="bi bi-droplet-half"></i> 湿度</div><div class="card-body text-center"><div class="display-value humidity" id="current-hum">--</div><div>%</div></div></div>
+            </div>
+            <div class="col-md-3">
+                <div class="card"><div class="card-header"><i class="bi bi-sun"></i> 光照</div><div class="card-body text-center"><div class="display-value light" id="current-light">--</div><div>强度 (0-255)</div></div></div>
+            </div>
+            <div class="col-md-3">
+                <div class="card"><div class="card-header"><i class="bi bi-cloud"></i> 烟雾</div><div class="card-body text-center"><div class="display-value smoke" id="current-smoke">--</div><div>浓度 (0-255)</div></div></div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="card"><div class="card-header"><i class="bi bi-person"></i> 人体检测</div><div class="card-body text-center"><h3 id="presence-status" class="presence-active">--</h3></div></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card"><div class="card-header"><i class="bi bi-download"></i> 数据导出</div><div class="card-body text-center"><a href="/api/export/csv" class="btn btn-success export-btn"><i class="bi bi-file-earmark-excel"></i> 导出CSV</a></div></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">综合趋势图</div>
+            <div class="card-body text-center">
+                <img id="sensor-chart" src="/chart/sensor" class="img-fluid" alt="趋势图">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let autoMode = true;
+
+        function updateUI() {
+            fetch('/api/current')
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById('current-temp').textContent = data.temperature ? data.temperature.toFixed(1) : '--';
+                    document.getElementById('current-hum').textContent = data.humidity ? data.humidity.toFixed(1) : '--';
+                    document.getElementById('current-light').textContent = data.light != null ? data.light : '--';
+                    document.getElementById('current-smoke').textContent = data.smoke != null ? data.smoke : '--';
+                    document.getElementById('presence-status').textContent = data.presence ? '有人' : '无人';
+                    document.getElementById('last-updated').textContent = '最后更新时间: ' + data.timestamp;
+
+                    document.getElementById('temp-range-label').textContent = data.temp_min + '-' + data.temp_max + '°C';
+                    document.getElementById('hum-range-label').textContent = data.humidity_min + '-' + data.humidity_max + '%';
+
+                    var d = data.devices;
+                    setDeviceState('cooling', d.cooling);
+                    setDeviceState('heating', d.heating);
+                    setDeviceState('humidifier', d.humidifier);
+                    setDeviceState('dehumidifier', d.dehumidifier);
+                    setDeviceState('lighting', d.lighting);
+                    setDeviceState('alarm', d.alarm);
+
+                    autoMode = d.auto_mode;
+                    document.getElementById('auto-on-btn').className = autoMode ? 'btn btn-success' : 'btn btn-outline-success';
+                    document.getElementById('auto-off-btn').className = autoMode ? 'btn btn-outline-danger' : 'btn btn-danger';
+                });
+        }
+
+        function setDeviceState(name, state) {
+            var ind = document.getElementById(name + '-ind');
+            var st = document.getElementById(name + '-status');
+            if (ind) ind.className = 'device-indicator ' + (state ? 'device-on' : 'device-off');
+            if (st) st.textContent = state ? '开启' : '关闭';
+        }
+
+        function setAutoMode(enabled) {
+            fetch('/api/control', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({action: 'set_auto', enabled: enabled})
+            }).then(() => updateUI());
+        }
+
+        function updateParams() {
+            var tmin = parseInt(document.getElementById('temp-min').value);
+            var tmax = parseInt(document.getElementById('temp-max').value);
+            var hmin = parseInt(document.getElementById('humidity-min').value);
+            var hmax = parseInt(document.getElementById('humidity-max').value);
+            document.getElementById('temp-range-label').textContent = tmin + '-' + tmax + '°C';
+            document.getElementById('hum-range-label').textContent = hmin + '-' + hmax + '%';
+            fetch('/api/control', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({action: 'set_params', temp_min: tmin, temp_max: tmax, humidity_min: hmin, humidity_max: hmax})
+            });
+        }
+
+        setInterval(updateUI, 2000);
+        setInterval(function() {
+            document.getElementById('sensor-chart').src = '/chart/sensor?t=' + new Date().getTime();
+        }, 60000);
+        updateUI();
+    </script>
+</body>
+</html>
