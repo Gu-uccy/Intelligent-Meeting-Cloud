@@ -16,6 +16,7 @@ import java.util.Map;
 @Slf4j
 @RestController("adminReservationController")
 @RequestMapping("/admin/reservation")
+@CrossOrigin(origins = "*")
 public class ReservationController {
     @Autowired
     private ReservationService reservationService;
@@ -60,6 +61,7 @@ public class ReservationController {
         Integer status = (Integer) params.get("status");
         String remark = (String) params.get("remark");
         Integer adminId = BaseContext.getCurrentId();  // 管理员ID
+        log.info("预约审核:{},{},{},{}", id, status, adminId, remark);
         return reservationService.audit(id, status, adminId, remark) > 0 ?
                 Result.success() : Result.error("预约审核失败");
     }

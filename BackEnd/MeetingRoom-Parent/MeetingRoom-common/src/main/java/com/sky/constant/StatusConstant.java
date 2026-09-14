@@ -11,14 +11,6 @@ public class StatusConstant {
     //禁用
     public static final Integer DISABLE = 0;
 
-    //空闲
-    public static final Integer AVAILABLE = 0;
-
-    //占用
-    public static final Integer OCCUPIED = 1;
-
-    //维修
-    public static final Integer REPAIR = 2;
 
     public static final Integer PENDING = 0;       // 待审核
     public static final Integer CONFIRMED = 1;     // 已确认

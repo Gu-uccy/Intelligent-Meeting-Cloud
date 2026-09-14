@@ -45,6 +45,7 @@ public class RoomServiceImpl implements RoomService {
         PageHelper.startPage(roomPageDto.getPage(),roomPageDto.getPageSize());
         //查询
         Page<RoomVo > page = roomMapper.limitSelect(roomPageDto);
+        log.info("查询结果：{}",page);
         return new PageResult(page.getTotal(),page.getResult());
     }
 
@@ -73,8 +74,8 @@ public class RoomServiceImpl implements RoomService {
         return roomMapper.update(meetingRoom);
     }
     @Override
-    public int updateStatusWithVersion(Integer roomId, Integer status, Integer version) {
-        return roomMapper.updateStatusWithVersion(roomId, status, version);
+    public int updateStatusWithVersion(Integer roomId,  Integer version) {
+        return roomMapper.updateStatusWithVersion(roomId, version);
     }
     /**
      * 根据id查询会议室信息
@@ -88,21 +89,7 @@ public class RoomServiceImpl implements RoomService {
         return roomMapper.selectById(roomId);
     }
 
-    /**
-     * 设置会议室状态
-     * @param status
-     * @param id
-     * @return
-     */
-   /* @CacheEvict(value = "rooms", allEntries = true)*/
-    @Override
-    public int setStatus(Integer status, Integer id) {
-        log.info("设置会议室状态");
-        MeetingRoom meetingRoom = new MeetingRoom();
-        meetingRoom.setId(id);
-        meetingRoom.setStatus(status);
-        return roomMapper.update(meetingRoom);
-    }
+
 
     /**
      * 启用禁用会议室
@@ -112,7 +99,7 @@ public class RoomServiceImpl implements RoomService {
      */
    /* @CacheEvict(value = "rooms", allEntries = true)*/
     @Override
-    public int setActive(Boolean active, Integer id) {
+    public int setActive(Integer active, Integer id) {
         log.info("设置会议室状态");
         MeetingRoom meetingRoom = new MeetingRoom();
         meetingRoom.setId(id);

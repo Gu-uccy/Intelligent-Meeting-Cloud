@@ -13,10 +13,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.3</spring-boot.version>
+        <spring-boot.version>3.0.2</spring-boot.version>
     </properties>
     <dependencies>
         <dependency>
@@ -53,6 +53,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -96,8 +97,8 @@
 
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>3.0.3</version>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.3.0</version>
         </dependency>
 
         <dependency>
@@ -120,6 +121,12 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
         </dependency>
+        <!-- MyBatis-Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.3.1</version>
+        </dependency>
 
         <!-- poi -->
         <dependency>
@@ -139,4 +146,66 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <!-- 已有 assembly 插件配置（胖 JAR 打包） -->
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version> <!-- 父工程已定义，直接引用 -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal> <!-- 重新打包为可执行 JAR，确保自动配置生效 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.sky.MeetingRoomManagementApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- 关键：添加资源配置，确保 yml/xml 被打包到 BOOT-INF/classes -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>false</filtering> <!-- 禁用过滤，避免配置文件被篡改 -->
+            </resource>
+            <!-- 若 Mapper XML 在 src/main/java 下，需添加此配置 -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
+    </build>
 </project>

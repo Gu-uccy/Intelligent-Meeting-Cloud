@@ -8,10 +8,10 @@
     <name>MeetingRoom-pojo</name>
     <description>MeetingRoom-pojo</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.3</spring-boot.version>
+        <spring-boot.version>3.0.2</spring-boot.version>
     </properties>
     <parent>
         <groupId>com.sky</groupId>
@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.xmlbeans</groupId>

@@ -50,5 +50,5 @@ public interface RoomMapper {
     @Select("select * from meeting_room where id = #{roomId}")
     MeetingRoom selectById(Integer roomId);
 
-    int updateStatusWithVersion(Integer roomId, Integer status, Integer version);
+    int updateStatusWithVersion(Integer roomId,  Integer version);
 }

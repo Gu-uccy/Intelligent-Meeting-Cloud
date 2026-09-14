@@ -1,5 +1,6 @@
 package com.sky.Mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
 import com.sky.dto.ReservationPageDto;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
-public interface ReservationMapper {
+public interface ReservationMapper extends BaseMapper<Reservation> {
     /**
      * 添加预约信息
      * @param reservation

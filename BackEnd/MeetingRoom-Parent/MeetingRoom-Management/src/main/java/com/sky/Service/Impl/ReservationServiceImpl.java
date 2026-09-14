@@ -1,5 +1,6 @@
 package com.sky.Service.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.Mapper.ReservationMapper;
@@ -20,6 +21,7 @@ import com.sky.exception.RoomIsAccupied;
 import com.sky.result.PageResult;
 import com.sky.vo.ReservationVo;
 
+import com.sky.vo.TimeSlotVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -46,6 +53,8 @@ public class ReservationServiceImpl implements ReservationService{
     private UserService userService;
     @Value("${spring.mail.username}")
     private String fromEmail;
+
+
     /**
      * 添加预约
      * @param reservationDto
@@ -54,11 +63,13 @@ public class ReservationServiceImpl implements ReservationService{
     @Transactional
     @Override
     public int addReservation(ReservationDto reservationDto) {
+
         log.info("添加预约：{}",reservationDto);
         List<Reservation> reservations = reservationMapper.selectByRoomId(reservationDto.getRoomId());
         MeetingRoom room = roomService.getById(reservationDto.getRoomId());
+        Integer status = room.getIsActive();
         log.info("查询到会议室：id={}, version={}, status={}",
-                room.getId(), room.getVersion(), room.getStatus()); // 关键日志
+                room.getId(), room.getVersion(), status); // 关键日志
 
         log.info("预约信息：{}",reservations);
         for (Reservation res : reservations) {
@@ -87,10 +98,13 @@ public class ReservationServiceImpl implements ReservationService{
         if (hours > 8) {
             throw new RuntimeException("单次预约最长不超过8小时");
         }
-        if(room.getStatus()== StatusConstant.OCCUPIED){
-            log.info("会议室已占用");
-            throw new RoomIsAccupied(MessageConstant.ROOM_IS_ACCUPIED);
+        if (reservationDto.getStartTime().getMinute() % 30 != 0 || reservationDto.getStartTime().getSecond() != 0) {
+            throw new IllegalArgumentException("开始时间必须是整点或30分");
         }
+        if (reservationDto.getEndTime().getMinute() % 30 != 0 || reservationDto.getEndTime().getSecond() != 0) {
+            throw new IllegalArgumentException("结束时间必须是整点或30分");
+        }
+
         if(reservationDto.getEndTime().isBefore(reservationDto.getStartTime())){
             log.info("结束时间小于开始时间");
             throw new EndTimeBeforeStartTime(MessageConstant.END_TIME_IS_BEFORE_START_TIME);
@@ -106,7 +120,6 @@ public class ReservationServiceImpl implements ReservationService{
         // 使用乐观锁更新会议室状态
         int updateResult = roomService.updateStatusWithVersion(
                 room.getId(),
-                StatusConstant.OCCUPIED,
                 room.getVersion()
         );
         log.info("更新会议室状态结果：{}",updateResult);
@@ -139,33 +152,7 @@ public class ReservationServiceImpl implements ReservationService{
         sb.append(String.format("%04d", random.nextInt(10000)));
         return sb.toString();
     }
-/*
 
-    private void validateReservation(ReservationDto reservationDto, MeetingRoom room) {
-        List<Reservation> reservations = reservationMapper.selectByRoomId(reservationDto.getRoomId());
-
-        // 检查时间冲突
-        for (Reservation res : reservations) {
-            if (res.getStartTime().isBefore(reservationDto.getEndTime().plusMinutes(10))
-                    && res.getEndTime().isAfter(reservationDto.getStartTime().minusMinutes(10))) {
-                log.info("时间段冲突或间隔不足10分钟");
-                throw new RoomIsAccupied(MessageConstant.ROOM_IS_ACCUPIED);
-            }
-        }
-
-        // 检查会议室状态
-        if (room.getStatus() == StatusConstant.OCCUPIED) {
-            log.info("会议室已占用");
-            throw new RoomIsAccupied(MessageConstant.ROOM_IS_ACCUPIED);
-        }
-
-        // 检查时间有效性
-        if (reservationDto.getEndTime().isBefore(reservationDto.getStartTime())) {
-            log.info("结束时间小于开始时间");
-            throw new EndTimeBeforeStartTime(MessageConstant.END_TIME_IS_BEFORE_START_TIME);
-        }
-    }
-*/
 
     /**
      * 发送预约成功邮件
@@ -293,7 +280,6 @@ public class ReservationServiceImpl implements ReservationService{
             MeetingRoom room = roomService.getById(reservation.getRoomId());
             int updateResult = roomService.updateStatusWithVersion(
                     room.getId(),
-                    StatusConstant.OCCUPIED,
                     room.getVersion()
             );
             if (updateResult == 0) {
@@ -307,6 +293,66 @@ public class ReservationServiceImpl implements ReservationService{
         }
 
         return rows;
+    }
+    // 定义运营时间：早上9点到晚上6点
+    private static final LocalTime OPEN_TIME = LocalTime.of(0, 0);
+    private static final LocalTime CLOSE_TIME = LocalTime.of(23, 59);
+
+    /**
+     * 功能：获取某天的时间切片视图
+     */
+    public List<TimeSlotVo> getRoomTimeSlots(Long roomId, LocalDate date) {
+        // 1. 查询该会议室当天的所有有效预约
+        LocalDateTime dayStart = date.atTime(0, 0, 0);
+        LocalDateTime dayEnd = date.atTime(23, 59, 59);
+
+        List<Reservation> existList = reservationMapper.selectList(new QueryWrapper<Reservation>()
+                .eq("room_id", roomId)
+                .eq("status", 1) // 有效
+                .gt("end_time", dayStart) // 简单的范围筛选，具体交集在内存判断
+                .lt("start_time", dayEnd)
+                .orderByAsc("start_time"));
+
+        List<TimeSlotVo> result = new ArrayList<>();
+        LocalDateTime cursor = date.atTime(OPEN_TIME);
+        LocalDateTime closeDateTime = date.atTime(CLOSE_TIME);
+        LocalDateTime now = LocalDateTime.now();
+
+        // 2. 循环生成 30 分钟的时间切片
+        while (cursor.isBefore(closeDateTime)) {
+            LocalDateTime nextCursor = cursor.plusMinutes(30);
+
+            TimeSlotVo slot = new TimeSlotVo();
+            slot.setDisplayTime(cursor.format(DateTimeFormatter.ofPattern("HH:mm")) + " - " + nextCursor.format(DateTimeFormatter.ofPattern("HH:mm")));
+            slot.setStartTime(cursor.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+            slot.setEndTime(nextCursor.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+
+            // 3. 判定状态
+            if (cursor.isBefore(now)) {
+                slot.setStatus(2); // 过期
+            } else if (isOccupied(cursor, nextCursor, existList)) {
+                slot.setStatus(1); // 已占用
+            } else {
+                slot.setStatus(0); // 可用
+            }
+
+            result.add(slot);
+            cursor = nextCursor;
+        }
+        return result;
+    }
+
+    /**
+     * 内存辅助方法：判断单个切片是否与预约列表冲突
+     */
+    private boolean isOccupied(LocalDateTime slotStart, LocalDateTime slotEnd, List<Reservation> list) {
+        for (Reservation r : list) {
+            // 核心重叠公式：!(EndA <= StartB || StartA >= EndB)
+            if (r.getStartTime().isBefore(slotEnd) && r.getEndTime().isAfter(slotStart)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

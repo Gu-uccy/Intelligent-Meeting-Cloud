@@ -12,6 +12,7 @@ class MeetingRoomManagementApplicationTests {
     void contextLoads() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         System.out.println(bCryptPasswordEncoder.encode("admin123"));
+
     }
 
 }

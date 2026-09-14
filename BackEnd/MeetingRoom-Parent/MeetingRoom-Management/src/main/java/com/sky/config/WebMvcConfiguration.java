@@ -9,13 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -26,7 +20,7 @@ import java.util.List;
  */
 @Configuration
 @Slf4j
-@EnableSwagger2
+
 public class WebMvcConfiguration extends WebMvcConfigurationSupport  {
 
 
@@ -69,10 +63,10 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport  {
                         "/swagger-resources/configuration/security");
 
     }
-    /**
+   /* *//**
      * 通过knife4j生成接口文档
      * @return
-     */
+     *//*
     @Bean
     public Docket docket1() {
         ApiInfo apiInfo = new ApiInfoBuilder()
@@ -89,7 +83,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport  {
                 .build();
         return docket;
     }
-
+*/
     /**
      * 设置静态资源映射
      * @param registry

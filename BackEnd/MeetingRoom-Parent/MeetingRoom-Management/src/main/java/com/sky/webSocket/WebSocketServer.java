@@ -2,12 +2,12 @@ package com.sky.webSocket;
 
 import org.springframework.stereotype.Component;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
+import jakarta.websocket.OnClose;        // 修改这里
+import jakarta.websocket.OnMessage;      // 修改这里
+import jakarta.websocket.OnOpen;         // 修改这里
+import jakarta.websocket.Session;        // 修改这里
+import jakarta.websocket.server.PathParam;     // 修改这里
+import jakarta.websocket.server.ServerEndpoint; // 修改这里
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

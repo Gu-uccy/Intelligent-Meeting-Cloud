@@ -4,7 +4,9 @@ import com.sky.dto.ReservationDto;
 import com.sky.dto.ReservationPageDto;
 import com.sky.entity.Reservation;
 import com.sky.result.PageResult;
+import com.sky.vo.TimeSlotVo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationService {
@@ -61,4 +63,12 @@ public interface ReservationService {
      * @return 影响行数
      */
     int audit(Integer id, Integer status, Integer adminId, String remark);
+
+    /**
+     * 获取会议室的预约时间段
+     * @param roomId 会议室ID
+     * @param date 日期
+     * @return 预约时间段列表
+     */
+    List<TimeSlotVo> getRoomTimeSlots(Long roomId, LocalDate date);
 }

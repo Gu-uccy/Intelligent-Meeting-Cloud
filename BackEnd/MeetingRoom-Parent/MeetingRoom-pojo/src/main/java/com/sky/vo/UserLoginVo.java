@@ -1,6 +1,6 @@
 package com.sky.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Builder;
 import lombok.Data;
 

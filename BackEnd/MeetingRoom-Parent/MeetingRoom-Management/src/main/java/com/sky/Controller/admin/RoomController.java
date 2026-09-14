@@ -14,6 +14,7 @@ import java.util.List;
 @Slf4j
 @RestController("adminRoomController")
 @RequestMapping("/admin/room")
+@CrossOrigin(origins = "*")
 public class RoomController {
     @Autowired
     private RoomService roomService;
@@ -59,21 +60,13 @@ public class RoomController {
         log.info("修改会议室:{}",meetingRoom);
         return roomService.update(meetingRoom)>0?Result.success():Result.error("修改失败");
     }
-    /**
-     * 设置会议室状态
-     * @return
-     */
-    @PutMapping("/status/{status}")
-    public Result setStatus(@PathVariable Integer status ,Integer id){
-        log.info("设置会议室状态:{}",status);
-        return roomService.setStatus(status, id)>0?Result.success():Result.error("设置失败");
-    }
+
     /**
      * 启用禁用会议室
      * @return
      */
     @PutMapping("/active")
-    public Result setActive(Boolean active,Integer id){
+    public Result setActive(Integer active,Integer id){
         log.info("设置会议室状态:{}", active);
         return roomService.setActive(active, id)>0?Result.success():Result.error("设置失败");
     }

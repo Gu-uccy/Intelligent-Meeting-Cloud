@@ -132,32 +132,7 @@ public class MeetingReminderService {
         }
     }
 
-    // MeetingReminderService.java 新增定时任务
-    /**
-     * 每小时检查已结束的会议，更新状态为"已完成"并释放会议室
-     */
-    @Scheduled(cron = "0 0 * * * ?")
-    public void completeEndedReservations() {
-        log.info("开始处理已结束的会议...");
-        LocalDateTime now = LocalDateTime.now();
-        // 查询已确认且结束时间 < 当前时间的预约
-        List<Reservation> endedReservations = reservationMapper.selectConfirmedByEndTimeBefore(now);
 
-        for (Reservation reservation : endedReservations) {
-            // 1. 更新预约状态为已完成
-            reservation.setStatus(StatusConstant.COMPLETED1);
-            reservationMapper.update(reservation);
-
-            // 2. 释放会议室（更新为空闲）
-            MeetingRoom room = roomService.getById(reservation.getRoomId());
-            roomService.updateStatusWithVersion(
-                    room.getId(),
-                    StatusConstant.AVAILABLE,  // 假设新增空闲状态常量
-                    room.getVersion()
-            );
-            log.info("预约{}已完成，会议室{}已释放", reservation.getId(), room.getId());
-        }
-    }
 
 
 }

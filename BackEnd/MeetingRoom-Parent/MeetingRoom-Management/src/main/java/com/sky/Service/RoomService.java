@@ -3,7 +3,9 @@ package com.sky.Service;
 import com.sky.dto.RoomPageDto;
 import com.sky.entity.MeetingRoom;
 import com.sky.result.PageResult;
+import com.sky.vo.TimeSlotVo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface RoomService {
@@ -38,13 +40,7 @@ public interface RoomService {
      */
     MeetingRoom getById(Integer roomId);
 
-    /**
-     * 设置会议室状态
-     * @param status
-     * @param id
-     * @return
-     */
-    int setStatus(Integer status, Integer id);
+
 
     /**
      * 设置会议室激活状态
@@ -52,8 +48,9 @@ public interface RoomService {
      * @param id
      * @return
      */
-    int setActive(Boolean active, Integer id);
+    int setActive(Integer active, Integer id);
     // 乐观锁
-    int updateStatusWithVersion(Integer roomId, Integer status, Integer version);
+    int updateStatusWithVersion(Integer roomId, Integer version);
+
 
 }

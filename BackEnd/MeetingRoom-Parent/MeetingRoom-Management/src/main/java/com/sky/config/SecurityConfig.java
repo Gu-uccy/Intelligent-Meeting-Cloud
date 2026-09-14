@@ -39,11 +39,11 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login","/user/login","/api/login","/register").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/**").permitAll()
+                .requestMatchers("/login","/user/login","/api/login","/register").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/**").permitAll()
                 // 添加以下Swagger相关路径的放行规则
-                .antMatchers( "/doc.html",                  // knife4j的UI路径
+                .requestMatchers( "/doc.html",                  // knife4j的UI路径
                         "/swagger-ui.html",           // Swagger2默认UI路径
                         "/swagger-ui/**",             // Swagger3的UI资源路径
                         "/webjars/**",                // 第三方UI依赖资源

@@ -23,6 +23,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/admin/user")
+@CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     private UserService userService;

@@ -8,7 +8,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="roomCode != null">room_code,</if>
             <if test="capacity != null">capacity,</if>
-            <if test="status != null">status,</if>
+
             <if test="isActive != null">is_active,</if>
             <if test="location != null">location,</if>
             <if test="equipment != null">equipment,</if>
@@ -21,7 +21,7 @@
         <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
             <if test="roomCode != null">#{roomCode},</if>
             <if test="capacity != null">#{capacity},</if>
-            <if test="status != null">#{status},</if>
+
             <if test="isActive != null">#{isActive},</if>
             <if test="location != null">#{location},</if>
             <if test="equipment != null">#{equipment},</if>
@@ -44,9 +44,11 @@
             <if test="capacity != null">
                 capacity = #{capacity},
             </if>
-            <if test="status != null">
-                status = #{status},
+            <if test="image != null">
+                image = #{image},
             </if>
+
+
             <if test="isActive != null">
                 is_active = #{isActive},
             </if>
@@ -70,7 +72,7 @@
     </update>
     <update id="updateStatusWithVersion">
         UPDATE meeting_room
-        SET status = #{status}, version = version + 1
+        SET  version = version + 1
         WHERE id = #{roomId} AND version = #{version}
     </update>
 
@@ -83,7 +85,7 @@
     </delete>
 
     <select id="limitSelect" resultType="com.sky.vo.RoomVo">
-        SELECT id, room_code, capacity, status, is_active, equipment, location, remark
+        SELECT id, room_code, capacity,  is_active, equipment, location, remark, image
         FROM meeting_room
         <where>
         <if test="roomCode != null">
@@ -92,9 +94,7 @@
         <if test="capacity != null">
             and capacity >= #{capacity}
         </if>
-        <if test="status != null">
-            AND status = #{status}
-        </if>
+
         <if test="isActive != null">
             AND is_active = #{isActive}
         </if>
