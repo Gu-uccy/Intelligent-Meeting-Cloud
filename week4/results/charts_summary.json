@@ -1,0 +1,26 @@
+{
+  "data_source": "E:\\rese5\\week4\\data\\processed\\clean_data_v1.csv",
+  "charts": [
+    "01_分时段占用率.png",
+    "02_各会议室占用强度.png",
+    "03_工作日vs周末占用率.png",
+    "04_温度分布.png"
+  ],
+  "chart1_peak": {
+    "peak_hour": 10,
+    "peak_rate": 0.429
+  },
+  "chart2_room_rates": {
+    "301": 0.4435,
+    "302": 0.36,
+    "501": 0.0648
+  },
+  "chart3_weekday_weekend": {
+    "weekday_rate": 0.3847,
+    "weekend_rate": 0.0512
+  },
+  "chart4_temp": {
+    "comfort_rate": 9.5285,
+    "total_valid": 14084
+  }
+}

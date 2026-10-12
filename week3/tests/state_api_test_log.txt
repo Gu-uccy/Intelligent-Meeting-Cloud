@@ -1,0 +1,47 @@
+﻿# 状态接口测试日志（真实运行记录）
+# 测试时间：2026-10-10  测试工具：PowerShell Invoke-WebRequest (curl 兼容)
+# 测试服务：python mock/mock_state_api.py（端口 5002，source=mock）
+
+
+===== 1. 健康检查 /health =====
+请求: GET http://127.0.0.1:5002/health
+HTTP 状态码: 200
+响应体:
+{"code":200,"data":{"rooms":["301","302","501"],"source":"mock","status":"ok"},"message":"success"}
+
+
+===== 2. 会议室列表 /api/rooms =====
+请求: GET http://127.0.0.1:5002/api/rooms
+HTTP 状态码: 200
+响应体:
+{"code":200,"data":[{"room_id":"301","state":{"devices":{"alarm":"off","cooling":"off","dehumidifier":"off","heating":"off","humidifier":"off","lighting":"on"},"distance":56.7,"door_status":"closed","humidity":48.0,"light":128,"occupancy":true,"quality":"normal","room_id":"301","smoke":20,"source":"mock","temperature":24.6,"timestamp":"2026-09-09T10:30:00+08:00"}},{"room_id":"302","state":{"devices":{"alarm":"off","cooling":"on","dehumidifier":"off","heating":"off","humidifier":"on","lighting":"off"},"distance":180.2,"door_status":"closed","humidity":39.0,"light":35,"occupancy":false,"quality":"normal","room_id":"302","smoke":20,"source":"mock","temperature":26.8,"timestamp":"2026-09-09T10:30:05+08:00"}},{"room_id":"501","state":{"devices":{"alarm":"off","cooling":"off","dehumidifier":"off","heating":"off","humidifier":"off","lighting":"off"},"distance":220.0,"door_status":"closed","humidity":55.0,"light":18,"occupancy":false,"quality":"normal","room_id":"501","smoke":20,"source":"mock","temperature":22.1,"timestamp":"2026-09-09T10:30:10+08:00"}}],"message":"success"}
+
+
+===== 3. 正常查询：有效会议室 301 =====
+请求: GET http://127.0.0.1:5002/api/rooms/301/state
+HTTP 状态码: 200
+响应体:
+{"code":200,"data":{"devices":{"alarm":"off","cooling":"off","dehumidifier":"off","heating":"off","humidifier":"off","lighting":"on"},"distance":56.7,"door_status":"closed","humidity":48.0,"light":128,"occupancy":true,"quality":"normal","room_id":"301","smoke":20,"source":"mock","temperature":24.6,"timestamp":"2026-09-09T10:30:00+08:00"},"message":"success"}
+
+
+===== 4. 正常查询：有效会议室 302 =====
+请求: GET http://127.0.0.1:5002/api/rooms/302/state
+HTTP 状态码: 200
+响应体:
+{"code":200,"data":{"devices":{"alarm":"off","cooling":"on","dehumidifier":"off","heating":"off","humidifier":"on","lighting":"off"},"distance":180.2,"door_status":"closed","humidity":39.0,"light":35,"occupancy":false,"quality":"normal","room_id":"302","smoke":20,"source":"mock","temperature":26.8,"timestamp":"2026-09-09T10:30:05+08:00"},"message":"success"}
+
+
+===== 5. 异常测试：非法会议室编号 R99 =====
+请求: GET http://127.0.0.1:5002/api/rooms/R99/state
+HTTP 状态码: 404 (异常响应)
+响应体:
+
+# 测试完成
+
+===== 5b. 异常测试：非法会议室编号 R99（curl 复核） =====
+命令: curl -s -w "
+HTTP_STATUS:%{http_code}" http://127.0.0.1:5002/api/rooms/R99/state
+{"code":404,"data":null,"message":"room not found"}
+
+HTTP_STATUS:404
+# 测试完成

@@ -1,0 +1,21 @@
+{
+  "model": "threshold_baseline",
+  "rule": "历史同时段(会议室x小时)平均占用率 > 0.5 -> 判有人",
+  "split": {
+    "train": "2026-09-01~2026-09-21",
+    "test": "2026-09-22~2026-09-28"
+  },
+  "sample_size": 294,
+  "train_sample_size": 882,
+  "metrics": {
+    "accuracy": 0.8503,
+    "precision_occupied": 0.6984,
+    "recall_occupied": 0.6377,
+    "f1": 0.6667,
+    "tp": 44,
+    "tn": 206,
+    "fp": 19,
+    "fn": 25,
+    "occupied_rate_in_test": 0.2347
+  }
+}

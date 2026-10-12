@@ -1,0 +1,69 @@
+{
+  "before_count": 14152,
+  "invalid_time_after_parse": 0,
+  "invalid_time_before_parse": 0,
+  "missing_occupancy": 28,
+  "invalid_occupancy": 2,
+  "duplicates_removed": 39,
+  "missing_before_anomaly": {
+    "temperature": 24,
+    "humidity": 22,
+    "light": 0,
+    "smoke": 0,
+    "distance": 16,
+    "motion": 0,
+    "occupancy": 30,
+    "timestamp": 0
+  },
+  "anomalies_marked": {
+    "temperature": 5,
+    "humidity": 3,
+    "light": 2,
+    "smoke": 1,
+    "distance": 3
+  },
+  "missing_after": {
+    "temperature": 29,
+    "humidity": 25,
+    "light": 2,
+    "smoke": 1,
+    "distance": 19,
+    "motion": 0,
+    "occupancy": 30,
+    "timestamp": 0
+  },
+  "after_count": 14113,
+  "summary": {
+    "before_count": 14152,
+    "after_count": 14113,
+    "duplicates_removed": 39,
+    "anomalies_marked": {
+      "temperature": 5,
+      "humidity": 3,
+      "light": 2,
+      "smoke": 1,
+      "distance": 3
+    },
+    "invalid_occupancy": 2,
+    "invalid_time": 0,
+    "missing_after": {
+      "temperature": 29,
+      "humidity": 25,
+      "light": 2,
+      "smoke": 1,
+      "distance": 19,
+      "motion": 0,
+      "occupancy": 30,
+      "timestamp": 0
+    },
+    "room_distribution": {
+      "501": 4705,
+      "301": 4704,
+      "302": 4704
+    },
+    "occupancy_distribution": {
+      "0": 10007,
+      "1": 4076
+    }
+  }
+}

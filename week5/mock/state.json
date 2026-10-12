@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "说明": "本文件是第3周作业2《统一会议室状态对象》的统一状态对象样例（mock 数据源）。字段命名与本组综II系统（Flask综合传感器系统 /api/current、门禁系统 door_state、Spring Boot后端会议室/预约业务）统一，供 Web、后端、树莓派、3D 端共同使用。规范说明见 docs/state-object.md，接口约定见 docs/api-contract.md。",
+    "source": "mock",
+    "rooms": ["301", "302", "501"]
+  },
+  "rooms": {
+    "301": {
+      "timestamp": "2026-09-09T10:30:00+08:00",
+      "room_id": "301",
+      "occupancy": true,
+      "temperature": 24.6,
+      "humidity": 48.0,
+      "light": 128,
+      "smoke": 20,
+      "distance": 56.7,
+      "door_status": "closed",
+      "devices": {
+        "lighting": "on",
+        "cooling": "off",
+        "heating": "off",
+        "humidifier": "off",
+        "dehumidifier": "off",
+        "alarm": "off"
+      },
+      "source": "mock",
+      "quality": "normal"
+    },
+    "302": {
+      "timestamp": "2026-09-09T10:30:05+08:00",
+      "room_id": "302",
+      "occupancy": false,
+      "temperature": 26.8,
+      "humidity": 39.0,
+      "light": 35,
+      "smoke": 20,
+      "distance": 180.2,
+      "door_status": "closed",
+      "devices": {
+        "lighting": "off",
+        "cooling": "on",
+        "heating": "off",
+        "humidifier": "on",
+        "dehumidifier": "off",
+        "alarm": "off"
+      },
+      "source": "mock",
+      "quality": "normal"
+    },
+    "501": {
+      "timestamp": "2026-09-09T10:30:10+08:00",
+      "room_id": "501",
+      "occupancy": false,
+      "temperature": 22.1,
+      "humidity": 55.0,
+      "light": 18,
+      "smoke": 20,
+      "distance": 220.0,
+      "door_status": "closed",
+      "devices": {
+        "lighting": "off",
+        "cooling": "off",
+        "heating": "off",
+        "humidifier": "off",
+        "dehumidifier": "off",
+        "alarm": "off"
+      },
+      "source": "mock",
+      "quality": "normal"
+    }
+  }
+}

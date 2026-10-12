@@ -1,0 +1,1188 @@
+{
+  "说明": "本清单记录向原始数据中注入的教学脏数据明细，用于与清洗脚本输出对照核验",
+  "干净底稿行数": 14112,
+  "注入后总行数": 14152,
+  "脏数据合计": 236,
+  "明细": [
+    {
+      "kind": "重复记录",
+      "description": "与第 5927 行完全相同的重复行",
+      "ref_row_index": 5927
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 4798 行完全相同的重复行",
+      "ref_row_index": 4798
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 10653 行完全相同的重复行",
+      "ref_row_index": 10653
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 9728 行完全相同的重复行",
+      "ref_row_index": 9728
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 11171 行完全相同的重复行",
+      "ref_row_index": 11171
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 2418 行完全相同的重复行",
+      "ref_row_index": 2418
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 7818 行完全相同的重复行",
+      "ref_row_index": 7818
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 10494 行完全相同的重复行",
+      "ref_row_index": 10494
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 6779 行完全相同的重复行",
+      "ref_row_index": 6779
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 1028 行完全相同的重复行",
+      "ref_row_index": 1028
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 13882 行完全相同的重复行",
+      "ref_row_index": 13882
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 4063 行完全相同的重复行",
+      "ref_row_index": 4063
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 7922 行完全相同的重复行",
+      "ref_row_index": 7922
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 3144 行完全相同的重复行",
+      "ref_row_index": 3144
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 2839 行完全相同的重复行",
+      "ref_row_index": 2839
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 476 行完全相同的重复行",
+      "ref_row_index": 476
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 3658 行完全相同的重复行",
+      "ref_row_index": 3658
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 3269 行完全相同的重复行",
+      "ref_row_index": 3269
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 13077 行完全相同的重复行",
+      "ref_row_index": 13077
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 10098 行完全相同的重复行",
+      "ref_row_index": 10098
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 2227 行完全相同的重复行",
+      "ref_row_index": 2227
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 10180 行完全相同的重复行",
+      "ref_row_index": 10180
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 2576 行完全相同的重复行",
+      "ref_row_index": 2576
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 2937 行完全相同的重复行",
+      "ref_row_index": 2937
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 5018 行完全相同的重复行",
+      "ref_row_index": 5018
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 6161 行完全相同的重复行",
+      "ref_row_index": 6161
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 6455 行完全相同的重复行",
+      "ref_row_index": 6455
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 1582 行完全相同的重复行",
+      "ref_row_index": 1582
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 9314 行完全相同的重复行",
+      "ref_row_index": 9314
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 10128 行完全相同的重复行",
+      "ref_row_index": 10128
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 9830 行完全相同的重复行",
+      "ref_row_index": 9830
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 7827 行完全相同的重复行",
+      "ref_row_index": 7827
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 13846 行完全相同的重复行",
+      "ref_row_index": 13846
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 8855 行完全相同的重复行",
+      "ref_row_index": 8855
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 11218 行完全相同的重复行",
+      "ref_row_index": 11218
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 3879 行完全相同的重复行",
+      "ref_row_index": 3879
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 4580 行完全相同的重复行",
+      "ref_row_index": 4580
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 10099 行完全相同的重复行",
+      "ref_row_index": 10099
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 14080 行完全相同的重复行",
+      "ref_row_index": 14080
+    },
+    {
+      "kind": "重复记录",
+      "description": "与第 5007 行完全相同的重复行",
+      "ref_row_index": 5007
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 '302室'",
+      "ref_row_index": 673
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 '302室'",
+      "ref_row_index": 11278
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 '302室'",
+      "ref_row_index": 9775
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 '301号'",
+      "ref_row_index": 2536
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 'room-501'",
+      "ref_row_index": 3972
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 'room-301'",
+      "ref_row_index": 2110
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 '5F501'",
+      "ref_row_index": 10977
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 'room-302'",
+      "ref_row_index": 12428
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 'room-302'",
+      "ref_row_index": 10860
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 '5F501'",
+      "ref_row_index": 7533
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 '3F301'",
+      "ref_row_index": 618
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 'room-302'",
+      "ref_row_index": 1690
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 '302室'",
+      "ref_row_index": 11347
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 '3F301'",
+      "ref_row_index": 13160
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 '5F501'",
+      "ref_row_index": 5883
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 'room-301'",
+      "ref_row_index": 4117
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 'room-501'",
+      "ref_row_index": 5477
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 'room-301'",
+      "ref_row_index": 1629
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 '3F301'",
+      "ref_row_index": 8227
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 'room-302'",
+      "ref_row_index": 1225
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 '302室'",
+      "ref_row_index": 4791
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 'room-501'",
+      "ref_row_index": 2884
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 'room-501'",
+      "ref_row_index": 4939
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 'room-302'",
+      "ref_row_index": 786
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 'room-301'",
+      "ref_row_index": 10172
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 '3F301'",
+      "ref_row_index": 2073
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 'room-501'",
+      "ref_row_index": 12997
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 '302室'",
+      "ref_row_index": 11915
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 '3F301'",
+      "ref_row_index": 12678
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 'room-302'",
+      "ref_row_index": 2829
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '302' 写成 'room-302'",
+      "ref_row_index": 4871
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 'room-501'",
+      "ref_row_index": 14040
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 'room-501'",
+      "ref_row_index": 9064
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 '301号'",
+      "ref_row_index": 12183
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '501' 写成 'room-501'",
+      "ref_row_index": 2426
+    },
+    {
+      "kind": "命名不统一",
+      "description": "会议室编号 '301' 写成 '301号'",
+      "ref_row_index": 6613
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 1111
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 13907
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 3739
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 4561
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 13515
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 7108
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 169
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 6488
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 1217
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 735
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 13363
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 6861
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 7674
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 6663
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 12470
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 12081
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 11350
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 13173
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 367
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 1411
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 6211
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 4355
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 787
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 9197
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 4927
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 7802
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 12408
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %Y/%m/%d %H:%M 格式",
+      "ref_row_index": 9758
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 %m/%d/%Y %H:%M 格式（月/日/年）",
+      "ref_row_index": 6080
+    },
+    {
+      "kind": "时间格式",
+      "description": "写成 ISO %Y-%m-%dT%H:%M 格式",
+      "ref_row_index": 1544
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 3249
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 832
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 13136
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 8759
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 12367
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 6582
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 11285
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 9280
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 5432
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 8234
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 4117
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 1165
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 10339
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 1472
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 6207
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 4857
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 11092
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 3259
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 5810
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 2606
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 2644
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 13090
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 10406
+    },
+    {
+      "kind": "缺失值",
+      "description": "温度缺失",
+      "ref_row_index": 8808
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 4324
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 11123
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 11206
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 5489
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 11196
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 1258
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 9112
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 7012
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 8900
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 5899
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 11295
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 5465
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 6202
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 5007
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 3414
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 11420
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 5742
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 8058
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 3172
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 13935
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 7839
+    },
+    {
+      "kind": "缺失值",
+      "description": "湿度缺失",
+      "ref_row_index": 1326
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 13011
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 6584
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 9071
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 11922
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 4190
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 7432
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 3552
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 10818
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 9572
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 1903
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 13554
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 12561
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 4466
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 939
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 14062
+    },
+    {
+      "kind": "缺失值",
+      "description": "距离缺失",
+      "ref_row_index": 1291
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 4126
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 8409
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 12171
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 806
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 12902
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 7904
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 8676
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 12484
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 10170
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 7861
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 13716
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 3621
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 3440
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 13120
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 13416
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 10373
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 2636
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 3465
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 6812
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 6522
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 13071
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 10546
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 9222
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 5480
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 7593
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 3645
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 2369
+    },
+    {
+      "kind": "缺失值",
+      "description": "占用状态缺失",
+      "ref_row_index": 12394
+    },
+    {
+      "kind": "异常值",
+      "description": "温度 85.0°C（超出 0~50 合理范围）",
+      "ref_row_index": 3073
+    },
+    {
+      "kind": "异常值",
+      "description": "温度 -5.0°C（超出 0~50 合理范围）",
+      "ref_row_index": 9467
+    },
+    {
+      "kind": "异常值",
+      "description": "温度 52.0°C（超出 0~50 合理范围）",
+      "ref_row_index": 7074
+    },
+    {
+      "kind": "异常值",
+      "description": "温度 58.0°C（超出 0~50 合理范围）",
+      "ref_row_index": 8772
+    },
+    {
+      "kind": "异常值",
+      "description": "温度 -1.0°C（超出 0~50 合理范围）",
+      "ref_row_index": 5393
+    },
+    {
+      "kind": "异常值",
+      "description": "湿度 120.0%（超出 0~100 合理范围）",
+      "ref_row_index": 2802
+    },
+    {
+      "kind": "异常值",
+      "description": "湿度 -3.0%（超出 0~100 合理范围）",
+      "ref_row_index": 201
+    },
+    {
+      "kind": "异常值",
+      "description": "湿度 105.0%（超出 0~100 合理范围）",
+      "ref_row_index": 12443
+    },
+    {
+      "kind": "异常值",
+      "description": "距离 999.0cm（超出 2~450 合理范围）",
+      "ref_row_index": 3770
+    },
+    {
+      "kind": "异常值",
+      "description": "距离 -1.0cm（超出 2~450 合理范围）",
+      "ref_row_index": 8775
+    },
+    {
+      "kind": "异常值",
+      "description": "距离 800.0cm（超出 2~450 合理范围）",
+      "ref_row_index": 6286
+    },
+    {
+      "kind": "异常值",
+      "description": "光照 320（超出 0~255 合理范围）",
+      "ref_row_index": 2945
+    },
+    {
+      "kind": "异常值",
+      "description": "光照 280（超出 0~255 合理范围）",
+      "ref_row_index": 5001
+    },
+    {
+      "kind": "异常值",
+      "description": "烟雾 350（超出 0~200 合理范围）",
+      "ref_row_index": 12700
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '有人'",
+      "ref_row_index": 6241
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'false'",
+      "ref_row_index": 12963
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'true'",
+      "ref_row_index": 12876
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'true'",
+      "ref_row_index": 5548
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'true'",
+      "ref_row_index": 13083
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '有人'",
+      "ref_row_index": 13809
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '有人'",
+      "ref_row_index": 3473
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'true'",
+      "ref_row_index": 719
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'false'",
+      "ref_row_index": 7765
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '有人'",
+      "ref_row_index": 12679
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '无人'",
+      "ref_row_index": 11538
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '2'",
+      "ref_row_index": 7634
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'true'",
+      "ref_row_index": 11808
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '无人'",
+      "ref_row_index": 12357
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '有人'",
+      "ref_row_index": 3584
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '无人'",
+      "ref_row_index": 2472
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '无人'",
+      "ref_row_index": 5457
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'false'",
+      "ref_row_index": 3779
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '2'",
+      "ref_row_index": 1385
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'true'",
+      "ref_row_index": 4889
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'false'",
+      "ref_row_index": 8795
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '有人'",
+      "ref_row_index": 11076
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'false'",
+      "ref_row_index": 8803
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 '无人'",
+      "ref_row_index": 6197
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'false'",
+      "ref_row_index": 1406
+    },
+    {
+      "kind": "占用状态不统一",
+      "description": "占用状态写成 'true'",
+      "ref_row_index": 10938
+    }
+  ]
+}
