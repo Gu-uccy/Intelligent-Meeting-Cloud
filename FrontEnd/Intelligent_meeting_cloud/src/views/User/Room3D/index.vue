@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { getCurrentSensorData, setLightingDevice } from '@/apis/sensor';
+import { getCurrentSensorData, setDoorDevice, setLightingDevice } from '@/apis/sensor';
 
 const viewportRef = ref(null);
 const activeRoomId = ref('executive');
@@ -11,6 +11,7 @@ const activeViewId = ref('overview');
 const sensorState = ref('connecting');
 const lastUpdated = ref('--');
 const isLightingSaving = ref(false);
+const doorOverride = ref(null);
 const sensorData = ref({
   temperature: 25,
   humidity: 50,
@@ -18,6 +19,9 @@ const sensorData = ref({
   smoke: 20,
   motion: false,
   presence: false,
+  people_count: 0,
+  door_open: undefined,
+  door_source: undefined,
   distance: 7.1,
   devices: {
     lighting: false,
@@ -112,21 +116,21 @@ const viewOptions = [
     id: 'overview',
     name: '全景',
     icon: 'fa-solid fa-cube',
-    position: new THREE.Vector3(7.2, 4.5, 7.4),
-    target: new THREE.Vector3(0, 1.1, -0.6),
+    position: new THREE.Vector3(10.8, 5.2, 11.2),
+    target: new THREE.Vector3(0, 0.82, -0.35),
   },
   {
     id: 'front',
     name: '正前方',
     icon: 'fa-solid fa-door-open',
-    position: new THREE.Vector3(0, 2.65, 8.8),
-    target: new THREE.Vector3(0, 1.15, -1.2),
+    position: new THREE.Vector3(0, 3.35, 11.8),
+    target: new THREE.Vector3(0, 0.92, -0.65),
   },
   {
     id: 'top',
     name: '俯视',
     icon: 'fa-solid fa-location-crosshairs',
-    position: new THREE.Vector3(0.02, 8.6, 0.02),
+    position: new THREE.Vector3(0.02, 11.2, 0.02),
     target: new THREE.Vector3(0, 0, -0.4),
   },
 ];
@@ -143,6 +147,31 @@ const lightingSourceText = computed(() => {
   if (source === 'control-page') return '控制页同步';
   if (source === 'auto') return '自动联动';
   return '设备状态同步';
+});
+
+const roomState = computed(() => {
+  const data = sensorData.value;
+  const devices = data.devices || {};
+  const occupied = Boolean(data.motion || data.presence);
+  const rawPeopleCount = Number(data.people_count ?? data.occupancy ?? (occupied ? 1 : 0));
+  const apiDoorState = data.door_open ?? devices.door_open;
+  return {
+    people: {
+      occupied,
+      count: occupied ? Math.max(1, Math.min(8, Number.isFinite(rawPeopleCount) ? rawPeopleCount : 1)) : 0,
+    },
+    door: {
+      open: doorOverride.value ?? (apiDoorState === undefined ? false : Boolean(apiDoorState)),
+      source: doorOverride.value !== null
+        ? 'local-preview'
+        : data.door_source || devices.door_source || (apiDoorState === undefined ? 'local-preview' : 'sensor'),
+    },
+    climate: {
+      temperature: Number(data.temperature),
+      humidity: Number(data.humidity),
+    },
+    devices,
+  };
 });
 
 const sensorCards = computed(() => {
@@ -174,7 +203,7 @@ const sensorCards = computed(() => {
     },
     {
       label: '人体',
-      value: data.motion || data.presence ? '有人' : '无人',
+      value: roomState.value.people.occupied ? `${roomState.value.people.count}人` : '无人',
       icon: 'fa-solid fa-person-walking',
       tone: data.motion || data.presence ? 'active' : 'idle',
     },
@@ -183,6 +212,18 @@ const sensorCards = computed(() => {
       value: formatValue(data.distance, 'cm', 1),
       icon: 'fa-solid fa-ruler-horizontal',
       tone: Number(data.distance) < 15 ? 'active' : 'ok',
+    },
+    {
+      label: '门禁',
+      value: roomState.value.door.open ? '已开' : '已关',
+      icon: roomState.value.door.open ? 'fa-solid fa-door-open' : 'fa-solid fa-door-closed',
+      tone: roomState.value.door.open ? 'active' : 'idle',
+    },
+    {
+      label: '照明',
+      value: lightingEnabled.value ? `${lightingBrightness.value}%` : '关闭',
+      icon: 'fa-solid fa-lightbulb',
+      tone: lightingEnabled.value ? 'active' : 'idle',
     },
   ];
 });
@@ -216,8 +257,13 @@ function createLiveObjectStore() {
     humidifier: null,
     lightMeter: null,
     distanceMarker: null,
+    door: null,
+    doorBeacon: null,
+    dhtIndicator: null,
+    pirIndicator: null,
     sensorDots: [],
     clickableLights: [],
+    clickableDoors: [],
   };
 }
 
@@ -238,6 +284,7 @@ function createMaterial(color, options = {}) {
     metalness: options.metalness ?? 0.05,
     transparent: options.transparent ?? false,
     opacity: options.opacity ?? 1,
+    depthWrite: options.depthWrite ?? true,
     emissive: options.emissive ?? 0x000000,
     emissiveIntensity: options.emissiveIntensity ?? 0,
     side: options.side ?? THREE.FrontSide,
@@ -290,7 +337,7 @@ function initScene() {
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
   controls.minDistance = 4.2;
-  controls.maxDistance = 13;
+  controls.maxDistance = 20;
   controls.minPolarAngle = 0.05;
   controls.maxPolarAngle = Math.PI * 0.48;
   controls.target.copy(viewOptions[0].target);
@@ -361,12 +408,24 @@ function buildRoomShell(parent, config) {
   const floorMat = createMaterial(config.floor, { roughness: 0.82 });
   const wallMat = createMaterial(config.wall, { roughness: 0.9 });
   const trimMat = createMaterial(0xded5c8, { roughness: 0.8 });
-  const ceilingMat = createMaterial(0xf7f7f3, { roughness: 0.76 });
+  const ceilingMat = createMaterial(0xf7f7f3, {
+    roughness: 0.76,
+    transparent: true,
+    opacity: 0.1,
+    depthWrite: false,
+  });
 
   addBox(parent, [8.6, 0.16, 6.4], [0, -0.08, 0], floorMat, { receiveShadow: true });
   addBox(parent, [8.7, 3.1, 0.16], [0, 1.5, -3.2], wallMat, { receiveShadow: true });
   addBox(parent, [0.16, 3.1, 6.4], [-4.3, 1.5, 0], wallMat, { receiveShadow: true });
-  addBox(parent, [0.16, 3.1, 6.4], [4.3, 1.5, 0], wallMat, { receiveShadow: true });
+  // Leave a real opening in the right wall for the door assembly.
+  const doorOpeningStart = 0.95;
+  const doorOpeningEnd = 2.29;
+  const wallBeforeDoorLength = doorOpeningStart + 3.2;
+  const wallAfterDoorLength = 3.2 - doorOpeningEnd;
+  addBox(parent, [0.16, 3.1, wallBeforeDoorLength], [4.3, 1.5, -3.2 + wallBeforeDoorLength / 2], wallMat, { receiveShadow: true });
+  addBox(parent, [0.16, 3.1, wallAfterDoorLength], [4.3, 1.5, doorOpeningEnd + wallAfterDoorLength / 2], wallMat, { receiveShadow: true });
+  addBox(parent, [0.16, 0.72, doorOpeningEnd - doorOpeningStart], [4.3, 2.74, (doorOpeningStart + doorOpeningEnd) / 2], wallMat, { receiveShadow: true });
   addBox(parent, [8.9, 0.16, 6.5], [0, 3.08, -0.02], ceilingMat, { receiveShadow: true });
   addBox(parent, [8.8, 0.08, 0.12], [0, 0.15, -3.08], trimMat);
   addBox(parent, [0.12, 0.08, 6.2], [-4.18, 0.15, 0], trimMat);
@@ -383,9 +442,53 @@ function buildRoomShell(parent, config) {
   addBox(parent, [1.35, 0.08, 0.08], [-2.7, 2.4, -3.02], trimMat);
   addBox(parent, [1.35, 0.08, 0.08], [2.7, 2.4, -3.02], trimMat);
 
+  addDoor(parent);
+
   addCeilingLight(parent, [-2.4, 2.92, -0.9], 1.3);
   addCeilingLight(parent, [0, 2.92, -0.9], 1.4);
   addCeilingLight(parent, [2.4, 2.92, -0.9], 1.3);
+}
+
+function addDoor(parent) {
+  const frameMat = createMaterial(0x7c5b43, { roughness: 0.64 });
+  const panelMat = createMaterial(0x9b6e4d, { roughness: 0.58 });
+  const glassMat = createMaterial(0x9fc4d1, {
+    roughness: 0.2,
+    transparent: true,
+    opacity: 0.7,
+  });
+  const doorCenterZ = 1.62;
+
+  // The wall occupies x=4.22..4.38; use four bars so the doorway remains open.
+  const frameX = 4.42;
+  const openingWidth = 1.34;
+  const frameDepth = 0.12;
+  const frameHeight = 2.38;
+  const sideWidth = 0.12;
+  addBox(parent, [frameDepth, frameHeight, sideWidth], [frameX, frameHeight / 2, doorCenterZ - openingWidth / 2 + sideWidth / 2], frameMat);
+  addBox(parent, [frameDepth, frameHeight, sideWidth], [frameX, frameHeight / 2, doorCenterZ + openingWidth / 2 - sideWidth / 2], frameMat);
+  addBox(parent, [frameDepth, 0.12, openingWidth], [frameX, frameHeight - 0.06, doorCenterZ], frameMat);
+  addBox(parent, [frameDepth, 0.08, openingWidth], [frameX, 0.04, doorCenterZ], frameMat);
+
+  const group = new THREE.Group();
+  group.position.set(4.43, 0, doorCenterZ + 0.58);
+  const panel = addBox(group, [0.08, 2.18, 1.16], [0, 1.09, -0.58], panelMat);
+  addBox(group, [0.04, 1.15, 0.74], [-0.05, 1.25, -0.59], glassMat, {
+    castShadow: false,
+    receiveShadow: false,
+  });
+  addCylinder(group, 0.055, 0.055, 0.16, [-0.08, 1.02, -0.07], createMaterial(0xe8c47d, { metalness: 0.45 }), {
+    rotation: [Math.PI / 2, 0, 0],
+  });
+  parent.add(group);
+
+  const beacon = addBox(parent, [0.08, 0.18, 0.22], [4.42, 2.22, doorCenterZ + 0.18], createMaterial(0xef4444, {
+    emissive: 0xef4444,
+    emissiveIntensity: 0.85,
+  }));
+  liveObjects.door = { group, panel, closedRotation: 0, openRotation: -Math.PI * 0.52 };
+  liveObjects.doorBeacon = beacon;
+  liveObjects.clickableDoors.push(panel);
 }
 
 function addCeilingLight(parent, position, width) {
@@ -593,6 +696,8 @@ function addSensorLayer(parent, config) {
   addCylinder(parent, 0.075, 0.075, 0.04, [4.09, 1.25, 1.31], activeMat, { rotation: [Math.PI / 2, 0, 0] });
 
   liveObjects.sensorDots.push(dht, pir, smoke, light, ultrasonic);
+  liveObjects.dhtIndicator = dht;
+  liveObjects.pirIndicator = pir;
   liveObjects.lightMeter = light;
   liveObjects.distanceMarker = addBox(parent, [0.08, 0.08, 1.0], [3.95, 1.02, 0.65], createMaterial(config.accent, { emissive: config.accent, emissiveIntensity: 0.2 }));
 
@@ -684,12 +789,13 @@ function updateLightingVisuals() {
 
 function updateSensorVisuals() {
   const data = sensorData.value;
+  const state = roomState.value;
   const lightLevel = clamp(Number(data.light ?? 50) / 100, 0.18, 1);
-  const hot = Number(data.temperature) >= 28;
-  const cold = Number(data.temperature) <= 18;
-  const dry = Number(data.humidity) <= 35;
-  const wet = Number(data.humidity) >= 68;
-  const occupied = Boolean(data.motion || data.presence);
+  const hot = state.climate.temperature >= 28;
+  const cold = state.climate.temperature <= 18;
+  const dry = state.climate.humidity <= 35;
+  const wet = state.climate.humidity >= 68;
+  const occupied = state.people.occupied;
   const smoke = smokeAlarm.value;
 
   updateLightingVisuals();
@@ -706,6 +812,20 @@ function updateSensorVisuals() {
     liveObjects.humidifier.material.color.setHex(dry ? 0x93c5fd : wet ? 0x94a3b8 : 0xd8ecf0);
     liveObjects.humidifier.material.emissive.setHex(visible ? 0x7dd3fc : 0x000000);
     liveObjects.humidifier.material.emissiveIntensity = visible ? 0.25 : 0;
+  }
+
+  if (liveObjects.dhtIndicator) {
+    const climateColor = hot || wet ? 0xf97316 : cold || dry ? 0x60a5fa : 0x34d399;
+    liveObjects.dhtIndicator.material.color.setHex(climateColor);
+    liveObjects.dhtIndicator.material.emissive.setHex(climateColor);
+    liveObjects.dhtIndicator.material.emissiveIntensity = 0.24;
+  }
+
+  if (liveObjects.pirIndicator) {
+    const pirColor = occupied ? 0x22c55e : 0x64748b;
+    liveObjects.pirIndicator.material.color.setHex(pirColor);
+    liveObjects.pirIndicator.material.emissive.setHex(pirColor);
+    liveObjects.pirIndicator.material.emissiveIntensity = occupied ? 0.9 : 0.12;
   }
 
   if (liveObjects.lightMeter) {
@@ -726,9 +846,18 @@ function updateSensorVisuals() {
   liveObjects.smokeClouds.forEach((cloud) => {
     cloud.visible = smoke;
   });
-  liveObjects.people.forEach((person) => {
-    person.visible = occupied;
+  liveObjects.people.forEach((person, index) => {
+    person.visible = occupied && index < state.people.count;
   });
+  if (liveObjects.door) {
+    liveObjects.door.group.rotation.y = state.door.open ? liveObjects.door.openRotation : liveObjects.door.closedRotation;
+  }
+  if (liveObjects.doorBeacon) {
+    const doorColor = state.door.open ? 0x22c55e : 0xf59e0b;
+    liveObjects.doorBeacon.material.color.setHex(doorColor);
+    liveObjects.doorBeacon.material.emissive.setHex(doorColor);
+    liveObjects.doorBeacon.material.emissiveIntensity = state.door.open ? 0.95 : 0.42;
+  }
 }
 
 function applyCameraPreset() {
@@ -742,6 +871,10 @@ function applyCameraPreset() {
 async function refreshSensorData() {
   try {
     const data = await getCurrentSensorData();
+    if (Object.prototype.hasOwnProperty.call(data || {}, 'door_open')
+      || Object.prototype.hasOwnProperty.call(data?.devices || {}, 'door_open')) {
+      doorOverride.value = null;
+    }
     sensorData.value = {
       ...sensorData.value,
       ...data,
@@ -798,15 +931,49 @@ async function toggleRoomLighting() {
   }
 }
 
+async function toggleRoomDoor() {
+  const nextState = !roomState.value.door.open;
+  try {
+    const result = await setDoorDevice(nextState, 'room-3d');
+    const serverDoorState = result?.devices?.door_open ?? result?.door_open;
+    if (typeof serverDoorState !== 'boolean') {
+      throw new Error('Door servo endpoint is not available on the connected backend');
+    }
+    doorOverride.value = null;
+    sensorData.value = {
+      ...sensorData.value,
+      ...(result || {}),
+      devices: {
+        ...sensorData.value.devices,
+        ...(result?.devices || {}),
+        door_open: serverDoorState,
+        door_source: result?.devices?.door_source ?? 'room-3d',
+      },
+      door_open: serverDoorState,
+      door_source: result?.devices?.door_source ?? 'room-3d',
+    };
+    sensorState.value = 'live';
+    lastUpdated.value = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+  } catch (error) {
+    doorOverride.value = nextState;
+    sensorState.value = 'demo';
+    lastUpdated.value = '本地预览';
+  }
+  updateSensorVisuals();
+}
+
 function handleViewportClick(event) {
-  if (!renderer || !camera || !liveObjects.clickableLights.length) return;
+  if (!renderer || !camera) return;
 
   const rect = renderer.domElement.getBoundingClientRect();
   pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
   pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
   raycaster.setFromCamera(pointer, camera);
-  const hits = raycaster.intersectObjects(liveObjects.clickableLights, false);
-  if (hits.length) {
+  const lightHits = raycaster.intersectObjects(liveObjects.clickableLights, false);
+  const doorHits = raycaster.intersectObjects(liveObjects.clickableDoors, false);
+  if (doorHits.length) {
+    toggleRoomDoor();
+  } else if (lightHits.length) {
     toggleRoomLighting();
   }
 }
@@ -907,6 +1074,34 @@ onUnmounted(disposeScene);
         </p>
       </section>
 
+      <section class="control-panel state-panel">
+        <h2>统一状态对象</h2>
+        <div class="state-list">
+          <div class="state-row">
+            <span class="state-icon people"><i class="fa-solid fa-person"></i></span>
+            <span class="state-label">人员</span>
+            <strong>{{ roomState.people.occupied ? `${roomState.people.count} 人` : '无人' }}</strong>
+          </div>
+          <button type="button" class="state-row state-button" @click="toggleRoomDoor">
+            <span class="state-icon door"><i class="fa-solid" :class="roomState.door.open ? 'fa-door-open' : 'fa-door-closed'"></i></span>
+            <span class="state-label">门禁</span>
+            <strong>{{ roomState.door.open ? '已开启' : '已关闭' }}</strong>
+            <small>点击切换</small>
+          </button>
+          <div class="state-row">
+            <span class="state-icon climate"><i class="fa-solid fa-temperature-half"></i></span>
+            <span class="state-label">环境</span>
+            <strong>{{ formatValue(roomState.climate.temperature, '℃', 1) }} / {{ formatValue(roomState.climate.humidity, '%', 0) }}</strong>
+          </div>
+          <div class="state-row">
+            <span class="state-icon device"><i class="fa-solid fa-lightbulb"></i></span>
+            <span class="state-label">设备</span>
+            <strong>{{ lightingEnabled ? '照明开启' : '照明关闭' }}</strong>
+          </div>
+        </div>
+        <p class="lighting-copy">门状态来源：{{ roomState.door.source === 'local-preview' ? '本地演示' : '传感器同步' }}</p>
+      </section>
+
       <section class="control-panel">
         <h2>会议室切换</h2>
         <div class="button-stack">
@@ -970,6 +1165,11 @@ onUnmounted(disposeScene);
         <div>
           <p>{{ activeRoom.name }}</p>
           <strong>{{ activeMood.name }}</strong>
+        </div>
+        <div class="stage-state" aria-label="场景状态">
+          <span :class="{ active: roomState.people.occupied }"><i class="fa-solid fa-person"></i>{{ roomState.people.occupied ? `${roomState.people.count}人` : '无人' }}</span>
+          <span :class="{ active: roomState.door.open }"><i class="fa-solid" :class="roomState.door.open ? 'fa-door-open' : 'fa-door-closed'"></i>{{ roomState.door.open ? '门开' : '门关' }}</span>
+          <span :class="{ active: lightingEnabled }"><i class="fa-solid fa-lightbulb"></i>{{ lightingEnabled ? '灯开' : '灯关' }}</span>
         </div>
         <div class="status-pill" :class="sensorState">
           <i class="fa-solid fa-signal"></i>
@@ -1180,6 +1380,65 @@ onUnmounted(disposeScene);
   line-height: 1.45;
 }
 
+.state-list {
+  display: grid;
+  gap: 7px;
+}
+
+.state-row {
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  color: #d7e5ea;
+  font-size: 0.82rem;
+}
+
+.state-row strong {
+  color: #f8fafc;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.state-row small {
+  grid-column: 2 / -1;
+  color: #8fa4ad;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.state-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #93c5fd;
+}
+
+.state-icon.people { color: #5eead4; }
+.state-icon.door { color: #fbbf24; }
+.state-icon.climate { color: #fb7185; }
+.state-icon.device { color: #facc15; }
+
+.state-button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.state-button:hover .state-icon.door {
+  color: #fef08a;
+  background: rgba(250, 204, 21, 0.16);
+}
+
 .model-stage {
   position: relative;
   min-height: calc(100vh - 72px);
@@ -1210,6 +1469,37 @@ onUnmounted(disposeScene);
   justify-content: space-between;
   gap: 12px;
   pointer-events: none;
+}
+
+.stage-state {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.stage-state span {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  border-radius: 6px;
+  color: #52646d;
+  background: rgba(15, 23, 42, 0.06);
+  font-size: 0.74rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.stage-state span.active {
+  color: #0f766e;
+  background: rgba(20, 184, 166, 0.16);
 }
 
 .stage-bar > div:first-child {
@@ -1274,7 +1564,7 @@ onUnmounted(disposeScene);
   right: 18px;
   bottom: 18px;
   display: grid;
-  grid-template-columns: repeat(6, minmax(92px, 1fr));
+  grid-template-columns: repeat(8, minmax(72px, 1fr));
   gap: 10px;
   pointer-events: none;
 }
@@ -1377,7 +1667,7 @@ onUnmounted(disposeScene);
   }
 
   .sensor-dock {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1418,6 +1708,11 @@ onUnmounted(disposeScene);
 
   .status-pill {
     justify-content: flex-start;
+  }
+
+  .stage-state {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .sensor-dock {

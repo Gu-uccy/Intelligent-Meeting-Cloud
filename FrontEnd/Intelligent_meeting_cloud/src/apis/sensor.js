@@ -43,6 +43,15 @@ export function setLightingDevice(enabled, brightness = enabled ? 100 : 0, sourc
   });
 }
 
+export function setDoorDevice(opened, source = 'frontend') {
+  return controlClimateDevice({
+    action: 'manual',
+    device: 'door',
+    state: opened,
+    source,
+  });
+}
+
 export function getClimateChartUrl() {
   const base = import.meta.env.VITE_SENSOR_CHART_URL || '/sensor-chart';
   const timestamp = Date.now();

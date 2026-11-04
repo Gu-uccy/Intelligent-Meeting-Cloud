@@ -65,6 +65,16 @@ SMOKE_DO_PIN = 24
 ULTRASONIC_TRIG = 20
 ULTRASONIC_ECHO = 21
 RGB_LED_PINS = {"red": 19, "green": 27, "blue": 22}
+# Two SG90/TS90A-style servo signals for the left and right door leaves.
+# BCM GPIO13/12 are physical pins 33/32 and are unused by the current wiring.
+# Power both servos from a separate 5V supply and connect its GND to Pi GND.
+SERVO_DOOR_PINS = {
+    "left": int(os.environ.get("SERVO_DOOR_LEFT_PIN", os.environ.get("SERVO_DOOR_PIN", "13"))),
+    "right": int(os.environ.get("SERVO_DOOR_RIGHT_PIN", "12")),
+}
+SERVO_FREQUENCY = 50
+SERVO_CLOSED_DUTY = float(os.environ.get("SERVO_CLOSED_DUTY", "2.5"))
+SERVO_OPEN_DUTY = float(os.environ.get("SERVO_OPEN_DUTY", "7.5"))
 
 # Keep this false until HC-SR04 ECHO is protected with a resistor divider or
 # level shifter. ECHO can output 5V, while Raspberry Pi GPIO is 3.3V only.
@@ -94,6 +104,7 @@ MAX_HISTORY_POINTS = 120
 data_lock = threading.Lock()
 dht_device = None
 pwm_channels = {}
+door_servos = {}
 i2c_bus = None
 
 current_temp = None
@@ -116,6 +127,8 @@ devices = {
     "lighting_source": "auto",
     "alarm": False,
     "presence": False,
+    "door_open": False,
+    "door_source": "hardware",
     "auto_mode": True,
 }
 
@@ -129,7 +142,7 @@ def log_message(message):
 
 
 def setup_gpio():
-    global dht_device, i2c_bus
+    global dht_device, i2c_bus, door_servos
 
     if not ON_RASPBERRY_PI:
         log_message("非树莓派环境，跳过 GPIO 初始化")
@@ -184,6 +197,16 @@ def setup_gpio():
         except Exception as e:
             log_message(f"RGB LED {color} 初始化失败: {e}")
 
+    for side, pin in SERVO_DOOR_PINS.items():
+        try:
+            GPIO.setup(pin, GPIO.OUT)
+            servo = GPIO.PWM(pin, SERVO_FREQUENCY)
+            servo.start(SERVO_CLOSED_DUTY)
+            door_servos[side] = servo
+            log_message(f"{side} 门舵机初始化成功 (BCM GPIO{pin}, 50Hz)")
+        except Exception as e:
+            log_message(f"{side} 门舵机初始化失败 (BCM GPIO{pin}): {e}")
+
     if USE_PCF8591_LIGHT:
         if not HAS_SMBUS:
             log_message("PCF8591 需要 smbus，但当前 Python 环境未安装 smbus")
@@ -237,6 +260,22 @@ def set_rgb_brightness(enabled, brightness=100):
     for name in ("red", "green", "blue"):
         if name in pwm_channels:
             pwm_channels[name].ChangeDutyCycle(duty)
+
+
+def set_door_servo(opened, source="manual"):
+    """Move the physical door servo and publish the same state to the API."""
+    devices["door_open"] = bool(opened)
+    devices["door_source"] = source
+    if not ON_RASPBERRY_PI or not door_servos:
+        return
+
+    duty = SERVO_OPEN_DUTY if opened else SERVO_CLOSED_DUTY
+    try:
+        for servo in door_servos.values():
+            servo.ChangeDutyCycle(duty)
+        time.sleep(0.35)
+    except Exception as e:
+        log_message(f"门舵机控制失败: {e}")
 
 
 def set_lighting_state(enabled, brightness=None, source="manual"):
@@ -625,6 +664,8 @@ def get_current_data():
             "light": current_light,
             "smoke": current_smoke,
             "presence": current_motion,
+            "door_open": devices["door_open"],
+            "door_source": devices["door_source"],
             "devices": devices,
             "temp_min": TEMP_MIN,
             "temp_max": TEMP_MAX,
@@ -666,7 +707,11 @@ def manual_control():
         elif action == "manual":
             device = data.get("device")
             state = bool(data.get("state", False))
-            if device in devices:
+            if device in ("door", "door_open"):
+                set_door_servo(state, data.get("source", "manual"))
+                devices["auto_mode"] = False
+                log_message(f"手动控制: door_open = {state}")
+            elif device in devices:
                 if device == "lighting":
                     set_lighting_state(
                         state,
@@ -757,6 +802,9 @@ def cleanup_resources():
     try:
         set_buzzer(False)
         set_rgb_color("off")
+        for servo in door_servos.values():
+            servo.ChangeDutyCycle(0)
+            servo.stop()
         if dht_device is not None and hasattr(dht_device, "exit"):
             dht_device.exit()
         if ON_RASPBERRY_PI:
