@@ -1,0 +1,162 @@
+{
+  "executed_at": "2026-11-08 14:07:16",
+  "base": "http://127.0.0.1:5000",
+  "total": 19,
+  "passed": 17,
+  "failed": 2,
+  "pass_rate_pct": 89.5,
+  "cases": [
+    {
+      "tc": "TC-01",
+      "title": "获取实时环境数据",
+      "expected": "200 且 17 字段",
+      "actual": 200,
+      "detail": "字段数=17",
+      "passed": true
+    },
+    {
+      "tc": "TC-02",
+      "title": "数据含时间戳且可解析",
+      "expected": "timestamp 形如 YYYY-MM-DD HH:MM:SS",
+      "actual": "2026-11-08 14:07:15",
+      "detail": "2026-11-08 14:07:15",
+      "passed": true
+    },
+    {
+      "tc": "TC-03",
+      "title": "设备状态字段完整",
+      "expected": "devices 12 字段",
+      "actual": 12,
+      "detail": "keys=['alarm', 'auto_mode', 'cooling', 'dehumidifier']",
+      "passed": true
+    },
+    {
+      "tc": "TC-04",
+      "title": "历史数据接口",
+      "expected": "200 且为数组",
+      "actual": 200,
+      "detail": "点数=120",
+      "passed": true
+    },
+    {
+      "tc": "TC-05",
+      "title": "CSV 导出",
+      "expected": "200 且含表头（时间戳/温度）",
+      "actual": 200,
+      "detail": "bytes=10948 表头='时间,时间戳,温度(°C),湿度(%),'",
+      "passed": true
+    },
+    {
+      "tc": "TC-06",
+      "title": "开灯并下发亮度",
+      "expected": "200 lighting=true brightness=100",
+      "actual": 200,
+      "detail": "lighting=True brightness=100",
+      "passed": true
+    },
+    {
+      "tc": "TC-07",
+      "title": "关灯复位",
+      "expected": "200 lighting=false",
+      "actual": 200,
+      "detail": "lighting=False",
+      "passed": true
+    },
+    {
+      "tc": "TC-08",
+      "title": "开门并回写状态",
+      "expected": "200 door_open=true",
+      "actual": 200,
+      "detail": "door_open=True source=tc-suite",
+      "passed": true
+    },
+    {
+      "tc": "TC-09",
+      "title": "关门复位",
+      "expected": "200 door_open=false",
+      "actual": 200,
+      "detail": "door_open=False",
+      "passed": true
+    },
+    {
+      "tc": "TC-10",
+      "title": "切换自动模式",
+      "expected": "200",
+      "actual": 200,
+      "detail": "auto_mode=False",
+      "passed": true
+    },
+    {
+      "tc": "TC-11",
+      "title": "非法 action 返回 400",
+      "expected": "400 + Unknown action",
+      "actual": 400,
+      "detail": "{\"error\":\"Unknown action\"}\n",
+      "passed": true
+    },
+    {
+      "tc": "TC-12",
+      "title": "空 body 返回 400 且为 JSON",
+      "expected": "400 + JSON 错误体",
+      "actual": 415,
+      "detail": "<!doctype html>\n<html lang=en>\n<title>41",
+      "passed": false
+    },
+    {
+      "tc": "TC-13",
+      "title": "错误方法返回 405",
+      "expected": "405",
+      "actual": 405,
+      "detail": "",
+      "passed": true
+    },
+    {
+      "tc": "TC-14",
+      "title": "未知路径返回 404",
+      "expected": "404",
+      "actual": 404,
+      "detail": "",
+      "passed": true
+    },
+    {
+      "tc": "TC-15",
+      "title": "非法 JSON 不返回 5xx",
+      "expected": "400/415（不得 500）",
+      "actual": 400,
+      "detail": "",
+      "passed": true
+    },
+    {
+      "tc": "TC-16",
+      "title": "健康检查接口存在",
+      "expected": "200 + status=ok",
+      "actual": 404,
+      "detail": "<!doctype html>\n<html lang=en>\n<title>40",
+      "passed": false
+    },
+    {
+      "tc": "TC-17",
+      "title": "服务自述接口",
+      "expected": "200 且含 api 列表",
+      "actual": 200,
+      "detail": "{\"api\":[\"/api/current\",\"/api/history\",\"/",
+      "passed": true
+    },
+    {
+      "tc": "TC-18",
+      "title": "温湿度图表",
+      "expected": "200 image/png",
+      "actual": 200,
+      "detail": "bytes=70805",
+      "passed": true
+    },
+    {
+      "tc": "TC-19",
+      "title": "连续 30 次读取无失败",
+      "expected": "失败数 0",
+      "actual": 0,
+      "detail": "失败=0",
+      "passed": true
+    }
+  ]
+}
