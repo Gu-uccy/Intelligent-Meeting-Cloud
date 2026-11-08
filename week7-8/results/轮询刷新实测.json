@@ -1,0 +1,121 @@
+{
+  "checked_at": "2026-11-08 14:03:24",
+  "mechanism": "polling",
+  "interval_config_ms": 3000,
+  "samples": [
+    {
+      "t": 1794117165.22,
+      "timestamp": "2026-11-08 13:52:45",
+      "temperature": 25.3,
+      "humidity": 49.4,
+      "light": 129,
+      "smoke": 1,
+      "motion": true,
+      "door_open": false
+    },
+    {
+      "t": 1794117168.23,
+      "timestamp": "2026-11-08 13:52:48",
+      "temperature": 25.2,
+      "humidity": 49.3,
+      "light": 127,
+      "smoke": 4,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117171.24,
+      "timestamp": "2026-11-08 13:52:51",
+      "temperature": 25.1,
+      "humidity": 49.7,
+      "light": 123,
+      "smoke": 7,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117174.24,
+      "timestamp": "2026-11-08 13:52:54",
+      "temperature": 24.9,
+      "humidity": 49.3,
+      "light": 116,
+      "smoke": 9,
+      "motion": true,
+      "door_open": false
+    },
+    {
+      "t": 1794117177.24,
+      "timestamp": "2026-11-08 13:52:57",
+      "temperature": 25.1,
+      "humidity": 49.5,
+      "light": 114,
+      "smoke": 11,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117180.27,
+      "timestamp": "2026-11-08 13:53:00",
+      "temperature": 24.9,
+      "humidity": 49.5,
+      "light": 113,
+      "smoke": 12,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117183.28,
+      "timestamp": "2026-11-08 13:53:03",
+      "temperature": 25.0,
+      "humidity": 49.2,
+      "light": 112,
+      "smoke": 11,
+      "motion": true,
+      "door_open": false
+    },
+    {
+      "t": 1794117186.3,
+      "timestamp": "2026-11-08 13:53:06",
+      "temperature": 25.0,
+      "humidity": 49.5,
+      "light": 117,
+      "smoke": 11,
+      "motion": true,
+      "door_open": false
+    },
+    {
+      "t": 1794117189.31,
+      "timestamp": "2026-11-08 13:53:09",
+      "temperature": 25.0,
+      "humidity": 49.7,
+      "light": 118,
+      "smoke": 13,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117192.33,
+      "timestamp": "2026-11-08 13:53:12",
+      "temperature": 24.8,
+      "humidity": 49.3,
+      "light": 123,
+      "smoke": 15,
+      "motion": false,
+      "door_open": false
+    }
+  ],
+  "gaps_s": [
+    3.01,
+    3.01,
+    3.0,
+    3.0,
+    3.03,
+    3.01,
+    3.02,
+    3.01,
+    3.02
+  ],
+  "gap_avg_s": 3.01,
+  "changed_pairs": 9,
+  "conclusion": "轮询周期与配置一致（3.01 s），相邻样本均有字段变化，证明场景数据来自接口且持续更新"
+}
