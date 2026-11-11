@@ -3,8 +3,8 @@
 """Unified Flask backend for the Raspberry Pi meeting-room experiments.
 
 This file combines the chapter 7 sensor dashboard and chapter 8 climate-control
-dashboard into one service. It uses digital outputs for light and smoke modules,
-so it does not require a PCF8591 ADC module.
+dashboard into one service. The current wiring uses PCF8591 AIN0 for light,
+MQ-2 digital smoke input, RGB lighting and two door servo outputs.
 """
 
 import csv
@@ -37,6 +37,12 @@ except (ImportError, NotImplementedError):
 
     print("警告: 未检测到树莓派环境，使用模拟传感器数据运行")
 
+DATA_MODE = os.environ.get("MEETING_DATA_MODE", "auto")
+if DATA_MODE == "simulation":
+    ON_RASPBERRY_PI = False
+elif DATA_MODE == "hardware" and not ON_RASPBERRY_PI:
+    raise RuntimeError("Hardware mode requires working board, adafruit_dht and RPi.GPIO imports")
+
 try:
     import smbus
 
@@ -49,7 +55,7 @@ app = Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+DATA_DIR = os.environ.get("MEETING_DATA_DIR", os.path.join(BASE_DIR, "data"))
 PLOT_DIR = os.path.join(BASE_DIR, "plots")
 LOG_FILE = os.path.join(DATA_DIR, "unified_sensor_log.txt")
 
@@ -109,6 +115,7 @@ i2c_bus = None
 
 current_temp = None
 current_humidity = None
+last_dht_success = None
 current_distance = None
 current_motion = False
 current_light = 128
@@ -128,7 +135,7 @@ devices = {
     "alarm": False,
     "presence": False,
     "door_open": False,
-    "door_source": "hardware",
+    "door_source": "hardware" if ON_RASPBERRY_PI else "simulation",
     "auto_mode": True,
 }
 
@@ -264,18 +271,14 @@ def set_rgb_brightness(enabled, brightness=100):
 
 def set_door_servo(opened, source="manual"):
     """Move the physical door servo and publish the same state to the API."""
-    devices["door_open"] = bool(opened)
-    devices["door_source"] = source
-    if not ON_RASPBERRY_PI or not door_servos:
-        return
-
-    duty = SERVO_OPEN_DUTY if opened else SERVO_CLOSED_DUTY
-    try:
+    if ON_RASPBERRY_PI:
+        if len(door_servos) != len(SERVO_DOOR_PINS):
+            raise RuntimeError("Door servo output is unavailable")
+        duty = SERVO_OPEN_DUTY if opened else SERVO_CLOSED_DUTY
         for servo in door_servos.values():
             servo.ChangeDutyCycle(duty)
-        time.sleep(0.35)
-    except Exception as e:
-        log_message(f"门舵机控制失败: {e}")
+    devices["door_open"] = bool(opened)
+    devices["door_source"] = source if ON_RASPBERRY_PI else "simulation"
 
 
 def set_lighting_state(enabled, brightness=None, source="manual"):
@@ -295,15 +298,18 @@ def apply_device_outputs():
 
 
 def read_dht_sensor():
-    global current_temp, current_humidity
+    global current_temp, current_humidity, last_dht_success
 
-    if ON_RASPBERRY_PI and dht_device is not None:
+    if ON_RASPBERRY_PI:
+        if dht_device is None:
+            return current_temp, current_humidity
         try:
             temperature = dht_device.temperature
             humidity = dht_device.humidity
             if temperature is not None and humidity is not None:
                 current_temp = round(temperature, 1)
                 current_humidity = round(humidity, 1)
+                last_dht_success = time.time()
         except RuntimeError as e:
             log_message(f"DHT11 读取重试: {e}")
         except Exception as e:
@@ -420,7 +426,7 @@ def read_smoke_sensor():
 def simulate_environment_by_devices():
     global current_temp, current_humidity
 
-    if current_temp is None or current_humidity is None:
+    if ON_RASPBERRY_PI or current_temp is None or current_humidity is None:
         return
 
     if devices["cooling"]:
@@ -491,9 +497,9 @@ def append_history(temp, humidity, distance, motion, light_value, smoke_value):
     data_point = {
         "time": datetime.now().strftime("%H:%M:%S"),
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "temperature": temp if temp is not None else 0,
-        "humidity": humidity if humidity is not None else 0,
-        "distance": distance if distance is not None else 0,
+        "temperature": temp,
+        "humidity": humidity,
+        "distance": distance,
         "motion": 1 if motion else 0,
         "motion_count": motion_count,
         "light": light_value,
@@ -506,6 +512,8 @@ def append_history(temp, humidity, distance, motion, light_value, smoke_value):
         "lighting": devices["lighting"],
         "alarm": devices["alarm"],
         "auto_mode": devices["auto_mode"],
+        "door_open": devices["door_open"],
+        "source": "sensor" if ON_RASPBERRY_PI else "simulation",
     }
     history_data.append(data_point)
     history_data = history_data[-MAX_HISTORY_POINTS:]
@@ -648,13 +656,24 @@ def index():
     })
 
 
+@app.route("/api/health")
+def health():
+    return jsonify({"service": "meeting-room-sensors", "status": "ok",
+                    "source": "sensor" if ON_RASPBERRY_PI else "simulation"})
+
+
 @app.route("/api/current")
 def get_current_data():
     with data_lock:
-        if current_temp is None or current_humidity is None:
-            return jsonify({"error": "Sensor data not available"}), 503
+        climate_ready = current_temp is not None and current_humidity is not None
+        climate_stale = ON_RASPBERRY_PI and last_dht_success is not None and time.time() - last_dht_success > 15
 
         return jsonify({
+            "source": "sensor" if ON_RASPBERRY_PI else "simulation",
+            "quality": "normal" if climate_ready and not climate_stale else "partial",
+            "sensor_status": {"climate": "stale" if climate_stale else "ok" if climate_ready else "unavailable"},
+            "sampled_at": datetime.fromtimestamp(last_dht_success).isoformat() if last_dht_success else None,
+            "door_state_kind": "commanded",
             "temperature": current_temp,
             "humidity": current_humidity,
             "distance": current_distance,
@@ -685,11 +704,31 @@ def get_history_data():
 def manual_control():
     global TEMP_MIN, TEMP_MAX, HUMIDITY_MIN, HUMIDITY_MAX
 
-    data = request.get_json()
-    if data is None:
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
         return jsonify({"error": "Invalid request"}), 400
 
     action = data.get("action")
+    if action == "set_auto" and not isinstance(data.get("enabled"), bool):
+        return jsonify({"error": "enabled must be boolean"}), 400
+    if action == "manual":
+        allowed = {"door", "door_open", "lighting", "alarm", "cooling", "heating", "humidifier", "dehumidifier"}
+        if data.get("device") not in allowed:
+            return jsonify({"error": "Unknown device"}), 400
+        if not isinstance(data.get("state"), bool):
+            return jsonify({"error": "state must be boolean"}), 400
+        if data.get("device") == "lighting":
+            brightness = data.get("brightness", 100 if data["state"] else 0)
+            if isinstance(brightness, bool) or not isinstance(brightness, (int, float)) or not 0 <= brightness <= 100:
+                return jsonify({"error": "brightness must be between 0 and 100"}), 400
+    if action == "set_params":
+        values = {key: data.get(key, default) for key, default in
+                  (("temp_min", TEMP_MIN), ("temp_max", TEMP_MAX), ("humidity_min", HUMIDITY_MIN), ("humidity_max", HUMIDITY_MAX))}
+        if any(isinstance(v, bool) or not isinstance(v, (int, float)) for v in values.values()):
+            return jsonify({"error": "Thresholds must be numeric"}), 400
+        if not (-40 <= values["temp_min"] < values["temp_max"] <= 80 and
+                0 <= values["humidity_min"] < values["humidity_max"] <= 100):
+            return jsonify({"error": "Invalid threshold range"}), 400
     with data_lock:
         if action == "set_auto":
             devices["auto_mode"] = data.get("enabled", True)
@@ -708,8 +747,11 @@ def manual_control():
             device = data.get("device")
             state = bool(data.get("state", False))
             if device in ("door", "door_open"):
-                set_door_servo(state, data.get("source", "manual"))
-                devices["auto_mode"] = False
+                try:
+                    set_door_servo(state, data.get("source", "manual"))
+                except Exception as error:
+                    log_message(f"门舵机控制失败: {error}")
+                    return jsonify({"error": "Door servo unavailable", "success": False}), 503
                 log_message(f"手动控制: door_open = {state}")
             elif device in devices:
                 if device == "lighting":
@@ -726,7 +768,8 @@ def manual_control():
         else:
             return jsonify({"error": "Unknown action"}), 400
 
-        return jsonify({"success": True, "devices": devices})
+        return jsonify({"success": True, "devices": devices,
+                        "source": "sensor" if ON_RASPBERRY_PI else "simulation", "door_state_kind": "commanded"})
 
 
 def send_chart(filename):
@@ -766,7 +809,7 @@ def export_csv():
     writer = csv.writer(output)
     writer.writerow([
         "时间", "时间戳", "温度(°C)", "湿度(%)", "距离(cm)", "人体检测",
-        "光照", "烟雾", "制冷", "加热", "加湿", "除湿", "照明", "报警", "自动模式",
+        "光照", "烟雾", "制冷", "加热", "加湿", "除湿", "照明", "报警", "自动模式", "门指令状态", "数据来源",
     ])
 
     for row in rows:
@@ -786,6 +829,8 @@ def export_csv():
             "开" if row.get("lighting") else "关",
             "开" if row.get("alarm") else "关",
             "自动" if row.get("auto_mode") else "手动",
+            "开" if row.get("door_open") else "关",
+            row.get("source", "unknown"),
         ])
 
     return Response(
@@ -835,7 +880,7 @@ def main():
     sensor_thread = threading.Thread(target=sensor_loop, daemon=True)
     sensor_thread.start()
 
-    port = find_available_port()
+    port = int(os.environ.get("MEETING_PORT", "5000"))
     log_message(f"Web服务器启动于 http://0.0.0.0:{port}")
     app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
 

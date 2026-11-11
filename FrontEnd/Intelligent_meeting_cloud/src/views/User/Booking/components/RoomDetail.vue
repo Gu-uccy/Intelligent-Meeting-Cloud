@@ -151,7 +151,11 @@ const submitBooking = async () => {
 
   try {
     submitting.value = true;
-    await addReservation(payload);
+    const result = await addReservation(payload);
+    if (result?.code !== 1) {
+      toast.error('预约失败：' + (result?.msg || '系统错误'));
+      return;
+    }
     toast.success('预约申请已提交，等待管理员审核');
     showBookingModal.value = false;
     fetchOccupancy(); // 刷新状态

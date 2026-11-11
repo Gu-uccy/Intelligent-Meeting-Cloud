@@ -1,0 +1,26 @@
+
+> build:frontend
+> npm --prefix .\FrontEnd\Intelligent_meeting_cloud run build
+
+
+> intelligent-meeting-cloud-manager@0.0.0 build
+> vite build
+
+vite v7.1.12 building for production...
+transforming...
+✓ 1595 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                0.44 kB │ gzip:   0.32 kB
+dist/assets/fa-regular-400-BVHPE7da.woff2     18.99 kB
+dist/assets/fa-brands-400-BfBXV7Mm.woff2     101.22 kB
+dist/assets/fa-solid-900-8GirhLYJ.woff2      113.15 kB
+dist/assets/room-CmzWLF9c.png              4,212.70 kB
+dist/assets/index-DAKWRxaG.css               547.92 kB │ gzip:  93.09 kB
+dist/assets/index-CLUYXIPC.js              1,949.88 kB │ gzip: 594.34 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 16.28s

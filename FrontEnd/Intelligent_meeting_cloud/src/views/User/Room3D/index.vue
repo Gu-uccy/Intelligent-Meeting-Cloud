@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { getCurrentSensorData, setDoorDevice, setLightingDevice } from '@/apis/sensor';
+import { getCurrentSensorData, getSensorExportUrl, setDoorDevice, setLightingDevice } from '@/apis/sensor';
 
 const viewportRef = ref(null);
 const activeRoomId = ref('executive');
@@ -11,18 +11,24 @@ const activeViewId = ref('overview');
 const sensorState = ref('connecting');
 const lastUpdated = ref('--');
 const isLightingSaving = ref(false);
+const isDoorSaving = ref(false);
+const controlError = ref('');
+const sensorStatusText = computed(() => ({ live: '实时数据', simulation: '模拟数据', partial: '部分传感器异常', disconnected: '连接断开', connecting: '连接中', demo: '本地预览' }[sensorState.value]));
+function applyDataStatus(data) {
+  sensorState.value = data.source === 'simulation' ? 'simulation' : data.quality === 'partial' ? 'partial' : 'live';
+}
 const doorOverride = ref(null);
 const sensorData = ref({
-  temperature: 25,
-  humidity: 50,
-  light: 36,
-  smoke: 20,
+  temperature: null,
+  humidity: null,
+  light: null,
+  smoke: null,
   motion: false,
   presence: false,
   people_count: 0,
   door_open: undefined,
   door_source: undefined,
-  distance: 7.1,
+  distance: null,
   devices: {
     lighting: false,
     lighting_brightness: 0,
@@ -167,8 +173,8 @@ const roomState = computed(() => {
         : data.door_source || devices.door_source || (apiDoorState === undefined ? 'local-preview' : 'sensor'),
     },
     climate: {
-      temperature: Number(data.temperature),
-      humidity: Number(data.humidity),
+      temperature: data.temperature == null ? NaN : Number(data.temperature),
+      humidity: data.humidity == null ? NaN : Number(data.humidity),
     },
     devices,
   };
@@ -239,7 +245,7 @@ let fillLight;
 let animationId = 0;
 let resizeObserver;
 let sensorTimer = 0;
-const clock = new THREE.Clock();
+const animationStartedAt = performance.now();
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
@@ -268,6 +274,7 @@ function createLiveObjectStore() {
 }
 
 function formatValue(value, unit, digits) {
+  if (value === null || value === undefined || value === '') return '--';
   const number = Number(value);
   if (!Number.isFinite(number)) return '--';
   return `${number.toFixed(digits)}${unit}`;
@@ -329,7 +336,7 @@ function initScene() {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.setClearColor(activeMood.value.background, 1);
   viewportRef.value.appendChild(renderer.domElement);
 
@@ -885,11 +892,11 @@ async function refreshSensorData() {
         ...(data.devices || {}),
       },
     };
-    sensorState.value = 'live';
+    applyDataStatus(data);
     lastUpdated.value = new Date().toLocaleTimeString('zh-CN', { hour12: false });
   } catch (error) {
-    sensorState.value = 'demo';
-    lastUpdated.value = '模拟数据';
+    sensorState.value = 'disconnected';
+    lastUpdated.value = '连接失败，保留最后状态';
   }
   updateSensorVisuals();
 }
@@ -899,6 +906,7 @@ async function toggleRoomLighting() {
 
   const nextState = !lightingEnabled.value;
   isLightingSaving.value = true;
+  controlError.value = '';
   try {
     const result = await setLightingDevice(nextState, nextState ? 100 : 0, 'room-3d');
     sensorData.value = {
@@ -911,20 +919,10 @@ async function toggleRoomLighting() {
         lighting_source: result?.devices?.lighting_source ?? 'room-3d',
       },
     };
-    sensorState.value = 'live';
+    applyDataStatus(result);
     lastUpdated.value = new Date().toLocaleTimeString('zh-CN', { hour12: false });
   } catch (error) {
-    sensorState.value = 'demo';
-    sensorData.value = {
-      ...sensorData.value,
-      devices: {
-        ...sensorData.value.devices,
-        lighting: nextState,
-        lighting_brightness: nextState ? 100 : 0,
-        lighting_source: 'local-preview',
-      },
-    };
-    lastUpdated.value = '本地预览';
+    controlError.value = '灯光控制失败，保留最后确认状态，请检查连接后重试。';
   } finally {
     isLightingSaving.value = false;
     updateSensorVisuals();
@@ -932,6 +930,9 @@ async function toggleRoomLighting() {
 }
 
 async function toggleRoomDoor() {
+  if (isDoorSaving.value) return;
+  isDoorSaving.value = true;
+  controlError.value = '';
   const nextState = !roomState.value.door.open;
   try {
     const result = await setDoorDevice(nextState, 'room-3d');
@@ -952,12 +953,12 @@ async function toggleRoomDoor() {
       door_open: serverDoorState,
       door_source: result?.devices?.door_source ?? 'room-3d',
     };
-    sensorState.value = 'live';
+    applyDataStatus(result);
     lastUpdated.value = new Date().toLocaleTimeString('zh-CN', { hour12: false });
   } catch (error) {
-    doorOverride.value = nextState;
-    sensorState.value = 'demo';
-    lastUpdated.value = '本地预览';
+    controlError.value = '门控制失败，保留最后确认状态，请检查连接后重试。';
+  } finally {
+    isDoorSaving.value = false;
   }
   updateSensorVisuals();
 }
@@ -980,7 +981,7 @@ function handleViewportClick(event) {
 
 function animate() {
   animationId = window.requestAnimationFrame(animate);
-  const elapsed = clock.getElapsedTime();
+  const elapsed = (performance.now() - animationStartedAt) / 1000;
 
   liveObjects.people.forEach((person, index) => {
     person.position.y = Math.sin(elapsed * 2 + index) * 0.025;
@@ -1082,7 +1083,7 @@ onUnmounted(disposeScene);
             <span class="state-label">人员</span>
             <strong>{{ roomState.people.occupied ? `${roomState.people.count} 人` : '无人' }}</strong>
           </div>
-          <button type="button" class="state-row state-button" @click="toggleRoomDoor">
+          <button type="button" class="state-row state-button" :disabled="isDoorSaving" @click="toggleRoomDoor">
             <span class="state-icon door"><i class="fa-solid" :class="roomState.door.open ? 'fa-door-open' : 'fa-door-closed'"></i></span>
             <span class="state-label">门禁</span>
             <strong>{{ roomState.door.open ? '已开启' : '已关闭' }}</strong>
@@ -1099,7 +1100,9 @@ onUnmounted(disposeScene);
             <strong>{{ lightingEnabled ? '照明开启' : '照明关闭' }}</strong>
           </div>
         </div>
-        <p class="lighting-copy">门状态来源：{{ roomState.door.source === 'local-preview' ? '本地演示' : '传感器同步' }}</p>
+        <p class="lighting-copy">门状态来源：{{ roomState.door.source === 'local-preview' ? '本地演示' : roomState.door.source === 'simulation' ? '模拟接口' : '后端指令状态（未接门磁）' }}</p>
+        <a class="export-link" :href="getSensorExportUrl()" download="unified_meeting_room_data.csv">导出采样 CSV</a>
+        <p v-if="controlError" class="control-error" role="alert">{{ controlError }}</p>
       </section>
 
       <section class="control-panel">
@@ -1159,6 +1162,9 @@ onUnmounted(disposeScene);
     </aside>
 
     <main class="model-stage">
+      <div v-if="smokeAlarm" class="sensor-warning" role="alert">烟雾越界，报警中</div>
+      <div v-else-if="sensorState === 'partial'" class="sensor-warning" role="alert">部分传感器不可用或数据过期；温湿度缺失显示 --，门灯状态仍可同步</div>
+      <div v-else-if="sensorState === 'disconnected'" class="sensor-warning" role="alert">传感器服务连接断开，当前数值为最后状态</div>
       <div ref="viewportRef" class="viewport" @click="handleViewportClick"></div>
 
       <div class="stage-bar">
@@ -1173,7 +1179,7 @@ onUnmounted(disposeScene);
         </div>
         <div class="status-pill" :class="sensorState">
           <i class="fa-solid fa-signal"></i>
-          <span>{{ sensorState === 'live' ? '实时数据' : sensorState === 'demo' ? '模拟数据' : '连接中' }}</span>
+          <span>{{ sensorStatusText }}</span>
           <small>{{ lastUpdated }}</small>
         </div>
       </div>
@@ -1195,6 +1201,9 @@ onUnmounted(disposeScene);
 </template>
 
 <style scoped>
+.export-link { color: #5eead4; font-size: 0.8rem; }
+.sensor-warning { position: absolute; top: 76px; left: 18px; right: 18px; z-index: 3; padding: 10px; background: #7c2d12; color: white; border-radius: 8px; font-size: 0.82rem; }
+.status-pill.disconnected, .status-pill.partial { color: #b45309; }
 * {
   box-sizing: border-box;
 }
@@ -1572,12 +1581,12 @@ onUnmounted(disposeScene);
 .sensor-card {
   min-height: 70px;
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-columns: 16px minmax(0, 1fr);
   grid-template-rows: auto auto;
   align-items: center;
-  column-gap: 9px;
+  column-gap: 6px;
   row-gap: 3px;
-  padding: 11px 12px;
+  padding: 11px 8px;
   border-radius: 8px;
   color: #0f172a;
   background: rgba(255, 255, 255, 0.76);
@@ -1603,7 +1612,7 @@ onUnmounted(disposeScene);
   color: #0b1418;
   font-size: 1.05rem;
   line-height: 1.12;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
 }
 
 .sensor-card.warn i,
@@ -1622,6 +1631,19 @@ onUnmounted(disposeScene);
 
 .sensor-card.idle i {
   color: #64748b;
+}
+
+.control-error { color: #fca5a5; font-size: 0.85rem; line-height: 1.5; }
+
+@media (min-width: 981px) {
+  .model-page { height: max(640px, calc(100vh - 170px)); min-height: 0; }
+  .control-rail { min-height: 0; overflow-y: auto; }
+  .model-stage { min-height: 0; }
+}
+
+@media (min-width: 981px) and (max-width: 1200px) {
+  .sensor-dock { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .viewport { bottom: 170px; top: 70px; }
 }
 
 @media (max-width: 980px) {
@@ -1725,5 +1747,11 @@ onUnmounted(disposeScene);
   .sensor-card {
     min-height: 62px;
   }
+
+  .model-stage { display: flex; flex-direction: column; min-height: 0; }
+  .stage-bar { order: 0; position: relative; inset: auto; padding: 10px; }
+  .viewport { order: 1; position: relative; inset: auto; height: 360px; flex: none; }
+  .sensor-dock { order: 2; position: relative; inset: auto; margin: 10px; }
+  .sensor-warning { order: 0; position: relative; inset: auto; margin: 10px; }
 }
 </style>

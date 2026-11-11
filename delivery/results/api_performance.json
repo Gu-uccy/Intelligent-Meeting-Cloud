@@ -1,0 +1,7 @@
+{
+  "scope": "in_process_test_client",
+  "samples": 100,
+  "median_ms": 0.22965,
+  "p95_ms": 0.5347,
+  "hardware_latency_measured": false
+}

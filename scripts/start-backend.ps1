@@ -16,4 +16,9 @@ Set-Location $backendDir
 Write-Host "Starting backend: http://127.0.0.1:8080" -ForegroundColor Green
 Write-Host "Working directory: $backendDir" -ForegroundColor DarkGray
 
-mvn -pl MeetingRoom-Management -am spring-boot:run
+# Build/install the dependencies first: spring-boot:run on the whole reactor
+# otherwise tries to run the aggregator/common modules as applications.
+mvn -pl MeetingRoom-Management -am install -DskipTests
+if ($LASTEXITCODE -ne 0) { throw "Maven reactor build failed." }
+mvn -f MeetingRoom-Management/pom.xml spring-boot:run
+if ($LASTEXITCODE -ne 0) { throw "Spring Boot exited with an error." }

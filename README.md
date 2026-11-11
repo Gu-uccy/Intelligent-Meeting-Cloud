@@ -12,7 +12,7 @@ Intelligent Meeting Cloud is a meeting room management project with a Vue 3 fron
 
 - Node.js 20+
 - npm
-- JDK 11
+- JDK 17+
 - Maven
 - MySQL 8.x
 - Redis
@@ -30,10 +30,11 @@ Run from the repository root:
 npm run dev
 ```
 
-This command opens two PowerShell windows:
+This command runs the Full-mode preflight, starts Spring Boot and Vite in the background, and opens the browser. It requires MySQL, Redis and the updated Raspberry Pi Flask hardware service to already be running. Logs are in `.codex-run-logs`. Missing dependencies are reported before launch.
 
-- one for the Spring Boot backend
-- one for the Vite frontend
+For an offline walkthrough, double-click `start-all.cmd` or run `npm run demo`. This uses mock booking/login and an explicitly labelled local sensor simulation when the Raspberry Pi is unavailable. The output and `.codex-run-logs/session.json` show the actual URL and source; occupied frontend ports are skipped automatically.
+
+Read-only preflight: `npm run preflight`. Full preflight: `./start-all.cmd -Mode Full -CheckOnly`.
 
 You can also start them separately:
 
@@ -125,3 +126,7 @@ start-demo.cmd
 ```
 
 The script detects the Raspberry Pi automatically, starts the Vue frontend, and opens the demo page. If the Raspberry Pi sensor service is temporarily offline, it starts the included local simulation so the frontend can still be demonstrated. Set `RPI_HOST` before running the script when the Raspberry Pi uses another address.
+
+## Delivery and acceptance
+
+See [delivery/README.md](delivery/README.md) for 52 executable cases, nine screenshots, CSV/JSON raw results, startup and recovery procedures, documentation inventory and version traceability. Video is excluded from this delivery. Fixture tests do not certify physical hardware or the Spring/MySQL/Redis integration.

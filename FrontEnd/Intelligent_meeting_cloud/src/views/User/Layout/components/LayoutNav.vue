@@ -369,4 +369,13 @@ onUnmounted(() => {
     padding: 10px 12px;
   }
 }
+
+@media (max-width: 1200px) {
+  .transparent-nav { height: auto; min-height: 80px; flex-wrap: wrap; gap: 8px; padding: 12px; }
+  .nav-brand { flex-shrink: 0; gap: 8px; }
+  .brand-text { white-space: nowrap; }
+  .nav-user { margin-left: auto; }
+  .nav-links { order: 3; width: 100%; min-width: 0; overflow-x: auto; padding-bottom: 4px; }
+  .nav-links .nav-item { flex-shrink: 0; }
+}
 </style>
