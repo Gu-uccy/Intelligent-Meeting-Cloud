@@ -308,13 +308,19 @@ mysql --host=127.0.0.1 --port=3307 --user=root --database=meeting_room_db ^
   -e "SELECT user_name,operation_type,operation_result,error_msg,ip_address FROM operation_log ORDER BY id DESC LIMIT 10;"
 ```
 
-演示账号：
+演示账号（密码统一 `123456`，已实测三种角色行为不同）：
 
-| 账号 | 密码 | 角色 | 用途 |
+| 账号 | 角色 | 权限点 | 实测结果（/admin/room → /admin/user） |
 |---|---|---|---|
-| `admin1` | 123456 | ROLE_SYS_ADMIN | 管理端全部功能 |
-| `13900000002` | 123456 | ROLE_USER | 演示"普通用户调管理接口被 403" |
-| `rbac_probe` | 123456 | ROLE_USER | 验证"注册即入角色" |
+| `sys_admin` | ROLE_SYS_ADMIN | 23 | 200 → 200 |
+| `admin1` | ROLE_SYS_ADMIN | 23 | 200 → 200 |
+| `room_admin` | ROLE_ROOM_ADMIN | 12 | 200 → **403**（没有 user:manage） |
+| `test_user` | ROLE_USER | 4 | **403** → **403** |
+| `13900000002` | ROLE_USER | 4 | **403** → **403**（同时是刷脸链路的主演示账号） |
+
+> 说明：建表脚本里 `sys_admin / room_admin / test_user` 的 BCrypt 哈希是示意值，实际登录会失败；
+> 本轮已把可用哈希写入这三个账号（`Database/rbac-align-endpoints.sql` 之外的一次性数据修正），
+> 因此现在可以用它们分别演示"系统管理员 / 会议室管理员 / 普通用户"。
 
 ### 11.4 与建表脚本的关系
 

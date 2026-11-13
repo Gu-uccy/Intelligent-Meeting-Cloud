@@ -1,5 +1,5 @@
 {
-  "ran_at": "2026-11-13T03:25:46.127Z",
+  "ran_at": "2026-11-13T03:27:40.000Z",
   "base": "http://127.0.0.1:5173",
   "account": "13900000002",
   "passed": 17,
@@ -51,7 +51,7 @@
       "id": "E2E-08",
       "name": "预约已落库（MySQL reservation 表）",
       "status": "PASS",
-      "detail": "我的预约=5 条"
+      "detail": "我的预约=6 条"
     },
     {
       "id": "E2E-09",
@@ -81,13 +81,13 @@
       "id": "E2E-13",
       "name": "3D 页灯控写入设备层（状态翻转）",
       "status": "PASS",
-      "detail": "devices.lighting false -> true (brightness=100)"
+      "detail": "devices.lighting true -> false (brightness=0)"
     },
     {
       "id": "E2E-14",
       "name": "3D 页灯光状态回显",
       "status": "PASS",
-      "detail": "打开LED灯 OFF -> 关闭LED灯 100%"
+      "detail": "关闭LED灯 100% -> 打开LED灯 OFF"
     },
     {
       "id": "E2E-15",
