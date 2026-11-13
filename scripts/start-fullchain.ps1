@@ -194,6 +194,10 @@ if (Test-Port 5058) {
 if (Test-Port 5173) {
     Write-Host '  [SKIP] 前端 5173 已在运行' -ForegroundColor DarkGray
 } else {
+    if (-not (Test-Path (Join-Path $FRONTEND_DIR '.env.local'))) {
+        Copy-Item (Join-Path $FRONTEND_DIR '.env.fullchain') (Join-Path $FRONTEND_DIR '.env.local') -Force
+        Write-Host '  [INIT] 已从 .env.fullchain 生成 .env.local（真实模式）'
+    }
     if (-not (Test-Path (Join-Path $FRONTEND_DIR 'node_modules'))) {
         Write-Host '  [INIT] 安装前端依赖（仅首次，约 1 分钟）…'
         & npm.cmd --prefix $FRONTEND_DIR ci --no-audit --no-fund *> "$logDir\npm-install.log"

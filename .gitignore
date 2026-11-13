@@ -5,6 +5,9 @@ BackEnd/MeetingRoom-Parent/MeetingRoom-common/target/
 BackEnd/MeetingRoom-Parent/MeetingRoom-pojo/target/
 node_modules/
 
+# 全链路脚本的运行产物（进程号 / 各服务日志）
+.run/
+
 # Local runtime output
 .codex-run-logs/
 **/__pycache__/
