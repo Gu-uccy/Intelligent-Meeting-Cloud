@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1720" viewBox="0 0 1200 1720" font-family="Microsoft YaHei, SimHei, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1200" height="1720" fill="#fafafa"/>
+  <text x="600" y="42" text-anchor="middle" font-size="24" font-weight="bold" fill="#1a1a2e">人脸识别业务流程图（第5-6周，半自主开发）</text>
+  <text x="600" y="70" text-anchor="middle" font-size="13" fill="#666">依据：综II门禁系统 smart_door_system.py + human_face/face_api.py（DeepFace ArcFace）</text>
+
+  <!-- 步骤盒子模板：step(title, y, input, output, basis) -->
+  <!-- 1. 采集/注册 -->
+  <g>
+    <rect x="300" y="100" width="600" height="180" rx="12" fill="#e8f0fe" stroke="#1967d2" stroke-width="2"/>
+    <circle cx="340" cy="130" r="16" fill="#1967d2"/>
+    <text x="340" y="135" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">1</text>
+    <text x="368" y="135" font-size="16" font-weight="bold" fill="#1a1a2e">采集 / 注册</text>
+    <text x="330" y="165" font-size="13" fill="#333">输入：摄像头图像流 / 注册照片（USB Camera）</text>
+    <text x="330" y="185" font-size="13" fill="#333">输出：注册人脸库（按人分目录，≥10张/人，多角度）</text>
+    <text x="330" y="205" font-size="13" fill="#333">输出：人脸库 manifest（授权与脱敏记录）</text>
+    <text x="330" y="230" font-size="12" fill="#666">判定依据：采集规范（光照、角度、授权同意书）</text>
+    <text x="330" y="252" font-size="12" fill="#888">工程依据：face_api.py /api/face/enroll；data/face_sample_manifest.csv</text>
+  </g>
+  <line x1="600" y1="280" x2="600" y2="320" stroke="#333" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 2. 预处理 -->
+  <g>
+    <rect x="300" y="330" width="600" height="180" rx="12" fill="#e6f4ea" stroke="#188038" stroke-width="2"/>
+    <circle cx="340" cy="360" r="16" fill="#188038"/>
+    <text x="340" y="365" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">2</text>
+    <text x="368" y="365" font-size="16" font-weight="bold" fill="#1a1a2e">预处理</text>
+    <text x="330" y="395" font-size="13" fill="#333">输入：原始人脸图像（RGB/BGR）</text>
+    <text x="330" y="415" font-size="13" fill="#333">输出：灰度图 → 尺寸归一化 → 直方图均衡化增强图</text>
+    <text x="330" y="440" font-size="12" fill="#666">判定依据：消除光照不均影响（clahe/equalizeHist 参数）</text>
+    <text x="330" y="462" font-size="12" fill="#888">自研代码：scripts/preprocess_face.py</text>
+  </g>
+  <line x1="600" y1="510" x2="600" y2="550" stroke="#333" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 3. 检测 -->
+  <g>
+    <rect x="300" y="560" width="600" height="180" rx="12" fill="#fef7e0" stroke="#f9ab00" stroke-width="2"/>
+    <circle cx="340" cy="590" r="16" fill="#f9ab00"/>
+    <text x="340" y="595" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">3</text>
+    <text x="368" y="595" font-size="16" font-weight="bold" fill="#1a1a2e">人脸检测</text>
+    <text x="330" y="625" font-size="13" fill="#333">输入：预处理后的图像</text>
+    <text x="330" y="645" font-size="13" fill="#333">输出：人脸包围框（裁剪出人脸区域）</text>
+    <text x="330" y="670" font-size="12" fill="#666">判定依据：检测器置信度阈值（retinaface/OpenCV Haar）</text>
+    <text x="330" y="692" font-size="12" fill="#888">工程依据：face_api.py 使用 retinaface 检测器；未检出→拒绝并提示重试</text>
+  </g>
+  <line x1="600" y1="740" x2="600" y2="780" stroke="#333" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 4. 特征 -->
+  <g>
+    <rect x="300" y="790" width="600" height="180" rx="12" fill="#fce8e6" stroke="#d93025" stroke-width="2"/>
+    <circle cx="340" cy="820" r="16" fill="#d93025"/>
+    <text x="340" y="825" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">4</text>
+    <text x="368" y="825" font-size="16" font-weight="bold" fill="#1a1a2e">特征提取</text>
+    <text x="330" y="855" font-size="13" fill="#333">输入：人脸区域图像</text>
+    <text x="330" y="875" font-size="13" fill="#333">输出：固定维度特征向量（自研 LBP 直方图 / ArcFace embedding）</text>
+    <text x="330" y="900" font-size="12" fill="#666">判定依据：特征维度与判别力、跨光照/角度鲁棒性</text>
+    <text x="330" y="922" font-size="12" fill="#888">自研代码：scripts/lbp_face.py；库方案：face_api.py DeepFace ArcFace</text>
+  </g>
+  <line x1="600" y1="970" x2="600" y2="1010" stroke="#333" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 5. 比对/分类 -->
+  <g>
+    <rect x="300" y="1020" width="600" height="180" rx="12" fill="#e8eaed" stroke="#5f6368" stroke-width="2"/>
+    <circle cx="340" cy="1050" r="16" fill="#5f6368"/>
+    <text x="340" y="1055" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">5</text>
+    <text x="368" y="1055" font-size="16" font-weight="bold" fill="#1a1a2e">比对 / 分类</text>
+    <text x="330" y="1085" font-size="13" fill="#333">输入：当前特征向量 + 注册库中全部特征向量</text>
+    <text x="330" y="1105" font-size="13" fill="#333">输出：与库中各人相似度（余弦相似度）序列</text>
+    <text x="330" y="1130" font-size="12" fill="#666">判定依据：取最高相似度候选；一人多特征取均值/最大值</text>
+    <text x="330" y="1152" font-size="12" fill="#888">自研代码：scripts/lbp_face.py 余弦相似度比对</text>
+  </g>
+  <line x1="600" y1="1200" x2="600" y2="1240" stroke="#333" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 6. 阈值判断 -->
+  <g>
+    <rect x="300" y="1250" width="600" height="180" rx="12" fill="#fff8e1" stroke="#e37400" stroke-width="2"/>
+    <circle cx="340" cy="1280" r="16" fill="#e37400"/>
+    <text x="340" y="1285" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">6</text>
+    <text x="368" y="1285" font-size="16" font-weight="bold" fill="#1a1a2e">阈值判断</text>
+    <text x="330" y="1315" font-size="13" fill="#333">输入：最高相似度 Sim_max</text>
+    <text x="330" y="1335" font-size="13" fill="#333">输出：通过（Sim_max ≥ θ）/ 拒绝（Sim_max &lt; θ）</text>
+    <text x="330" y="1360" font-size="12" fill="#666">判定依据：自研自测集标定的阈值 θ（平衡 FAR/FRR，不用别人的阈值）</text>
+    <text x="330" y="1382" font-size="12" fill="#888">依据：tests/face_test_record.md 阈值标定记录</text>
+  </g>
+  <line x1="600" y1="1430" x2="600" y2="1470" stroke="#333" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 7. 业务动作 -->
+  <g>
+    <rect x="300" y="1480" width="600" height="190" rx="12" fill="#e6f4ea" stroke="#188038" stroke-width="2"/>
+    <circle cx="340" cy="1510" r="16" fill="#188038"/>
+    <text x="340" y="1515" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">7</text>
+    <text x="368" y="1515" font-size="16" font-weight="bold" fill="#1a1a2e">业务动作（失败不放行）</text>
+    <text x="330" y="1545" font-size="13" fill="#333">通过 → 开门/登录/预约放行，记录日志</text>
+    <text x="330" y="1565" font-size="13" fill="#333">拒绝 → 保持门锁/拒绝登录，提示重试，记录失败日志与报警</text>
+    <text x="330" y="1590" font-size="12" fill="#666">判定依据：fail-closed（默认拒绝，不因识别不确定放行）</text>
+    <text x="330" y="1612" font-size="12" fill="#888">工程依据：chapter9/10 smart_door_system.py 门锁控制；login/booking 联动见 docs/business_linkage.md</text>
+  </g>
+
+  <text x="600" y="1700" text-anchor="middle" font-size="12" fill="#888">第5周交付：流程图 + 样本集/授权脱敏 + 自研代码与算法说明；第6周交付：测试指标 + 业务联动 + 3D 优化</text>
+</svg>

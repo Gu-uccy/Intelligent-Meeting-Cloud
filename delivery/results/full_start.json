@@ -1,0 +1,7 @@
+{
+  "checked_at": "2026-11-11T20:39:36.6826552+08:00",
+  "exit_code": 1,
+  "status": "BLOCKED",
+  "reason": "Maven missing; see preflight.json for other prerequisites",
+  "command": "powershell -File scripts/start-all.ps1 -Mode Full -NoBrowser"
+}

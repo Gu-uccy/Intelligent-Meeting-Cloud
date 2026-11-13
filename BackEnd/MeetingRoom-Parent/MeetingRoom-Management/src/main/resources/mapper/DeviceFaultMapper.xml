@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.Mapper.DeviceFaultMapper">
+
+    <insert id="insert">
+        INSERT INTO device_fault
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="faultNo != null">fault_no,</if>
+            <if test="deviceName != null">device_name,</if>
+            <if test="roomId != null">room_id,</if>
+            <if test="reportUserId != null">report_user_id,</if>
+            <if test="handleUserId != null">handle_user_id,</if>
+            <if test="status != null">status,</if>
+            <if test="faultDesc != null">fault_desc,</if>
+            <if test="handleDesc != null">handle_desc,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="handleTime != null">handle_time,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="faultNo != null">#{faultNo},</if>
+            <if test="deviceName != null">#{deviceName},</if>
+            <if test="roomId != null">#{roomId},</if>
+            <if test="reportUserId != null">#{reportUserId},</if>
+            <if test="handleUserId != null">#{handleUserId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="faultDesc != null">#{faultDesc},</if>
+            <if test="handleDesc != null">#{handleDesc},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="handleTime != null">#{handleTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update device_fault
+        <set>
+
+            <if test="deviceName != null">
+                device_name = #{deviceName},
+            </if>
+            <if test="roomId != null">
+                room_id = #{roomId},
+            </if>
+            <if test="reportUserId != null">
+                report_user_id = #{reportUserId},
+            </if>
+            <if test="handleUserId != null">
+                handle_user_id = #{handleUserId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="faultDesc != null">
+                fault_desc = #{faultDesc},
+            </if>
+            <if test="handleDesc != null">
+                handle_desc = #{handleDesc},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="handleTime != null">
+                handle_time = #{handleTime},
+            </if>
+        </set>
+        where fault_no = #{faultNo}
+    </update>
+    <select id="pageSelect" resultType="com.sky.vo.DeviceFaultVo"
+            parameterType="com.sky.dto.DeviceFaultPageDto">
+        SELECT * FROM device_fault
+        <where>
+        <if test="faultNo != null">
+            AND fault_no = #{faultNo}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        </where>
+    </select>
+
+</mapper>

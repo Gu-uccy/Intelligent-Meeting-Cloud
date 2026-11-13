@@ -1,0 +1,23 @@
+{
+  "hour": 10,
+  "predictions": [
+    {
+      "room_id": "301",
+      "hour": 10,
+      "prediction": 1,
+      "rule": "历史 10:00 平均占用率 > 0.5"
+    },
+    {
+      "room_id": "302",
+      "hour": 10,
+      "prediction": 1,
+      "rule": "历史 10:00 平均占用率 > 0.5"
+    },
+    {
+      "room_id": "501",
+      "hour": 10,
+      "prediction": 0,
+      "rule": "历史 10:00 平均占用率 > 0.5"
+    }
+  ]
+}

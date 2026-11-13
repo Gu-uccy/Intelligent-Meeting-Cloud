@@ -1,0 +1,5 @@
+﻿预测结果（10:00）：
+  会议室 301 -> occupancy=有人
+  会议室 302 -> occupancy=有人
+  会议室 501 -> occupancy=无人
+已保存：results/baseline_predictions.json、results/state_with_baseline.json

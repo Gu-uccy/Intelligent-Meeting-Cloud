@@ -1,0 +1,162 @@
+{
+  "checked_at": "2026-11-08 14:01:47",
+  "base": "http://127.0.0.1:5000",
+  "total": 11,
+  "passed": 10,
+  "pass_rate": 90.9,
+  "cases": [
+    {
+      "case": "GET /api/current",
+      "expected": [
+        200
+      ],
+      "actual_status": 200,
+      "detail": "字段数=17 耗时=49.7ms",
+      "passed": true
+    },
+    {
+      "case": "GET /api/history",
+      "expected": [
+        200
+      ],
+      "actual_status": 200,
+      "detail": "点数=120",
+      "passed": true
+    },
+    {
+      "case": "GET /api/export/csv",
+      "expected": [
+        200,
+        503
+      ],
+      "actual_status": 200,
+      "detail": "bytes=11059",
+      "passed": true
+    },
+    {
+      "case": "POST /api/control 开门",
+      "expected": [
+        200
+      ],
+      "actual_status": 200,
+      "detail": "door_open=True",
+      "passed": true
+    },
+    {
+      "case": "POST /api/control 关门",
+      "expected": [
+        200
+      ],
+      "actual_status": 200,
+      "detail": "door_open=False",
+      "passed": true
+    },
+    {
+      "case": "POST /api/control 开灯",
+      "expected": [
+        200
+      ],
+      "actual_status": 200,
+      "detail": "lighting=True brightness=60",
+      "passed": true
+    },
+    {
+      "case": "POST /api/control 关灯",
+      "expected": [
+        200
+      ],
+      "actual_status": 200,
+      "detail": "lighting=False",
+      "passed": true
+    },
+    {
+      "case": "POST /api/control 非法 action",
+      "expected": [
+        400
+      ],
+      "actual_status": 400,
+      "detail": "{\"error\":\"Unknown action\"}\n",
+      "passed": true
+    },
+    {
+      "case": "POST /api/control 空 body",
+      "expected": [
+        400
+      ],
+      "actual_status": 415,
+      "detail": "<!doctype html>\n<html lang=en>\n<title>415 Unsupported Media ",
+      "passed": false
+    },
+    {
+      "case": "GET /api/control",
+      "expected": [
+        405
+      ],
+      "actual_status": 405,
+      "detail": "",
+      "passed": true
+    },
+    {
+      "case": "GET /api/not-exist",
+      "expected": [
+        404
+      ],
+      "actual_status": 404,
+      "detail": "",
+      "passed": true
+    }
+  ],
+  "perf": {
+    "sequential": {
+      "n": 100,
+      "avg_ms": 15.16,
+      "p50_ms": 15.82,
+      "p95_ms": 16.31,
+      "max_ms": 24.27
+    },
+    "concurrent": {
+      "threads": 20,
+      "per_thread": 50,
+      "success": 1000,
+      "errors": 0,
+      "duration_s": 0.93,
+      "rps": 1073.87,
+      "avg_ms": 17.6,
+      "p95_ms": 28.97,
+      "p99_ms": 31.89,
+      "max_ms": 35.44
+    }
+  },
+  "snapshot": {
+    "devices": {
+      "alarm": false,
+      "auto_mode": true,
+      "cooling": false,
+      "dehumidifier": false,
+      "door_open": false,
+      "door_source": "hardware",
+      "heating": false,
+      "humidifier": false,
+      "lighting": false,
+      "lighting_brightness": 0,
+      "lighting_source": "auto",
+      "presence": false
+    },
+    "distance": 117.7,
+    "door_open": false,
+    "door_source": "hardware",
+    "humidity": 53.1,
+    "humidity_max": 60,
+    "humidity_min": 40,
+    "last_motion": "15 秒前",
+    "light": 107,
+    "motion": false,
+    "motion_count": 24,
+    "presence": false,
+    "smoke": 79,
+    "temp_max": 26,
+    "temp_min": 20,
+    "temperature": 24.9,
+    "timestamp": "2026-11-08 14:01:44"
+  }
+}

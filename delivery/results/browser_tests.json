@@ -1,0 +1,258 @@
+{
+  "generated_at": "2026-11-11T12:38:41.877Z",
+  "browser": "158.0.8127.18",
+  "base": "http://127.0.0.1:5188",
+  "browser_plugin": "absent",
+  "fallback_reason": "Browser plugin not available",
+  "data_source": "isolated browser route fixtures; booking uses project localStorage mock",
+  "hardware_tested": false,
+  "errors": [],
+  "warnings": [],
+  "screenshots": [
+    {
+      "file": "05_door_open.png",
+      "scenario": "door command written back, door open",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "data_source": "browser-test-fixture"
+    },
+    {
+      "file": "06_light_off.png",
+      "scenario": "lighting command written back, light off",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "data_source": "browser-test-fixture"
+    },
+    {
+      "file": "07_smoke_alarm.png",
+      "scenario": "smoke threshold alarm fixture",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "data_source": "browser-test-fixture"
+    },
+    {
+      "file": "08_sensor_partial.png",
+      "scenario": "DHT missing, door and light retained",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "data_source": "browser-test-fixture"
+    },
+    {
+      "file": "09_service_disconnected.png",
+      "scenario": "injected service 503, retained last state",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "data_source": "browser-test-fixture"
+    },
+    {
+      "file": "01_room3d_1920x1080.png",
+      "scenario": "responsive normal state",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "data_source": "browser-test-fixture"
+    },
+    {
+      "file": "02_room3d_1366x768.png",
+      "scenario": "responsive normal state",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "data_source": "browser-test-fixture"
+    },
+    {
+      "file": "03_room3d_1024x768.png",
+      "scenario": "responsive normal state",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "data_source": "browser-test-fixture"
+    },
+    {
+      "file": "04_room3d_390x844.png",
+      "scenario": "responsive normal state",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data_source": "browser-test-fixture"
+    }
+  ],
+  "performance": [
+    {
+      "viewport": "1920x1080",
+      "ready_ms": 1085.85,
+      "scope": "dev_server_reload_and_state_ready"
+    },
+    {
+      "viewport": "1366x768",
+      "ready_ms": 901.54,
+      "scope": "dev_server_reload_and_state_ready"
+    },
+    {
+      "viewport": "1024x768",
+      "ready_ms": 932.56,
+      "scope": "dev_server_reload_and_state_ready"
+    },
+    {
+      "viewport": "390x844",
+      "ready_ms": 900.51,
+      "scope": "dev_server_reload_and_state_ready"
+    }
+  ],
+  "tests": [
+    {
+      "id": "TC_33",
+      "name": "登录页内容与输入框",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 552.89
+    },
+    {
+      "id": "TC_34",
+      "name": "演示账号登录跳转",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 207.26
+    },
+    {
+      "id": "TC_35",
+      "name": "会议室列表加载",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 448.91
+    },
+    {
+      "id": "TC_36",
+      "name": "选择会议室与空闲时间片",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 478.34
+    },
+    {
+      "id": "TC_37",
+      "name": "提交预约并持久化到演示存储",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 223.68
+    },
+    {
+      "id": "TC_38",
+      "name": "3D页面身份、主体与无错误覆盖层",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 547.86
+    },
+    {
+      "id": "TC_39",
+      "name": "WebGL画布创建且尺寸有效",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 523.26
+    },
+    {
+      "id": "TC_40",
+      "name": "模拟接口明确标注",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 4.59
+    },
+    {
+      "id": "TC_41",
+      "name": "传感器来源映射为实时状态（夹具）",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 641.87
+    },
+    {
+      "id": "TC_42",
+      "name": "温湿度轮询动态更新",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 2873.14
+    },
+    {
+      "id": "TC_43",
+      "name": "人员状态刷新",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 520.52
+    },
+    {
+      "id": "TC_44",
+      "name": "点击门回写并更新场景状态",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 199.99
+    },
+    {
+      "id": "TC_45",
+      "name": "点击灯回写并更新场景状态",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 181.12
+    },
+    {
+      "id": "TC_46",
+      "name": "会议室、氛围与视角切换",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 315.79
+    },
+    {
+      "id": "TC_47",
+      "name": "烟雾越界显示报警",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 624.17
+    },
+    {
+      "id": "TC_48",
+      "name": "传感器缺失仍保留门灯且不伪造零值",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 692.46
+    },
+    {
+      "id": "TC_49",
+      "name": "控制失败保留状态、服务中断与恢复",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 1396.91
+    },
+    {
+      "id": "TC_50",
+      "name": "四档分辨率无水平溢出与截图矩阵",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 4368.32
+    },
+    {
+      "id": "TC_51",
+      "name": "浏览器运行异常与帧间隔采样",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 2010.04
+    },
+    {
+      "id": "TC_52",
+      "name": "CSV导出下载闭环",
+      "status": "PASS",
+      "scope": "Chromium / browser API fixtures / business mock",
+      "duration_ms": 563.9
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "intelligent-meeting-cloud",
+  "private": true,
+  "scripts": {
+    "dev": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-dev.ps1",
+    "demo": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-demo.ps1",
+    "start:all": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-all.ps1",
+    "preflight": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-all.ps1 -CheckOnly",
+    "test:delivery:api": "python delivery/tests/test_sensor_contract.py",
+    "test:delivery:ui": "node delivery/tests/browser_acceptance.mjs",
+    "report:delivery": "python delivery/build_evidence.py",
+    "dev:frontend": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-frontend.ps1",
+    "dev:backend": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-backend.ps1",
+    "build:frontend": "npm --prefix .\\FrontEnd\\Intelligent_meeting_cloud run build"
+  }
+}

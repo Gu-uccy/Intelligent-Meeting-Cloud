@@ -1,0 +1,63 @@
+# 智能会议室物联网监测系统 - Home Assistant仪表盘配置
+# 在Home Assistant界面中通过"编辑仪表盘" -> "原始配置编辑器"粘贴以下内容
+
+views:
+  - title: 会议室监测
+    icon: mdi:office-building
+    cards:
+      # 第一行: 温湿度仪表盘
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.shi_nei_wen_du
+            min: 0
+            max: 40
+            name: 室内温度
+            severity:
+              green: 0
+              yellow: 25
+              red: 30
+          - type: gauge
+            entity: sensor.shi_nei_shi_du
+            min: 0
+            max: 100
+            name: 室内湿度
+            severity:
+              green: 30
+              yellow: 20
+              red: 0
+
+      # 第二行: 距离和人员状态
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.men_qian_ju_chi
+            min: 0
+            max: 300
+            name: 门前距离
+            severity:
+              green: 100
+              yellow: 50
+              red: 20
+          - type: entity
+            entity: binary_sensor.hui_yi_shi_ren_yuan_cun_zai
+            name: 人员存在
+
+      # 第三行: 门禁系统
+      - type: entities
+        title: 会议室门禁系统
+        entities:
+          - entity: binary_sensor.hui_yi_shi_ren_yuan_cun_zai
+          - entity: sensor.men_qian_ju_chi
+          - entity: binary_sensor.ren_lian_shi_bie_zhuang_tai
+          - entity: switch.hui_yi_shi_men_kong_zhi
+
+      # 第四行: 历史数据图表
+      - type: history-graph
+        title: 会议室监测历史数据 (24小时)
+        hours_to_show: 24
+        refresh_interval: 0
+        entities:
+          - entity: sensor.shi_nei_wen_du
+          - entity: sensor.shi_nei_shi_du
+          - entity: sensor.men_qian_ju_chi

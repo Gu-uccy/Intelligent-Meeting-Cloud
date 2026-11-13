@@ -1,0 +1,228 @@
+{
+  "snapshot_status": 200,
+  "snapshot": {
+    "devices": {
+      "alarm": false,
+      "auto_mode": true,
+      "cooling": false,
+      "dehumidifier": false,
+      "door_open": false,
+      "door_source": "hardware",
+      "heating": false,
+      "humidifier": false,
+      "lighting": false,
+      "lighting_brightness": 0,
+      "lighting_source": "auto",
+      "presence": true
+    },
+    "distance": 117.9,
+    "door_open": false,
+    "door_source": "hardware",
+    "humidity": 49.4,
+    "humidity_max": 60,
+    "humidity_min": 40,
+    "last_motion": "0 秒前",
+    "light": 129,
+    "motion": true,
+    "motion_count": 2,
+    "presence": true,
+    "smoke": 1,
+    "temp_max": 26,
+    "temp_min": 20,
+    "temperature": 25.3,
+    "timestamp": "2026-11-08 13:52:45"
+  },
+  "snapshot_ms": 56.56,
+  "snapshot_fields": [
+    "devices",
+    "distance",
+    "door_open",
+    "door_source",
+    "humidity",
+    "humidity_max",
+    "humidity_min",
+    "last_motion",
+    "light",
+    "motion",
+    "motion_count",
+    "presence",
+    "smoke",
+    "temp_max",
+    "temp_min",
+    "temperature",
+    "timestamp"
+  ],
+  "device_fields": [
+    "alarm",
+    "auto_mode",
+    "cooling",
+    "dehumidifier",
+    "door_open",
+    "door_source",
+    "heating",
+    "humidifier",
+    "lighting",
+    "lighting_brightness",
+    "lighting_source",
+    "presence"
+  ],
+  "history_status": 200,
+  "history_points": 7,
+  "control_ok_status": 200,
+  "control_ok_devices_lighting": true,
+  "control_ok_source": "evidence-run",
+  "control_bad_status": 400,
+  "control_bad_body": "{\"error\":\"Unknown action\"}\n",
+  "get_control_status": 405,
+  "unknown_path_status": 404,
+  "poll_samples": [
+    {
+      "t": 1794117165.22,
+      "timestamp": "2026-11-08 13:52:45",
+      "temperature": 25.3,
+      "humidity": 49.4,
+      "light": 129,
+      "smoke": 1,
+      "motion": true,
+      "door_open": false
+    },
+    {
+      "t": 1794117168.23,
+      "timestamp": "2026-11-08 13:52:48",
+      "temperature": 25.2,
+      "humidity": 49.3,
+      "light": 127,
+      "smoke": 4,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117171.24,
+      "timestamp": "2026-11-08 13:52:51",
+      "temperature": 25.1,
+      "humidity": 49.7,
+      "light": 123,
+      "smoke": 7,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117174.24,
+      "timestamp": "2026-11-08 13:52:54",
+      "temperature": 24.9,
+      "humidity": 49.3,
+      "light": 116,
+      "smoke": 9,
+      "motion": true,
+      "door_open": false
+    },
+    {
+      "t": 1794117177.24,
+      "timestamp": "2026-11-08 13:52:57",
+      "temperature": 25.1,
+      "humidity": 49.5,
+      "light": 114,
+      "smoke": 11,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117180.27,
+      "timestamp": "2026-11-08 13:53:00",
+      "temperature": 24.9,
+      "humidity": 49.5,
+      "light": 113,
+      "smoke": 12,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117183.28,
+      "timestamp": "2026-11-08 13:53:03",
+      "temperature": 25.0,
+      "humidity": 49.2,
+      "light": 112,
+      "smoke": 11,
+      "motion": true,
+      "door_open": false
+    },
+    {
+      "t": 1794117186.3,
+      "timestamp": "2026-11-08 13:53:06",
+      "temperature": 25.0,
+      "humidity": 49.5,
+      "light": 117,
+      "smoke": 11,
+      "motion": true,
+      "door_open": false
+    },
+    {
+      "t": 1794117189.31,
+      "timestamp": "2026-11-08 13:53:09",
+      "temperature": 25.0,
+      "humidity": 49.7,
+      "light": 118,
+      "smoke": 13,
+      "motion": false,
+      "door_open": false
+    },
+    {
+      "t": 1794117192.33,
+      "timestamp": "2026-11-08 13:53:12",
+      "temperature": 24.8,
+      "humidity": 49.3,
+      "light": 123,
+      "smoke": 15,
+      "motion": false,
+      "door_open": false
+    }
+  ],
+  "poll_gaps_s": [
+    3.01,
+    3.01,
+    3.0,
+    3.0,
+    3.03,
+    3.01,
+    3.02,
+    3.01,
+    3.02
+  ],
+  "poll_gap_avg_s": 3.01,
+  "poll_changed_pairs": 9,
+  "perf_sequential": {
+    "n": 100,
+    "avg_ms": 14.25,
+    "p50_ms": 15.39,
+    "p95_ms": 16.05,
+    "max_ms": 16.2,
+    "min_ms": 1.11
+  },
+  "perf_concurrent": {
+    "threads": 20,
+    "per_thread": 50,
+    "success": 1000,
+    "errors": 0,
+    "duration_s": 0.89,
+    "rps": 1125.89,
+    "avg_ms": 15.99,
+    "p50_ms": 15.08,
+    "p95_ms": 28.88,
+    "p99_ms": 31.67,
+    "max_ms": 35.61
+  },
+  "door_control": [
+    {
+      "state": true,
+      "status": 200,
+      "ms": 22.81,
+      "door_open": true
+    },
+    {
+      "state": false,
+      "status": 200,
+      "ms": 29.85,
+      "door_open": false
+    }
+  ]
+}

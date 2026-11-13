@@ -1,0 +1,13 @@
+{
+    "timestamp":  "2026-11-11T20:31:42.3387693+08:00",
+    "mode":  "Full",
+    "node":  true,
+    "npm":  true,
+    "java":  true,
+    "maven":  false,
+    "mysql_tcp":  true,
+    "redis_tcp":  false,
+    "spring_port_8080_free":  false,
+    "raspberry_sensor":  null,
+    "frontend_requested_port_free":  false
+}

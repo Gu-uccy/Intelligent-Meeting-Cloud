@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.Mapper.RoomMapper">
+    <!--添加会议室-->
+    <insert id="insertRoom" parameterType="com.sky.entity.MeetingRoom">
+        INSERT INTO meeting_room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roomCode != null">room_code,</if>
+            <if test="capacity != null">capacity,</if>
+
+            <if test="isActive != null">is_active,</if>
+            <if test="location != null">location,</if>
+            <if test="equipment != null">equipment,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="roomCode != null">#{roomCode},</if>
+            <if test="capacity != null">#{capacity},</if>
+
+            <if test="isActive != null">#{isActive},</if>
+            <if test="location != null">#{location},</if>
+            <if test="equipment != null">#{equipment},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+
+
+    <update id="update">
+        UPDATE meeting_room
+        <set>
+            <if test="roomCode != null">
+                room_code = #{roomCode},
+            </if>
+            <if test="capacity != null">
+                capacity = #{capacity},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+
+
+            <if test="isActive != null">
+                is_active = #{isActive},
+            </if>
+            <if test="location != null and location != ''">
+                location = #{location},
+            </if>
+            <if test="equipment != null and equipment != ''">
+                equipment = #{equipment},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <update id="updateStatusWithVersion">
+        UPDATE meeting_room
+        SET  version = version + 1
+        WHERE id = #{roomId} AND version = #{version}
+    </update>
+
+    <delete id="batchDelete" >
+        DELETE FROM meeting_room
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="limitSelect" resultType="com.sky.vo.RoomVo">
+        SELECT id, room_code, capacity,  is_active, equipment, location, remark, image
+        FROM meeting_room
+        <where>
+        <if test="roomCode != null">
+            room_code = #{roomCode}
+        </if>
+        <if test="capacity != null">
+            and capacity >= #{capacity}
+        </if>
+
+        <if test="isActive != null">
+            AND is_active = #{isActive}
+        </if>
+        <if test="location != null and location != ''">
+            AND location LIKE CONCAT('%', #{location}, '%')
+        </if>
+
+        </where>
+    </select>
+</mapper>

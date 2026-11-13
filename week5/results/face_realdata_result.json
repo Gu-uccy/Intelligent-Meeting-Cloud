@@ -1,0 +1,422 @@
+{
+  "mode": "real_face_public_samples",
+  "note": "真实人脸照片（scikit-image 的 astronaut、matplotlib 的 grace_hopper），非本组同学照片；用于验证自研 LBP 链路的真实判别力与 fail-closed 行为。本组同学实测请用 webcam 注册后运行 tools/face_live_eval.py。",
+  "algorithm": "selfdev uniform-LBP 7x7x59 + cosine + auto threshold",
+  "dependencies": {
+    "numpy": "2.5.3",
+    "opencv": "4.10.0"
+  },
+  "service": {
+    "gallery_identities": 2,
+    "gallery_faces": 8,
+    "threshold": 0.7209,
+    "threshold_source": "calibrated-inter-margin",
+    "threshold_detail": "类间 max=0.6609 mean=0.5741 n=16 | 类内 min=0.5169 mean=0.8050 n=12 | θ=类间max+0.06 | 警告：θ 高于类内最小值，说明有同人样本差异过大（可能增强过强/侧脸），建议补充更稳定的正面样本",
+    "require_face_detection": true
+  },
+  "enroll": {
+    "astronaut": [
+      {
+        "index": 0,
+        "http": 200,
+        "enrolled": true,
+        "error": null
+      },
+      {
+        "index": 1,
+        "http": 200,
+        "enrolled": true,
+        "error": null
+      },
+      {
+        "index": 2,
+        "http": 200,
+        "enrolled": true,
+        "error": null
+      },
+      {
+        "index": 3,
+        "http": 200,
+        "enrolled": true,
+        "error": null
+      }
+    ],
+    "grace_hopper": [
+      {
+        "index": 0,
+        "http": 200,
+        "enrolled": true,
+        "error": null
+      },
+      {
+        "index": 1,
+        "http": 200,
+        "enrolled": true,
+        "error": null
+      },
+      {
+        "index": 2,
+        "http": 200,
+        "enrolled": true,
+        "error": null
+      },
+      {
+        "index": 3,
+        "http": 200,
+        "enrolled": true,
+        "error": null
+      }
+    ]
+  },
+  "one_to_n": {
+    "correct": 6,
+    "total": 6,
+    "accuracy": 1.0
+  },
+  "one_to_one": {
+    "genuine_scores": [
+      0.7885,
+      0.832,
+      0.9074,
+      0.9586,
+      0.9602,
+      0.9662
+    ],
+    "impostor_scores": [
+      0.5263,
+      0.6376,
+      0.6582,
+      0.659
+    ],
+    "genuine_min": 0.7885,
+    "impostor_max": 0.659
+  },
+  "probes": [
+    {
+      "probe": "astronaut#4",
+      "http": 200,
+      "top1": "astronaut",
+      "top1_score": 0.832,
+      "own_account_score": 0.832,
+      "kind": "genuine",
+      "expected": "astronaut"
+    },
+    {
+      "probe": "astronaut#5",
+      "http": 200,
+      "top1": "astronaut",
+      "top1_score": 0.7885,
+      "own_account_score": 0.7885,
+      "kind": "genuine",
+      "expected": "astronaut"
+    },
+    {
+      "probe": "astronaut#6",
+      "http": 200,
+      "top1": "astronaut",
+      "top1_score": 0.9074,
+      "own_account_score": 0.9074,
+      "kind": "genuine",
+      "expected": "astronaut"
+    },
+    {
+      "probe": "impostor:grace_hopper#4",
+      "http": 200,
+      "top1": "grace_hopper",
+      "top1_score": 0.9572,
+      "claimed_account": "astronaut",
+      "claimed_score": 0.659,
+      "kind": "impostor",
+      "expected": "not-astronaut"
+    },
+    {
+      "probe": "impostor:grace_hopper#5",
+      "http": 200,
+      "top1": "grace_hopper",
+      "top1_score": 0.9533,
+      "claimed_account": "astronaut",
+      "claimed_score": 0.6376,
+      "kind": "impostor",
+      "expected": "not-astronaut"
+    },
+    {
+      "probe": "grace_hopper#4",
+      "http": 200,
+      "top1": "grace_hopper",
+      "top1_score": 0.9602,
+      "own_account_score": 0.9602,
+      "kind": "genuine",
+      "expected": "grace_hopper"
+    },
+    {
+      "probe": "grace_hopper#5",
+      "http": 200,
+      "top1": "grace_hopper",
+      "top1_score": 0.9586,
+      "own_account_score": 0.9586,
+      "kind": "genuine",
+      "expected": "grace_hopper"
+    },
+    {
+      "probe": "grace_hopper#6",
+      "http": 200,
+      "top1": "grace_hopper",
+      "top1_score": 0.9662,
+      "own_account_score": 0.9662,
+      "kind": "genuine",
+      "expected": "grace_hopper"
+    },
+    {
+      "probe": "impostor:astronaut#4",
+      "http": 200,
+      "top1": "astronaut",
+      "top1_score": 0.8457,
+      "claimed_account": "grace_hopper",
+      "claimed_score": 0.6582,
+      "kind": "impostor",
+      "expected": "not-grace_hopper"
+    },
+    {
+      "probe": "impostor:astronaut#5",
+      "http": 200,
+      "top1": "astronaut",
+      "top1_score": 0.7969,
+      "claimed_account": "grace_hopper",
+      "claimed_score": 0.5263,
+      "kind": "impostor",
+      "expected": "not-grace_hopper"
+    }
+  ],
+  "business_ticket_tests": [
+    {
+      "case": "本人刷脸取凭据 astronaut#4",
+      "http": 200,
+      "granted": true,
+      "reason": null,
+      "expect": "granted"
+    },
+    {
+      "case": "本人刷脸取凭据 astronaut#5",
+      "http": 200,
+      "granted": true,
+      "reason": null,
+      "expect": "granted"
+    },
+    {
+      "case": "本人刷脸取凭据 astronaut#6",
+      "http": 200,
+      "granted": true,
+      "reason": null,
+      "expect": "granted"
+    },
+    {
+      "case": "冒名(grace_hopper)声称 astronaut#4",
+      "http": 403,
+      "granted": false,
+      "reason": "人脸与当前账号不匹配",
+      "expect": "denied"
+    },
+    {
+      "case": "冒名(grace_hopper)声称 astronaut#5",
+      "http": 403,
+      "granted": false,
+      "reason": "人脸与当前账号不匹配",
+      "expect": "denied"
+    },
+    {
+      "case": "本人刷脸取凭据 grace_hopper#4",
+      "http": 200,
+      "granted": true,
+      "reason": null,
+      "expect": "granted"
+    },
+    {
+      "case": "本人刷脸取凭据 grace_hopper#5",
+      "http": 200,
+      "granted": true,
+      "reason": null,
+      "expect": "granted"
+    },
+    {
+      "case": "本人刷脸取凭据 grace_hopper#6",
+      "http": 200,
+      "granted": true,
+      "reason": null,
+      "expect": "granted"
+    },
+    {
+      "case": "冒名(astronaut)声称 grace_hopper#4",
+      "http": 403,
+      "granted": false,
+      "reason": "人脸与当前账号不匹配",
+      "expect": "denied"
+    },
+    {
+      "case": "冒名(astronaut)声称 grace_hopper#5",
+      "http": 403,
+      "granted": false,
+      "reason": "人脸与当前账号不匹配",
+      "expect": "denied"
+    }
+  ],
+  "negative_images": [
+    {
+      "image": "coffee",
+      "http": 422,
+      "matched": false,
+      "error": "未检测到人脸",
+      "confidence": null,
+      "rejected": true
+    },
+    {
+      "image": "chelsea",
+      "http": 422,
+      "matched": false,
+      "error": "未检测到人脸",
+      "confidence": null,
+      "rejected": true
+    }
+  ],
+  "threshold_curve": [
+    {
+      "threshold": 0.4,
+      "accuracy": 0.6,
+      "far": 1.0,
+      "frr": 0.0,
+      "tp": 6,
+      "fp": 4,
+      "fn": 0,
+      "tn": 0
+    },
+    {
+      "threshold": 0.45,
+      "accuracy": 0.6,
+      "far": 1.0,
+      "frr": 0.0,
+      "tp": 6,
+      "fp": 4,
+      "fn": 0,
+      "tn": 0
+    },
+    {
+      "threshold": 0.5,
+      "accuracy": 0.6,
+      "far": 1.0,
+      "frr": 0.0,
+      "tp": 6,
+      "fp": 4,
+      "fn": 0,
+      "tn": 0
+    },
+    {
+      "threshold": 0.55,
+      "accuracy": 0.7,
+      "far": 0.75,
+      "frr": 0.0,
+      "tp": 6,
+      "fp": 3,
+      "fn": 0,
+      "tn": 1
+    },
+    {
+      "threshold": 0.6,
+      "accuracy": 0.7,
+      "far": 0.75,
+      "frr": 0.0,
+      "tp": 6,
+      "fp": 3,
+      "fn": 0,
+      "tn": 1
+    },
+    {
+      "threshold": 0.65,
+      "accuracy": 0.8,
+      "far": 0.5,
+      "frr": 0.0,
+      "tp": 6,
+      "fp": 2,
+      "fn": 0,
+      "tn": 2
+    },
+    {
+      "threshold": 0.7,
+      "accuracy": 1.0,
+      "far": 0.0,
+      "frr": 0.0,
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4
+    },
+    {
+      "threshold": 0.75,
+      "accuracy": 1.0,
+      "far": 0.0,
+      "frr": 0.0,
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4
+    },
+    {
+      "threshold": 0.8,
+      "accuracy": 0.9,
+      "far": 0.0,
+      "frr": 0.1667,
+      "tp": 5,
+      "fp": 0,
+      "fn": 1,
+      "tn": 4
+    },
+    {
+      "threshold": 0.85,
+      "accuracy": 0.8,
+      "far": 0.0,
+      "frr": 0.3333,
+      "tp": 4,
+      "fp": 0,
+      "fn": 2,
+      "tn": 4
+    },
+    {
+      "threshold": 0.9,
+      "accuracy": 0.8,
+      "far": 0.0,
+      "frr": 0.3333,
+      "tp": 4,
+      "fp": 0,
+      "fn": 2,
+      "tn": 4
+    },
+    {
+      "threshold": 0.95,
+      "accuracy": 0.7,
+      "far": 0.0,
+      "frr": 0.5,
+      "tp": 3,
+      "fp": 0,
+      "fn": 3,
+      "tn": 4
+    }
+  ],
+  "best_threshold_by_far05": {
+    "threshold": 0.7,
+    "accuracy": 1.0,
+    "far": 0.0,
+    "frr": 0.0,
+    "tp": 6,
+    "fp": 0,
+    "fn": 0,
+    "tn": 4
+  },
+  "at_auto_threshold": {
+    "threshold": 0.7209,
+    "accuracy": 1.0,
+    "far": 0.0,
+    "frr": 0.0,
+    "tp": 6,
+    "fp": 0,
+    "fn": 0,
+    "tn": 4
+  }
+}

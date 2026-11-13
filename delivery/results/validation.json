@@ -1,0 +1,7 @@
+{
+  "checked_at": "2026-11-11T20:38:53.3811923+08:00",
+  "frontend_build_exit_code": 0,
+  "node": "v22.19.0",
+  "python": "Python 3.10.11",
+  "command": "npm run build:frontend"
+}

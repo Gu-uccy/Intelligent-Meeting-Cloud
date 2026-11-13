@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.Mapper.StatisticsMapper">
+    <select id="queryRoomUsage" resultType="com.sky.entity.Statistics">
+        SELECT
+            DATE(reservation.start_time) AS date,
+            COUNT(*) AS room_usage_count,
+            SUM(TIMESTAMPDIFF(MINUTE, reservation.start_time, reservation.end_time)) AS total_usage_minutes
+        FROM reservation
+        WHERE reservation.status = 1  -- 已确认的预约
+          AND reservation.start_time BETWEEN #{startTime} AND DATE_ADD(#{endTime}, INTERVAL 1 DAY)
+        GROUP by DATE(reservation.start_time)
+        order by date
+    </select>
+
+    <select id="queryFaultStatistics"  resultType="com.sky.entity.Statistics">
+        SELECT
+            DATE(create_time) AS date,
+            COUNT(*) AS fault_count,
+            SUM(CASE WHEN status IN (1,2,3) THEN 1 ELSE 0 END) AS handled_fault_count
+        FROM device_fault
+        WHERE create_time BETWEEN #{startTime} AND DATE_ADD(#{endTime}, INTERVAL 1 DAY)
+        group by DATE(create_time)
+        order by date
+    </select>
+</mapper>

@@ -1,0 +1,58 @@
+.el-message {
+  margin-top: 60px !important;
+  min-width: 340px !important;
+  min-height: 60px !important;
+  padding: 16px 26px !important;
+  border-radius: 8px !important;
+  background: transparent !important; 
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.el-message .el-icon,
+.el-message .el-message__icon {
+  font-size: 18px !important;
+  margin-right: 12px !important;
+  color: #ffffff !important;
+}
+
+.el-message__content {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.el-message--success {
+  background-color: rgba(16, 185, 129, 0.25) !important; 
+  border: 1px solid #10b981b0 !important;
+  box-shadow: 0 5px 20px rgba(16, 185, 129, 0.2) !important;
+}
+
+.el-message--warning {
+  background-color: rgba(245, 158, 11, 0.25) !important;
+  border: 1px solid #f59e0bb0 !important;
+  box-shadow: 0 5px 20px rgba(245, 158, 11, 0.2) !important;
+}
+
+.el-message--error {
+  background-color: rgba(239, 68, 68, 0.25) !important;
+  border: 1px solid #ef4444b0 !important;
+  box-shadow: 0 5px 20px rgba(239, 68, 68, 0.2) !important;
+}
+
+.el-message-fade-enter-active,
+.el-message-fade-leave-active {
+  transition: all 0.3s ease-out !important;
+}
+.el-message-fade-enter-from {
+  opacity: 0 !important;
+  transform: translateY(-20px) !important;
+}
+.el-message-fade-leave-to {
+  opacity: 0 !important;
+  transform: translateY(-20px) !important;
+}

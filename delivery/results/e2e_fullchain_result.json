@@ -1,0 +1,124 @@
+{
+  "ran_at": "2026-11-13T02:01:49.385Z",
+  "base": "http://127.0.0.1:5173",
+  "account": "13900000002",
+  "passed": 17,
+  "total": 17,
+  "records": [
+    {
+      "id": "E2E-01",
+      "name": "注册写入真实 MySQL",
+      "status": "PASS",
+      "detail": "http=200 code=1"
+    },
+    {
+      "id": "E2E-02",
+      "name": "新账号登录并签发 JWT",
+      "status": "PASS",
+      "detail": "token=eyJhbGciOiJIUzI1Ni…"
+    },
+    {
+      "id": "E2E-03",
+      "name": "后端拦截「未刷脸」的预约请求",
+      "status": "PASS",
+      "detail": "http=403 msg=预约必须先通过人脸核验：请点击「刷脸确认」后重试"
+    },
+    {
+      "id": "E2E-04",
+      "name": "后端拦截图伪造凭据",
+      "status": "PASS",
+      "detail": "http=403 msg=刷脸凭据无效或已过期，请重新刷脸确认"
+    },
+    {
+      "id": "E2E-05",
+      "name": "UI 登录（真实账号）",
+      "status": "PASS",
+      "detail": "http://127.0.0.1:5173/"
+    },
+    {
+      "id": "E2E-06",
+      "name": "会议室列表由真实接口渲染",
+      "status": "PASS",
+      "detail": "cards=3"
+    },
+    {
+      "id": "E2E-07",
+      "name": "刷脸核身通过（1:1）",
+      "status": "PASS",
+      "detail": " FACE CONFIRM 刷脸确认预约 提交预约前需完成 1:1 人脸核身；凭据 5 分钟内有效且只能用一次 当前账号 13900000002 目标会议室 301 3楼东区 识别结果必须与当前登录账号一致 开门额外校验「当前时段有效预约」"
+    },
+    {
+      "id": "E2E-08",
+      "name": "预约已落库（MySQL reservation 表）",
+      "status": "PASS",
+      "detail": "我的预约=5 条"
+    },
+    {
+      "id": "E2E-09",
+      "name": "冒名人脸被拒绝（预约不落库）",
+      "status": "PASS",
+      "detail": " FACE CONFIRM 刷脸确认预约 提交预约前需完成 1:1 人脸核身；凭据 5 分钟内有效且只能用一次 当前账号 13900000002 目标会议室 301 3楼东区 识别结果必须与当前登录账号一致 开门额外校验「当前时段有效预约」"
+    },
+    {
+      "id": "E2E-10",
+      "name": "刷脸解锁通过（人脸+预约时段）",
+      "status": "PASS",
+      "detail": " FACE UNLOCK 刷脸解锁会议室 核验「董事会议室」当前时段的预约权限；通过后门禁打开，3D 门同步开启 当前账号 13900000002 目标会议室 董事会议室 识别结果必须与当前登录账号一致 开门额外校验「当前时段有效预约」 未注册 / 不匹配 / 无预约 → 一律拒绝并写审计日志 已解锁，门禁开启 相似度"
+    },
+    {
+      "id": "E2E-11",
+      "name": "设备层 door_open 变为 true",
+      "status": "PASS",
+      "detail": "door_open=true"
+    },
+    {
+      "id": "E2E-12",
+      "name": "3D 页面门状态由关变开",
+      "status": "PASS",
+      "detail": "已关闭 -> 已开启"
+    },
+    {
+      "id": "E2E-13",
+      "name": "3D 页灯控写入设备层（状态翻转）",
+      "status": "PASS",
+      "detail": "devices.lighting true -> false (brightness=0)"
+    },
+    {
+      "id": "E2E-14",
+      "name": "3D 页灯光状态回显",
+      "status": "PASS",
+      "detail": "关闭LED灯 100% -> 打开LED灯 OFF"
+    },
+    {
+      "id": "E2E-15",
+      "name": "无有效预约的会议室被拒绝开门",
+      "status": "PASS",
+      "detail": " FACE UNLOCK 刷脸解锁会议室 核验「培训研讨室」当前时段的预约权限；通过后门禁打开，3D 门同步开启 当前账号 13900000002 目标会议室 培训研讨室 识别结果必须与当前登录账号一致 开门额外校验「当前时段有效预约」 未注册 / 不匹配 / 无预约 → 一律拒"
+    },
+    {
+      "id": "E2E-16",
+      "name": "人脸审计日志已落库",
+      "status": "PASS",
+      "detail": "rows=10"
+    },
+    {
+      "id": "E2E-17",
+      "name": "页面无 JS 异常",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "page_errors": [],
+  "screenshots": [
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\01_after_login.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\02_room_list.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\03_booking_form.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\04_face_gate.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\05_booking_result.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\06_face_rejected.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\07_room3d_before.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\09_room3d_unlocked.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\10_room3d_light_on.png",
+    "D:\\zongshe\\Intelligent-Meeting-Cloud-main\\delivery\\screenshots_e2e\\11_unlock_denied_no_reservation.png"
+  ]
+}

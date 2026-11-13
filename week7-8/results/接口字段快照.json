@@ -1,0 +1,93 @@
+{
+  "checked_at": "2026-11-08 14:03:24",
+  "base": "http://127.0.0.1:5000",
+  "http_status": 200,
+  "field_count": 17,
+  "fields": [
+    "devices",
+    "distance",
+    "door_open",
+    "door_source",
+    "humidity",
+    "humidity_max",
+    "humidity_min",
+    "last_motion",
+    "light",
+    "motion",
+    "motion_count",
+    "presence",
+    "smoke",
+    "temp_max",
+    "temp_min",
+    "temperature",
+    "timestamp"
+  ],
+  "device_field_count": 12,
+  "device_fields": [
+    "alarm",
+    "auto_mode",
+    "cooling",
+    "dehumidifier",
+    "door_open",
+    "door_source",
+    "heating",
+    "humidifier",
+    "lighting",
+    "lighting_brightness",
+    "lighting_source",
+    "presence"
+  ],
+  "sample": {
+    "devices": {
+      "alarm": false,
+      "auto_mode": true,
+      "cooling": false,
+      "dehumidifier": false,
+      "door_open": false,
+      "door_source": "hardware",
+      "heating": false,
+      "humidifier": false,
+      "lighting": false,
+      "lighting_brightness": 0,
+      "lighting_source": "auto",
+      "presence": true
+    },
+    "distance": 117.9,
+    "door_open": false,
+    "door_source": "hardware",
+    "humidity": 49.4,
+    "humidity_max": 60,
+    "humidity_min": 40,
+    "last_motion": "0 秒前",
+    "light": 129,
+    "motion": true,
+    "motion_count": 2,
+    "presence": true,
+    "smoke": 1,
+    "temp_max": 26,
+    "temp_min": 20,
+    "temperature": 25.3,
+    "timestamp": "2026-11-08 13:52:45"
+  },
+  "error_codes": {
+    "invalid_action": 400,
+    "invalid_action_body": "{\"error\":\"Unknown action\"}\n",
+    "get_control": 405,
+    "unknown_path": 404
+  },
+  "control_roundtrip": [
+    {
+      "state": true,
+      "status": 200,
+      "ms": 22.81,
+      "door_open": true
+    },
+    {
+      "state": false,
+      "status": 200,
+      "ms": 29.85,
+      "door_open": false
+    }
+  ],
+  "history_points_at_check": 7
+}

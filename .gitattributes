@@ -1,0 +1,2 @@
+# Keep recorded evidence byte-for-byte reproducible, including downloaded CSV.
+delivery/** -text whitespace=cr-at-eol

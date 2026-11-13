@@ -1,0 +1,53 @@
+﻿id,name,status,scope,duration_ms,source,line
+TC_01,health,PASS,isolated Flask test client / GPIO doubles,25.517,delivery/tests/test_sensor_contract.py,43
+TC_02,partial_keeps_devices,PASS,isolated Flask test client / GPIO doubles,0.46,delivery/tests/test_sensor_contract.py,47
+TC_03,missing_dht_never_fabricates,PASS,isolated Flask test client / GPIO doubles,0.074,delivery/tests/test_sensor_contract.py,54
+TC_04,hardware_not_simulated,PASS,isolated Flask test client / GPIO doubles,0.055,delivery/tests/test_sensor_contract.py,58
+TC_05,simulation_adjusts,PASS,isolated Flask test client / GPIO doubles,0.051,delivery/tests/test_sensor_contract.py,65
+TC_06,history_missing_is_null,PASS,isolated Flask test client / GPIO doubles,0.584,delivery/tests/test_sensor_contract.py,71
+TC_07,history_provenance,PASS,isolated Flask test client / GPIO doubles,0.35,delivery/tests/test_sensor_contract.py,75
+TC_08,empty_export,PASS,isolated Flask test client / GPIO doubles,0.703,delivery/tests/test_sensor_contract.py,81
+TC_09,export_roundtrip,PASS,isolated Flask test client / GPIO doubles,1.237,delivery/tests/test_sensor_contract.py,84
+TC_10,nonobject_request,PASS,isolated Flask test client / GPIO doubles,0.752,delivery/tests/test_sensor_contract.py,93
+TC_11,malformed_json,PASS,isolated Flask test client / GPIO doubles,0.382,delivery/tests/test_sensor_contract.py,96
+TC_12,unknown_action,PASS,isolated Flask test client / GPIO doubles,0.336,delivery/tests/test_sensor_contract.py,99
+TC_13,unknown_device,PASS,isolated Flask test client / GPIO doubles,0.326,delivery/tests/test_sensor_contract.py,102
+TC_14,string_state_rejected,PASS,isolated Flask test client / GPIO doubles,0.36,delivery/tests/test_sensor_contract.py,105
+TC_15,negative_brightness,PASS,isolated Flask test client / GPIO doubles,1.09,delivery/tests/test_sensor_contract.py,108
+TC_16,excess_brightness,PASS,isolated Flask test client / GPIO doubles,0.763,delivery/tests/test_sensor_contract.py,111
+TC_17,dim_light,PASS,isolated Flask test client / GPIO doubles,1.242,delivery/tests/test_sensor_contract.py,114
+TC_18,light_on,PASS,isolated Flask test client / GPIO doubles,1.153,delivery/tests/test_sensor_contract.py,118
+TC_19,light_off,PASS,isolated Flask test client / GPIO doubles,1.101,delivery/tests/test_sensor_contract.py,122
+TC_20,door_open,PASS,isolated Flask test client / GPIO doubles,1.207,delivery/tests/test_sensor_contract.py,126
+TC_21,door_close,PASS,isolated Flask test client / GPIO doubles,1.717,delivery/tests/test_sensor_contract.py,131
+TC_22,unavailable_servo,PASS,isolated Flask test client / GPIO doubles,1.661,delivery/tests/test_sensor_contract.py,135
+TC_23,failed_pwm_no_success_state,PASS,isolated Flask test client / GPIO doubles,1.368,delivery/tests/test_sensor_contract.py,141
+TC_24,auto_toggle,PASS,isolated Flask test client / GPIO doubles,1.088,delivery/tests/test_sensor_contract.py,149
+TC_25,auto_bool_validation,PASS,isolated Flask test client / GPIO doubles,0.365,delivery/tests/test_sensor_contract.py,152
+TC_26,threshold_update,PASS,isolated Flask test client / GPIO doubles,1.43,delivery/tests/test_sensor_contract.py,155
+TC_27,threshold_order,PASS,isolated Flask test client / GPIO doubles,0.587,delivery/tests/test_sensor_contract.py,159
+TC_28,threshold_type,PASS,isolated Flask test client / GPIO doubles,0.661,delivery/tests/test_sensor_contract.py,162
+TC_29,humidity_range,PASS,isolated Flask test client / GPIO doubles,0.373,delivery/tests/test_sensor_contract.py,165
+TC_30,stale_sample,PASS,isolated Flask test client / GPIO doubles,0.394,delivery/tests/test_sensor_contract.py,168
+TC_31,alarm_priority,PASS,isolated Flask test client / GPIO doubles,0.904,delivery/tests/test_sensor_contract.py,174
+TC_32,dual_servo_output,PASS,isolated Flask test client / GPIO doubles,0.477,delivery/tests/test_sensor_contract.py,181
+TC_33,登录页内容与输入框,PASS,Chromium / browser API fixtures / business mock,552.89,delivery/tests/browser_acceptance.mjs,69
+TC_34,演示账号登录跳转,PASS,Chromium / browser API fixtures / business mock,207.26,delivery/tests/browser_acceptance.mjs,70
+TC_35,会议室列表加载,PASS,Chromium / browser API fixtures / business mock,448.91,delivery/tests/browser_acceptance.mjs,76
+TC_36,选择会议室与空闲时间片,PASS,Chromium / browser API fixtures / business mock,478.34,delivery/tests/browser_acceptance.mjs,77
+TC_37,提交预约并持久化到演示存储,PASS,Chromium / browser API fixtures / business mock,223.68,delivery/tests/browser_acceptance.mjs,87
+TC_38,3D页面身份、主体与无错误覆盖层,PASS,Chromium / browser API fixtures / business mock,547.86,delivery/tests/browser_acceptance.mjs,93
+TC_39,WebGL画布创建且尺寸有效,PASS,Chromium / browser API fixtures / business mock,523.26,delivery/tests/browser_acceptance.mjs,97
+TC_40,模拟接口明确标注,PASS,Chromium / browser API fixtures / business mock,4.59,delivery/tests/browser_acceptance.mjs,101
+TC_41,传感器来源映射为实时状态（夹具）,PASS,Chromium / browser API fixtures / business mock,641.87,delivery/tests/browser_acceptance.mjs,102
+TC_42,温湿度轮询动态更新,PASS,Chromium / browser API fixtures / business mock,2873.14,delivery/tests/browser_acceptance.mjs,103
+TC_43,人员状态刷新,PASS,Chromium / browser API fixtures / business mock,520.52,delivery/tests/browser_acceptance.mjs,108
+TC_44,点击门回写并更新场景状态,PASS,Chromium / browser API fixtures / business mock,199.99,delivery/tests/browser_acceptance.mjs,109
+TC_45,点击灯回写并更新场景状态,PASS,Chromium / browser API fixtures / business mock,181.12,delivery/tests/browser_acceptance.mjs,113
+TC_46,会议室、氛围与视角切换,PASS,Chromium / browser API fixtures / business mock,315.79,delivery/tests/browser_acceptance.mjs,118
+TC_47,烟雾越界显示报警,PASS,Chromium / browser API fixtures / business mock,624.17,delivery/tests/browser_acceptance.mjs,125
+TC_48,传感器缺失仍保留门灯且不伪造零值,PASS,Chromium / browser API fixtures / business mock,692.46,delivery/tests/browser_acceptance.mjs,126
+TC_49,控制失败保留状态、服务中断与恢复,PASS,Chromium / browser API fixtures / business mock,1396.91,delivery/tests/browser_acceptance.mjs,133
+TC_50,四档分辨率无水平溢出与截图矩阵,PASS,Chromium / browser API fixtures / business mock,4368.32,delivery/tests/browser_acceptance.mjs,147
+TC_51,浏览器运行异常与帧间隔采样,PASS,Chromium / browser API fixtures / business mock,2010.04,delivery/tests/browser_acceptance.mjs,164
+TC_52,CSV导出下载闭环,PASS,Chromium / browser API fixtures / business mock,563.9,delivery/tests/browser_acceptance.mjs,170

@@ -1,0 +1,6 @@
+Full mode needs JDK 17+ and Maven. Use Demo for the offline walkthrough.
+At D:\Project\Intelligent-Meeting-Cloud\scripts\start-all.ps1:49 char:51
++ ... ks.maven) { throw 'Full mode needs JDK 17+ and Maven. Use Demo for th ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Full mode needs...ne walkthrough.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Full mode needs JDK 17+ and Maven. Use Demo for the offline walkthrough.

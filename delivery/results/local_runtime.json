@@ -1,0 +1,56 @@
+{
+  "checked_at": "2026-11-11T20:39:14.6614988+08:00",
+  "health": {
+    "service": "meeting-room-sensors",
+    "source": "simulation",
+    "status": "ok"
+  },
+  "current": {
+    "devices": {
+      "alarm": false,
+      "auto_mode": true,
+      "cooling": false,
+      "dehumidifier": false,
+      "door_open": false,
+      "door_source": "simulation",
+      "heating": false,
+      "humidifier": false,
+      "lighting": false,
+      "lighting_brightness": 0,
+      "lighting_source": "auto",
+      "presence": false
+    },
+    "distance": 121.8,
+    "door_open": false,
+    "door_source": "simulation",
+    "door_state_kind": "commanded",
+    "humidity": 47.8,
+    "humidity_max": 60,
+    "humidity_min": 40,
+    "last_motion": "16 秒前",
+    "light": 102,
+    "motion": false,
+    "motion_count": 2,
+    "presence": false,
+    "quality": "normal",
+    "sampled_at": null,
+    "sensor_status": {
+      "climate": "ok"
+    },
+    "smoke": 2,
+    "source": "simulation",
+    "temp_max": 26,
+    "temp_min": 20,
+    "temperature": 26.1,
+    "timestamp": "2026-11-11 20:39:14"
+  },
+  "frontend_status": 200,
+  "startup_session": {
+    "business_source": "true",
+    "url": "http://127.0.0.1:5173/room-3d",
+    "source": "simulation",
+    "mode": "Demo",
+    "sensor_target": "http://127.0.0.1:5058"
+  },
+  "physical_hardware_tested": false
+}

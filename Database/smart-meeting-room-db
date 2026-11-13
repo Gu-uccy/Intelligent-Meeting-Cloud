@@ -1,0 +1,289 @@
+-- 1. 清空历史表（按依赖顺序删除，避免外键冲突）
+DROP TABLE IF EXISTS device_fault;
+DROP TABLE IF EXISTS operation_log;
+DROP TABLE IF EXISTS notification;
+DROP TABLE IF EXISTS reservation;
+DROP TABLE IF EXISTS role_permission;
+DROP TABLE IF EXISTS permission;
+DROP TABLE IF EXISTS user_role;
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS meeting_room;
+DROP TABLE IF EXISTS user;
+-- 2. 用户表（存储系统所有用户信息，关联角色表）
+CREATE TABLE user (
+    id INT AUTO_INCREMENT COMMENT '用户ID（主键）',
+    login_account VARCHAR(50) NOT NULL COMMENT '登录账号（唯一，支持手机号/邮箱）',
+    password VARCHAR(100) NOT NULL COMMENT '密码（BCrypt加密存储，不可逆）',
+    name VARCHAR(50) NOT NULL COMMENT '用户姓名（真实姓名）',
+    gender TINYINT COMMENT '性别（0-未知，1-男，2-女）',
+    phone VARCHAR(20) COMMENT '联系电话（可选，用于紧急通知）',
+    email VARCHAR(100) COMMENT '邮箱（可选，用于密码重置）',
+    is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '账号启用状态（1-启用，0-禁用）',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '账号创建时间',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '账号更新时间',
+    create_by VARCHAR(50) COMMENT '创建人（登录账号，系统管理员创建时填写）',
+    update_by VARCHAR(50) COMMENT '更新人（登录账号，修改账号信息时填写）',
+    remark VARCHAR(200) COMMENT '备注（如"市场部员工"）',
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_login_account (login_account) COMMENT '登录账号唯一索引，避免重复注册',
+    INDEX idx_user_name (name) COMMENT '用户姓名索引，优化按姓名查询性能'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表（系统核心表，存储所有用户基础信息）';
+
+-- 3. 角色表（存储系统角色，关联权限表）
+CREATE TABLE role (
+    id INT AUTO_INCREMENT COMMENT '角色ID（主键）',
+    role_code VARCHAR(50) NOT NULL COMMENT '角色编码（Spring Security规范，必须以ROLE_开头）',
+    role_name VARCHAR(100) NOT NULL COMMENT '角色名称（用户可见，如"普通用户"）',
+    is_default BOOLEAN NOT NULL DEFAULT 0 COMMENT '是否默认角色（1-是，新用户自动分配；0-否）',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '角色创建时间',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '角色更新时间',
+    remark VARCHAR(200) COMMENT '备注（如"仅拥有基础预约权限"）',
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_role_code (role_code) COMMENT '角色编码唯一索引，避免重复角色',
+    INDEX idx_role_name (role_name) COMMENT '角色名称索引，优化按名称查询性能'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色表（RBAC权限模型核心，关联用户与权限）';
+
+-- 4. 权限表（存储系统所有权限项，关联角色表）
+CREATE TABLE permission (
+    id INT AUTO_INCREMENT COMMENT '权限ID（主键）',
+    permission_code VARCHAR(50) NOT NULL COMMENT '权限编码（@PreAuthorize注解使用，如"reservation:create"）',
+    permission_name VARCHAR(100) NOT NULL COMMENT '权限名称（用户可见，如"创建预约"）',
+    url VARCHAR(200) COMMENT '关联接口URL（如"/api/reservations"，用于接口权限自动匹配）',
+    method VARCHAR(10) COMMENT '请求方法（如"POST"，与URL配合定位接口）',
+    parent_id INT COMMENT '父权限ID（用于权限层级，如"会议室管理"是父权限，"修改会议室"是子权限）',
+    sort INT NOT NULL DEFAULT 0 COMMENT '排序号（权限列表展示时的顺序，值越小越靠前）',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '权限创建时间',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '权限更新时间',
+    remark VARCHAR(200) COMMENT '备注（如"普通用户和管理员均拥有此权限"）',
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_permission_code (permission_code) COMMENT '权限编码唯一索引，避免重复权限',
+    INDEX idx_parent_id (parent_id) COMMENT '父权限ID索引，优化权限层级查询性能',
+    CONSTRAINT fk_permission_parent FOREIGN KEY (parent_id) REFERENCES permission(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限表（存储系统所有操作权限，细粒度控制接口访问）';
+
+-- 5. 用户-角色关联表（多对多关联，用户可拥有多个角色）
+CREATE TABLE user_role (
+    user_id INT NOT NULL COMMENT '用户ID（关联user表）',
+    role_id INT NOT NULL COMMENT '角色ID（关联role表）',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '关联创建时间（给用户分配角色的时间）',
+    create_by VARCHAR(50) COMMENT '创建人（登录账号，系统管理员分配角色时填写）',
+    PRIMARY KEY (user_id, role_id) COMMENT '复合主键，避免用户重复关联同一角色',
+    CONSTRAINT fk_user_role_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_role_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
+    INDEX idx_role_id (role_id) COMMENT '角色ID索引，优化按角色查询用户性能'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户-角色关联表（解耦用户与角色，支持多角色分配）';
+
+-- 6. 角色-权限关联表（多对多关联，角色可拥有多个权限）
+CREATE TABLE role_permission (
+    role_id INT NOT NULL COMMENT '角色ID（关联role表）',
+    permission_id INT NOT NULL COMMENT '权限ID（关联permission表）',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '关联创建时间（给角色分配权限的时间）',
+    create_by VARCHAR(50) COMMENT '创建人（登录账号，系统管理员分配权限时填写）',
+    PRIMARY KEY (role_id, permission_id) COMMENT '复合主键，避免角色重复关联同一权限',
+    CONSTRAINT fk_rp_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
+    CONSTRAINT fk_rp_permission FOREIGN KEY (permission_id) REFERENCES permission(id) ON DELETE CASCADE,
+    INDEX idx_permission_id (permission_id) COMMENT '权限ID索引，优化按权限查询角色性能'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色-权限关联表（解耦角色与权限，支持权限动态分配）';
+
+-- 7. 会议室表（存储会议室基础信息）
+CREATE TABLE meeting_room (
+    id INT AUTO_INCREMENT COMMENT '会议室ID（主键）',
+    room_code VARCHAR(20) NOT NULL COMMENT '会议室编码（唯一标识，如"301"表示3楼1号会议室）',
+    capacity INT NOT NULL COMMENT '容纳人数（如10、20，用于用户选择合适会议室）',
+    status TINYINT NOT NULL DEFAULT 0 COMMENT '实时状态（0-空闲，1-占用，2-维修，3-已预约未使用）',
+    is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '启用状态（1-启用，可预约；0-禁用，不可预约）',
+    location VARCHAR(100) NOT NULL COMMENT '会议室位置（如"3楼东区"、"5楼多功能区"）',
+    equipment VARCHAR(200) COMMENT '配备设备（如"投影+白板+麦克风"，用于用户了解会议室配置）',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间（添加会议室的时间）',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间（修改会议室信息的时间）',
+    create_by VARCHAR(50) COMMENT '创建人（登录账号，系统管理员添加时填写）',
+    update_by VARCHAR(50) COMMENT '更新人（登录账号，修改时填写）',
+    remark VARCHAR(200) COMMENT '备注（如"仅支持部门级会议"）',
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_room_code (room_code) COMMENT '会议室编码唯一索引，避免重复编码',
+    INDEX idx_meeting_room_status (status, is_active) COMMENT '状态+启用状态联合索引，优化会议室筛选性能'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='会议室表（存储所有会议室的基础信息和状态）';
+
+-- 8. 预约表（存储用户预约会议室的记录）
+CREATE TABLE reservation (
+    id INT AUTO_INCREMENT COMMENT '预约ID（主键）',
+    reservation_no VARCHAR(32) NOT NULL COMMENT '预约单号',
+    user_id INT NOT NULL COMMENT '预约用户ID',
+    room_id INT NOT NULL COMMENT '预约会议室ID',
+    admin_id INT COMMENT '审核管理员ID',
+    start_time DATETIME NOT NULL COMMENT '预约开始时间',
+    end_time DATETIME NOT NULL COMMENT '预约结束时间',
+    status TINYINT NOT NULL DEFAULT 0 COMMENT '预约状态',
+    meeting_topic VARCHAR(240) COMMENT '会议主题',
+    participant_num INT COMMENT '参会人数',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预约创建时间',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '预约更新时间',
+    create_by VARCHAR(250) COMMENT '创建人',
+    update_by VARCHAR(250) COMMENT '更新人',
+    remark VARCHAR(200) COMMENT '备注',
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_reservation_no (reservation_no),
+    INDEX idx_reservation_user (user_id, status),
+    INDEX idx_reservation_room_time (room_id, start_time, end_time),
+    CONSTRAINT fk_reservation_user FOREIGN KEY (user_id) REFERENCES user(id),
+    CONSTRAINT fk_reservation_room FOREIGN KEY (room_id) REFERENCES meeting_room(id),
+    CONSTRAINT fk_reservation_admin FOREIGN KEY (admin_id) REFERENCES user(id),
+    CONSTRAINT ck_time_order CHECK (end_time > start_time),
+    CONSTRAINT ck_participant_num CHECK (participant_num IS NULL OR participant_num > 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='预约表';
+
+-- 9. 设备故障表（存储会议室设备故障的上报和处理记录）
+CREATE TABLE device_fault (
+    id INT AUTO_INCREMENT COMMENT '故障ID（主键）',
+    fault_no VARCHAR(32) NOT NULL COMMENT '故障单号（唯一，如"FAULT20240520001"）',
+    device_name VARCHAR(50) NOT NULL COMMENT '故障设备名称（如"投影仪"、"麦克风"）',
+    room_id INT NOT NULL COMMENT '关联会议室ID（关联meeting_room表）',
+    report_user_id INT NOT NULL COMMENT '上报人ID（关联user表，故障发现者）',
+    handle_user_id INT COMMENT '处理人ID（关联user表，管理员或维修人员）',
+    status TINYINT NOT NULL DEFAULT 0 COMMENT '故障状态（0-待处理，1-处理中，2-已修复，3-无法修复）',
+    fault_desc VARCHAR(500) COMMENT '故障描述（如"投影仪开机后无画面"，详细描述故障现象）',
+    handle_desc VARCHAR(500) COMMENT '处理描述（如"更换投影仪灯泡后恢复正常"，维修后填写）',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '故障上报时间',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '故障更新时间（如分配处理人、修改状态时）',
+    handle_time DATETIME COMMENT '处理完成时间（状态改为"已修复"或"无法修复"时填写）',
+    remark VARCHAR(200) COMMENT '备注（如"故障设备已使用3年"）',
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_fault_no (fault_no) COMMENT '故障单号唯一索引，避免重复单号',
+    INDEX idx_fault_room (room_id, status) COMMENT '会议室ID+状态联合索引，优化按会议室查询故障',
+    INDEX idx_fault_report_user (report_user_id) COMMENT '上报人ID索引，优化用户查询自己上报的故障',
+    CONSTRAINT fk_fault_room FOREIGN KEY (room_id) REFERENCES meeting_room(id) ON DELETE CASCADE,
+    CONSTRAINT fk_fault_report_user FOREIGN KEY (report_user_id) REFERENCES user(id) ON DELETE CASCADE,
+    CONSTRAINT fk_fault_handle_user FOREIGN KEY (handle_user_id) REFERENCES user(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='设备故障表（存储会议室设备故障的上报、处理全流程记录）';
+
+-- 10. 通知消息表（存储系统给用户发送的通知，如预约审核、故障处理）
+CREATE TABLE notification (
+    id INT AUTO_INCREMENT COMMENT '通知ID（主键）',
+    notify_no VARCHAR(32) NOT NULL COMMENT '通知单号（唯一，如"NOTIFY20240520001"）',
+    user_id INT NOT NULL COMMENT '接收用户ID（关联user表，通知的接收者）',
+    related_id INT COMMENT '关联业务ID（如预约ID、故障ID，点击通知跳转时使用）',
+    related_type TINYINT COMMENT '关联业务类型（1-预约，2-故障，3-系统通知，用于区分跳转页面）',
+    notification_type TINYINT NOT NULL COMMENT '通知类型（0-预约审核，1-设备故障，2-会议室状态变更，3-系统提醒）',
+    content VARCHAR(500) NOT NULL COMMENT '通知内容（如"您的预约【市场部周会】已通过审核"）',
+    is_read BOOLEAN NOT NULL DEFAULT 0 COMMENT '是否已读（0-未读，1-已读）',
+    send_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间（通知生成的时间）',
+    read_time DATETIME COMMENT '阅读时间（用户点击通知后的时间）',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间（同send_time，冗余用于统一字段规范）',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间（如用户标记已读时）',
+    remark VARCHAR(200) COMMENT '备注（如"系统自动发送"）',
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_notify_no (notify_no) COMMENT '通知单号唯一索引，避免重复通知',
+    INDEX idx_notification_user (user_id, is_read) COMMENT '用户ID+已读状态联合索引，优化用户查询未读通知',
+    INDEX idx_notification_time (send_time) COMMENT '发送时间索引，优化按时间筛选通知',
+    CONSTRAINT fk_notification_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='通知消息表（存储系统给用户的所有通知，支持未读筛选和业务关联）';
+
+-- 11. 系统操作日志表（用于权限审计和问题追溯）
+CREATE TABLE operation_log (
+    id INT AUTO_INCREMENT COMMENT '日志ID（主键）',
+    log_no VARCHAR(32) NOT NULL COMMENT '日志单号（唯一，如"LOG20240520001"）',
+    user_id INT NOT NULL COMMENT '操作人ID（关联user表，执行操作的用户）',
+    user_name VARCHAR(50) NOT NULL COMMENT '操作人姓名（冗余存储，避免用户表数据删除后无法追溯）',
+    operation_type VARCHAR(50) NOT NULL COMMENT '操作类型（如"预约提交"、"审核通过"、"修改会议室"、"用户新增"）',
+    operation_content VARCHAR(500) COMMENT '操作内容（如"预约了301会议室，时间2024-05-20 09:00-10:00"）',
+    operation_result TINYINT NOT NULL COMMENT '操作结果（0-失败，1-成功）',
+    operation_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+    ip_address VARCHAR(50) COMMENT '操作IP地址（如"192.168.1.100"，用于定位操作设备）',
+    user_agent VARCHAR(200) COMMENT '用户代理（如"Chrome/124.0.0.0"，用于区分PC/移动端）',
+    error_msg VARCHAR(500) COMMENT '错误信息（操作失败时填写，如"预约时间冲突，操作失败"）',
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_log_no (log_no) COMMENT '日志单号唯一索引，避免重复日志',
+    INDEX idx_operation_user_time (user_id, operation_time) COMMENT '操作人ID+操作时间联合索引，优化按用户和时间查询日志',
+    INDEX idx_operation_type_result (operation_type, operation_result) COMMENT '操作类型+结果联合索引，优化按类型筛选成功/失败日志',
+    CONSTRAINT fk_log_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统操作日志表（用于权限审计、操作追溯和问题排查，不可删除）';
+
+-- 初始化基础数据
+-- 1. 初始化角色（3个核心角色，不可删除）
+INSERT INTO role (role_code, role_name, is_default, remark) VALUES
+('ROLE_USER', '普通用户', 1, '新用户默认角色，拥有基础预约和故障上报权限'),
+('ROLE_ROOM_ADMIN', '会议室管理员', 0, '负责预约审核、会议室管理和故障处理'),
+('ROLE_SYS_ADMIN', '系统管理员', 0, '拥有系统所有权限，负责用户、角色、权限管理');
+
+-- 2. 初始化权限（按业务模块分组，包含父权限和子权限）
+-- 2.1 预约模块权限
+INSERT INTO permission (permission_code, permission_name, url, method, parent_id, sort, remark) VALUES
+('reservation:manage', '预约管理', '/api/reservations/*', NULL, NULL, 10, '预约模块父权限，用于菜单展示'),
+('reservation:create', '创建预约', '/api/reservations', 'POST', 1, 11, '普通用户和管理员均可使用'),
+('reservation:cancel', '取消预约', '/api/reservations/{id}/cancel', 'PUT', 1, 12, '仅能取消自己的未审核/已确认预约'),
+('reservation:audit', '审核预约', '/api/reservations/{id}/audit', 'PUT', 1, 13, '仅会议室管理员和系统管理员可用'),
+('reservation:query:own', '查询个人预约', '/api/reservations/own', 'GET', 1, 14, '普通用户查询自己的预约'),
+('reservation:query:all', '查询所有预约', '/api/reservations/all', 'GET', 1, 15, '仅管理员查询所有预约');
+
+-- 2.2 会议室模块权限
+INSERT INTO permission (permission_code, permission_name, url, method, parent_id, sort, remark) VALUES
+('room:manage', '会议室管理', '/api/rooms/*', NULL, NULL, 20, '会议室模块父权限，用于菜单展示'),
+('room:view', '查看会议室', '/api/rooms', 'GET', 7, 21, '所有用户均可查看'),
+('room:edit', '修改会议室', '/api/rooms/{id}', 'PUT', 7, 22, '仅管理员可用'),
+('room:add', '新增会议室', '/api/rooms', 'POST', 7, 23, '仅系统管理员可用'),
+('room:disable', '禁用会议室', '/api/rooms/{id}/disable', 'PUT', 7, 24, '仅系统管理员可用');
+
+-- 2.3 故障模块权限
+INSERT INTO permission (permission_code, permission_name, url, method, parent_id, sort, remark) VALUES
+('fault:manage', '故障管理', '/api/device-faults/*', NULL, NULL, 30, '故障模块父权限，用于菜单展示'),
+('fault:report', '上报故障', '/api/device-faults', 'POST', 12, 31, '所有用户均可上报'),
+('fault:handle', '处理故障', '/api/device-faults/{id}/handle', 'PUT', 12, 32, '仅管理员可用'),
+('fault:query:own', '查询个人上报故障', '/api/device-faults/own', 'GET', 12, 33, '普通用户查询自己上报的故障'),
+('fault:query:all', '查询所有故障', '/api/device-faults/all', 'GET', 12, 34, '仅管理员查询所有故障');
+
+-- 2.4 系统管理权限（仅系统管理员可用）
+INSERT INTO permission (permission_code, permission_name, url, method, parent_id, sort, remark) VALUES
+('system:manage', '系统管理', '/api/system/*', NULL, NULL, 40, '系统管理父权限，用于菜单展示'),
+('user:manage', '用户管理', '/api/users/*', NULL, 17, 41, '用户增删改查'),
+('role:manage', '角色管理', '/api/roles/*', NULL, 17, 42, '角色增删改查'),
+('permission:manage', '权限管理', '/api/permissions/*', NULL, 17, 43, '权限增删改查'),
+('log:query', '日志查询', '/api/operation-logs', 'GET', 17, 44, '查询系统操作日志');
+
+-- 3. 初始化角色-权限关联（按角色分配对应权限）
+-- 3.1 普通用户（ROLE_USER，id=1）：仅基础权限
+INSERT INTO role_permission (role_id, permission_id, create_by) VALUES
+(1, 2, 'system'), -- reservation:create
+(1, 3, 'system'), -- reservation:cancel
+(1, 6, 'system'), -- reservation:query:own
+(1, 8, 'system'), -- room:view
+(1, 13, 'system'); -- fault:report
+
+-- 3.2 会议室管理员（ROLE_ROOM_ADMIN，id=2）：基础权限+审核/处理权限
+INSERT INTO role_permission (role_id, permission_id, create_by) VALUES
+-- 继承普通用户权限
+(2, 2, 'system'), (2, 3, 'system'), (2, 6, 'system'), (2, 8, 'system'), (2, 13, 'system'),
+-- 额外管理权限
+(2, 4, 'system'), -- reservation:audit
+(2, 7, 'system'), -- reservation:query:all
+(2, 9, 'system'), -- room:edit
+(2, 14, 'system'), -- fault:handle
+(2, 15, 'system'); -- fault:query:all
+
+-- 3.3 系统管理员（ROLE_SYS_ADMIN，id=3）：所有权限（关联所有permission_id）
+INSERT INTO role_permission (role_id, permission_id, create_by)
+SELECT 3, id, 'system' FROM permission;
+
+-- 4. 初始化默认用户（系统管理员和测试用户，密码均为123456，BCrypt加密后的值）
+-- 4.1 系统管理员（账号：sys_admin，密码：123456）
+INSERT INTO user (login_account, password, name, gender, phone, email, is_active, create_by) VALUES
+('sys_admin', '$2a$10$EixZaYb051a2G6h4H8j0k1L9M7N6O5P4Q3R2S1T0U9V8W7X6Y5Z', '系统管理员', 1, '13800138000', 'sys_admin@example.com', 1, 'system');
+
+-- 4.2 会议室管理员（账号：room_admin，密码：123456）
+INSERT INTO user (login_account, password, name, gender, phone, email, is_active, create_by) VALUES
+('room_admin', '$2a$10$EixZaYb051a2G6h4H8j0k1L9M7N6O5P4Q3R2S1T0U9V8W7X6Y5Z', '会议室管理员', 2, '13800138001', 'room_admin@example.com', 1, 'sys_admin');
+
+-- 4.3 普通用户（账号：test_user，密码：123456）
+INSERT INTO user (login_account, password, name, gender, phone, email, is_active, create_by) VALUES
+('test_user', '$2a$10$EixZaYb051a2G6h4H8j0k1L9M7N6O5P4Q3R2S1T0U9V8W7X6Y5Z', '测试用户', 1, '13800138002', 'test_user@example.com', 1, 'sys_admin');
+
+-- 5. 初始化用户-角色关联（给默认用户分配对应角色）
+INSERT INTO user_role (user_id, role_id, create_by) VALUES
+(1, 3, 'system'), -- 系统管理员关联ROLE_SYS_ADMIN
+(2, 2, 'sys_admin'), -- 会议室管理员关联ROLE_ROOM_ADMIN
+(3, 1, 'sys_admin'); -- 普通用户关联ROLE_USER
+
+-- 6. 初始化会议室（3个测试会议室）
+INSERT INTO meeting_room (room_code, capacity, status, is_active, location, equipment, create_by) VALUES
+('301', 10, 0, 1, '3楼东区', '投影+白板', 'sys_admin'),
+('302', 20, 0, 1, '3楼西区', '投影+白板+麦克风', 'sys_admin'),
+('501', 50, 2, 1, '5楼多功能区', '投影+大屏+音响+舞台', 'sys_admin');
