@@ -2,6 +2,9 @@
 
 Intelligent Meeting Cloud is a meeting room management project with a Vue 3 frontend and a Spring Boot backend.
 
+> **分支说明**：当前代码在 **`fullchain`** 分支 —— 本学期的最终版本（全链路打通 + RBAC 鉴权 + 操作审计）。
+> `main` 分支保留学期中期的旧版本作为对照，未做改动。
+
 > **全链路版本（推荐）**：本项目已把「真实 MySQL + Spring Boot + 自研 LBP 人脸 + 设备层 + 3D」打通，
 > 实现「注册登录 → 录脸 → 刷脸预约 → 预约时段内刷脸解锁 → 3D 门打开 → 灯光联动」。
 > 一键启动与演示步骤见 **[README_全链路.md](README_全链路.md)**：
