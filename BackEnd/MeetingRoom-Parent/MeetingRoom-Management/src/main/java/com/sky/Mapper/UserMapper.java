@@ -65,4 +65,13 @@ public interface UserMapper {
      */
     @Select("select count(1) from user where login_account = #{LoginAccount}")
     int countByUsername(String LoginAccount);
+
+    /**
+     * 给新用户分配默认角色（role.is_default = 1，目前是 ROLE_USER）。
+     * 注册与管理员新增用户都走这里，保证「注册即入角色」，RBAC 才有起点。
+     */
+    @org.apache.ibatis.annotations.Insert(
+            "INSERT INTO user_role (user_id, role_id, create_by) "
+            + "SELECT #{userId}, r.id, 'register' FROM role r WHERE r.is_default = 1 LIMIT 1")
+    int assignDefaultRole(@org.apache.ibatis.annotations.Param("userId") Integer userId);
 }

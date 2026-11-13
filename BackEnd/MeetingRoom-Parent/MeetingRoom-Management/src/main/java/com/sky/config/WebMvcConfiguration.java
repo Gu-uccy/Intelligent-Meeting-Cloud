@@ -1,6 +1,7 @@
 package com.sky.config;
 
 import com.sky.interceptor.FaceTicketInterceptor;
+import com.sky.interceptor.RbacInterceptor;
 import com.sky.interceptor.JwtTokenUserInterceptor;
 import com.sky.json.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport  {
 
     @Autowired
     private FaceTicketInterceptor faceTicketInterceptor;
+
+    @Autowired
+    private RbacInterceptor rbacInterceptor;
 
 
     @Bean
@@ -72,6 +76,11 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport  {
         registry.addInterceptor(faceTicketInterceptor)
                 .addPathPatterns("/user/reservation")
                 .order(1);
+
+        // RBAC 鉴权：只拦管理端 /admin/**，依赖 JWT 拦截器写入的 BaseContext
+        registry.addInterceptor(rbacInterceptor)
+                .addPathPatterns("/admin/**")
+                .order(2);
 
     }
    /* *//**

@@ -1,5 +1,5 @@
 {
-  "ran_at": "2026-11-13T02:01:49.385Z",
+  "ran_at": "2026-11-13T03:25:46.127Z",
   "base": "http://127.0.0.1:5173",
   "account": "13900000002",
   "passed": 17,
@@ -81,13 +81,13 @@
       "id": "E2E-13",
       "name": "3D 页灯控写入设备层（状态翻转）",
       "status": "PASS",
-      "detail": "devices.lighting true -> false (brightness=0)"
+      "detail": "devices.lighting false -> true (brightness=100)"
     },
     {
       "id": "E2E-14",
       "name": "3D 页灯光状态回显",
       "status": "PASS",
-      "detail": "关闭LED灯 100% -> 打开LED灯 OFF"
+      "detail": "打开LED灯 OFF -> 关闭LED灯 100%"
     },
     {
       "id": "E2E-15",

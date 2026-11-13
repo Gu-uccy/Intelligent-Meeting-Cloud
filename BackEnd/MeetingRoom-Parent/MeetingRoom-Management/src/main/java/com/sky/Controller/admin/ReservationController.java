@@ -5,6 +5,7 @@ import com.sky.context.BaseContext;
 import com.sky.dto.ReservationPageDto;
 import com.sky.entity.Reservation;
 import com.sky.result.PageResult;
+import com.sky.annotation.AuditLog;
 import com.sky.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class ReservationController {
      */
 
     @PutMapping
+    @AuditLog("修改预约")
     public Result update(@RequestBody Reservation reservation){
         log.info("修改预约信息:{}",reservation);
         return reservationService.update(reservation)>0?
@@ -56,6 +58,7 @@ public class ReservationController {
 
 
     @PostMapping("/audit")
+    @AuditLog("审核预约")
     public Result audit(@RequestBody Map<String, Object> params) {
         Integer id = (Integer) params.get("id");
         Integer status = (Integer) params.get("status");

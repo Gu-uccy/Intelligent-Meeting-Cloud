@@ -87,7 +87,16 @@ public class UserServiceIml implements UserService {
         //密码进行加密
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user1.setPassword(bCryptPasswordEncoder.encode(user1.getPassword()));
-        return userMapper.insertUser(user1);
+        int rows = userMapper.insertUser(user1);
+        // 注册即分配默认角色（ROLE_USER），后续鉴权才有依据
+        if (rows > 0 && user1.getId() != null) {
+            try {
+                userMapper.assignDefaultRole(user1.getId());
+            } catch (Exception ex) {
+                log.warn("分配默认角色失败 userId={}: {}", user1.getId(), ex.getMessage());
+            }
+        }
+        return rows;
     }
     public boolean checkUsernameExists(String LoginAccount) {
         // 实现检查用户名是否存在逻辑

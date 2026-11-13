@@ -74,7 +74,12 @@
         where id = #{id}
     </update>
     <select id="pageSelect" resultType="com.sky.vo.ReservationVo">
-        SELECT * FROM reservation
+        <!-- 修复：原来用 SELECT *，而 ReservationVo 只有 @Builder 生成的全参构造，
+             MyBatis 会按列位置映射，一旦列顺序与字段顺序不一致就会错位
+             （create_by='e2e' 曾被当成 LocalDateTime 赋值导致 500）。改为显式列。 -->
+        SELECT id, reservation_no, user_id, room_id, admin_id, start_time, end_time, status,
+               meeting_topic, participant_num, remark, create_time, update_time, create_by, update_by
+        FROM reservation
         <where>
         <if test="userId != null">
             AND user_id = #{userId}

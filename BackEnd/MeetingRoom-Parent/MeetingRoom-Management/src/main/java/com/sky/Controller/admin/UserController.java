@@ -7,6 +7,7 @@ import com.sky.dto.UserPageDto;
 import com.sky.entity.User;
 import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
+import com.sky.annotation.AuditLog;
 import com.sky.result.Result;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.UserLoginVo;
@@ -35,6 +36,7 @@ public class UserController {
      */
 
     @PostMapping
+    @AuditLog("新增用户")
     public Result addUser(@RequestBody User user){
         log.info("添加用户：{}",user);
         return userService.addUser(user)>0?Result.success():Result.error("添加用户失败");
@@ -57,6 +59,7 @@ public class UserController {
      * @return
      */
     @PutMapping
+    @AuditLog("修改用户")
     public Result update(@RequestBody User user){
         log.info("修改用户:{}",user);
         return userService.update(user)>0?Result.success():Result.error("修改用户失败");
@@ -68,6 +71,7 @@ public class UserController {
      */
 
     @DeleteMapping
+    @AuditLog("删除用户")
     public Result delete(@RequestParam(value = "ids") List<Integer> ids){
         log.info("批量删除用户:{}",ids);
         return userService.delete(ids)>0?Result.success():Result.error("删除用户失败");
@@ -78,6 +82,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/active/{status}")
+    @AuditLog("启停用户")
     public Result setActive(@PathVariable Integer status ,Integer id){
         log.info("设置用户激活状态:{},{}",status, id);
         return userService.setActive(status,id)>0?Result.success():Result.error("设置失败");

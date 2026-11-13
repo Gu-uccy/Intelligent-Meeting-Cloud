@@ -1,12 +1,16 @@
 package com.sky.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReservationVo implements Serializable {
     private Integer id; // 预约ID（主键）
     private String reservationNo;// 预约编号

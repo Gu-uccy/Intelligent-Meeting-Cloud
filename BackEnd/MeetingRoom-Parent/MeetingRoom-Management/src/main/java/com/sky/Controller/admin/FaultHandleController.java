@@ -4,6 +4,7 @@ import com.sky.dto.DeviceFaultPageDto;
 
 
 import com.sky.result.PageResult;
+import com.sky.annotation.AuditLog;
 import com.sky.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class FaultHandleController {
      * @return
      */
     @PutMapping("/handle")
+    @AuditLog("处理设备故障")
     public Result handleFault(String faultNo, Integer status){
         log.info("处理设备故障:{},{}",faultNo,status);
         return equipmentFaultService.handleFault(faultNo,status)>0?

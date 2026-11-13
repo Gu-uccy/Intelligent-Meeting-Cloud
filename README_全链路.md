@@ -17,6 +17,8 @@
 | 3D 门联动 | 真实 | 设备层 `door_open=True` → Room3D 每 3s 轮询 → 门绕轴旋转打开 |
 | 3D 灯 ↔ 设备层 | 真实 | 3D 页「打开LED灯」→ `/api/control` → `devices.lighting` → 3D 顶灯亮度/颜色变化 |
 | 人脸审计日志 | 真实 | 每次注册/识别/开门/拒绝都写 `face_audit_log` 表，`/api/face/audit` 可查 |
+| 权限控制（RBAC） | 真实（服务端） | `/admin/**` 由 `RbacInterceptor` 按 `user_role → role_permission → permission(url+method)` 判定；越权 403 并落 `operation_log` |
+| 操作审计 | 真实 | `@AuditLog` + AOP 切面写 `operation_log`（操作人/角色/IP/UA/耗时/成功失败/脱敏入参） |
 
 **失败一律不放行**（fail-closed）：
 未检测到人脸 → 422；人脸与登录账号不一致 → 403；当前时段该会议室没有本人有效预约 → 403；门禁驱动失败 → 502。所有拒绝都会落审计日志。
@@ -261,3 +263,66 @@ node delivery/tests/e2e_fullchain.mjs
 > 来自公开示例照片的受控增强，仅用于链路验证）。默认账号 `13900000002` 已在底库中预置了
 > 「astronaut」这张示例脸；换成你自己的脸时，删掉 `MachineLearning/human_face/id/13900000002`
 > 目录并在网页上重新录入即可。
+---
+
+## 十一、RBAC 与操作审计（服务端）
+
+### 11.1 判定链路
+
+```
+登录 → JWT 拦截器写 BaseContext(userId)
+     → RbacInterceptor（只拦 /admin/**）
+         user_role → role_permission → permission(url + method)
+         取「本次请求需要的权限点」与「该用户拥有的权限点」比对
+         不匹配 → 403 + 写 operation_log（越权留痕）
+     → 业务方法
+         @AuditLog 标注的方法由 AuditLogAspect 环绕
+         执行后写 operation_log（成功/失败、耗时、脱敏入参）
+```
+
+关键点：
+
+- **权限点存在数据库里**，`permission` 表带 `url + method`，改一行权限就能改变一个接口的访问要求，不用改代码；
+- **精确路径优先于通配**：`/admin/reservation/page`（`reservation:query:all`）先于 `/admin/reservation/**`（`reservation:manage`）；
+- **fail-closed**：`/admin/**` 上找不到对应权限点的接口一律拒绝；
+- **未登录 → 401**，**越权 → 403**，两种情况都写日志。
+
+### 11.2 三个角色的权限规模
+
+| 角色 | 权限点数 | 能做什么 |
+|---|---|---|
+| ROLE_USER | 4 | 建预约 / 取消自己的预约 / 查会议室 / 上报故障 |
+| ROLE_ROOM_ADMIN | 12 | 上述 + 会议室管理、预约审核、故障处理、统计、上传 |
+| ROLE_SYS_ADMIN | 23 | 全部（含用户管理、日志查询） |
+
+新用户注册即自动分配 `role.is_default=1` 的 ROLE_USER（`UserMapper.assignDefaultRole`）。
+
+### 11.3 现场演示（30 秒）
+
+```powershell
+# 权限矩阵 14 条：管理员全 200 / 普通用户全 403 / 未登录 401
+node delivery/tests/rbac_check.mjs
+
+# 看审计日志（谁在什么时候试图做了什么）
+mysql --host=127.0.0.1 --port=3307 --user=root --database=meeting_room_db ^
+  -e "SELECT user_name,operation_type,operation_result,error_msg,ip_address FROM operation_log ORDER BY id DESC LIMIT 10;"
+```
+
+演示账号：
+
+| 账号 | 密码 | 角色 | 用途 |
+|---|---|---|---|
+| `admin1` | 123456 | ROLE_SYS_ADMIN | 管理端全部功能 |
+| `13900000002` | 123456 | ROLE_USER | 演示"普通用户调管理接口被 403" |
+| `rbac_probe` | 123456 | ROLE_USER | 验证"注册即入角色" |
+
+### 11.4 与建表脚本的关系
+
+原 `Database/smart-meeting-room-db` 里的 `permission.url` 用的是设计稿的 `/api/reservations/*`，与真实接口 `/admin/reservation/page` 对不上，所以 21 个权限点在代码里从没被用过。
+`Database/rbac-align-endpoints.sql` 把 url 对齐到真实接口，并补上 `statistics:view`、`file:upload` 两个漏掉的权限点——**执行它之后 RBAC 才真正生效**。
+
+### 11.5 还没做的部分（如实标注）
+
+- 前端没有 `v-perm` 指令和路由守卫：页面仍然按 `isAdmin` 分流，服务端拦住了但界面上还能点进去（点进去会 403）；
+- 没有"角色/权限管理"页面，角色与权限点目前靠 SQL 维护；
+- `SecurityConfig` 的 `/** permitAll` 没有动：鉴权由 `RbacInterceptor` 承担（复用 JWT 登录态），不是 Spring Security 的 `@PreAuthorize` 语义。

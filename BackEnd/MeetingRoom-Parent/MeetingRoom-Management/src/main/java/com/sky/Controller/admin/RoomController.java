@@ -4,6 +4,7 @@ import com.sky.Service.RoomService;
 import com.sky.dto.RoomPageDto;
 import com.sky.entity.MeetingRoom;
 import com.sky.result.PageResult;
+import com.sky.annotation.AuditLog;
 import com.sky.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class RoomController {
      */
 
     @PostMapping
+    @AuditLog("新增会议室")
     public Result addRoom(@RequestBody MeetingRoom meetingRoom){
         log.info("增加会议室:{}",meetingRoom);
         return roomService.addRoom(meetingRoom)>0?Result.success():Result.error("添加失败");
@@ -46,6 +48,7 @@ public class RoomController {
      */
 
     @DeleteMapping
+    @AuditLog("删除会议室")
     public Result deleteByIds(@RequestParam(value = "ids") List<Integer> ids){
         log.info("批量删除,ids:{}",ids);
         return roomService.deleteByIds(ids)>0?Result.success():Result.error("删除失败");
@@ -56,6 +59,7 @@ public class RoomController {
      */
 
     @PutMapping
+    @AuditLog("修改会议室")
     public Result update(@RequestBody MeetingRoom meetingRoom){
         log.info("修改会议室:{}",meetingRoom);
         return roomService.update(meetingRoom)>0?Result.success():Result.error("修改失败");
@@ -66,6 +70,7 @@ public class RoomController {
      * @return
      */
     @PutMapping("/active")
+    @AuditLog("启停会议室")
     public Result setActive(Integer active,Integer id){
         log.info("设置会议室状态:{}", active);
         return roomService.setActive(active, id)>0?Result.success():Result.error("设置失败");

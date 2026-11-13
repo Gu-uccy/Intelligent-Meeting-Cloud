@@ -1,0 +1,94 @@
+{
+  "ran_at": "2026-11-13T03:25:59.481Z",
+  "base": "http://127.0.0.1:8081",
+  "admin": "admin1",
+  "user": "13900000002",
+  "passed": 14,
+  "total": 14,
+  "records": [
+    {
+      "id": "RBAC-00",
+      "name": "管理员登录",
+      "status": "PASS",
+      "detail": "admin1 isAdmin=1"
+    },
+    {
+      "id": "RBAC-00b",
+      "name": "普通用户登录",
+      "status": "PASS",
+      "detail": "13900000002 isAdmin=0"
+    },
+    {
+      "id": "RBAC-01",
+      "name": "未登录访问管理端",
+      "status": "PASS",
+      "detail": "http=401"
+    },
+    {
+      "id": "RBAC-11",
+      "name": "管理员访问 /admin/room/page",
+      "status": "PASS",
+      "detail": "http=200"
+    },
+    {
+      "id": "RBAC-12",
+      "name": "管理员访问 /admin/reservation/page",
+      "status": "PASS",
+      "detail": "http=200"
+    },
+    {
+      "id": "RBAC-13",
+      "name": "管理员访问 /admin/statistics/%E8%BF%917%E5%A4%A9",
+      "status": "PASS",
+      "detail": "http=200"
+    },
+    {
+      "id": "RBAC-14",
+      "name": "管理员访问 /admin/equipment/page",
+      "status": "PASS",
+      "detail": "http=200"
+    },
+    {
+      "id": "RBAC-15",
+      "name": "管理员访问 /admin/user/page",
+      "status": "PASS",
+      "detail": "http=200"
+    },
+    {
+      "id": "RBAC-21",
+      "name": "普通用户访问 /admin/room/page",
+      "status": "PASS",
+      "detail": "http=403 无权限访问该接口（需要 room:manage）"
+    },
+    {
+      "id": "RBAC-22",
+      "name": "普通用户访问 /admin/reservation/page",
+      "status": "PASS",
+      "detail": "http=403 无权限访问该接口（需要 reservation:query:all）"
+    },
+    {
+      "id": "RBAC-23",
+      "name": "普通用户访问 /admin/statistics/%E8%BF%917%E5%A4%A9",
+      "status": "PASS",
+      "detail": "http=403 无权限访问该接口（需要 statistics:view）"
+    },
+    {
+      "id": "RBAC-24",
+      "name": "普通用户访问 /admin/equipment/page",
+      "status": "PASS",
+      "detail": "http=403 无权限访问该接口（需要 fault:handle）"
+    },
+    {
+      "id": "RBAC-25",
+      "name": "普通用户访问 /admin/user/page",
+      "status": "PASS",
+      "detail": "http=403 无权限访问该接口（需要 user:manage）"
+    },
+    {
+      "id": "RBAC-31",
+      "name": "普通用户访问用户端接口（不应被误伤）",
+      "status": "PASS",
+      "detail": "http=200"
+    }
+  ]
+}
