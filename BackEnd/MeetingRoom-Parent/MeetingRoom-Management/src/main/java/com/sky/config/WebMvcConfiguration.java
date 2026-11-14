@@ -53,6 +53,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport  {
                         "/login",
                         "/user/login",
                         "/api/login",
+                        "/health",
                         "/doc.html",
                         "/webjars/**",
                         "/swagger-resources/**",

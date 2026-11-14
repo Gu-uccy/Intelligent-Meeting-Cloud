@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "total": 18,
+  "new_regressions": 16,
+  "legacy_placeholder_checks": 2,
+  "suites": [
+    {
+      "module": "MeetingRoom-common",
+      "suite": "com.sky.MeetingRoomCommonApplicationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "name": "contextLoads on contextLoads(com.sky.MeetingRoomCommonApplicationTests)",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "module": "MeetingRoom-Management",
+      "suite": "com.sky.MeetingRoomManagementApplicationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "name": "contextLoads",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "module": "MeetingRoom-Management",
+      "suite": "com.sky.ReservationValidationTests",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "name": "rejectsOtherUsersCancellation",
+          "status": "PASS"
+        },
+        {
+          "name": "acceptsExactlyEightHoursAndAppliesBuffer",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[1]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[2]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[3]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[4]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[5]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[6]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[7]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[8]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[9]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[10]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[11]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[12]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsInvalidRequestsBeforeWriting{String}[13]",
+          "status": "PASS"
+        },
+        {
+          "name": "rejectsConcurrentVersionChangeWithoutInserting",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 package com.sky.Mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
 import com.sky.dto.ReservationPageDto;
@@ -15,7 +14,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
-public interface ReservationMapper extends BaseMapper<Reservation> {
+public interface ReservationMapper {
+    @Select("SELECT * FROM reservation WHERE room_id = #{roomId} AND status IN (0, 1) " +
+            "AND end_time > #{dayStart} AND start_time < #{dayEnd} ORDER BY start_time")
+    List<Reservation> selectActiveForDay(@Param("roomId") Long roomId,
+                                       @Param("dayStart") LocalDateTime dayStart,
+                                       @Param("dayEnd") LocalDateTime dayEnd);
     /**
      * 添加预约信息
      * @param reservation

@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-11-14T11:02:01.268992+00:00",
+  "baseline_before_changes": "0b4cd3bcad82047e9fd44123320f6bf8df4f68ff",
+  "scope": "Real local Spring/MySQL booking plus explicitly simulated sensors; Redis degraded; no Pi or real face data",
+  "status": "PASS",
+  "java_new_regressions": 16,
+  "java_legacy_placeholder_checks": 2,
+  "business_http_database_checks": 36,
+  "browser_checks": 8,
+  "health_unavailable_http": 503,
+  "builds": {
+    "maven": "PASS",
+    "frontend": "PASS",
+    "frontend_warning": "main JS about 2.05 MB"
+  },
+  "source_sha256_lf": {
+    "BackEnd/MeetingRoom-Parent/.mvn/wrapper/maven-wrapper.properties": "fb35ac0fc2cfe48ba099746c52099523693a952e0d4ef0a346fa5627e077a764",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/pom.xml": "37001ace0f214e801dec6c43b0fc8a91e550e29ccc5e612ed23820db7615d063",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/Controller/HealthController.java": "9bc09e28f23cdce522b1165b65892b5ed830e8790de702309d343547a1852a5e",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/Controller/login/LoginController.java": "2d4bff9074eadfbd0d21f1c5143f10315b1f20f4563edb1a01a74a25da1d4a2e",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/Controller/user/NotificationController.java": "8fe8ce6547fcb5409e47ba6f9e5cf0e17b57e86743d761222f17b4339efbb38c",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/Mapper/ReservationMapper.java": "d368fcc94ff707cff3454b713dc0aafda302ae7fa5aaa4480a67e6bcdd17c435",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/MeetingRoomManagementApplication.java": "66f52b7df82a05e6dcb341ef19dc877177b28f9d80a893bb13c0a3e0654aa33e",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/Service/Impl/ReservationServiceImpl.java": "b2fb27bdb4872c3ea7e442e4b6f628c11258bf892954142ffa5e04a29499fce3",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/Service/Impl/UserServiceIml.java": "c274608136d993d11a24d064d4722bbe0f6c9ca5e22c3d9404cc895afd43fe56",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/config/OSSConfiguration.java": "8185ee28e2aa20d7dae723c759b6a368b3779d156aaf182a82c02ee358765327",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/config/PaginationConfiguration.java": "be8f0c4dc81f14cf7f64e7b459af06c771ae83404457b3a1d63a69e1a3acdc61",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/config/WebMvcConfiguration.java": "a76f79b65e9e20f28c5db762d7d55867ddf32bac5f4583749f34889dc99c73fb",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/handler/GlobalExceptionHandler.java": "3a04730a60d0cdbff65738f636d24db426654dc5205c2f70abf3d21f4f8bbccf",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/interceptor/JwtTokenUserInterceptor.java": "f511d3f387fe19ab2bf868294e7e895c8dc7dc8e04ceaa2270b2a214fefd3d42",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/java/com/sky/task/MeetingReminderService.java": "94d86f1092decab3e4099d880092304abb3b27ea9eecd5a74de81c8b3884fca1",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/main/resources/application.yml": "9a71d7fd3bca2034a2e2b21b4d9c0b746ed9d00d1d56a9d232901f4010d68457",
+    "BackEnd/MeetingRoom-Parent/MeetingRoom-Management/src/test/java/com/sky/ReservationValidationTests.java": "1258e394d466b757f414baca0d82e806595629d8b7a6a77025d69e08069c8798",
+    "BackEnd/MeetingRoom-Parent/mvnw": "7e6e5d26712efd78140f2f63dafe8d17028f6c5c97ac1f746a043110b7a1d9ad",
+    "BackEnd/MeetingRoom-Parent/mvnw.cmd": "1ea18e87640c404d8602406b639eaa3e33def63f064fd8a8099aa52d173076a6",
+    "BackEnd/MeetingRoom-Parent/pom.xml": "252eb6562126bf40af9de7092f73bc2a5aa5c26aa03a19a1ffc2d0a391e5ad5c",
+    "Database/schema-current.sql": "05841722aa7e4d0f790aaae171e93022e6d5f7e2d30a078f57ea3b30001710ec",
+    "FrontEnd/Intelligent_meeting_cloud/index.html": "3d8c5d7a1b6553b1a3a24d4aad0214c9358b55a499c22e53bee0a008fe8c8d93",
+    "FrontEnd/Intelligent_meeting_cloud/src/utils/http.js": "bf316099e1a5bdefac74a75abcb7b3a89cd7e1c1015b3b6e51ef99caa4131516",
+    "FrontEnd/Intelligent_meeting_cloud/src/views/User/Booking/components/Records.vue": "e2d51fd70ec266fe3a99f95517962b14631828d0c1bc89ce23de66609d28df3c",
+    "FrontEnd/Intelligent_meeting_cloud/src/views/User/Booking/index.vue": "d4b01df761f8cf0a5bffb51ae48afb40a045c76aa65492df11a16496c7b0ba0c",
+    "delivery/tests/local_business_browser.mjs": "f7ad86e51e6937bbb67665a5ac7d6d91e1211e79826c78c1335e0cc6095e7f8d",
+    "delivery/tests/local_business_smoke.py": "57b1d39ce35f28448cb98618e0380b09694bb1938f30061042b164be7471dcab",
+    "package.json": "f71b6e4982f3a577544a5d61d7d88f667c6d9d9b9dfc29670e9e0566f452e19c",
+    "scripts/backend-tools.ps1": "422da1c8c11d2b7a1c957f690f8eb687199c5bafceb3a2545427356835978edd",
+    "scripts/start-all.ps1": "9a5aeb6717d3d3fb7c146d07faa175b198886650a2706fb8a515d21cd4fd48ad",
+    "scripts/start-backend.ps1": "9c92ba4806459b4c5ebaac0e67a8fcd27e4ef85677239676b930d5e4f10fa6c8",
+    "scripts/test-local-business.ps1": "7c80daf0a7aa7bdce33581d6ca34a8639cc0aa735819bdf54cc1a21ea7b27d09"
+  },
+  "evidence_sha256": {
+    "business-http.json": "be3d549ef7fa8f0607e0e60a302e7fa0d30cfcce8ad471ba85d1441c19c5ba5c",
+    "business-browser.json": "d27a3be2a2d98e0773ba7c5cf08eec0dcf3c9a0c13b4bb09f033aba5f3faf9bf",
+    "unavailable-health.json": "f47a7d15ea08b659b2116e6ff891edf43b8a7a566f66dc6096e54ecadf0c6a2a",
+    "script-checks.json": "06105564fa9b2512a1302168f5830d6a615a7e04d1dedf2a06b68853f99abe4f",
+    "junit-results.json": "b437856e57c3897de3721599504cee3db06a0ddc56961a19b886096cecb6333f"
+  },
+  "local_temporary_screenshots": {
+    "directory": "C:\\Users\\Guche\\AppData\\Local\\Temp\\meeting-business-20261114",
+    "reviewed": true,
+    "files": {
+      "01-booking-persisted.png": {
+        "sha256": "0cbe783ca5ffa355ccba572d3a990578ba5a3ce5e4d92acfb5562ac95848afbd",
+        "bytes": 196509
+      },
+      "02-booking-cancelled.png": {
+        "sha256": "264f99298020e828017fd25324c57138bce0b83118df4720635b884603d33de7",
+        "bytes": 197650
+      },
+      "03-mobile-record.png": {
+        "sha256": "7ce7bd014cd9efc8869d49fd4f54135cf13dcd1984b3c799f6c4a9ec10fa1e29",
+        "bytes": 50500
+      },
+      "03b-mobile-status.png": {
+        "sha256": "e01598a52ec64004209109f72234ca7bb4d73336217f6296e14e53645ade5454",
+        "bytes": 53748
+      },
+      "04-local-3d.png": {
+        "sha256": "e310df042e0f3bf3fe55659901146f98bc1bb9635d5b3fef95c69fe9f2d592a2",
+        "bytes": 156109
+      }
+    }
+  },
+  "pending": [
+    "Redis real connectivity/authentication",
+    "Full and physical Raspberry Pi actuators",
+    "Authorized face dataset and real target-device metrics",
+    "Actual team identities/contributions/signatures"
+  ],
+  "video_created": false
+}

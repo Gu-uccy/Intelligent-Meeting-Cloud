@@ -8,11 +8,13 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    druid:
-      driver-class-name: ${room.datasource.driver-class-name}
-      url: jdbc:mysql://${room.datasource.host}:${room.datasource.port}/${room.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: ${room.datasource.username}
-      password: ${room.datasource.password}
+    driver-class-name: ${room.datasource.driver-class-name}
+    url: jdbc:mysql://${room.datasource.host}:${room.datasource.port}/${room.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${room.datasource.username}
+    password: ${room.datasource.password}
+    hikari:
+      connection-timeout: 3000
+      validation-timeout: 2000
   servlet:
     multipart:
       max-file-size: 10MB
@@ -20,11 +22,14 @@ spring:
   cache:
     redis:
       time-to-live: 3600000
-  redis:
-    host: ${room.redis.host}
-    port: ${room.redis.port}
-    database: ${room.redis.database}
-    password: ${room.redis.password:}
+  data:
+    redis:
+      host: ${room.redis.host}
+      port: ${room.redis.port}
+      database: ${room.redis.database}
+      password: ${room.redis.password:}
+      connect-timeout: 2s
+      timeout: 2s
   mail:
     host: ${MAIL_HOST:smtp.qq.com}
     port: ${MAIL_PORT:587}

@@ -31,8 +31,12 @@ const fetchRecords = async () => {
         const start = dayjs(item.startTime);
         const end = dayjs(item.endTime);
         let status = 'upcoming';
-        if (item.status === -1) status = 'cancelled';
-        else if (item.status === 0) status = 'pending';
+        const code = Number(item.status);
+        if (code === -1 || code === 2) status = 'cancelled';
+        else if (code === 3) status = 'rejected';
+        else if (code === 5) status = 'timeout';
+        else if (code === 4) status = 'finished';
+        else if (code === 0) status = 'pending';
         else if (end.isBefore(dayjs())) status = 'finished';
 
         return {
@@ -41,7 +45,8 @@ const fetchRecords = async () => {
           room: roomDict.value[item.roomId] || `会议室 #${item.roomId}`,
           date: start.format('YYYY-MM-DD'),
           time: `${start.format('HH:mm')}-${end.format('HH:mm')}`,
-          status
+          status,
+          canCancel: code === 0
         };
       });
       mapped.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
@@ -62,7 +67,8 @@ const changePage = (page) => pagination.value.current = page;
 const handleCancel = async (id) => {
   if(!confirm('确定取消？')) return;
   try {
-    await cancelReservation(id);
+    const result = await cancelReservation(id);
+    if (result?.code !== 1) { toast.error(result?.msg || '取消失败'); return; }
     toast.success('已取消');
     fetchRecords();
   } catch (e) { toast.error('取消失败'); }
@@ -73,7 +79,9 @@ const getBadge = (status) => {
     upcoming: { text: '即将开始', cls: 'badge-blue' },
     finished: { text: '已结束', cls: 'badge-gray' },
     cancelled: { text: '已取消', cls: 'badge-red' },
-    pending: { text: '审核中', cls: 'badge-orange' }
+    pending: { text: '审核中', cls: 'badge-orange' },
+    rejected: { text: '已拒绝', cls: 'badge-red' },
+    timeout: { text: '已超时', cls: 'badge-gray' }
   };
   return map[status] || { text: status, cls: '' };
 };
@@ -94,7 +102,7 @@ onActivated(async () => {
 <template>
   <div class="h-full flex flex-col">
     <div v-if="loading" class="text-center py-4"><i class="fa-solid fa-spinner fa-spin"></i> 加载中...</div>
-    <div v-else class="flex-1">
+    <div v-else class="flex-1 records-scroll" tabindex="0" aria-label="预约记录，可左右滚动查看状态和操作">
       <table class="data-table">
         <thead>
           <tr>
@@ -108,7 +116,7 @@ onActivated(async () => {
             <td class="text-sm text-gray-400"><div>{{ item.date }}</div><div>{{ item.time }}</div></td>
             <td><span class="badge" :class="getBadge(item.status).cls">{{ getBadge(item.status).text }}</span></td>
             <td class="actions">
-              <button v-if="item.status === 'upcoming' || item.status === 'pending'" class="btn-text text-red" title="取消" @click="handleCancel(item.id)">
+              <button v-if="item.canCancel" class="btn-text text-red" title="取消" @click="handleCancel(item.id)">
                 <i class="fa-solid fa-ban"></i>
               </button>
             </td>
@@ -145,6 +153,11 @@ onActivated(async () => {
 .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
 .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
 .font-bold { font-weight: 700; }
+.records-scroll { min-width: 0; overflow-x: auto; }
+@media (max-width: 640px) {
+  .data-table { min-width: 640px; }
+  .data-table th, .data-table td { white-space: nowrap; padding: 0.85rem; }
+}
 .text-sm { font-size: 0.875rem; }
 .text-gray-400 { color: #94a3b8; }
 

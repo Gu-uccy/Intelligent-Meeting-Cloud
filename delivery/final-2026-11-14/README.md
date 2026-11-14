@@ -2,6 +2,8 @@
 
 2026-11-14 校正版。代码与模拟证据基线为 `9102b995f312ba51dd4019bca8f3faeef7bdf3a8`。本轮补材料，没有新增业务源码修改；不以文档校正冒充新的实物验收。
 
+这两份 Word/PPT 和 manifest 保留上述交付快照。随后新增的真实 Spring/MySQL 联调、Local 模式及其新证据见 [业务联调补充](../../analysis/taskbook-v3-2026-11-14/backend-integration/README.md)；Maven 缺失已由 Wrapper 解决，Redis 和实物仍待接通。新增结果不并入旧 109 次执行，也不改变两份材料的基线和哈希。
+
 | 文件 | 内容与检查 |
 |---|---|
 | [综III项目总结报告.docx](综III项目总结报告.docx) | 8 页可编辑 Word；任务对照、架构、数据与基线、人脸流程、Blender、工程化、扩展、测试、交付和个人贡献表；逐页渲染检查 |

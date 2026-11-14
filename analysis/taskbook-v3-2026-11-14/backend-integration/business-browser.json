@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-11-14T10:56:13.210Z",
+  "base": "http://127.0.0.1:5190",
+  "scope": "Real Spring/MySQL UI + real localhost Flask simulation; no Pi or authorized face data",
+  "browser_path": "Browser plugin not available; existing Playwright + Chrome",
+  "checks": [
+    {
+      "name": "real JWT login through Vite proxy",
+      "status": "PASS"
+    },
+    {
+      "name": "page identity, nonblank, no framework overlay",
+      "status": "PASS"
+    },
+    {
+      "name": "UI booking commits and pending slot refreshes",
+      "status": "PASS"
+    },
+    {
+      "name": "UI cancellation shows persisted status 2 as cancelled",
+      "status": "PASS"
+    },
+    {
+      "name": "cancelled state survives reload",
+      "status": "PASS"
+    },
+    {
+      "name": "mobile table scroll exposes status and actions",
+      "status": "PASS"
+    },
+    {
+      "name": "3D uses explicit simulation and acknowledged Flask door state",
+      "status": "PASS"
+    },
+    {
+      "name": "runtime and console health",
+      "status": "PASS"
+    }
+  ],
+  "screenshot_directory": "C:\\Users\\Guche\\AppData\\Local\\Temp\\meeting-business-20261114",
+  "status": "PASS",
+  "page_errors": [],
+  "console_errors": [],
+  "passed": 8,
+  "failed_responses": []
+}

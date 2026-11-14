@@ -1,0 +1,10 @@
+{
+  "occupied_default_8080_owner": "httpd.exe preserved",
+  "missing_mysql_executable_exit_code": 1,
+  "build_only": "Maven Wrapper succeeds without global mvn",
+  "default_test_run": "36 checks passed; own Spring and MySQL listeners stopped",
+  "powershell": "Windows PowerShell 5.1",
+  "syntax": "4 scripts parsed",
+  "status": "PASS",
+  "startup": "Local mode reuses identified healthy Spring and starts Vite on 5190"
+}

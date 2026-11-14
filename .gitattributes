@@ -1,3 +1,6 @@
 # Keep recorded evidence byte-for-byte reproducible, including downloaded CSV.
 delivery/** -text whitespace=cr-at-eol
 analysis/taskbook-v3-2026-11-14/implementation/** -text whitespace=cr-at-eol
+analysis/taskbook-v3-2026-11-14/backend-integration/** -text whitespace=cr-at-eol
+BackEnd/MeetingRoom-Parent/mvnw text eol=lf
+BackEnd/MeetingRoom-Parent/mvnw.cmd text eol=crlf

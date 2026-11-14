@@ -1,0 +1,161 @@
+{
+  "generated_at": "2026-11-14T10:53:24.704668+00:00",
+  "scope": "Real Spring HTTP and isolated MySQL; Redis unavailable/degraded; no mocks, Pi or real faces",
+  "base": "http://127.0.0.1:60727",
+  "checks": [
+    {
+      "name": "isolated database selected",
+      "status": "PASS"
+    },
+    {
+      "name": "service and schema readiness",
+      "status": "PASS"
+    },
+    {
+      "name": "Redis degradation reported honestly",
+      "status": "PASS"
+    },
+    {
+      "name": "missing JWT denied",
+      "status": "PASS"
+    },
+    {
+      "name": "invalid JWT denied",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong password denied",
+      "status": "PASS"
+    },
+    {
+      "name": "real BCrypt user login",
+      "status": "PASS"
+    },
+    {
+      "name": "seed administrator mapping",
+      "status": "PASS"
+    },
+    {
+      "name": "real PageHelper pagination",
+      "status": "PASS"
+    },
+    {
+      "name": "current room schema reads version and capacity",
+      "status": "PASS"
+    },
+    {
+      "name": "48 available half-hour slots",
+      "status": "PASS"
+    },
+    {
+      "name": "reject missing room",
+      "status": "PASS"
+    },
+    {
+      "name": "reject missing start",
+      "status": "PASS"
+    },
+    {
+      "name": "reject equal times",
+      "status": "PASS"
+    },
+    {
+      "name": "reject eight and half hours",
+      "status": "PASS"
+    },
+    {
+      "name": "reject off-grid time",
+      "status": "PASS"
+    },
+    {
+      "name": "reject invalid capacity",
+      "status": "PASS"
+    },
+    {
+      "name": "reject zero people",
+      "status": "PASS"
+    },
+    {
+      "name": "reject unknown room",
+      "status": "PASS"
+    },
+    {
+      "name": "invalid input leaves database empty",
+      "status": "PASS"
+    },
+    {
+      "name": "real reservation commit",
+      "status": "PASS"
+    },
+    {
+      "name": "database stores pending reservation",
+      "status": "PASS"
+    },
+    {
+      "name": "reservation list reads database",
+      "status": "PASS"
+    },
+    {
+      "name": "pending reservation blocks slots with buffer",
+      "status": "PASS"
+    },
+    {
+      "name": "duplicate reservation refused",
+      "status": "PASS"
+    },
+    {
+      "name": "other user cannot cancel",
+      "status": "PASS"
+    },
+    {
+      "name": "owner cancellation succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "cancellation persisted",
+      "status": "PASS"
+    },
+    {
+      "name": "cancelled reservation releases slots",
+      "status": "PASS"
+    },
+    {
+      "name": "same interval can be booked after cancellation",
+      "status": "PASS"
+    },
+    {
+      "name": "unauthenticated requests still denied after login",
+      "status": "PASS"
+    },
+    {
+      "name": "only two commits, no duplicate insert",
+      "status": "PASS"
+    },
+    {
+      "name": "notification query is authenticated",
+      "status": "PASS"
+    },
+    {
+      "name": "empty notification table returns empty list",
+      "status": "PASS"
+    },
+    {
+      "name": "notification ownership and field mapping",
+      "status": "PASS"
+    },
+    {
+      "name": "another user's notices stay isolated",
+      "status": "PASS"
+    }
+  ],
+  "health": {
+    "service": "meeting-room-business",
+    "source": "spring-mysql",
+    "database": true,
+    "schema": true,
+    "redis": false,
+    "status": "degraded"
+  },
+  "status": "PASS",
+  "passed": 36
+}

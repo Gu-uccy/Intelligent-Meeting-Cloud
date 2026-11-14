@@ -41,7 +41,7 @@ public class UserServiceIml implements UserService {
      */
     @Override
     public User login( UserLoginDto userDto) {
-        log.info("用户登录：{}",userDto);
+        log.info("校验用户登录");
         String loginAccount = userDto.getLoginAccount();
         String password = userDto.getPassword();
 

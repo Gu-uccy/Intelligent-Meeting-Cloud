@@ -22,14 +22,14 @@ httpInstance.interceptors.request.use(config => {
 
 // axios响应式拦截器
 httpInstance.interceptors.response.use(res => res.data, e => {
-  const msg = e.response?.data?.message || e.message || "请求失败";
+  const msg = e.response?.data?.msg || e.response?.data?.message || e.message || "请求失败";
   ElMessage({
     type:'warning',
     message:msg
   })
 
   const userStore = useUserStore();
-  if (e.response.status === 401) {
+  if (e.response?.status === 401) {
     ElMessage.error("登录已过期，请重新登录");
     userStore.clearUserInfo();
     router.push('/login')

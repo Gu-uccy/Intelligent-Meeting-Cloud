@@ -27,7 +27,7 @@ public class LoginController {
     private UserService userService;
     @PostMapping("/login")
     public Result login(@RequestBody UserLoginDto userDto){
-        log.info("用户登录：{}",userDto);
+        log.info("用户登录请求");
         User user = userService.login(userDto);
         //登录成功后，生成jwt令牌
         Map<String, Object> claims = new HashMap<>();

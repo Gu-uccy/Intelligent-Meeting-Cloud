@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "scope": "Spring with missing test schema; real HTTP, no mocks",
+  "http_status": 503,
+  "health": {
+    "service": "meeting-room-business",
+    "source": "spring-mysql",
+    "database": false,
+    "schema": false,
+    "redis": false,
+    "status": "unavailable"
+  }
+}

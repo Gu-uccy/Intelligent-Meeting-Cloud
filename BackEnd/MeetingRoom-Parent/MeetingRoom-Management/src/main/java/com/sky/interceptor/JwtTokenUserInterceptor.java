@@ -35,6 +35,7 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
      * @throws Exception
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        BaseContext.removeCurrentId();
         // 获取请求路径
         String requestURI = request.getRequestURI();
         log.info("当前请求路径: {}", requestURI);
@@ -69,7 +70,6 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
 
         //2、校验令牌
         try {
-            log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
             Integer userId = Integer.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
             log.info("当前用户id：",userId);
@@ -81,5 +81,11 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             response.setStatus(401);
             return false;
         }
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
+                                Object handler, Exception exception) {
+        BaseContext.removeCurrentId();
     }
 }

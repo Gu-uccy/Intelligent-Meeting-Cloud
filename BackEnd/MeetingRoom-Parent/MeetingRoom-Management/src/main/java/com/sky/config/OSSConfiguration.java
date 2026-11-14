@@ -13,7 +13,7 @@ public class OSSConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public AliOssUtil AliOssConfig(AliOssProperties aliOssProperties){
-        log.info("开始创建阿里云对象:{}",aliOssProperties);
+        log.info("初始化对象存储客户端配置");
         return new AliOssUtil(aliOssProperties.getEndpoint(),
                 aliOssProperties.getAccessKeyId(),
                 aliOssProperties.getAccessKeySecret(),

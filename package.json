@@ -4,6 +4,8 @@
   "scripts": {
     "dev": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-dev.ps1",
     "demo": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-demo.ps1",
+    "local": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-all.ps1 -Mode Local",
+    "test:business": "powershell -ExecutionPolicy Bypass -File .\\scripts\\test-local-business.ps1",
     "start:all": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-all.ps1",
     "preflight": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-all.ps1 -CheckOnly",
     "test:delivery:api": "python delivery/tests/test_sensor_contract.py",

@@ -137,4 +137,10 @@ const tabs = [
   background: rgba(255, 255, 255, 0.2);
   cursor: pointer;
 }
+@media (max-width: 640px) {
+  .booking-wrapper { padding: 0.75rem; }
+  .tabs-header { flex-wrap: nowrap; padding: 0 0.5rem; overflow-x: auto; }
+  .tab-item { flex: 0 0 auto; white-space: nowrap; padding: 0.85rem 0.75rem; }
+  .card-content { min-width: 0; padding: 0.75rem; }
+}
 </style>
