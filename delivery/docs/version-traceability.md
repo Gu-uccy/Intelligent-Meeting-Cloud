@@ -1,5 +1,7 @@
 # 版本与证据追溯
 
+11-14 续作代码基线为 `9102b995f312ba51dd4019bca8f3faeef7bdf3a8`，新测试索引位于 `analysis/taskbook-v3-2026-11-14/implementation/summary.json`。正式 Word/PPT 另在 `delivery/final-2026-11-14` 记录文件哈希。下表为原交付标签说明，不移动旧标签来冒充新版本。
+
 | 标签 | 目标 | 语义 |
 |---|---|---|
 | w4 | 11a521d，包含 week4 分析材料 | 本次补建历史标记，不表示当年第 4 周已打标签 |

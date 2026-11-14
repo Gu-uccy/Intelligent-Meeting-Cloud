@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-11-14T09:55:36.423217+00:00",
+  "code_baseline": "9102b995f312ba51dd4019bca8f3faeef7bdf3a8",
+  "purpose": "Formal materials and factual corrections; no new runtime tests or hardware acceptance claimed",
+  "files": {
+    "综III项目总结报告.docx": {
+      "sha256": "d542a5f70b35da31e360abd31232fb72e14a209841f582fb797b3b6b76658635",
+      "bytes": 247325
+    },
+    "综III终期答辩_验收校正版.pptx": {
+      "sha256": "676a556e6cf572d7a2c9e635400856a43e8c286aa9a3da04827fa5d2c32d9ed6",
+      "bytes": 1718812
+    }
+  },
+  "cited_test_summary": {
+    "path": "analysis/taskbook-v3-2026-11-14/implementation/summary.json",
+    "sha256": "85ed508b6f2fde26933672010f132a0dea122cab9933aaf4f802ca8dd56f520f",
+    "automated_executions_passed": 109,
+    "overlapping_groups": true
+  },
+  "evidence_hash_checks": {
+    "source_sha256": 21,
+    "model_sha256": 2,
+    "evidence_sha256": 38
+  },
+  "visual_review": {
+    "word_pages": 8,
+    "word_renderer": "Microsoft Word 16 PDF + packaged render_docx.py rasterize with native PDF adapter; LibreOffice not installed",
+    "slides": 19,
+    "slide_renderer": "Microsoft PowerPoint 16, 1600x900",
+    "all_pages_and_slides_reviewed": true,
+    "last_changed_slides_reviewed": [
+      5,
+      7,
+      12
+    ],
+    "native_tables": 6,
+    "slide_size_emu": [
+      12192000,
+      6858000
+    ]
+  },
+  "pptx_validation": {
+    "package_integrity": "PASS",
+    "layout_findings": 0,
+    "first_party_import": "PASS",
+    "font_families": [
+      "Arial",
+      "Microsoft YaHei"
+    ],
+    "source_reference_sha256": "6a5e4cee72cb338261f980044915c2a7b2609a8cf6d30522c73eb22edd583f57"
+  },
+  "pending": [
+    "Authorized real face samples and real metrics",
+    "Full Spring/database integration and physical Raspberry Pi actuators",
+    "Team contribution/name/student ID/signature confirmation"
+  ],
+  "video_created": false,
+  "hardware_tested": false,
+  "real_faces_tested": false
+}

@@ -1,5 +1,7 @@
 # Intelligent-Meeting-Cloud
 
+正式材料已更新：[综III交付目录](delivery/final-2026-11-14/README.md) 包含 8 页可编辑 Word 总结报告、19 页验收校正版 PPT，以及材料文件哈希。两份材料已逐页检查，原文件保留。
+
 2026-11-14 续作：已实际生成 Blender 原生模型并接入 3D、自研人脸算法接入服务与模拟门禁、预约助理约束和异常恢复补齐。最新完成情况和实测边界见 [续作验收记录](analysis/taskbook-v3-2026-11-14/续作验收记录.md)。历史 `delivery/results` 属于 11月11日，不能代替当前源码测试。人脸授权样本暂缺，真实指标保留待办；人脸服务默认拒绝放行。
 
 Intelligent Meeting Cloud is a meeting room management project with a Vue 3 frontend and a Spring Boot backend.
