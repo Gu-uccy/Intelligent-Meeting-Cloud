@@ -1,0 +1,51 @@
+test_01_health (__main__.Contract) ... ok
+test_02_partial_keeps_devices (__main__.Contract) ... ok
+test_03_missing_dht_never_fabricates (__main__.Contract) ... ok
+test_04_hardware_not_simulated (__main__.Contract) ... ok
+test_05_simulation_adjusts (__main__.Contract) ... ok
+test_06_history_missing_is_null (__main__.Contract) ... ok
+test_07_history_provenance (__main__.Contract) ... ok
+test_08_empty_export (__main__.Contract) ... ok
+test_09_export_roundtrip (__main__.Contract) ... ok
+test_10_nonobject_request (__main__.Contract) ... ok
+test_11_malformed_json (__main__.Contract) ... ok
+test_12_unknown_action (__main__.Contract) ... ok
+test_13_unknown_device (__main__.Contract) ... ok
+test_14_string_state_rejected (__main__.Contract) ... ok
+test_15_negative_brightness (__main__.Contract) ... ok
+test_16_excess_brightness (__main__.Contract) ... ok
+test_17_dim_light (__main__.Contract) ... ok
+test_18_light_on (__main__.Contract) ... ok
+test_19_light_off (__main__.Contract) ... ok
+test_20_door_open (__main__.Contract) ... ok
+test_21_door_close (__main__.Contract) ... ok
+test_22_unavailable_servo (__main__.Contract) ... ok
+test_23_failed_pwm_no_success_state (__main__.Contract) ... ok
+test_24_auto_toggle (__main__.Contract) ... ok
+test_25_auto_bool_validation (__main__.Contract) ... ok
+test_26_threshold_update (__main__.Contract) ... ok
+test_27_threshold_order (__main__.Contract) ... ok
+test_28_threshold_type (__main__.Contract) ... ok
+test_29_humidity_range (__main__.Contract) ... ok
+test_30_stale_sample (__main__.Contract) ... ok
+test_31_alarm_priority (__main__.Contract) ... ok
+test_32_dual_servo_output (__main__.Contract) ... ok
+test_53_health_freshness_and_scope (__main__.Contract) ... ok
+test_54_health_stale_and_recovered (__main__.Contract) ... ok
+test_55_threshold_source (__main__.Contract) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.033s
+
+OK
+警告: 未检测到树莓派环境，使用模拟传感器数据运行
+[2026-11-14 16:48:37] 手动控制: lighting = True
+[2026-11-14 16:48:37] 手动控制: lighting = True
+[2026-11-14 16:48:37] 手动控制: lighting = False
+[2026-11-14 16:48:37] 手动控制: door_open = True
+[2026-11-14 16:48:37] 手动控制: door_open = False
+[2026-11-14 16:48:37] 门舵机控制失败: Door servo output is unavailable
+[2026-11-14 16:48:37] 门舵机控制失败: test driver failure
+[2026-11-14 16:48:37] 自动模式: 关闭
+[2026-11-14 16:48:37] 参数已更新: 温度18-28°C, 湿度40-60%
+[2026-11-14 16:48:37] 参数已更新: 温度20-29°C, 湿度45-60%

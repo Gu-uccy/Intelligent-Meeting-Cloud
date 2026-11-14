@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { getCurrentSensorData, getSensorExportUrl, setDoorDevice, setLightingDevice } from '@/apis/sensor';
 
@@ -13,6 +14,9 @@ const lastUpdated = ref('--');
 const isLightingSaving = ref(false);
 const isDoorSaving = ref(false);
 const controlError = ref('');
+const modelStatus = ref('正在加载 Blender 模型');
+const retrySeconds = ref(3);
+const controlsUnavailable = computed(() => ['connecting', 'disconnected'].includes(sensorState.value));
 const sensorStatusText = computed(() => ({ live: '实时数据', simulation: '模拟数据', partial: '部分传感器异常', disconnected: '连接断开', connecting: '连接中', demo: '本地预览' }[sensorState.value]));
 function applyDataStatus(data) {
   sensorState.value = data.source === 'simulation' ? 'simulation' : data.quality === 'partial' ? 'partial' : 'live';
@@ -25,7 +29,7 @@ const sensorData = ref({
   smoke: null,
   motion: false,
   presence: false,
-  people_count: 0,
+  people_count: null,
   door_open: undefined,
   door_source: undefined,
   distance: null,
@@ -143,7 +147,8 @@ const viewOptions = [
 
 const activeRoom = computed(() => roomOptions.find((item) => item.id === activeRoomId.value) || roomOptions[0]);
 const activeMood = computed(() => moodOptions.find((item) => item.id === activeMoodId.value) || moodOptions[0]);
-const smokeAlarm = computed(() => Number(sensorData.value.smoke || 0) >= 60);
+const thresholds = computed(() => ({ tempMin: sensorData.value.temp_min ?? 20, tempMax: sensorData.value.temp_max ?? 26, humidityMin: sensorData.value.humidity_min ?? 40, humidityMax: sensorData.value.humidity_max ?? 60, smoke: sensorData.value.smoke_threshold ?? 100 }));
+const smokeAlarm = computed(() => Number(sensorData.value.smoke || 0) > thresholds.value.smoke || Boolean(sensorData.value.devices?.alarm));
 const lightingDevice = computed(() => sensorData.value.devices || {});
 const lightingEnabled = computed(() => Boolean(lightingDevice.value.lighting));
 const lightingBrightness = computed(() => Number(lightingDevice.value.lighting_brightness ?? (lightingEnabled.value ? 100 : 0)));
@@ -158,12 +163,13 @@ const lightingSourceText = computed(() => {
 const roomState = computed(() => {
   const data = sensorData.value;
   const devices = data.devices || {};
-  const occupied = Boolean(data.motion || data.presence);
+  const occupied = Number(data.people_count ?? data.occupancy ?? 0) > 0 || Boolean(data.motion || data.presence);
   const rawPeopleCount = Number(data.people_count ?? data.occupancy ?? (occupied ? 1 : 0));
   const apiDoorState = data.door_open ?? devices.door_open;
   return {
     people: {
       occupied,
+      countKnown: Number.isInteger(data.people_count) || Number.isInteger(data.occupancy),
       count: occupied ? Math.max(1, Math.min(8, Number.isFinite(rawPeopleCount) ? rawPeopleCount : 1)) : 0,
     },
     door: {
@@ -187,29 +193,29 @@ const sensorCards = computed(() => {
       label: '温度',
       value: formatValue(data.temperature, '℃', 1),
       icon: 'fa-solid fa-temperature-half',
-      tone: Number(data.temperature) > 30 || Number(data.temperature) < 16 ? 'warn' : 'ok',
+      tone: data.temperature == null ? 'idle' : Number(data.temperature) > thresholds.value.tempMax || Number(data.temperature) < thresholds.value.tempMin ? 'warn' : 'ok',
     },
     {
       label: '湿度',
       value: formatValue(data.humidity, '%', 0),
       icon: 'fa-solid fa-droplet',
-      tone: Number(data.humidity) > 70 || Number(data.humidity) < 30 ? 'warn' : 'ok',
+      tone: data.humidity == null ? 'idle' : Number(data.humidity) > thresholds.value.humidityMax || Number(data.humidity) < thresholds.value.humidityMin ? 'warn' : 'ok',
     },
     {
       label: '光照',
-      value: formatValue(data.light, '%', 0),
+      value: formatValue(data.light, '', 0),
       icon: 'fa-solid fa-lightbulb',
       tone: Number(data.light) < 20 ? 'dim' : 'ok',
     },
     {
       label: '烟雾',
-      value: formatValue(data.smoke, '%', 0),
+      value: formatValue(data.smoke, '', 0),
       icon: 'fa-solid fa-fire',
       tone: smokeAlarm.value ? 'danger' : 'ok',
     },
     {
       label: '人体',
-      value: roomState.value.people.occupied ? `${roomState.value.people.count}人` : '无人',
+      value: roomState.value.people.occupied ? roomState.value.people.countKnown ? `${roomState.value.people.count}人` : '有人' : '无人',
       icon: 'fa-solid fa-person-walking',
       tone: data.motion || data.presence ? 'active' : 'idle',
     },
@@ -245,6 +251,11 @@ let fillLight;
 let animationId = 0;
 let resizeObserver;
 let sensorTimer = 0;
+let pollingStopped = true;
+let pollInFlight = false;
+let failureCount = 0;
+let modelGeneration = 0;
+let modelCameras = [];
 const animationStartedAt = performance.now();
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -344,7 +355,7 @@ function initScene() {
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
   controls.minDistance = 4.2;
-  controls.maxDistance = 20;
+  controls.maxDistance = 60;
   controls.minPolarAngle = 0.05;
   controls.maxPolarAngle = Math.PI * 0.48;
   controls.target.copy(viewOptions[0].target);
@@ -356,6 +367,8 @@ function initScene() {
   keyLight.position.set(6, 8, 5);
   keyLight.castShadow = true;
   keyLight.shadow.mapSize.set(2048, 2048);
+  keyLight.shadow.bias = -0.0002;
+  keyLight.shadow.normalBias = 0.035;
   keyLight.shadow.camera.near = 1;
   keyLight.shadow.camera.far = 25;
   keyLight.shadow.camera.left = -8;
@@ -384,6 +397,7 @@ function resizeRenderer() {
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  if (controls) applyCameraPreset();
 }
 
 function buildActiveRoom() {
@@ -409,6 +423,55 @@ function buildActiveRoom() {
   addSensorLayer(roomGroup, activeRoom.value);
   applyMoodToScene();
   updateSensorVisuals();
+  loadBlenderRoom();
+}
+
+async function loadBlenderRoom() {
+  const generation = ++modelGeneration;
+  modelCameras = [];
+  if (activeRoomId.value !== 'executive') {
+    modelStatus.value = '程序模型（备用布局）';
+    return;
+  }
+  modelStatus.value = '正在加载 Blender 模型';
+  try {
+    const gltf = await new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}models/room_301.glb`);
+    if (!scene || generation !== modelGeneration) { disposeObject(gltf.scene); return; }
+    const next = createLiveObjectStore();
+    gltf.scene.traverse((object) => {
+      if (object.isMesh) {
+        object.material = object.material.clone();
+        object.castShadow = true;
+        object.receiveShadow = true;
+      }
+      if (object.name.startsWith('Person_') && object.isMesh) {
+        object.userData.baseY = object.position.y;
+        next.people.push(object);
+      }
+      if (object.name.startsWith('CeilingLight_') && object.isMesh) {
+        next.ceilingLightMeshes.push(object); next.clickableLights.push(object);
+      }
+      if (object.isPointLight) next.ceilingLights.push(object);
+      if (object.name === 'Door_Leaf') {
+        next.door = { group: object, closedRotation: Math.PI / 2, openRotation: Math.PI };
+        next.clickableDoors.push(object);
+      }
+      if (object.name === 'DHT_Panel') next.dhtIndicator = object;
+      if (object.name === 'SmokeBeacon') next.beacon = object;
+      if (object.name === 'HVAC_Unit') next.hvac = object;
+      if (object.name === 'Humidifier') next.humidifier = object;
+    });
+    if (!next.door || next.people.length !== 8 || next.ceilingLightMeshes.length !== 3) {
+      disposeObject(gltf.scene); throw new Error('Missing Blender state anchors');
+    }
+    scene.remove(roomGroup); disposeObject(roomGroup);
+    roomGroup = gltf.scene; scene.add(roomGroup);
+    liveObjects = next; modelCameras = gltf.cameras;
+    modelStatus.value = 'Blender 模型 · 301';
+    applyCameraPreset(); applyMoodToScene(); updateSensorVisuals();
+  } catch (error) {
+    if (generation === modelGeneration && scene) modelStatus.value = '模型加载失败，已使用程序备用模型';
+  }
 }
 
 function buildRoomShell(parent, config) {
@@ -798,24 +861,24 @@ function updateSensorVisuals() {
   const data = sensorData.value;
   const state = roomState.value;
   const lightLevel = clamp(Number(data.light ?? 50) / 100, 0.18, 1);
-  const hot = state.climate.temperature >= 28;
-  const cold = state.climate.temperature <= 18;
-  const dry = state.climate.humidity <= 35;
-  const wet = state.climate.humidity >= 68;
+  const hot = state.climate.temperature > thresholds.value.tempMax;
+  const cold = state.climate.temperature < thresholds.value.tempMin;
+  const dry = state.climate.humidity < thresholds.value.humidityMin;
+  const wet = state.climate.humidity > thresholds.value.humidityMax;
   const occupied = state.people.occupied;
   const smoke = smokeAlarm.value;
 
   updateLightingVisuals();
 
   if (liveObjects.hvac) {
-    const color = hot ? 0x60a5fa : cold ? 0xf97316 : 0xe5e7eb;
+    const color = state.devices.cooling ? 0x60a5fa : state.devices.heating ? 0xf97316 : 0xe5e7eb;
     liveObjects.hvac.material.color.setHex(color);
-    liveObjects.hvac.material.emissive.setHex(hot || cold ? color : 0x000000);
-    liveObjects.hvac.material.emissiveIntensity = hot || cold ? 0.3 : 0;
+    liveObjects.hvac.material.emissive.setHex(state.devices.cooling || state.devices.heating ? color : 0x000000);
+    liveObjects.hvac.material.emissiveIntensity = state.devices.cooling || state.devices.heating ? 0.3 : 0;
   }
 
   if (liveObjects.humidifier) {
-    const visible = dry || wet;
+    const visible = Boolean(state.devices.humidifier || state.devices.dehumidifier);
     liveObjects.humidifier.material.color.setHex(dry ? 0x93c5fd : wet ? 0x94a3b8 : 0xd8ecf0);
     liveObjects.humidifier.material.emissive.setHex(visible ? 0x7dd3fc : 0x000000);
     liveObjects.humidifier.material.emissiveIntensity = visible ? 0.25 : 0;
@@ -870,14 +933,25 @@ function updateSensorVisuals() {
 function applyCameraPreset() {
   if (!camera || !controls) return;
   const preset = viewOptions.find((item) => item.id === activeViewId.value) || viewOptions[0];
-  camera.position.copy(preset.position);
+  const cameraName = { overview: 'Camera_Overview', front: 'Camera_Front', top: 'Camera_Top' }[activeViewId.value];
+  const authoredCamera = modelCameras.find((item) => item.name === cameraName);
+  if (authoredCamera) authoredCamera.getWorldPosition(camera.position);
+  else camera.position.copy(preset.position);
   controls.target.copy(preset.target);
+  // Preserve the authored direction while widening the framing for narrow screens.
+  const offset = camera.position.clone().sub(controls.target);
+  if (camera.aspect < 1) camera.position.copy(controls.target).add(offset.multiplyScalar(1 / camera.aspect));
   controls.update();
 }
 
 async function refreshSensorData() {
+  if (pollInFlight || pollingStopped) return;
+  window.clearTimeout(sensorTimer);
+  pollInFlight = true;
   try {
     const data = await getCurrentSensorData();
+    if (pollingStopped) return;
+    failureCount = 0;
     if (Object.prototype.hasOwnProperty.call(data || {}, 'door_open')
       || Object.prototype.hasOwnProperty.call(data?.devices || {}, 'door_open')) {
       doorOverride.value = null;
@@ -895,20 +969,34 @@ async function refreshSensorData() {
     applyDataStatus(data);
     lastUpdated.value = new Date().toLocaleTimeString('zh-CN', { hour12: false });
   } catch (error) {
+    if (pollingStopped) return;
+    failureCount += 1;
     sensorState.value = 'disconnected';
     lastUpdated.value = '连接失败，保留最后状态';
+  }
+  finally {
+    pollInFlight = false;
+    retrySeconds.value = Math.min(30, 3 * 2 ** failureCount);
+    if (!pollingStopped) sensorTimer = window.setTimeout(refreshSensorData, retrySeconds.value * 1000);
   }
   updateSensorVisuals();
 }
 
+function handleVisibilityChange() {
+  if (!document.hidden) refreshSensorData();
+}
+
 async function toggleRoomLighting() {
-  if (isLightingSaving.value) return;
+  if (isLightingSaving.value || controlsUnavailable.value) return;
 
   const nextState = !lightingEnabled.value;
   isLightingSaving.value = true;
   controlError.value = '';
   try {
     const result = await setLightingDevice(nextState, nextState ? 100 : 0, 'room-3d');
+    if (result?.success !== true || typeof result?.devices?.lighting !== 'boolean') {
+      throw new Error('Lighting command was not acknowledged');
+    }
     sensorData.value = {
       ...sensorData.value,
       devices: {
@@ -930,14 +1018,14 @@ async function toggleRoomLighting() {
 }
 
 async function toggleRoomDoor() {
-  if (isDoorSaving.value) return;
+  if (isDoorSaving.value || controlsUnavailable.value) return;
   isDoorSaving.value = true;
   controlError.value = '';
   const nextState = !roomState.value.door.open;
   try {
     const result = await setDoorDevice(nextState, 'room-3d');
     const serverDoorState = result?.devices?.door_open ?? result?.door_open;
-    if (typeof serverDoorState !== 'boolean') {
+    if (result?.success !== true || typeof serverDoorState !== 'boolean') {
       throw new Error('Door servo endpoint is not available on the connected backend');
     }
     doorOverride.value = null;
@@ -984,7 +1072,7 @@ function animate() {
   const elapsed = (performance.now() - animationStartedAt) / 1000;
 
   liveObjects.people.forEach((person, index) => {
-    person.position.y = Math.sin(elapsed * 2 + index) * 0.025;
+    person.position.y = (person.userData.baseY ?? 0) + Math.sin(elapsed * 2 + index) * 0.025;
   });
   liveObjects.smokeClouds.forEach((cloud, index) => {
     cloud.position.y += Math.sin(elapsed * 0.9 + index) * 0.0008;
@@ -1010,7 +1098,10 @@ function disposeObject(object) {
 
 function disposeScene() {
   window.cancelAnimationFrame(animationId);
-  window.clearInterval(sensorTimer);
+  pollingStopped = true;
+  modelGeneration += 1;
+  window.clearTimeout(sensorTimer);
+  document.removeEventListener('visibilitychange', handleVisibilityChange);
   resizeObserver?.disconnect();
   controls?.dispose();
   if (roomGroup) disposeObject(roomGroup);
@@ -1037,8 +1128,9 @@ watch(activeViewId, applyCameraPreset);
 
 onMounted(() => {
   initScene();
+  pollingStopped = false;
   refreshSensorData();
-  sensorTimer = window.setInterval(refreshSensorData, 3000);
+  document.addEventListener('visibilitychange', handleVisibilityChange);
   animate();
 });
 
@@ -1053,7 +1145,7 @@ onUnmounted(disposeScene);
         <h1>3D智能会议室模型展厅</h1>
         <div class="requirement-line">
           <i class="fa-solid fa-cubes"></i>
-          <span>三个会议室模型</span>
+          <span>{{ modelStatus }}</span>
         </div>
       </section>
 
@@ -1063,7 +1155,7 @@ onUnmounted(disposeScene);
           type="button"
           class="lighting-toggle"
           :class="{ active: lightingEnabled }"
-          :disabled="isLightingSaving"
+          :disabled="isLightingSaving || controlsUnavailable"
           @click="toggleRoomLighting"
         >
           <i class="fa-solid" :class="isLightingSaving ? 'fa-spinner fa-spin' : 'fa-lightbulb'"></i>
@@ -1071,7 +1163,7 @@ onUnmounted(disposeScene);
           <small>{{ lightingEnabled ? `${lightingBrightness}%` : 'OFF' }}</small>
         </button>
         <p class="lighting-copy">
-          {{ lightingSourceText }}，实物LED与3D顶灯保持同步
+          {{ lightingSourceText }}，{{ sensorState === 'simulation' ? '模拟设备与3D顶灯同步' : '根据设备响应更新3D顶灯' }}
         </p>
       </section>
 
@@ -1081,9 +1173,9 @@ onUnmounted(disposeScene);
           <div class="state-row">
             <span class="state-icon people"><i class="fa-solid fa-person"></i></span>
             <span class="state-label">人员</span>
-            <strong>{{ roomState.people.occupied ? `${roomState.people.count} 人` : '无人' }}</strong>
+            <strong>{{ roomState.people.occupied ? roomState.people.countKnown ? `${roomState.people.count} 人` : '有人（PIR）' : '无人' }}</strong>
           </div>
-          <button type="button" class="state-row state-button" :disabled="isDoorSaving" @click="toggleRoomDoor">
+          <button type="button" class="state-row state-button" :disabled="isDoorSaving || controlsUnavailable" @click="toggleRoomDoor">
             <span class="state-icon door"><i class="fa-solid" :class="roomState.door.open ? 'fa-door-open' : 'fa-door-closed'"></i></span>
             <span class="state-label">门禁</span>
             <strong>{{ roomState.door.open ? '已开启' : '已关闭' }}</strong>
@@ -1162,9 +1254,9 @@ onUnmounted(disposeScene);
     </aside>
 
     <main class="model-stage">
-      <div v-if="smokeAlarm" class="sensor-warning" role="alert">烟雾越界，报警中</div>
+      <div v-if="smokeAlarm && sensorState !== 'disconnected'" class="sensor-warning" role="alert">{{ Number(sensorData.smoke) > thresholds.smoke ? '烟雾越界，报警中' : '设备报警已开启' }}</div>
       <div v-else-if="sensorState === 'partial'" class="sensor-warning" role="alert">部分传感器不可用或数据过期；温湿度缺失显示 --，门灯状态仍可同步</div>
-      <div v-else-if="sensorState === 'disconnected'" class="sensor-warning" role="alert">传感器服务连接断开，当前数值为最后状态</div>
+      <div v-else-if="sensorState === 'disconnected'" class="sensor-warning" role="alert">传感器服务连接断开，当前数值为最后状态；{{ retrySeconds }} 秒后重试 <button type="button" @click="refreshSensorData">立即重连</button></div>
       <div ref="viewportRef" class="viewport" @click="handleViewportClick"></div>
 
       <div class="stage-bar">
@@ -1173,7 +1265,7 @@ onUnmounted(disposeScene);
           <strong>{{ activeMood.name }}</strong>
         </div>
         <div class="stage-state" aria-label="场景状态">
-          <span :class="{ active: roomState.people.occupied }"><i class="fa-solid fa-person"></i>{{ roomState.people.occupied ? `${roomState.people.count}人` : '无人' }}</span>
+          <span :class="{ active: roomState.people.occupied }"><i class="fa-solid fa-person"></i>{{ roomState.people.occupied ? roomState.people.countKnown ? `${roomState.people.count}人` : '有人' : '无人' }}</span>
           <span :class="{ active: roomState.door.open }"><i class="fa-solid" :class="roomState.door.open ? 'fa-door-open' : 'fa-door-closed'"></i>{{ roomState.door.open ? '门开' : '门关' }}</span>
           <span :class="{ active: lightingEnabled }"><i class="fa-solid fa-lightbulb"></i>{{ lightingEnabled ? '灯开' : '灯关' }}</span>
         </div>

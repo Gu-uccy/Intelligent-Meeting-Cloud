@@ -1,7 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { enrollFaceImage, getFaceHealth, verifyFaceImage } from '@/apis/face';
-import { getMyReservations } from '@/apis/reservation';
 import { useUserStore } from '@/stores/userStore';
 
 const userStore = useUserStore();
@@ -19,9 +18,11 @@ const rawResult = ref(null);
 const accessDecision = ref(null);
 const snapshotUrl = ref('');
 const enrollResult = ref(null);
+const adminToken = ref('');
+const consentConfirmed = ref(false);
 const healthStatus = ref({
   label: '未检测',
-  detail: '点击检测服务确认树莓派 5001 端口状态',
+  detail: '点击检测服务确认人脸服务状态',
   ok: false,
 });
 
@@ -36,53 +37,32 @@ const badgeText = computed(() => {
 
 const currentMeeting = computed(() => ({
   room: 'A101 智能会议室',
-  topic: '人脸门禁演示预约',
-  reservationNo: `FACE-DEMO-${currentUser.value.id || 'local'}`,
-  timeRange: '当前时段',
-  host: displayName.value,
-  participants: [displayName.value],
+  topic: '服务端模拟预约策略',
+  timeRange: '按服务端配置核验',
 }));
-
-const accessLogs = ref([
-  {
-    id: 1,
-    time: '13:56:18',
-    person: displayName.value,
-    room: 'A101',
-    result: '通过',
-    action: '预约人签到 / 门禁开启',
-  },
-  {
-    id: 2,
-    time: '13:48:42',
-    person: '未知人员',
-    room: 'A101',
-    result: '拒绝',
-    action: '未匹配底库 / 记录异常',
-  },
-]);
+const accessLogs = ref([]);
 
 const doorStatus = computed(() => {
   if (!accessDecision.value) return { label: '待核验', icon: 'fa-lock', tone: 'idle' };
-  if (accessDecision.value.allowed) return { label: '已开门', icon: 'fa-door-open', tone: 'success' };
-  return { label: '保持关闭', icon: 'fa-lock', tone: 'danger' };
+  if (accessDecision.value.allowed) return { label: '模拟指令已确认', icon: 'fa-door-open', tone: 'success' };
+  return { label: '未确认开门', icon: 'fa-lock', tone: 'danger' };
 });
 
 const signInStatus = computed(() => {
   if (!accessDecision.value) return { label: '未签到', icon: 'fa-clipboard-list', tone: 'idle' };
-  if (accessDecision.value.allowed) return { label: '已自动签到', icon: 'fa-clipboard-check', tone: 'success' };
+  if (accessDecision.value.allowed) return { label: '模拟签到已记录', icon: 'fa-clipboard-check', tone: 'success' };
   return { label: '未授权', icon: 'fa-ban', tone: 'danger' };
 });
 
 const roomStatus = computed(() => {
-  if (!accessDecision.value) return { label: '已预约', icon: 'fa-calendar-check', tone: 'idle' };
-  if (accessDecision.value.allowed) return { label: '使用中', icon: 'fa-users-viewfinder', tone: 'success' };
-  return { label: '异常访问', icon: 'fa-triangle-exclamation', tone: 'warning' };
+  if (!accessDecision.value) return { label: '待核验预约', icon: 'fa-calendar-check', tone: 'idle' };
+  if (accessDecision.value.allowed) return { label: '模拟通行通过', icon: 'fa-users-viewfinder', tone: 'success' };
+  return { label: '本次未放行', icon: 'fa-triangle-exclamation', tone: 'warning' };
 });
 
 const climateStatus = computed(() => {
   if (!accessDecision.value) return { label: '待机', icon: 'fa-sliders', tone: 'idle' };
-  if (accessDecision.value.allowed) return { label: '自动模式', icon: 'fa-fan', tone: 'success' };
+  if (accessDecision.value.allowed) return { label: '仅模拟门禁', icon: 'fa-fan', tone: 'success' };
   return { label: '不联动', icon: 'fa-circle-pause', tone: 'idle' };
 });
 
@@ -143,48 +123,14 @@ function resolveProfile(identity) {
 }
 
 function buildAccessDecision(faceResult) {
-  if (!faceResult?.matched) {
-    return {
-      allowed: false,
-      reason: faceResult?.error || '未匹配到底库人员，无法确认会议权限',
-      profile: {
-        id: 'unknown',
-        name: '未知人员',
-        loginAccount: '',
-        role: '未登记',
-        department: '未登记',
-        badge: '?',
-      },
-      action: '门禁保持关闭，生成异常访问记录',
-    };
-  }
-
-  const resolvedProfile = resolveProfile(faceResult.identity);
-  const allowedByCurrentUser = resolvedProfile.loginAccount && resolvedProfile.loginAccount === loginAccount.value;
-  const allowedByDemoHost = resolvedProfile.loginAccount === 'test_user' && (!loginAccount.value || loginAccount.value === 'test_user');
-  const allowedByDemoReservation = Boolean(faceResult.matched && currentMeeting.value.reservationNo.startsWith('FACE-DEMO-'));
-  const allowed = allowedByCurrentUser || allowedByDemoHost || allowedByDemoReservation;
-  const profile =
-    allowedByDemoReservation && !allowedByCurrentUser && !allowedByDemoHost
-      ? {
-          ...resolvedProfile,
-          name: displayName.value,
-          loginAccount: loginAccount.value || enrollIdentity.value,
-          role: '当前预约人',
-          department: '会议预约用户',
-          badge: badgeText.value,
-        }
-      : resolvedProfile;
-
+  const access = faceResult?.access;
+  const allowed = faceResult?.matched === true && access?.allowed === true
+    && access?.device?.acknowledged === true && access?.device?.source === 'simulation';
   return {
     allowed,
-    reason: allowed
-      ? '识别人员已匹配当前演示预约，自动放行'
-      : '识别成功，但该人员不在当前预约名单中',
-    profile,
-    action: allowed
-      ? '自动签到、开启门禁、会议室切换为使用中'
-      : '门禁保持关闭，等待管理员确认',
+    reason: access?.reason || faceResult?.error || '服务端未确认预约及设备指令',
+    profile: resolveProfile(faceResult?.identity),
+    action: allowed ? '模拟开门已确认 / 模拟签到已记录' : '未确认放行，请检查预约或服务',
   };
 }
 
@@ -204,7 +150,7 @@ async function checkFaceService() {
   errorMessage.value = '';
   healthStatus.value = {
     label: '检测中',
-    detail: '正在连接树莓派人脸识别服务',
+    detail: '正在连接人脸识别服务',
     ok: false,
   };
 
@@ -212,16 +158,16 @@ async function checkFaceService() {
     const health = await getFaceHealth();
     healthStatus.value = {
       label: '在线',
-      detail: `${health.model_name || 'ArcFace'} / 阈值 ${health.threshold ?? '--'}`,
+      detail: `${health.model_name || '--'} / ${health.mode || '未标记模式'} / 阈值 ${health.threshold ?? '待标定'}`,
       ok: true,
     };
   } catch (error) {
     healthStatus.value = {
       label: '离线',
-      detail: '无法连接树莓派 5001 人脸识别服务',
+      detail: '无法连接人脸识别服务',
       ok: false,
     };
-    errorMessage.value = '无法连接人脸识别服务，请确认树莓派 5001 服务已启动';
+    errorMessage.value = '无法连接人脸识别服务，请确认 5001 服务与代理配置';
   }
 }
 
@@ -335,9 +281,11 @@ async function captureAndEnroll() {
       login_account: loginAccount.value,
       username: displayName.value,
       user_id: currentUser.value.id,
-    });
+      consent: consentConfirmed.value ? 'true' : 'false',
+    }, adminToken.value);
+    adminToken.value = '';
 
-    successMessage.value = `已录入 ${displayName.value} 的人脸，可直接刷脸核验`;
+    successMessage.value = `已录入 ${displayName.value} 的特征；完成阈值标定和预约配置后才能模拟通行`;
     await checkFaceService();
   } catch (error) {
     const responseError = error?.response?.data?.error;
@@ -348,7 +296,6 @@ async function captureAndEnroll() {
 }
 
 onMounted(() => {
-  getMyReservations().catch(() => {});
   checkFaceService();
 });
 
@@ -363,7 +310,7 @@ onBeforeUnmount(() => {
     <div class="panel-header">
       <div>
         <h2>会议室刷脸门禁与签到</h2>
-        <span>先录入当前用户人脸，再进行预约权限核验、签到和门禁联动</span>
+        <span>授权后录入当前用户人脸，再进行预约权限核验、签到和门禁联动</span>
       </div>
       <div class="header-tools">
         <span class="service-pill" :class="serviceClass">
@@ -396,6 +343,11 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
+    <div class="meeting-strip">
+      <label>录入管理员令牌 <input v-model="adminToken" type="password" autocomplete="off" placeholder="仅内存使用" /></label>
+      <label><input v-model="consentConfirmed" type="checkbox" /> 已取得本人有效授权，允许本次提取并保存特征</label>
+      <span>课堂模拟门禁；预约由服务端配置；不支持活体检测</span>
+    </div>
     <div class="face-content">
       <section class="camera-section">
         <div class="camera-box">
@@ -411,7 +363,7 @@ onBeforeUnmount(() => {
             <i class="fa-solid" :class="isStarting ? 'fa-spinner fa-spin' : 'fa-video'"></i>
             {{ isStarting ? '开启中...' : '打开摄像头' }}
           </button>
-          <button type="button" class="action-button enroll" :disabled="!cameraReady || isEnrolling" @click="captureAndEnroll">
+          <button type="button" class="action-button enroll" :disabled="!cameraReady || isEnrolling || !consentConfirmed || !adminToken" @click="captureAndEnroll">
             <i class="fa-solid" :class="isEnrolling ? 'fa-spinner fa-spin' : 'fa-user-plus'"></i>
             {{ isEnrolling ? '录入中...' : '录入当前用户' }}
           </button>
@@ -431,7 +383,7 @@ onBeforeUnmount(() => {
           <div>
             <span class="result-label">人脸录入</span>
             <strong>{{ enrollResult?.enrolled ? '已录入' : '等待录入' }}</strong>
-            <p>保存身份：{{ enrollIdentity }}。录入后会写入树莓派人脸库并刷新识别缓存。</p>
+            <p>保存身份：{{ enrollIdentity }}。授权录入后仅保存特征，可由管理员删除；不会读取旧私人照片目录。</p>
           </div>
         </div>
 
@@ -452,7 +404,7 @@ onBeforeUnmount(() => {
           <div>
             <span class="result-label">核验结论</span>
             <strong>{{ resultTitle }}</strong>
-            <p>{{ accessDecision?.reason || '等待拍照后调用树莓派人脸识别服务' }}</p>
+            <p>{{ accessDecision?.reason || '等待拍照后由服务端核验身份、预约与模拟设备响应' }}</p>
           </div>
         </div>
 
@@ -478,9 +430,9 @@ onBeforeUnmount(() => {
         <div class="score-card">
           <span>识别分数</span>
           <strong>
-            {{ typeof rawResult?.distance === 'number' ? rawResult.distance.toFixed(4) : '--' }}
+            {{ typeof rawResult?.similarity === 'number' ? rawResult.similarity.toFixed(4) : '--' }}
           </strong>
-          <small>阈值 {{ rawResult?.threshold ?? '--' }}，距离越低匹配越稳定</small>
+          <small>阈值 {{ rawResult?.threshold ?? '--' }}，相似度越高越接近；阈值须经授权数据标定</small>
         </div>
 
         <div v-if="snapshotUrl" class="snapshot">

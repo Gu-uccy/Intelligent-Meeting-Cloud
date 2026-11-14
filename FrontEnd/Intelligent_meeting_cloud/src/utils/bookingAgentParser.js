@@ -121,7 +121,7 @@ const parseDate = (message, baseDate = dayjs()) => {
 };
 
 const extractTimeParts = (segment) => {
-  const match = segment.match(/(凌晨|上午|中午|下午|晚上)?\s*(\d{1,2})(?:(?::|点)(\d{1,2}))?(半)?/);
+  const match = segment.match(/(凌晨|上午|中午|下午|晚上)?\s*(\d{1,2})(?:(?::|点)(\d{1,2})?)?分?(半)?/);
   if (!match) return null;
 
   const sourceText = match[0];
@@ -132,7 +132,7 @@ const extractTimeParts = (segment) => {
   const hour = normalizeHour(match[2], meridiem);
   const minute = match[4] ? 30 : Number(match[3] || 0);
 
-  if (Number.isNaN(hour) || Number.isNaN(minute)) return null;
+  if (!Number.isInteger(hour) || !Number.isInteger(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) return null;
 
   return {
     meridiem,
@@ -142,7 +142,7 @@ const extractTimeParts = (segment) => {
 
 const parseTimeRange = (message) => {
   const rangeMatch = message.match(
-    /((?:凌晨|上午|中午|下午|晚上)?\s*\d{1,2}(?:(?::|点)\d{1,2})?(?:半)?)[\s]*(?:到|至|\-|~|—)[\s]*((?:凌晨|上午|中午|下午|晚上)?\s*\d{1,2}(?:(?::|点)\d{1,2})?(?:半)?)/,
+    /((?:凌晨|上午|中午|下午|晚上)?\s*\d{1,2}(?:(?::|点)\d{0,2}分?)?(?:半)?)[\s]*(?:到|至|\-|~|—)[\s]*((?:凌晨|上午|中午|下午|晚上)?\s*\d{1,2}(?:(?::|点)\d{0,2}分?)?(?:半)?)/,
   );
 
   if (!rangeMatch) return null;
@@ -170,7 +170,7 @@ const parseTimeRange = (message) => {
 
 const parseSingleTime = (message) => {
   const match = message.match(
-    /(凌晨|上午|中午|下午|晚上)\s*\d{1,2}(?:(?::|点)\d{1,2})?(半)?|\d{1,2}:\d{1,2}|\d{1,2}点(?:\d{1,2}分?)?(半)?/,
+    /(凌晨|上午|中午|下午|晚上)\s*\d{1,2}(?:(?::|点)\d{0,2}分?)?(半)?|\d{1,2}:\d{1,2}|\d{1,2}点(?:\d{1,2}分?)?(半)?/,
   );
   if (!match) return '';
 
@@ -228,12 +228,14 @@ export function parseBookingAssistantMessage(message, previousDraft = createEmpt
   extracted.intent = intent;
   extracted.date = parseDate(normalizedMessage);
 
-  const range = parseTimeRange(normalizedMessage);
+  // 人数紧跟“点”时不能被当作分钟，例如“10点8人”。
+  const timeMessage = normalizedMessage.replace(/\d+\s*(?:个人|人|位)/g, ' ');
+  const range = parseTimeRange(timeMessage);
   if (range) {
     extracted.startTime = range.startTime;
     extracted.endTime = range.endTime;
   } else {
-    extracted.startTime = parseSingleTime(normalizedMessage);
+    extracted.startTime = parseSingleTime(timeMessage);
   }
 
   extracted.attendeeCount = parseAttendeeCount(normalizedMessage);

@@ -1,0 +1,282 @@
+[
+  {
+    "id": "TC_01",
+    "name": "health",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 15.353
+  },
+  {
+    "id": "TC_02",
+    "name": "partial_keeps_devices",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.405
+  },
+  {
+    "id": "TC_03",
+    "name": "missing_dht_never_fabricates",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.058
+  },
+  {
+    "id": "TC_04",
+    "name": "hardware_not_simulated",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.044
+  },
+  {
+    "id": "TC_05",
+    "name": "simulation_adjusts",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.157
+  },
+  {
+    "id": "TC_06",
+    "name": "history_missing_is_null",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.303
+  },
+  {
+    "id": "TC_07",
+    "name": "history_provenance",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.362
+  },
+  {
+    "id": "TC_08",
+    "name": "empty_export",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.221
+  },
+  {
+    "id": "TC_09",
+    "name": "export_roundtrip",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 1.032
+  },
+  {
+    "id": "TC_10",
+    "name": "nonobject_request",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.373
+  },
+  {
+    "id": "TC_11",
+    "name": "malformed_json",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.272
+  },
+  {
+    "id": "TC_12",
+    "name": "unknown_action",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.37
+  },
+  {
+    "id": "TC_13",
+    "name": "unknown_device",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.255
+  },
+  {
+    "id": "TC_14",
+    "name": "string_state_rejected",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.233
+  },
+  {
+    "id": "TC_15",
+    "name": "negative_brightness",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.313
+  },
+  {
+    "id": "TC_16",
+    "name": "excess_brightness",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.255
+  },
+  {
+    "id": "TC_17",
+    "name": "dim_light",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.941
+  },
+  {
+    "id": "TC_18",
+    "name": "light_on",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.977
+  },
+  {
+    "id": "TC_19",
+    "name": "light_off",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.894
+  },
+  {
+    "id": "TC_20",
+    "name": "door_open",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.986
+  },
+  {
+    "id": "TC_21",
+    "name": "door_close",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.927
+  },
+  {
+    "id": "TC_22",
+    "name": "unavailable_servo",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.972
+  },
+  {
+    "id": "TC_23",
+    "name": "failed_pwm_no_success_state",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 1.089
+  },
+  {
+    "id": "TC_24",
+    "name": "auto_toggle",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.903
+  },
+  {
+    "id": "TC_25",
+    "name": "auto_bool_validation",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.32
+  },
+  {
+    "id": "TC_26",
+    "name": "threshold_update",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.814
+  },
+  {
+    "id": "TC_27",
+    "name": "threshold_order",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.291
+  },
+  {
+    "id": "TC_28",
+    "name": "threshold_type",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.25
+  },
+  {
+    "id": "TC_29",
+    "name": "humidity_range",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.24
+  },
+  {
+    "id": "TC_30",
+    "name": "stale_sample",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.272
+  },
+  {
+    "id": "TC_31",
+    "name": "alarm_priority",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.513
+  },
+  {
+    "id": "TC_32",
+    "name": "dual_servo_output",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.326
+  },
+  {
+    "id": "TC_53",
+    "name": "health_freshness_and_scope",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.287
+  },
+  {
+    "id": "TC_54",
+    "name": "health_stale_and_recovered",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 0.405
+  },
+  {
+    "id": "TC_55",
+    "name": "threshold_source",
+    "status": "PASS",
+    "scope": "isolated Flask test client / GPIO doubles",
+    "detail": "",
+    "duration_ms": 1.198
+  }
+]

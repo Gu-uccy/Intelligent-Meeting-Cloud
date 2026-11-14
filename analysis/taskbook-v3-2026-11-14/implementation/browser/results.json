@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-14T08:59:49.748Z",
+  "base": "http://127.0.0.1:5188",
+  "browser": "158.0.8127.37",
+  "browser_plugin": "absent",
+  "fallback_reason": "Browser plugin not available",
+  "scope": "API fixtures + localStorage business mock; actual Blender GLB; no physical devices or real faces",
+  "records": [
+    {
+      "name": "页面身份/主体/无框架覆盖层",
+      "status": "PASS"
+    },
+    {
+      "name": "真实导出 Blender GLB 已加载",
+      "status": "PASS"
+    },
+    {
+      "name": "直接点击3D门扇发送指令并回写",
+      "status": "PASS"
+    },
+    {
+      "name": "统一状态对象人员/门/环境更新",
+      "status": "PASS"
+    },
+    {
+      "name": "PIR只有存在信号时不伪造精确人数",
+      "status": "PASS"
+    },
+    {
+      "name": "门控制回写并显示开门",
+      "status": "PASS"
+    },
+    {
+      "name": "灯控制回写",
+      "status": "PASS"
+    },
+    {
+      "name": "设备控制失败保留原状态",
+      "status": "PASS"
+    },
+    {
+      "name": "沿用服务端烟雾阈值及报警状态",
+      "status": "PASS"
+    },
+    {
+      "name": "断线禁用控制/退避/手动恢复",
+      "status": "PASS"
+    },
+    {
+      "name": "移动端无横向溢出且画布不被卡片覆盖",
+      "status": "PASS"
+    },
+    {
+      "name": "GLB 丢失时明确降级且备用模型可控制",
+      "status": "PASS"
+    },
+    {
+      "name": "刷脸页面需授权及管理员令牌才能录入",
+      "status": "PASS"
+    },
+    {
+      "name": "服务端拒绝预约时不得因 matched 绕过",
+      "status": "PASS"
+    },
+    {
+      "name": "只有服务端设备确认后显示模拟放行",
+      "status": "PASS"
+    },
+    {
+      "name": "预约助理输入约束到推荐到确认提交",
+      "status": "PASS"
+    },
+    {
+      "name": "无运行时异常",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "polls": [
+    1794646762700,
+    1794646765726,
+    1794646768745,
+    1794646771754,
+    1794646774758,
+    1794646777770,
+    1794646783782,
+    1794646784728,
+    1794646786225
+  ]
+}

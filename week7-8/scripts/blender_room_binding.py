@@ -34,9 +34,10 @@ ROOM_CONFIG = {
 }
 
 CAMERAS = [
-    ("Camera_Overview", (10.8, 5.2, 11.2), (0.0, 0.82, -0.35)),
-    ("Camera_Front", (0.0, 3.35, 11.8), (0.0, 0.92, -0.65)),
-    ("Camera_Top", (0.02, 11.2, 0.02), (0.0, 0.0, -0.4)),
+    # Blender Z-up; glTF exporter converts these to Three.js Y-up.
+    ("Camera_Overview", (13.8, -14.5, 9.2), (0.0, 0.35, 0.82)),
+    ("Camera_Front", (0.0, -16.8, 6.35), (0.0, 0.65, 0.92)),
+    ("Camera_Top", (0.02, -0.02, 15.2), (0.0, 0.4, 0.0)),
 ]
 
 
@@ -62,7 +63,7 @@ def add_box(name, size, location, material, state_key=None):
     bpy.ops.mesh.primitive_cube_add(size=1.0, location=location)
     obj = bpy.context.active_object
     obj.name = name
-    obj.scale = (size[0] / 2.0, size[1] / 2.0, size[2] / 2.0)
+    obj.scale = size
     obj.data.materials.append(material)
     if state_key:
         obj["state_key"] = state_key
@@ -84,7 +85,7 @@ def add_door(name, hinge_location, width=0.95, height=2.1, thickness=0.05, mater
     bpy.ops.mesh.primitive_cube_add(size=1.0, location=(0, 0, 0))
     obj = bpy.context.active_object
     obj.name = name
-    obj.scale = (width / 2.0, thickness / 2.0, height / 2.0)
+    obj.scale = (width, thickness, height)
     bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
     # 平移网格数据，使对象原点位于门的左边缘（门轴）
     for v in obj.data.vertices:
@@ -165,10 +166,16 @@ def build(room_id="301", out_path=None):
 
     # 房间
     floor = add_box("Room_Floor", (w, d, 0.1), (0, 0, -0.05), mat_floor)
-    ceiling = add_box("Room_Ceiling", (w, d, 0.1), (0, 0, 3.1), mat_wall)
-    add_box("Room_Wall_Back", (w, 0.1, 3.1), (0, -d / 2, 1.55), mat_wall)
+    # Cutaway model: front and ceiling intentionally omitted for overview.
+    add_box("Room_Wall_Back", (w, 0.1, 3.1), (0, d / 2, 1.55), mat_wall)
     add_box("Room_Wall_Left", (0.1, d, 3.1), (-w / 2, 0, 1.55), mat_wall)
-    add_box("Room_Wall_Right", (0.1, d, 3.1), (w / 2, 0, 1.55), mat_wall)
+    # Real wall opening y=-2.7..-1.65, height=2.1m, with a lintel.
+    door_start, door_end = -2.7, -1.65
+    for name, lo, hi in (("Front", -d / 2, door_start), ("Back", door_end, d / 2)):
+        add_box("Room_Wall_Right_" + name, (0.1, hi-lo, 3.1),
+                (w/2, (lo+hi)/2, 1.55), mat_wall)
+    add_box("Door_Lintel", (0.1, door_end-door_start, 1.0),
+            (w/2, (door_start+door_end)/2, 2.6), mat_wall)
 
     # 会议桌
     add_box("Table_Main", (w * 0.62, 1.2, 0.08), (0, 0, 0.76), mat_wood)
@@ -181,12 +188,21 @@ def build(room_id="301", out_path=None):
     for i in range(half):
         x = -w * 0.52 + 0.5 + i * spacing
         for side, y in (("A", 0.95), ("B", -0.95)):
-            add_box("Chair_%s%02d" % (side, i + 1), (0.45, 0.45, 0.9), (x, y, 0.45), mat_fabric)
+            prefix = "Chair_%s%02d" % (side, i + 1)
+            add_box(prefix + "_Seat", (0.45, 0.45, 0.08), (x, y, 0.45), mat_fabric)
+            add_box(prefix + "_Back", (0.45, 0.08, 0.5),
+                    (x, y + (0.2 if side == "A" else -0.2), 0.72), mat_fabric)
+            add_cylinder(prefix + "_Base", 0.06, 0.42, (x, y, 0.21), mat_metal)
 
     # 门（门轴在 x=+w/2 的右侧，向内开 93.6°）
-    hinge = (w / 2 - 0.05, d / 2 - 0.1, 1.05)
-    add_door("Door_Leaf", hinge, material=mat_wood)
-    add_box("Door_Frame", (0.1, 0.12, 2.2), (w / 2 - 0.05, d / 2 - 0.16, 1.1), mat_metal)
+    hinge = (w / 2, door_start + 0.025, 1.05)
+    door = add_door("Door_Leaf", hinge, width=1.0, material=mat_wood)
+    door.rotation_euler.z = math.pi / 2
+    door["closed_rotation_deg"] = 90.0
+    door["open_rotation_deg"] = 180.0
+    door["interaction"] = "click: unified /api/control device=door"
+    for y in (door_start, door_end):
+        add_box("Door_Frame_%.2f" % y, (0.14, 0.04, 2.12), (w/2, y, 1.06), mat_metal)
 
     # 人员
     for i in range(cfg["people"]):
@@ -198,16 +214,16 @@ def build(room_id="301", out_path=None):
         x = -w / 4 + i * (w / 4)
         lamp = add_box("CeilingLight_%02d" % (i + 1), (1.2, 0.22, 0.06), (x, 0, 2.98),
                        mat_lamp, state_key="lighting")
-        light_data = bpy.data.lights.new("Light_%02d" % (i + 1), type="AREA")
+        light_data = bpy.data.lights.new("Light_%02d" % (i + 1), type="POINT")
         light_data.energy = 60
-        light_data.size = 1.2
+        light_data.shadow_soft_size = 0.6
         light = bpy.data.objects.new("Light_%02d" % (i + 1), light_data)
         bpy.context.scene.collection.objects.link(light)
         light.location = (x, 0, 2.9)
         light["state_key"] = "lighting"
 
     # 环境指示牌
-    add_text_panel("DHT_Panel", "24.5C / 50%", (w / 2 - 0.3, -d / 2 + 0.06, 2.2), mat_screen, size=0.28)
+    add_box("DHT_Panel", (0.7, 0.06, 0.35), (w / 2 - 1.0, d / 2 - 0.06, 2.2), mat_screen, state_key="temperature,humidity")
 
     # 烟雾信标（吊顶中心，上方无遮挡）
     add_cylinder("SmokeBeacon", 0.22, 0.14, (0, 0, 2.94), mat_alarm, state_key="smoke")
@@ -219,10 +235,15 @@ def build(room_id="301", out_path=None):
     # 三台相机
     for name, loc, target in CAMERAS:
         add_camera(name, loc, target)
+    bpy.context.scene.camera = bpy.data.objects["Camera_Overview"]
+    bpy.context.scene.world = bpy.data.worlds.new("MeetingWorld")
+    bpy.context.scene.world.color = (0.3, 0.3, 0.3)
 
     # 导出
     if out_path:
         os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
+        blend_path = os.path.splitext(out_path)[0] + ".blend"
+        bpy.ops.wm.save_as_mainfile(filepath=blend_path)
         bpy.ops.export_scene.gltf(
             filepath=out_path,
             export_format="GLB",

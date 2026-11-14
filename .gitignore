@@ -9,6 +9,9 @@ node_modules/
 .codex-run-logs/
 **/__pycache__/
 **/*.pyc
+MachineLearning/human_face/local_face_data/
+MachineLearning/human_face/face-policy.local.json
+*.blend1
 **/debug.log
 Flask/data/
 Flask/plots/

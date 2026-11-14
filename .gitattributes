@@ -1,2 +1,3 @@
 # Keep recorded evidence byte-for-byte reproducible, including downloaded CSV.
 delivery/** -text whitespace=cr-at-eol
+analysis/taskbook-v3-2026-11-14/implementation/** -text whitespace=cr-at-eol

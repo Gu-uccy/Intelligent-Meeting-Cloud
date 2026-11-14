@@ -1,4 +1,4 @@
-"""32 executable contract/regression cases; no physical GPIO or running Pi needed."""
+"""Executable contract/regression cases; no physical GPIO or running Pi needed."""
 import copy
 import csv
 import importlib.util
@@ -13,7 +13,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[2]
-RESULTS = ROOT / "delivery/results"
+RESULTS = Path(os.environ.get("EVIDENCE_OUTPUT_DIR", ROOT / "delivery/results"))
 RESULTS.mkdir(parents=True, exist_ok=True)
 os.environ["MEETING_DATA_MODE"] = "simulation"
 _tmp = tempfile.TemporaryDirectory()
@@ -184,6 +184,26 @@ class Contract(unittest.TestCase):
         m.set_door_servo(True)
         for servo in m.door_servos.values():
             servo.ChangeDutyCycle.assert_called_once_with(m.SERVO_OPEN_DUTY)
+
+    def test_53_health_freshness_and_scope(self):
+        r = self.client.get('/api/health').json
+        self.assertEqual(r['status'], 'degraded')
+        self.assertIsNone(r['climate_sample_age_seconds'])
+        self.assertGreaterEqual(r['uptime_seconds'], 0)
+        self.assertIn('climate only', r['health_scope'])
+
+    def test_54_health_stale_and_recovered(self):
+        m.ON_RASPBERRY_PI = True
+        m.current_temp, m.current_humidity = 24, 50
+        m.last_dht_success = time.time() - 30
+        self.assertEqual(self.client.get('/api/health').json['status'], 'degraded')
+        m.last_dht_success = time.time()
+        self.assertEqual(self.client.get('/api/health').json['status'], 'ok')
+
+    def test_55_threshold_source(self):
+        self.post(action='set_params', temp_max=29, humidity_min=45)
+        data = self.client.get('/api/current').json
+        self.assertEqual((data['temp_max'], data['humidity_min'], data['smoke_threshold']), (29, 45, m.SMOKE_THRESHOLD))
 
 
 class EvidenceResult(unittest.TextTestResult):

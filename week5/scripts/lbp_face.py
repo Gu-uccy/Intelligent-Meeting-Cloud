@@ -13,7 +13,7 @@ lbp_face.py
 
 本模块实现（全部自研）：
     1. 均匀模式 LBP（uniform LBP）：对每个像素计算 8 邻域二值模式，
-       统一模式映射到 0~58，非统一模式映射到 59，得到 59 维直方图；
+       58 个统一模式映射到 0~57，非统一模式映射到 58，得到 59 维直方图；
     2. 分块直方图：将 112x112 人脸分成 7x7=49 块，每块 59 维直方图，
        级联成 49*59=2891 维特征向量（含块空间信息，判别力更强）；
     3. L2 归一化 + 余弦相似度比对；
@@ -24,26 +24,25 @@ lbp_face.py
 """
 
 import numpy as np
+from functools import lru_cache
 
 CELL_SIZE = 16          # 分块尺寸
 GRID = 7                # 分块网格 7x7
 UNIFORM_BINS = 59       # 均匀模式 LBP 直方图维度
 
 
+@lru_cache(maxsize=1)
 def _uniform_mapping_table():
-    """构建 256 个 8 位二值模式的均匀模式映射表（0~58 均匀，59 非均匀）"""
-    table = np.zeros(256, dtype=np.int32)
+    """58 个均匀模式 + 一个非均匀桶，值域始终为 0..58。"""
+    table = np.full(256, 58, dtype=np.int32)
+    next_label = 0
     for i in range(256):
         bits = [(i >> k) & 1 for k in range(8)]
         transitions = sum(bits[k] != bits[(k + 1) % 8] for k in range(8))
         if transitions <= 2:
-            table[i] = i  # 均匀模式直接映射到 0~255 中的实际值
-        else:
-            table[i] = 59  # 非均匀模式统一映射到 59
-    # 将均匀模式的取值压缩到 0~58（按出现顺序编号）
-    uniform_values = [v for v in range(256) if table[v] != 59]
-    for idx, v in enumerate(uniform_values):
-        table[v] = idx
+            table[i] = next_label
+            next_label += 1
+    table.flags.writeable = False
     return table
 
 
@@ -66,6 +65,8 @@ def lbp_histogram(gray):
 
 def extract_feature(gray):
     """分块 LBP 特征：7x7 块各 59 维 -> 2891 维，L2 归一化"""
+    if gray.shape != (112, 112):
+        raise ValueError("LBP requires a preprocessed 112x112 grayscale image")
     feats = []
     cell = gray.shape[0] // GRID
     for gy in range(GRID):
@@ -89,6 +90,8 @@ def match(gallery, probe_feature):
     best_id, best_sim = None, -1.0
     sims = {}
     for person_id, feats in gallery.items():
+        if not feats:
+            continue
         s = max(cosine_similarity(probe_feature, f) for f in feats)
         sims[person_id] = s
         if s > best_sim:

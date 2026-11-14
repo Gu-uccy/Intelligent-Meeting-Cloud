@@ -1,0 +1,8 @@
+Blender 4.5.9 LTS (hash 8bf95cbd38d1 built 2026-04-21 01:33:45)
+Read blend: "D:\Project\Intelligent-Meeting-Cloud\FrontEnd\Intelligent_meeting_cloud\public\models\room_301.blend"
+Saved: 'D:\Project\Intelligent-Meeting-Cloud\analysis\taskbook-v3-2026-11-14\implementation\blender\blender-native.png'
+Time: 00:01.36 (Saving: 00:00.14)
+
+{"blender_version": "4.5.9 LTS", "blend_file": "room_301.blend", "checks_passed": ["12x7m floor", "2.1m hinged door", "wall opening has no blocking box", "8 people anchors", "3 lamp anchors", "3 authored cameras"], "door_opening": {"axis": "Blender Y", "min": -2.7, "max": -1.65, "height": 2.1}, "walls": [{"name": "Door_Lintel", "bounds": {"x": [5.949999809265137, 6.050000190734863], "y": [-2.6999998092651367, -1.649999976158142], "z": [2.0999999046325684, 3.0999999046325684]}}, {"name": "Room_Wall_Right_Back", "bounds": {"x": [5.949999809265137, 6.050000190734863], "y": [-1.6500000953674316, 3.5], "z": [0.0, 3.0999999046325684]}}, {"name": "Room_Wall_Right_Front", "bounds": {"x": [5.949999809265137, 6.050000190734863], "y": [-3.5, -2.6999998092651367], "z": [0.0, 3.0999999046325684]}}], "object_count": 69, "render": "blender-native.png"}
+
+Blender quit

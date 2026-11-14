@@ -1,0 +1,9 @@
+{
+    "face_access":  "simulation-only; authorized samples/policy/threshold required",
+    "source":  "simulation",
+    "face_target":  "http://127.0.0.1:5001",
+    "mode":  "Demo",
+    "business_source":  "true",
+    "url":  "http://127.0.0.1:5189/room-3d",
+    "sensor_target":  "http://127.0.0.1:5058"
+}

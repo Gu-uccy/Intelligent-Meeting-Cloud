@@ -485,7 +485,7 @@ export async function confirmAssistantReservation({ roomOption, sessionState }) 
 
   const reservationResponse = await addReservation(payload);
 
-  if (reservationResponse?.code === 0) {
+  if (reservationResponse?.code !== 1) {
     return createResponse({
       intent: 'book_room',
       stage: 'error',
@@ -512,7 +512,7 @@ export async function confirmAssistantCancellation({ reservationOption, sessionS
   const draft = sessionState?.draft || createEmptyAssistantDraft();
   const cancelResponse = await cancelReservation(reservationOption.reservationId);
 
-  if (cancelResponse?.code === 0) {
+  if (cancelResponse?.code !== 1) {
     return createResponse({
       intent: 'cancel_reservation',
       stage: 'error',

@@ -1,0 +1,54 @@
+{
+  "scope": "pure matcher with synthetic API fixtures",
+  "generated_at": "2026-11-14T08:46:25.796Z",
+  "records": [
+    {
+      "name": "启用/容量/设备/容量差排序",
+      "status": "PASS"
+    },
+    {
+      "name": "指定会议室编号",
+      "status": "PASS"
+    },
+    {
+      "name": "已占用含字符串状态排除",
+      "status": "PASS"
+    },
+    {
+      "name": "过期时间排除",
+      "status": "PASS"
+    },
+    {
+      "name": "相邻预约边界不算冲突",
+      "status": "PASS"
+    },
+    {
+      "name": "时间片缺口不得推荐",
+      "status": "PASS"
+    },
+    {
+      "name": "服务业务失败不得假装空闲",
+      "status": "PASS"
+    },
+    {
+      "name": "网络异常向上传递",
+      "status": "PASS"
+    },
+    {
+      "name": "非法人数和倒序时间拒绝",
+      "status": "PASS"
+    },
+    {
+      "name": "取消无匹配时不得退回其他预约",
+      "status": "PASS"
+    },
+    {
+      "name": "10点8人应解析为10:00及8人",
+      "status": "PASS"
+    },
+    {
+      "name": "整点范围及半点解析",
+      "status": "PASS"
+    }
+  ]
+}

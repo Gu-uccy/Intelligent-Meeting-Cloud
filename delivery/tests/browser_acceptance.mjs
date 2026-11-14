@@ -11,8 +11,8 @@ try { pw = require('playwright'); } catch {
   pw = require(bundled);
 }
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const out = path.join(root, 'delivery/results');
-const shots = path.join(root, 'delivery/screenshots');
+const out = process.env.EVIDENCE_OUTPUT_DIR || path.join(root, 'delivery/results');
+const shots = process.env.EVIDENCE_SCREENSHOT_DIR || path.join(root, 'delivery/screenshots');
 mkdirSync(out, { recursive: true }); mkdirSync(shots, { recursive: true });
 const base = process.env.ACCEPTANCE_URL || 'http://127.0.0.1:5188';
 const records = [], errors = [], warnings = [], screenshots = [], timings = [];

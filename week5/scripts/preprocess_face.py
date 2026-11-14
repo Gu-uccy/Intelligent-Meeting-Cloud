@@ -33,6 +33,10 @@ TARGET_SIZE = 112  # 与 face_api.py 使用的 ArcFace 输入尺寸一致
 
 def to_gray(image_bgr):
     """彩色图 -> 灰度图（BGR 权重与 OpenCV cvtColor 一致）"""
+    if image_bgr.ndim == 2 and image_bgr.size:
+        return image_bgr.astype(np.uint8)
+    if image_bgr.ndim != 3 or image_bgr.shape[2] != 3 or not image_bgr.size:
+        raise ValueError("Expected a nonempty BGR or grayscale image")
     b = image_bgr[..., 0].astype(np.float32)
     g = image_bgr[..., 1].astype(np.float32)
     r = image_bgr[..., 2].astype(np.float32)
@@ -43,16 +47,20 @@ def to_gray(image_bgr):
 def resize_face(gray, size=TARGET_SIZE):
     """尺寸归一化：双线性插值到 size x size（纯 numpy 实现）"""
     h, w = gray.shape
-    ys = (np.arange(size) + 0.5) * (h / size) - 0.5
-    xs = (np.arange(size) + 0.5) * (w / size) - 0.5
-    y0 = np.clip(np.floor(ys).astype(int), 0, h - 2)
-    x0 = np.clip(np.floor(xs).astype(int), 0, w - 2)
+    if not h or not w or size < 1:
+        raise ValueError("Image and output dimensions must be positive")
+    ys = np.clip((np.arange(size) + 0.5) * (h / size) - 0.5, 0, h - 1)
+    xs = np.clip((np.arange(size) + 0.5) * (w / size) - 0.5, 0, w - 1)
+    y0 = np.floor(ys).astype(int)
+    x0 = np.floor(xs).astype(int)
+    y1 = np.minimum(y0 + 1, h - 1)
+    x1 = np.minimum(x0 + 1, w - 1)
     dy = (ys - y0)[:, None]
     dx = (xs - x0)[None, :]
     img = (gray[y0][:, x0] * (1 - dy) * (1 - dx)
-           + gray[y0][:, x0 + 1] * (1 - dy) * dx
-           + gray[y0 + 1][:, x0] * dy * (1 - dx)
-           + gray[y0 + 1][:, x0 + 1] * dy * dx)
+           + gray[y0][:, x1] * (1 - dy) * dx
+           + gray[y1][:, x0] * dy * (1 - dx)
+           + gray[y1][:, x1] * dy * dx)
     return np.clip(img, 0, 255).astype(np.uint8)
 
 
@@ -62,8 +70,9 @@ def equalize_hist(gray):
     cdf = hist.cumsum()
     cdf_min = cdf[cdf > 0].min()
     total = gray.size
-    lut = ((cdf - cdf_min) * 255.0 / (total - cdf_min)).astype(np.uint8)
-    lut = np.clip(lut, 0, 255)
+    if total == cdf_min:
+        return gray.copy()
+    lut = np.clip(np.rint((cdf - cdf_min) * 255.0 / (total - cdf_min)), 0, 255).astype(np.uint8)
     return lut[gray]
 
 

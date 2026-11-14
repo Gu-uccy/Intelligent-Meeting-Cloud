@@ -14,9 +14,10 @@ export function getFaceHealth() {
   return faceRequest.get('/health');
 }
 
-export function verifyFaceImage(file) {
+export function verifyFaceImage(file, room = 'A101') {
   const formData = new FormData();
   formData.append('image', file);
+  formData.append('room', room);
 
   return faceRequest.post('/api/face/verify', formData, {
     headers: {
@@ -25,7 +26,7 @@ export function verifyFaceImage(file) {
   });
 }
 
-export function enrollFaceImage(file, identityPayload = {}) {
+export function enrollFaceImage(file, identityPayload = {}, adminToken = '') {
   const formData = new FormData();
   formData.append('image', file);
 
@@ -38,6 +39,7 @@ export function enrollFaceImage(file, identityPayload = {}) {
   return faceRequest.post('/api/face/enroll', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      'X-Face-Admin-Token': adminToken,
     },
   });
 }

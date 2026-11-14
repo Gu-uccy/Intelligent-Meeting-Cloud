@@ -23,7 +23,19 @@ const slotOverlaps = (slot, startTime, endTime, date) => {
 };
 
 export async function findAvailableRoomsForDraft(draft, tools) {
+  const start = toDateTime(draft.date, draft.startTime);
+  const end = toDateTime(draft.date, draft.endTime);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(draft.date || '')
+    || !/^([01]\d|2[0-3]):[0-5]\d$/.test(draft.startTime || '')
+    || !/^([01]\d|2[0-3]):[0-5]\d$/.test(draft.endTime || '')
+    || !start.isValid() || !end.isAfter(start)
+    || !Number.isInteger(Number(draft.attendeeCount)) || Number(draft.attendeeCount) < 1) {
+    throw new Error('请提供有效日期、起止时间和正整数人数');
+  }
   const roomsResponse = await tools.getUserRoomPage({ page: 1, pageSize: 100 });
+  if (roomsResponse?.code !== 1 || !Array.isArray(roomsResponse?.data?.records)) {
+    throw new Error('会议室列表获取失败');
+  }
   const rawRooms = roomsResponse?.data?.records || [];
   const activeRooms = rawRooms.filter((room) => Number(room.isActive) === 1);
 
@@ -42,10 +54,21 @@ export async function findAvailableRoomsForDraft(draft, tools) {
         date: draft.date,
       });
 
-      const slots = slotResponse?.data || [];
-      const hasConflict = slots.some((slot) => slot.status === 1 && slotOverlaps(slot, draft.startTime, draft.endTime, draft.date));
+      if (slotResponse?.code !== 1 || !Array.isArray(slotResponse?.data) || !slotResponse.data.length) {
+        throw new Error('空闲时间片获取失败，请重试');
+      }
+      const slots = slotResponse.data;
+      const hasConflict = slots.some((slot) => Number(slot.status) !== 0 && slotOverlaps(slot, draft.startTime, draft.endTime, draft.date));
+      // The complete requested interval must be covered by contiguous free slots.
+      const freeSlots = slots.filter((slot) => Number(slot.status) === 0)
+        .map((slot) => ({ start: dayjs(`${draft.date} ${slot.startTime}`), end: dayjs(`${draft.date} ${slot.endTime}`) }))
+        .sort((a, b) => a.start.valueOf() - b.start.valueOf());
+      let coveredUntil = start;
+      for (const slot of freeSlots) {
+        if (!slot.start.isAfter(coveredUntil) && slot.end.isAfter(coveredUntil)) coveredUntil = slot.end;
+      }
 
-      if (hasConflict) return null;
+      if (hasConflict || coveredUntil.isBefore(end)) return null;
 
       const roomEquipment = parseEquipment(room.equipment);
       const capacityGap = Number(room.capacity) - Number(draft.attendeeCount || 0);
@@ -95,7 +118,7 @@ export function findCancelableReservations(draft, reservations = []) {
     (item) => matchesDate(item, draft.date) && matchesTime(item, draft.startTime) && matchesRoom(item, draft.roomCode),
   );
 
-  const finalList = matched.length ? matched : activeReservations;
+  const finalList = matched;
 
   return finalList.slice(0, 5).map((item) => ({
     id: item.id,

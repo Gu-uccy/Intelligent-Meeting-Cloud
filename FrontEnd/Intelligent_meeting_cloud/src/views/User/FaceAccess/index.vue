@@ -8,7 +8,7 @@ import FaceCapture from '../Control/components/FaceCapture.vue';
       <div>
         <p class="eyebrow">Raspberry Pi Face Access</p>
         <h1>会议室人脸门禁</h1>
-        <p class="header-subtitle">独立展示刷脸核验、预约权限判断、自动签到和门禁访问记录</p>
+        <p class="header-subtitle">课堂模拟：服务端核验身份与预约，收到模拟设备确认后记录通行；真实人脸指标待实测</p>
       </div>
     </header>
 

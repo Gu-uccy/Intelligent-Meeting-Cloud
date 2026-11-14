@@ -60,6 +60,7 @@ if ($Mode -eq 'Full') {
   $env:VITE_USE_MOCK = 'false'
 } else {
   $env:VITE_USE_MOCK = 'true'
+  $env:VITE_AGENT_MODE = 'local'
   if ($checks.raspberry_sensor.service -eq 'meeting-room-sensors' -and $checks.raspberry_sensor.source -eq 'sensor') {
     $sensorTarget = "http://${RpiHost}:5000"
   } else {
@@ -78,13 +79,29 @@ if ($Mode -eq 'Full') {
 }
 while (Test-Port '127.0.0.1' $FrontendPort) { $FrontendPort++; if ($FrontendPort -gt 5299) { throw 'No free frontend port.' } }
 $env:VITE_SENSOR_API_URL='/sensor-api'; $env:VITE_SENSOR_PROXY_TARGET=$sensorTarget
-$env:VITE_FACE_PROXY_TARGET="http://${RpiHost}:5001"
+$faceTarget = "http://${RpiHost}:5001"
+if ($Mode -eq 'Demo') {
+  $faceHealth = Read-Json 'http://127.0.0.1:5001/health'
+  if (-not (Test-Port '127.0.0.1' 5001)) {
+    $pythonExe = (Get-Command python -ErrorAction Stop).Source
+    & $pythonExe -c 'import flask, flask_cors, numpy, cv2'
+    if ($LASTEXITCODE -ne 0) { throw 'Face demo dependencies missing: pip install -r MachineLearning/human_face/requirements.txt' }
+    $env:FACE_DEVICE_URL = 'http://127.0.0.1:5058'
+    $faceFile = Join-Path $projectRoot 'MachineLearning\human_face\face_api.py'
+    Start-Process -FilePath $pythonExe -WindowStyle Hidden -WorkingDirectory $projectRoot -ArgumentList @('-u',('"{0}"' -f $faceFile)) -RedirectStandardOutput (Join-Path $logDir 'face.out.log') -RedirectStandardError (Join-Path $logDir 'face.err.log') | Out-Null
+    Wait-Http 'http://127.0.0.1:5001/health'
+    $faceHealth = Read-Json 'http://127.0.0.1:5001/health'
+  }
+  if ($faceHealth.model_name -ne 'custom-uniform-LBP') { throw '5001 is occupied by another face service. Check its owner before restarting.' }
+  $faceTarget = 'http://127.0.0.1:5001'
+}
+$env:VITE_FACE_PROXY_TARGET=$faceTarget
 $env:VITE_PORT=[string]$FrontendPort
 $npmExe=(Get-Command npm.cmd).Source
 Start-Process cmd.exe -WindowStyle Hidden -WorkingDirectory $frontendDir -ArgumentList @('/d','/c', ('""{0}" run dev -- --host 0.0.0.0 --port {1} --strictPort"' -f $npmExe,$FrontendPort)) -RedirectStandardOutput (Join-Path $logDir 'vite.out.log') -RedirectStandardError (Join-Path $logDir 'vite.err.log') | Out-Null
 $url="http://127.0.0.1:$FrontendPort/room-3d"
 Wait-Http $url
-$session = @{ url=$url; mode=$Mode; sensor_target=$sensorTarget; business_source=$env:VITE_USE_MOCK; source=(Read-Json "$sensorTarget/api/health").source }
+$session = @{ url=$url; mode=$Mode; sensor_target=$sensorTarget; face_target=$faceTarget; face_access='simulation-only; authorized samples/policy/threshold required'; business_source=$env:VITE_USE_MOCK; source=(Read-Json "$sensorTarget/api/health").source }
 $session | ConvertTo-Json | Set-Content (Join-Path $logDir 'session.json') -Encoding UTF8
 $session | ConvertTo-Json
 if (-not $NoBrowser) { Start-Process $url }

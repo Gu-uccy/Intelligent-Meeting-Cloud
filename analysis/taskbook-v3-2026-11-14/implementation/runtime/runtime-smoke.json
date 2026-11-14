@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-11-14T08:59:41.547Z",
+  "base": "http://127.0.0.1:5189",
+  "scope": "Real localhost Flask simulation HTTP + localStorage mock booking; no Pi",
+  "checks": [
+    "simulation source and custom face service confirmed",
+    "UI door click -> real Flask HTTP -> state writeback",
+    "Demo uses local parser without external AI service; 10点8人 -> 10:00/8 people",
+    "no runtime exceptions"
+  ],
+  "health": {
+    "climate_sample_age_seconds": null,
+    "health_scope": "climate only; other sensors not health-verified",
+    "service": "meeting-room-sensors",
+    "source": "simulation",
+    "status": "ok",
+    "uptime_seconds": 923.4
+  },
+  "face_health": {
+    "calibrated": false,
+    "detector_backend": "opencv-haar",
+    "enrollment_enabled": false,
+    "mode": "simulation-only",
+    "model_name": "custom-uniform-LBP",
+    "note": "Threshold requires authorized calibration; no liveness detection",
+    "status": "ok",
+    "threshold": null
+  },
+  "status": "PASS",
+  "errors": []
+}

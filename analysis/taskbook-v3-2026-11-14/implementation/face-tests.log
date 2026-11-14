@@ -1,0 +1,43 @@
+test_corrupt_policy_denied (__main__.Access) ... ok
+test_delete_removes_features (__main__.Access) ... ok
+test_device_down_denied (__main__.Access) ... [2026-11-14 16:49:20,868] ERROR in face_api: Face access failed
+Traceback (most recent call last):
+  File "D:\Project\Intelligent-Meeting-Cloud\MachineLearning\human_face\face_api.py", line 151, in verify
+    ack = control()
+  File "C:\Users\Guche\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Guche\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Guche\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1173, in _execute_mock_call
+    raise effect
+OSError: offline
+ok
+test_empty_gallery_denied (__main__.Access) ... ok
+test_enrollment_appends_features_no_photo (__main__.Access) ... ok
+test_enrollment_requires_admin (__main__.Access) ... ok
+test_enrollment_requires_consent (__main__.Access) ... ok
+test_expired_reservation_denied (__main__.Access) ... ok
+test_no_face_denied (__main__.Access) ... ok
+test_no_threshold_denied (__main__.Access) ... ok
+test_pending_reservation_denied (__main__.Access) ... ok
+test_real_unified_simulation_control (__main__.Access) ... ok
+test_recognized_authorized_and_acknowledged (__main__.Access) ... ok
+test_recognized_but_not_on_list_denied (__main__.Access) ... ok
+test_unacknowledged_device_denied (__main__.Access) ... ok
+test_unknown_feature_denied (__main__.Access) ... ok
+test_wrong_room_denied (__main__.Access) ... ok
+test_constant_image_no_divide_by_zero (__main__.Algorithm) ... ok
+test_full_preprocess_finite (__main__.Algorithm) ... ok
+test_manifest_duplicate_content_rejected (__main__.Algorithm) ... ok
+test_manifest_path_escape_rejected (__main__.Algorithm) ... ok
+test_metrics_unknown_denominator_and_wrong_identity (__main__.Algorithm) ... ok
+test_no_face_rejected (__main__.Algorithm) ... ok
+test_resize_single_pixel_and_boundary (__main__.Algorithm) ... ok
+test_uniform_bins_are_fixed (__main__.Algorithm) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 1.460s
+
+OK
+警告: 未检测到树莓派环境，使用模拟传感器数据运行
+[2026-11-14 16:49:21] 手动控制: door_open = True

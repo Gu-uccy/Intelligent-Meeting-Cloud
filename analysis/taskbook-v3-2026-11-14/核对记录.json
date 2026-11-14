@@ -1,0 +1,84 @@
+{
+  "audit_date": "2026-11-14",
+  "scope": "Read-only taskbook and code audit; isolated synthetic algorithm/module probes; no device commands; no full regression rerun",
+  "commit": "3e68152b0ba7964276157f97b98719a2b24de1bb",
+  "taskbook": {
+    "path": "D:/QQ/2026-2027-1学期进阶式挑战性综合项目III课题任务书V3.0-树莓派智能会议室管理系统.pdf",
+    "pages": 11
+  },
+  "previous_delivery_source_hashes_match": {
+    "Flask/unified_meeting_room_system.py": true,
+    "FrontEnd/Intelligent_meeting_cloud/src/views/User/Room3D/index.vue": true,
+    "FrontEnd/Intelligent_meeting_cloud/src/views/User/Booking/components/RoomDetail.vue": true,
+    "FrontEnd/Intelligent_meeting_cloud/src/views/User/Layout/components/LayoutNav.vue": true,
+    "scripts/start-all.ps1": true,
+    "scripts/start-backend.ps1": true,
+    "delivery/tests/test_sensor_contract.py": true,
+    "delivery/tests/browser_acceptance.mjs": true
+  },
+  "historical_test_result": {
+    "date": "2026-11-11",
+    "passed": 52,
+    "total": 52,
+    "backend_isolated": 32,
+    "browser_fixture": 20,
+    "hardware_tested": false,
+    "rerun_on_audit_date": false
+  },
+  "current_preflight": {
+    "timestamp": "2026-11-14T14:30:14.6362936+08:00",
+    "mode": "Full",
+    "node": true,
+    "npm": true,
+    "java": true,
+    "maven": false,
+    "mysql_tcp": true,
+    "redis_tcp": false,
+    "spring_port_8080_free": false,
+    "raspberry_sensor": null,
+    "frontend_requested_port_free": true
+  },
+  "baseline_recomputed": {
+    "scope": "existing synthetic teaching dataset",
+    "train": 882,
+    "test": 294,
+    "tp": 44,
+    "tn": 206,
+    "fp": 19,
+    "fn": 25,
+    "accuracy": 0.8503,
+    "f1": 0.6667
+  },
+  "face_probes": {
+    "scope": "numpy synthetic images, no personal face input",
+    "constant_image_feature_dimensions": 2891,
+    "random_image_feature_dimensions": 2940,
+    "match_outcome": "ValueError shapes not aligned",
+    "constant_histogram_strict_float_mode": "FloatingPointError divide by zero"
+  },
+  "scheduling_probe": {
+    "scope": "module with synthetic tools, no database or browser",
+    "selected_ids": [
+      1
+    ],
+    "capacity_equipment_conflict_inactive_filters": "PASS"
+  },
+  "missing_within_checked_locations": [
+    "week5/docs/data_authorization.md",
+    "week5/data/face_sample_manifest.csv",
+    "FrontEnd/Intelligent_meeting_cloud/public/models/room_301.glb"
+  ],
+  "external_materials": {
+    "path_prefix": "D:/QQ",
+    "prior_stage_reports": [
+      "4中期报告.docx (综I)",
+      "5总结报告.docx (综I)",
+      "总结报告.docx (综II)",
+      "总结报告2.0.docx (综II)"
+    ],
+    "current_defense_deck": "智能会议室管理系统_综III终期答辩.pptx",
+    "slides": 19,
+    "review": "text and version identity only; no full layout QA"
+  },
+  "report": "完成情况分析.md"
+}

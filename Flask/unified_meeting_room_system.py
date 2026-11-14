@@ -108,6 +108,7 @@ LIGHT_HIGH_THRESHOLD = 150
 MAX_HISTORY_POINTS = 120
 
 data_lock = threading.Lock()
+STARTED_AT = time.time()
 dht_device = None
 pwm_channels = {}
 door_servos = {}
@@ -658,8 +659,15 @@ def index():
 
 @app.route("/api/health")
 def health():
-    return jsonify({"service": "meeting-room-sensors", "status": "ok",
-                    "source": "sensor" if ON_RASPBERRY_PI else "simulation"})
+    with data_lock:
+        age = time.time() - last_dht_success if last_dht_success else None
+        ready = current_temp is not None and current_humidity is not None
+        degraded = not ready or (ON_RASPBERRY_PI and (age is None or age > 15))
+        return jsonify({"service": "meeting-room-sensors", "status": "degraded" if degraded else "ok",
+                        "source": "sensor" if ON_RASPBERRY_PI else "simulation",
+                        "uptime_seconds": round(time.time() - STARTED_AT, 1),
+                        "climate_sample_age_seconds": round(age, 1) if age is not None else None,
+                        "health_scope": "climate only; other sensors not health-verified"})
 
 
 @app.route("/api/current")
@@ -690,6 +698,7 @@ def get_current_data():
             "temp_max": TEMP_MAX,
             "humidity_min": HUMIDITY_MIN,
             "humidity_max": HUMIDITY_MAX,
+            "smoke_threshold": SMOKE_THRESHOLD,
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         })
 

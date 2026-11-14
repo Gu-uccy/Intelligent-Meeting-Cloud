@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-11-14T09:01:55.551517+00:00",
+  "hardware_tested": false,
+  "real_faces_tested": false,
+  "video_created": false,
+  "groups": {
+    "sensor": {
+      "passed": 35,
+      "total": 35,
+      "file": "backend/backend_tests.json"
+    },
+    "face": {
+      "passed": 25,
+      "total": 25,
+      "file": "face-tests.json"
+    },
+    "booking": {
+      "passed": 12,
+      "total": 12,
+      "file": "booking-constraints.json"
+    },
+    "browser_new": {
+      "passed": 17,
+      "total": 17,
+      "file": "browser/results.json"
+    },
+    "browser_regression": {
+      "passed": 20,
+      "total": 20,
+      "file": "legacy-browser/browser_tests.json"
+    }
+  },
+  "scope": "Overlapping regression groups; synthetic face data, API fixtures, mock booking, plus separate real localhost Flask simulation checks",
+  "automated_passed": 109,
+  "localhost_simulation_http": "PASS",
+  "blender": {
+    "blender_version": "4.5.9 LTS",
+    "blend_file": "room_301.blend",
+    "checks_passed": [
+      "12x7m floor",
+      "2.1m hinged door",
+      "wall opening has no blocking box",
+      "8 people anchors",
+      "3 lamp anchors",
+      "3 authored cameras"
+    ],
+    "door_opening": {
+      "axis": "Blender Y",
+      "min": -2.7,
+      "max": -1.65,
+      "height": 2.1
+    },
+    "walls": [
+      {
+        "name": "Door_Lintel",
+        "bounds": {
+          "x": [
+            5.949999809265137,
+            6.050000190734863
+          ],
+          "y": [
+            -2.6999998092651367,
+            -1.649999976158142
+          ],
+          "z": [
+            2.0999999046325684,
+            3.0999999046325684
+          ]
+        }
+      },
+      {
+        "name": "Room_Wall_Right_Back",
+        "bounds": {
+          "x": [
+            5.949999809265137,
+            6.050000190734863
+          ],
+          "y": [
+            -1.6500000953674316,
+            3.5
+          ],
+          "z": [
+            0.0,
+            3.0999999046325684
+          ]
+        }
+      },
+      {
+        "name": "Room_Wall_Right_Front",
+        "bounds": {
+          "x": [
+            5.949999809265137,
+            6.050000190734863
+          ],
+          "y": [
+            -3.5,
+            -2.6999998092651367
+          ],
+          "z": [
+            0.0,
+            3.0999999046325684
+          ]
+        }
+      }
+    ],
+    "object_count": 69,
+    "render": "blender-native.png"
+  },
+  "frontend_build": "PASS; bundle size warning remains",
+  "source_hash_encoding": "SHA256 of UTF-8 text with CRLF normalized to LF; model files use original bytes",
+  "source_sha256": {
+    "Flask/unified_meeting_room_system.py": "3487d06891271d2886e35e274d4053ffcc68aaeec75948ce4c874b58f3439c12",
+    "FrontEnd/Intelligent_meeting_cloud/src/apis/face.js": "785ca77c4870c4fc7cdc4a424e2a39788fcbc730eb9542116dca1742545716dd",
+    "FrontEnd/Intelligent_meeting_cloud/src/apis/assistant.js": "6185a7afc64aa2c0ea0d653d6fb9d9e6038e838b4c829805c5e2f6c10a59c79e",
+    "FrontEnd/Intelligent_meeting_cloud/src/utils/bookingAgentParser.js": "57d770e30987e1552571e444f8a0802ec40b50f2268c3480601f1fea3160f9ca",
+    "FrontEnd/Intelligent_meeting_cloud/src/utils/bookingAgentMatcher.js": "280f68e995a696bfd1e7a03cb22bb068749893bf07473b20ca1a508f04aa3a2b",
+    "FrontEnd/Intelligent_meeting_cloud/src/views/User/Room3D/index.vue": "85193fed2c450623945bef19373375b383691d26092ed6ea09eb7ef9ef9cba8b",
+    "FrontEnd/Intelligent_meeting_cloud/src/views/User/Control/components/FaceCapture.vue": "4bce2df601f46f0403e98c3b4fb9bf75c45efb2673d1a5885a7b54e36976d1f2",
+    "FrontEnd/Intelligent_meeting_cloud/src/views/User/FaceAccess/index.vue": "259c9fa8e72060816c0112f87fb96d2a9a2f87648913ef29e30f31b6f95c95ce",
+    "MachineLearning/human_face/face_api.py": "24fc2991c8cda1197caced6b7609cc58ca1297e317793893a514976b6841c1bb",
+    "week5/scripts/preprocess_face.py": "41b2fc12df1f2c14cf9d104af55689caace56c05f77ae2bb453e0d103cdb0066",
+    "week5/scripts/lbp_face.py": "cd0dc79ed0afcf49093f92543dcbb8925ca523aaac85919041567b3302cde275",
+    "week5/scripts/run_face_eval.py": "f9991baf247364434daaf9acb689f621022272ff00c4bf4454de0925de2493ff",
+    "week7-8/scripts/blender_room_binding.py": "4b9761fd9862c7ccbc9199aeca36fd3551483ce001ac760e4db09fe58ad132a5",
+    "week7-8/scripts/verify_blender_room.py": "2a479d34fb3ca35fcc7a264f0ae1a01099b41f8772c601b8d215551d4c50141d",
+    "scripts/start-all.ps1": "6dfbca6f0950c232c9ee194c978b1a704924cc7b78a92c925c9b969a63d966c9",
+    "delivery/tests/test_face_pipeline.py": "3a365133a27f53100c7fddae66bf962c1b49adff865fe834bbd8799904111852",
+    "delivery/tests/test_sensor_contract.py": "d926887d46324c76da18e559c7bb2cc57dd36709267c943988f2d2c162840de5",
+    "delivery/tests/booking_constraints.mjs": "ef3a2981de049efe61e4bcab8cae2b5d91549e2f0852fa3c5745ad63af09a2e8",
+    "delivery/tests/continuation_browser.mjs": "f76ad1c1bfd2a5bc6b20ea7c037dc3f5d3adffcb7a10dba232ca2020927fb480",
+    "delivery/tests/runtime_smoke.mjs": "6b00ab596d15c40afa9b15e17769147caecaa565466997971b967f6685653ceb",
+    "delivery/tests/browser_acceptance.mjs": "b3bb64762ffb11f084029fc95440164483a2bdf07f2fcd56be2be05995a4f14d"
+  },
+  "model_sha256": {
+    "FrontEnd/Intelligent_meeting_cloud/public/models/room_301.blend": "84e94ae5b027e9d70e4be4c126c5cd187e9e3e858a3a6d9f5b9e3fa566fa45c9",
+    "FrontEnd/Intelligent_meeting_cloud/public/models/room_301.glb": "8c4ad3bde0d9bbe421d17862564731838625a6d9a7afb20eecced29f837b8ba6"
+  },
+  "evidence_sha256": {
+    "blender-export.log": "20e037cb4fb6a94bb05bec896a6454f457754accaaf7ff6572d3a456447c7953",
+    "blender-verify.log": "9697a6e47b815103a738eebd581b0e5499d0c070e29f638c7ee165b5977518bb",
+    "booking-constraints.json": "dd188efdb1dc114870ab5ac1aa51fe14b64416048e5c091bfcbaf301d4c83e6f",
+    "build.log": "414aef16ae014e48372a9f76aef864d2eb32f34af6e265401c59697b17a08600",
+    "demo-start.log": "2cd80bca45671dba8d256b01b7da3296494e4dda61a83255cbdc02ef33e9cd95",
+    "face-tests.json": "97759f8d0aad19bbedb97f67971597a1b4f852342f2c5a230b73d1b5b0011bc1",
+    "face-tests.log": "6ce4b05d2be5d402bd2bff25d4fa77b784c1dbe9e575a4543f093d63331ab063",
+    "preflight.json": "051884dcda0ae0bd919ed5bfc731c1705b98aa9bfab2d0b06d6dce74a3dcbba0",
+    "sensor-tests.log": "f60f178f203a432f6d2f1ef928ecb5d94252f21a874380ee5e656095e583246d",
+    "backend/api_performance.csv": "a8e8612ce654742e9a6a0441a825030bc9e798a97c5e570432672298e1bc3264",
+    "backend/api_performance.json": "fe4f4a5e905022454c9c961b2c13909bb307e898c22884bb6338fdb70b23c2b5",
+    "backend/backend_tests.json": "1799efa4b22cd4f129f7158a31ff2fc46c7df3b4dd24c6789cce9114c05a1341",
+    "backend/sample_export.csv": "867b39863f5f424d2ea08b7c305593c94f052d47857b4d3b748e2be7aa831869",
+    "blender/blender-native.png": "afa9225e7cf5c53ec0c39f5ef969c6c0d70e2bbc41420fab7059699ebb9732f3",
+    "blender/blender-verification.json": "bdcbd53600989d5b7129d130a95cb20a8a0ed844ee297bb8828b6239ed0c9b07",
+    "browser/01_blender_closed.png": "5cac224348d0965154becc780029e6f7aeec6d9e61cf6b18b07b77e87510405a",
+    "browser/02_blender_open.png": "5a4cd6f39f0e2e7cc652eb7c7183e541dd0d3f084fae9dbb6bb07f50f7ffe484",
+    "browser/03_blender_mobile.png": "4a9d567f38b20e880154916d13c882370f92049747871d821ca7a8b4085999ac",
+    "browser/04_face_simulation.png": "67b58a21ac3d4ef011f39890a36ba7f20a131ccd31d11d23366eb8b443b1cac3",
+    "browser/05_booking_assistant.png": "1d6463d19e166e08433aa245b45ebac42d0d66987ec2f7bdf0afe867d021218b",
+    "browser/results.json": "1a4713684f61a39f587948bc169e559cf4470cc5cb95861547c40b50774098a4",
+    "legacy-browser/browser_download.csv": "e5b2847d770d3d08673c0474ce43793ec0871c871f1da64cee0c3b598a9d2d6d",
+    "legacy-browser/browser_performance.csv": "76ba96086bc957be5a9f8ac170e12752547b3fb6c336e5e7c25be563d215a81a",
+    "legacy-browser/browser_tests.json": "d56c0aa25ce96fc3ab20ccda7ddf461e92e458392ba0d08049d693bbf17ff721",
+    "legacy-browser/frame_intervals.csv": "094ea463017b43900f9b35dc96a0b15494e2514afb9696e63338603b343eab54",
+    "legacy-browser/screenshots/01_room3d_1920x1080.png": "34c8e8ee47fa70fd51545be6015b86eee2e120c6e30c78bdd4ea0cade880ef3b",
+    "legacy-browser/screenshots/02_room3d_1366x768.png": "57b4cfe92429d3739a03b8e75ed237af58db9ce8a727e8e500e9cb1b3f34ebdc",
+    "legacy-browser/screenshots/03_room3d_1024x768.png": "6bf9cfac9d1fc0512bd03b0b52db486c9376fa836107919519c216893c37a9ab",
+    "legacy-browser/screenshots/04_room3d_390x844.png": "eaf533ac5b74e901136b9dca2075f62648aad825298b89252a800407e0a1e200",
+    "legacy-browser/screenshots/05_door_open.png": "888fd52aed6ee626320724cc7f858e625009bbd3b3527211a5a47758e73519c1",
+    "legacy-browser/screenshots/06_light_off.png": "250bec588a299b45eb6dce7644ab3216698ab05e303082f08c8797d1e24c9cb6",
+    "legacy-browser/screenshots/07_smoke_alarm.png": "eebd877e734ca83e008e46933c489033fdb97b495c3d796c90ee1c71c72e7ff5",
+    "legacy-browser/screenshots/08_sensor_partial.png": "adc2fe0d0e60c256ec56da2f210657f7bb86fc1e0f40c0d45a3e7d7f1f33d94b",
+    "legacy-browser/screenshots/09_service_disconnected.png": "ef6f06e04c2dc49b268c192723800161aef07c0c8afe2b67b7bd7764f94291ce",
+    "runtime/local-simulation.png": "d6d7b3cd576e3309927db494b05768046082fd096b262846d7fe0c618b7fb810",
+    "runtime/runtime-smoke.json": "2e2cf83674aefe2fbbe1dab29b344f0213a913a31b023b828cb81ef8c79066eb",
+    "synthetic-evaluation/face_eval_result.json": "4e8b216f0286a4a6df17d976834e7b8b4c916e8a9b6fa42a4b32ac3ea1bc8a16",
+    "synthetic-final/face_eval_result.json": "4e8b216f0286a4a6df17d976834e7b8b4c916e8a9b6fa42a4b32ac3ea1bc8a16"
+  }
+}
