@@ -1,0 +1,26 @@
+{
+  "scope": "Physical echo level diagnosis; user confirmed level shift; no wiring changes or optical/voltage measurement",
+  "records": [
+    {
+      "attempt": 1,
+      "echo_before": 0,
+      "echo_after": 0,
+      "high_observations": 0,
+      "low_observations": 70144
+    },
+    {
+      "attempt": 2,
+      "echo_before": 0,
+      "echo_after": 0,
+      "high_observations": 0,
+      "low_observations": 68732
+    },
+    {
+      "attempt": 3,
+      "echo_before": 0,
+      "echo_after": 0,
+      "high_observations": 0,
+      "low_observations": 66279
+    }
+  ]
+}

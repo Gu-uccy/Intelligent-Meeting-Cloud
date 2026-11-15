@@ -1,0 +1,78 @@
+{
+  "scope": "Physical HC-SR04 GPIO20/21; last distance cleared on each attempt so timeouts stay null; no target movement or ruler comparison",
+  "echo_level_shift": "Human user confirmed divider or level shifter before test",
+  "records": [
+    {
+      "at": "2026-11-15T08:24:02.842979+00:00",
+      "sample": 1,
+      "distance_cm": null,
+      "elapsed_ms": 52.20112400002108,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:03.295387+00:00",
+      "sample": 2,
+      "distance_cm": null,
+      "elapsed_ms": 52.20884800019121,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:03.747779+00:00",
+      "sample": 3,
+      "distance_cm": null,
+      "elapsed_ms": 52.200793999872985,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:04.200163+00:00",
+      "sample": 4,
+      "distance_cm": null,
+      "elapsed_ms": 52.19348099990384,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:04.652534+00:00",
+      "sample": 5,
+      "distance_cm": null,
+      "elapsed_ms": 52.20385199982047,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:05.104922+00:00",
+      "sample": 6,
+      "distance_cm": null,
+      "elapsed_ms": 52.196890999766765,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:05.557281+00:00",
+      "sample": 7,
+      "distance_cm": null,
+      "elapsed_ms": 52.19942900021124,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:06.009674+00:00",
+      "sample": 8,
+      "distance_cm": null,
+      "elapsed_ms": 52.19263300023158,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:06.462122+00:00",
+      "sample": 9,
+      "distance_cm": null,
+      "elapsed_ms": 52.26846499999738,
+      "fresh_for_this_attempt": false
+    },
+    {
+      "at": "2026-11-15T08:24:06.914639+00:00",
+      "sample": 10,
+      "distance_cm": null,
+      "elapsed_ms": 52.26204000018697,
+      "fresh_for_this_attempt": false
+    }
+  ],
+  "only_pins_20_21_released": true,
+  "servos_exercised": false
+}

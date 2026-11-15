@@ -1,0 +1,101 @@
+{
+  "at": "2026-11-15T08:27:21.955089+00:00",
+  "baseline": "a8d65cbcea845c76813f429edf809ad92015526e",
+  "scope": "Automatic physical Pi checks and cancellation of manual stimuli; no source code changes",
+  "images_or_face_features_persisted": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "3a9a305e555fb59408a84a1df44da200f844dab847883ccb1484729f93320348",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/docs/hardware-acceptance.md",
+      "sha256": "9cea55458581e8158e988ca41f1222540dd9756a8db3023fd89d445ae0d2546b",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "Flask/unified_meeting_room_system.py",
+      "sha256": "2691314b80645d9f7e17a2b6a6416472cf4beceeabb5dead72afdfe4a341cddb",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/camera-dynamic.json",
+      "sha256": "4fb4172012b68d6b4631ead18d9a46744781c80eec63e32d2cb2e67e2ce6d6e0",
+      "bytes": 2285,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/distance-probe.json",
+      "sha256": "4ab6ee806c9964de88871f32178658dd9d1da506b6a53f92a470e9bba0f7c25f",
+      "bytes": 2154,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/dynamic-samples.json",
+      "sha256": "cc102725dbb513f85291175a4c46be4bbc0a9f288b216aede4c5b26873f49369",
+      "bytes": 168874,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/echo-diagnosis.json",
+      "sha256": "04ebe45aa4cfd4939ff05d9c19190a45a1e80191ee5e718ad5f6fdaa77317eae",
+      "bytes": 569,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/final-state.json",
+      "sha256": "edb21cb7c65d6a4f235af8b7dfad3cc6f355441dc8de03f688bb34032b9e0239",
+      "bytes": 2142,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/README.md",
+      "sha256": "612466f9fc46d79be2cafb0355c3c568c6942119bb34cc89133e14c560f9ca32",
+      "bytes": 4176,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/recovery-probe.json",
+      "sha256": "ba77907e5c722d69cc3c292229c6d89df284c213ce9a819316171d866e846cb1",
+      "bytes": 3620,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/tools/camera_dynamic.py",
+      "sha256": "f6621065dcc98aec96536062e21035590e25c11a741fde52b4f9f4556fc1f224",
+      "bytes": 2191,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/tools/collect_dynamic.py",
+      "sha256": "31e9547501bb001b430ee8011e4bff7290549316bc74b2c3fb0a7a9b4dbc3b33",
+      "bytes": 1652,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/tools/distance_probe.py",
+      "sha256": "0472ec31c430db250d5670f9349409da577cf64ce6dae207bd68b15ce7ca4148",
+      "bytes": 1502,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/tools/recovery_probe.py",
+      "sha256": "893d8a05280fbbc975d70b790fc0a3670ab1e67e5af68ad3c9b2960c66df0bfe",
+      "bytes": 3972,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/user-steering.json",
+      "sha256": "235b9ce6bd831de8ab48f98ea49017eb73840b86287d6c5fc2933dbadf9bb4fd",
+      "bytes": 517,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-dynamic-2026-11-15/verification.json",
+      "sha256": "85774bc93f6df7f3a15f0c171bd1e35b07293c472e36f9a155d0d3c5b1bd6bd4",
+      "bytes": 556,
+      "hash_mode": "exact bytes; Git -text"
+    }
+  ]
+}

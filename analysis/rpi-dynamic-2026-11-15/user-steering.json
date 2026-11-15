@@ -1,0 +1,9 @@
+{
+  "source": "Direct human replies in this session",
+  "manual_stimulus_request": "PIR no-motion/walk, light cover/uncover, face camera",
+  "manual_stimulus_reply": "这些太麻烦了要不不测试了吧",
+  "manual_stimuli_cancelled": true,
+  "ultrasonic_echo_question": "ECHO to GPIO21 has divider or level shifter?",
+  "ultrasonic_echo_reply": "已确认有分压或电平转换",
+  "automatic_checks_continued": "Only automatic distance/echo and API recovery; no additional human operation requested"
+}

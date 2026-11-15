@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-15T08:27:21.914804+00:00",
+  "status": "PASS",
+  "scope": "Evidence consistency, not all hardware passed",
+  "passive_lan_samples": 125,
+  "manual_stimuli": "cancelled; not verified",
+  "camera_frames_before_stop": 7,
+  "ultrasonic_valid_readings": 0,
+  "ultrasonic_attempts": 10,
+  "echo_high_observations": 0,
+  "api_recovery": "PASS",
+  "recovery_wait_seconds": 2.67200000000048,
+  "camera_process_stopped": true,
+  "servos_exercised": false,
+  "runtime_source_unchanged": true,
+  "previous_evidence_unchanged": true
+}

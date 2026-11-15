@@ -1,0 +1,79 @@
+{
+  "at": "2026-11-15T08:25:49.112876+00:00",
+  "services": [
+    {
+      "name": "sensors",
+      "pid": 2693,
+      "command": [
+        "/home/guuccy/meeting-room-venv/bin/python",
+        "/home/guuccy/meeting-room-check-20261115/sensor_server.py"
+      ]
+    },
+    {
+      "name": "face",
+      "pid": 2159,
+      "command": [
+        "/home/guuccy/human_face/.venv/bin/python",
+        "MachineLearning/human_face/face_api.py"
+      ]
+    }
+  ],
+  "throttled": "throttled=0x0",
+  "temperature": "temp=45.2'C",
+  "servo_pin_modes": "12: ip    pd | lo // GPIO12 = input\n13: ip    pd | lo // GPIO13 = input\n",
+  "camera_dynamic_processes": [],
+  "source_sha256": "2691314b80645d9f7e17a2b6a6416472cf4beceeabb5dead72afdfe4a341cddb",
+  "health": {
+    "climate_sample_age_seconds": 2.6,
+    "hardware_config": {
+      "servos_enabled": false,
+      "ultrasonic_enabled": false
+    },
+    "health_scope": "climate only; other sensors not health-verified",
+    "service": "meeting-room-sensors",
+    "source": "sensor",
+    "status": "ok",
+    "uptime_seconds": 29.4
+  },
+  "current": {
+    "devices": {
+      "alarm": false,
+      "auto_mode": false,
+      "cooling": false,
+      "dehumidifier": false,
+      "door_open": false,
+      "door_source": "disabled",
+      "heating": false,
+      "humidifier": false,
+      "lighting": false,
+      "lighting_brightness": 0,
+      "lighting_source": "auto",
+      "presence": true
+    },
+    "distance": null,
+    "door_open": false,
+    "door_source": "disabled",
+    "door_state_kind": "commanded",
+    "humidity": 20,
+    "humidity_max": 60,
+    "humidity_min": 40,
+    "last_motion": "28 秒前",
+    "light": 18,
+    "motion": true,
+    "motion_count": 1,
+    "presence": true,
+    "quality": "normal",
+    "sampled_at": "2026-11-15T16:25:46.589365",
+    "sensor_status": {
+      "climate": "ok",
+      "distance": "disabled"
+    },
+    "smoke": 20,
+    "smoke_threshold": 100,
+    "source": "sensor",
+    "temp_max": 26,
+    "temp_min": 20,
+    "temperature": 27.9,
+    "timestamp": "2026-11-15 16:25:49"
+  }
+}

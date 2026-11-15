@@ -1,0 +1,104 @@
+{
+  "scope": "Physical CSI frames in RAM; face detection/feature extraction only; no identity matching, images or feature vectors stored; no GPIO",
+  "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid4-v1",
+  "records": [
+    {
+      "at": "2026-11-15T08:22:33.759472+00:00",
+      "elapsed_seconds": 0.0,
+      "capture_returncode": 0,
+      "frame_bytes": 64333,
+      "dimensions": [
+        480,
+        640,
+        3
+      ],
+      "gray_mean": 67.98,
+      "gray_std": 37.67,
+      "faces": 0
+    },
+    {
+      "at": "2026-11-15T08:22:41.759559+00:00",
+      "elapsed_seconds": 8.0,
+      "capture_returncode": 0,
+      "frame_bytes": 64777,
+      "dimensions": [
+        480,
+        640,
+        3
+      ],
+      "gray_mean": 68.5,
+      "gray_std": 37.88,
+      "faces": 0
+    },
+    {
+      "at": "2026-11-15T08:22:49.759647+00:00",
+      "elapsed_seconds": 16.0,
+      "capture_returncode": 0,
+      "frame_bytes": 65711,
+      "dimensions": [
+        480,
+        640,
+        3
+      ],
+      "gray_mean": 69.75,
+      "gray_std": 37.76,
+      "faces": 0
+    },
+    {
+      "at": "2026-11-15T08:22:57.759733+00:00",
+      "elapsed_seconds": 24.0,
+      "capture_returncode": 0,
+      "frame_bytes": 64699,
+      "dimensions": [
+        480,
+        640,
+        3
+      ],
+      "gray_mean": 68.37,
+      "gray_std": 37.88,
+      "faces": 0
+    },
+    {
+      "at": "2026-11-15T08:23:05.759861+00:00",
+      "elapsed_seconds": 32.0,
+      "capture_returncode": 0,
+      "frame_bytes": 64834,
+      "dimensions": [
+        480,
+        640,
+        3
+      ],
+      "gray_mean": 69.39,
+      "gray_std": 38.04,
+      "faces": 0
+    },
+    {
+      "at": "2026-11-15T08:23:13.759945+00:00",
+      "elapsed_seconds": 40.0,
+      "capture_returncode": 0,
+      "frame_bytes": 65066,
+      "dimensions": [
+        480,
+        640,
+        3
+      ],
+      "gray_mean": 69.11,
+      "gray_std": 38.29,
+      "faces": 0
+    },
+    {
+      "at": "2026-11-15T08:23:21.760062+00:00",
+      "elapsed_seconds": 48.001,
+      "capture_returncode": 0,
+      "frame_bytes": 64605,
+      "dimensions": [
+        480,
+        640,
+        3
+      ],
+      "gray_mean": 68.51,
+      "gray_std": 37.86,
+      "faces": 0
+    }
+  ]
+}
