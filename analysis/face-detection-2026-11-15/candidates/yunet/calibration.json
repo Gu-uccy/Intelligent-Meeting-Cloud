@@ -1,0 +1,30 @@
+{
+  "backend": "yunet",
+  "feature_profile": "yunet-8f2383e4dd3c-s0.9-n03-resize320-960-bbox-lbp-v1",
+  "threshold": 0.7522183156286445,
+  "calibration": {
+    "accuracy": 0.6451612903225806,
+    "far": 0.049586776859504134,
+    "frr": 0.7395833333333334,
+    "known_identification_accuracy": 0.2604166666666667,
+    "known_count": 96,
+    "unknown_count": 121,
+    "known_correct": 25,
+    "known_rejected": 71,
+    "wrong_identity": 0,
+    "unknown_accepted": 6,
+    "unknown_rejected": 115,
+    "known_detection_failures": 61,
+    "unknown_detection_failures": 79,
+    "conditional_on_detection": {
+      "known_count": 35,
+      "unknown_count": 42,
+      "known_identification_accuracy": 0.7142857142857143,
+      "far": 0.14285714285714285
+    }
+  },
+  "development_extraction": {
+    "False": 267,
+    "True": 142
+  }
+}

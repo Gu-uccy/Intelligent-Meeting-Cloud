@@ -1,8 +1,14 @@
 # 自研人脸服务与模拟门禁
 
-当前主路径：OpenCV Haar 单脸检测 → 自研灰度/双线性缩放/直方图均衡化 → 自研 7×7 uniform LBP（2891维）→ 余弦比对 → 服务端有效预约名单 → 统一 Flask 模拟门指令 → 设备确认 → 模拟签到日志。未检测到单脸、陌生人、无预约、未审核/过期/房间不符、阈值缺失、设备错误均不确认放行。
+当前主路径：OpenCV YuNet 单脸检测 → 自研灰度/双线性缩放/直方图均衡化 → 自研 7×7 uniform LBP（2891维）→ 余弦比对 → 服务端有效预约名单 → 统一 Flask 模拟门指令 → 设备确认 → 模拟签到日志。未检测到单脸、陌生人、无预约、未审核/过期/房间不符、阈值缺失、设备错误均不确认放行。
 
 这是课堂实验，没有活体检测，未完成现场相机/目标设备标定。人脸服务只允许对 `source=simulation` 的统一服务发送门指令；不会控制实物门。手动门灯控制仍由原有统一传感器接口提供。模拟签到记录在本地 JSONL，不写入 Spring 预约数据库。网页不能自己决定放行。
+
+## 2026-11-15检测改进
+
+默认 `FACE_DETECTOR=yunet-06`，YuNet检测分数0.6、长边320–960等比例缩放；仅检测使用官方模型，自研预处理/LBP/比对保留。CMU开发对比检出单脸从155/624增至579/624，原test已知正确从14/90增至59/90，未知误接受5/125；同一已查看数据不能算全新独立验收。见 [检测改进与复现](../../analysis/face-detection-2026-11-15/README.md)。下方CMU小节保留此前Haar基线结果。
+
+模型和MIT许可随仓库保存，启动不下载，重启服务后生效。旧特征和阈值不能跨检测版本混用：按当前流程重新登记/标定，并将 `FACE_THRESHOLD_PROFILE` 设置为健康接口返回的 `feature_profile`。新登记自动保存版本；旧数据不会自动转换或删除。默认仍为空底库/无阈值，离线实验没有改运行配置。
 
 ## 启动
 
@@ -33,7 +39,7 @@ python week5/scripts/run_face_eval.py --data-dir D:/AuthorizedFaces --manifest D
 
 ## 配置与接口
 
-所有设置在启动服务前通过环境变量配置：`FACE_DATA_DIR`（特征和匿名日志私有目录）、`FACE_ADMIN_TOKEN`（录入/删除管理令牌）、`FACE_THRESHOLD`（授权标定后才填写）、`FACE_POLICY_PATH`（私有预约策略 JSON）、`FACE_DEVICE_URL`（默认 http://127.0.0.1:5058）、`FACE_API_PORT`、`FACE_HOST`（默认仅本机）。不要把管理令牌写进前端 VITE 环境变量、截图或 Git。
+所有设置在启动服务前通过环境变量配置：`FACE_DATA_DIR`（特征和匿名日志私有目录）、`FACE_ADMIN_TOKEN`（录入/删除管理令牌）、`FACE_THRESHOLD`（授权标定后才填写）、`FACE_THRESHOLD_PROFILE`（与当前feature_profile一致）、`FACE_DETECTOR`（默认yunet-06，可选haar复现旧检测）、`FACE_POLICY_PATH`（私有预约策略 JSON）、`FACE_DEVICE_URL`（默认 http://127.0.0.1:5058）、`FACE_API_PORT`、`FACE_HOST`（默认仅本机）。不要把管理令牌写进前端 VITE 环境变量、截图或 Git。
 
 `POST /api/face/enroll`：multipart image、identity（匿名编号）、consent=true，header `X-Face-Admin-Token`。每次追加一条特征，最多30条，不覆盖整个身份。不返回磁盘路径。网页录入需勾选已有授权并手动输入令牌，令牌仅保存在当前组件内存。
 

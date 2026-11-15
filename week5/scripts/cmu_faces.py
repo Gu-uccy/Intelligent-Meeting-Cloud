@@ -250,7 +250,8 @@ def evaluate(args):
         raise ValueError('Use a new empty result directory')
     rows, provenance = load_manifest(data)
     out.mkdir(parents=True, exist_ok=True)
-    pipeline = FacePipeline()
+    detector = getattr(args, 'detector', 'haar')
+    pipeline = FacePipeline(detector_backend=detector)
     diagnostic = args.pipeline == 'portrait-descriptor'
     # Descriptor-only is a separate diagnostic of complete supplied portraits.
     # It never substitutes for face detection or exports a threshold to the service.
@@ -285,19 +286,36 @@ def evaluate(args):
             process(row, enrollment=True)
     calibration = [process(r) for r in rows if r['split'] == 'calibration']
     threshold, curve = calibrate(calibration)
+    selection_hash = None
+    if getattr(args, 'selection', None):
+        selection_bytes = Path(args.selection).read_bytes()
+        selection = json.loads(selection_bytes)
+        if (diagnostic or selection['manifest_sha256'] != provenance['manifest_sha256']
+                or selection['selected']['backend'] != detector
+                or selection['selected']['threshold'] != threshold
+                or selection['selected'].get('feature_profile') != getattr(pipeline, 'profile', None)):
+            raise ValueError('Selected detector, dataset or calibration threshold changed; do not read test images')
+        selection_hash = sha256(selection_bytes)
     frozen = {'threshold': threshold, 'selection': 'calibration only; FAR <= 0.05, then minimum known errors, then lower FAR/higher threshold',
               'manifest_sha256': provenance['manifest_sha256'], 'pipeline': args.pipeline,
               'created_before_test_extraction': True, 'created_at': datetime.now(timezone.utc).isoformat(),
+              'detector': None if diagnostic else detector,
+              'feature_profile': getattr(pipeline, 'profile', None),
+              'development_selection_sha256': selection_hash,
               'production_use': False}
     write_json(out / 'frozen_threshold.json', frozen)
-    # Only now process final held-out images. Do not tune after observing these results.
+    # Only now process the historical test partition; it is reused development data, not new independent evidence.
     test = [process(r) for r in rows if r['split'] == 'test']
     test_metrics = summarize(test, threshold) if threshold is not None else None
     cal_metrics = summarize(calibration, threshold) if threshold is not None else None
     usable = threshold is not None and cal_metrics['known_correct'] > 0
     result = {'status': 'EXPERIMENT_COMPLETED', 'generated_at': datetime.now(timezone.utc).isoformat(),
               'dataset': provenance, 'pipeline': args.pipeline,
-              'scope': 'Complete portrait preprocessing/LBP/matching diagnostic; NO detection' if diagnostic else 'Existing service FacePipeline: decode -> Haar -> custom preprocessing -> uniform LBP -> cosine',
+              'scope': 'Complete portrait preprocessing/LBP/matching diagnostic; NO detection' if diagnostic else f'Service FacePipeline: decode -> {detector} -> custom preprocessing -> uniform LBP -> cosine',
+              'detector': None if diagnostic else detector,
+              'feature_profile': getattr(pipeline, 'profile', None),
+              'test_is_new_independent_evidence': False,
+              'comparison_scope': 'Previously inspected CMU data reused for development comparison; test is a partition name, not new independent validation',
               'device': {'platform': platform.platform(), 'machine': platform.machine(), 'python': platform.python_version(),
                          'opencv': cv2.__version__, 'numpy': np.__version__, 'target_raspberry_pi': False},
               'selected_threshold': threshold, 'calibration': cal_metrics, 'held_out_test': test_metrics,
@@ -333,6 +351,9 @@ def main():
     p.add_argument('--data-dir', default=str(DEFAULT_CACHE / 'dataset'))
     p.add_argument('--output-dir', required=True)
     p.add_argument('--pipeline', choices=['service','portrait-descriptor'], default='service')
+    p.add_argument('--detector', choices=['haar','haar-small','yunet','yunet-07','yunet-06'], default='haar',
+                   help='Explicit detector; Haar default reproduces the historical benchmark, service now defaults to YuNet')
+    p.add_argument('--selection', help='Frozen development selection JSON; verify it before reading test images')
     p.set_defaults(action=evaluate)
     args = parser.parse_args()
     args.action(args)

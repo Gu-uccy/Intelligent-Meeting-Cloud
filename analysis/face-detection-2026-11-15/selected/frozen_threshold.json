@@ -1,0 +1,12 @@
+{
+  "threshold": 0.7756757458169413,
+  "selection": "calibration only; FAR <= 0.05, then minimum known errors, then lower FAR/higher threshold",
+  "manifest_sha256": "fcf1bdac7e9f0e8a618c150b2d9349a1cd889dc0829a7746167f699596348353",
+  "pipeline": "service",
+  "created_before_test_extraction": true,
+  "created_at": "2026-11-15T06:16:27.211140+00:00",
+  "detector": "yunet-06",
+  "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1",
+  "development_selection_sha256": "1a22186da6785399696e91a4abb371709cd97406181882e552fa1d59322bc9bd",
+  "production_use": false
+}

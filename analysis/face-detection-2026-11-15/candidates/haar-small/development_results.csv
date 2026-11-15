@@ -1,0 +1,410 @@
+path,identity,split,kind,pose,expression,eyes,detected,prediction,similarity,error,pipeline_ms
+samples/CMU01/001.pgm,CMU01,enroll,known,left,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),238.21970000017245
+samples/CMU01/002.pgm,CMU01,enroll,known,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),6.222800000159623
+samples/CMU01/003.pgm,CMU01,enroll,known,left,happy,open,False,,,Exactly one detectable face is required (found 0),5.54969999984678
+samples/CMU01/004.pgm,CMU01,enroll,known,left,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.401199999847449
+samples/CMU01/005.pgm,CMU01,enroll,known,straight,sad,open,True,,,,10.524499999974068
+samples/CMU01/006.pgm,CMU01,enroll,known,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 2),6.287900000188529
+samples/CMU01/007.pgm,CMU01,enroll,known,straight,sad,sunglasses,True,,,,7.954799999879469
+samples/CMU01/008.pgm,CMU01,enroll,known,left,neutral,open,False,,,Exactly one detectable face is required (found 0),3.910899999937101
+samples/CMU01/009.pgm,CMU01,enroll,known,left,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),3.5861999999724503
+samples/CMU01/010.pgm,CMU01,enroll,known,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.882200000134617
+samples/CMU01/011.pgm,CMU01,enroll,known,straight,happy,sunglasses,True,,,,10.064300000067306
+samples/CMU01/012.pgm,CMU01,enroll,known,right,sad,open,False,,,Exactly one detectable face is required (found 0),3.730800000084855
+samples/CMU01/013.pgm,CMU01,enroll,known,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),3.752500000246073
+samples/CMU01/014.pgm,CMU01,enroll,known,left,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),3.731599999809987
+samples/CMU01/015.pgm,CMU01,enroll,known,right,angry,open,False,,,Exactly one detectable face is required (found 0),4.174799999873358
+samples/CMU01/016.pgm,CMU01,enroll,known,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.07569999970292
+samples/CMU01/017.pgm,CMU01,calibration,known,straight,angry,sunglasses,True,CMU01,0.9069922452636803,,9.575799999765877
+samples/CMU01/018.pgm,CMU01,calibration,known,up,angry,open,True,CMU01,0.6186733059795312,,8.152400000199123
+samples/CMU01/019.pgm,CMU01,calibration,known,straight,neutral,sunglasses,True,CMU01,0.8877715990861382,,9.314599999925122
+samples/CMU01/020.pgm,CMU01,calibration,known,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 2),5.9161000003769
+samples/CMU01/021.pgm,CMU01,calibration,known,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.838000000290776
+samples/CMU01/022.pgm,CMU01,calibration,known,left,angry,open,False,,,Exactly one detectable face is required (found 0),4.693899999892892
+samples/CMU01/023.pgm,CMU01,calibration,known,straight,happy,open,True,CMU01,0.9153893334022073,,8.903899999950227
+samples/CMU01/024.pgm,CMU01,calibration,known,up,happy,open,True,CMU01,0.6905601044060682,,9.305600000061531
+samples/CMU02/001.pgm,CMU02,enroll,known,straight,angry,open,True,,,,11.78570000001855
+samples/CMU02/002.pgm,CMU02,enroll,known,straight,neutral,open,True,,,,16.1855999999716
+samples/CMU02/003.pgm,CMU02,enroll,known,right,neutral,sunglasses,True,,,,8.839799999805109
+samples/CMU02/004.pgm,CMU02,enroll,known,straight,neutral,sunglasses,True,,,,11.761899999783054
+samples/CMU02/005.pgm,CMU02,enroll,known,up,happy,open,True,,,,8.360499999980675
+samples/CMU02/006.pgm,CMU02,enroll,known,right,neutral,open,True,,,,8.640799999739102
+samples/CMU02/007.pgm,CMU02,enroll,known,left,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),5.054300000210787
+samples/CMU02/008.pgm,CMU02,enroll,known,left,neutral,open,True,,,,9.110899999996036
+samples/CMU02/009.pgm,CMU02,enroll,known,straight,angry,sunglasses,True,,,,12.680899999850226
+samples/CMU02/010.pgm,CMU02,enroll,known,left,happy,open,True,,,,21.750599999904807
+samples/CMU02/011.pgm,CMU02,enroll,known,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),12.508600000273873
+samples/CMU02/012.pgm,CMU02,enroll,known,up,angry,open,True,,,,16.15219999985129
+samples/CMU02/013.pgm,CMU02,enroll,known,straight,happy,sunglasses,True,,,,20.17569999998159
+samples/CMU02/014.pgm,CMU02,enroll,known,right,angry,open,True,,,,19.05560000022888
+samples/CMU02/015.pgm,CMU02,enroll,known,straight,sad,open,True,,,,26.502899999741203
+samples/CMU02/016.pgm,CMU02,enroll,known,left,happy,sunglasses,True,,,,22.596700000121928
+samples/CMU02/017.pgm,CMU02,calibration,known,right,sad,sunglasses,True,CMU02,0.8895618709308694,,19.02879999988727
+samples/CMU02/018.pgm,CMU02,calibration,known,straight,happy,open,True,CMU02,0.9077985542883554,,24.111200000334065
+samples/CMU02/019.pgm,CMU02,calibration,known,up,angry,sunglasses,True,CMU02,0.7162467309412655,,20.041499999933876
+samples/CMU02/020.pgm,CMU02,calibration,known,straight,sad,sunglasses,True,CMU02,0.7968638666712627,,21.509100000002945
+samples/CMU02/021.pgm,CMU02,calibration,known,up,sad,open,True,CMU02,0.7995902736794586,,13.515000000097643
+samples/CMU02/022.pgm,CMU02,calibration,known,left,angry,sunglasses,True,CMU02,0.46912380586055524,,9.299999999711872
+samples/CMU02/023.pgm,CMU02,calibration,known,right,sad,open,True,CMU02,0.8126989080019822,,13.811299999815674
+samples/CMU02/024.pgm,CMU02,calibration,known,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),8.421500000167725
+samples/CMU03/001.pgm,CMU03,enroll,known,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),8.875500000158354
+samples/CMU03/002.pgm,CMU03,enroll,known,straight,happy,sunglasses,False,,,Exactly one detectable face is required (found 2),6.390000000010332
+samples/CMU03/003.pgm,CMU03,enroll,known,right,sad,open,True,,,,10.751100000106817
+samples/CMU03/004.pgm,CMU03,enroll,known,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),6.345499999952153
+samples/CMU03/005.pgm,CMU03,enroll,known,straight,sad,open,True,,,,17.734900000050402
+samples/CMU03/006.pgm,CMU03,enroll,known,straight,sad,sunglasses,True,,,,9.465000000091095
+samples/CMU03/007.pgm,CMU03,enroll,known,straight,angry,sunglasses,True,,,,9.459799999604002
+samples/CMU03/008.pgm,CMU03,enroll,known,straight,neutral,sunglasses,False,,,Exactly one detectable face is required (found 2),5.9883000003537745
+samples/CMU03/009.pgm,CMU03,enroll,known,right,angry,open,True,,,,7.545200000095065
+samples/CMU03/010.pgm,CMU03,enroll,known,right,angry,sunglasses,True,,,,7.794600000124774
+samples/CMU03/011.pgm,CMU03,enroll,known,straight,angry,open,True,,,,8.594800000082614
+samples/CMU03/012.pgm,CMU03,enroll,known,straight,neutral,open,True,,,,12.946600000304898
+samples/CMU03/013.pgm,CMU03,enroll,known,left,neutral,open,False,,,Exactly one detectable face is required (found 2),11.613300000135496
+samples/CMU03/014.pgm,CMU03,enroll,known,left,happy,sunglasses,True,,,,22.101200000179233
+samples/CMU03/015.pgm,CMU03,enroll,known,straight,happy,open,True,,,,16.50850000032733
+samples/CMU03/016.pgm,CMU03,enroll,known,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 2),6.151999999929103
+samples/CMU03/017.pgm,CMU03,calibration,known,up,neutral,open,True,CMU03,0.5568318143069756,,8.617299999968964
+samples/CMU03/018.pgm,CMU03,calibration,known,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.055000000334985
+samples/CMU03/019.pgm,CMU03,calibration,known,up,happy,open,True,CMU02,0.5533158396348035,,9.004999999888241
+samples/CMU03/020.pgm,CMU03,calibration,known,left,sad,open,False,,,Exactly one detectable face is required (found 2),5.932000000029802
+samples/CMU03/021.pgm,CMU03,calibration,known,left,neutral,sunglasses,True,CMU03,0.9257040824779049,,8.36589999971693
+samples/CMU03/022.pgm,CMU03,calibration,known,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),4.720699999779754
+samples/CMU03/023.pgm,CMU03,calibration,known,right,sad,sunglasses,True,CMU03,0.9301726198091593,,8.441299999958574
+samples/CMU03/024.pgm,CMU03,calibration,known,up,sad,open,True,CMU02,0.5294660986224853,,8.495900000070833
+samples/CMU04/001.pgm,CMU04,enroll,known,left,happy,open,True,,,,8.498899999722198
+samples/CMU04/002.pgm,CMU04,enroll,known,right,happy,open,True,,,,8.970399999725487
+samples/CMU04/003.pgm,CMU04,enroll,known,right,neutral,open,True,,,,8.419600000252103
+samples/CMU04/004.pgm,CMU04,enroll,known,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),5.082199999833392
+samples/CMU04/005.pgm,CMU04,enroll,known,straight,angry,sunglasses,True,,,,9.564500000124099
+samples/CMU04/006.pgm,CMU04,enroll,known,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.661299999952462
+samples/CMU04/007.pgm,CMU04,enroll,known,straight,neutral,sunglasses,True,,,,7.518800000070769
+samples/CMU04/008.pgm,CMU04,enroll,known,left,happy,sunglasses,True,,,,9.21680000010383
+samples/CMU04/009.pgm,CMU04,enroll,known,straight,neutral,open,True,,,,9.967699999833712
+samples/CMU04/010.pgm,CMU04,enroll,known,left,neutral,open,True,,,,9.015300000100979
+samples/CMU04/011.pgm,CMU04,enroll,known,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.434699999819713
+samples/CMU04/012.pgm,CMU04,enroll,known,up,neutral,open,True,,,,7.804500000020198
+samples/CMU04/013.pgm,CMU04,enroll,known,left,sad,sunglasses,True,,,,7.715600000210543
+samples/CMU04/014.pgm,CMU04,enroll,known,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),4.316999999900872
+samples/CMU04/015.pgm,CMU04,enroll,known,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.535600000053819
+samples/CMU04/016.pgm,CMU04,enroll,known,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),3.777399999762565
+samples/CMU04/017.pgm,CMU04,calibration,known,left,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.341899999872112
+samples/CMU04/018.pgm,CMU04,calibration,known,up,happy,open,True,CMU04,0.7280972225630328,,8.275400000002264
+samples/CMU04/019.pgm,CMU04,calibration,known,straight,sad,sunglasses,True,CMU04,0.8994016438036545,,8.198099999844999
+samples/CMU04/020.pgm,CMU04,calibration,known,left,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.18760000002294
+samples/CMU04/021.pgm,CMU04,calibration,known,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.246800000146322
+samples/CMU04/022.pgm,CMU04,calibration,known,right,sad,open,True,CMU04,0.8796097301195123,,8.414899999934278
+samples/CMU04/023.pgm,CMU04,calibration,known,straight,happy,open,True,CMU04,0.9339057240724971,,9.30179999977554
+samples/CMU04/024.pgm,CMU04,calibration,known,right,angry,open,False,,,Exactly one detectable face is required (found 0),3.9600999998583575
+samples/CMU05/001.pgm,CMU05,enroll,known,right,happy,open,True,,,,9.314800000083778
+samples/CMU05/002.pgm,CMU05,enroll,known,left,sad,sunglasses,True,,,,7.455200000094919
+samples/CMU05/003.pgm,CMU05,enroll,known,straight,neutral,sunglasses,True,,,,8.735699999760982
+samples/CMU05/004.pgm,CMU05,enroll,known,up,neutral,sunglasses,True,,,,11.324700000386656
+samples/CMU05/005.pgm,CMU05,enroll,known,up,sad,sunglasses,True,,,,8.847799999784911
+samples/CMU05/006.pgm,CMU05,enroll,known,left,angry,open,True,,,,9.711199999856035
+samples/CMU05/007.pgm,CMU05,enroll,known,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.246700000294368
+samples/CMU05/008.pgm,CMU05,enroll,known,left,angry,sunglasses,True,,,,8.456500000193046
+samples/CMU05/009.pgm,CMU05,enroll,known,up,sad,open,True,,,,11.676300000090123
+samples/CMU05/010.pgm,CMU05,enroll,known,right,angry,open,True,,,,11.723999999958323
+samples/CMU05/011.pgm,CMU05,enroll,known,straight,angry,sunglasses,True,,,,7.644799999980023
+samples/CMU05/012.pgm,CMU05,enroll,known,left,happy,open,True,,,,11.408200000005309
+samples/CMU05/013.pgm,CMU05,enroll,known,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),10.700400000132504
+samples/CMU05/014.pgm,CMU05,enroll,known,straight,neutral,open,True,,,,23.1485999997858
+samples/CMU05/015.pgm,CMU05,enroll,known,left,neutral,sunglasses,True,,,,18.55580000028567
+samples/CMU05/016.pgm,CMU05,enroll,known,right,sad,open,True,,,,26.250400000208174
+samples/CMU05/017.pgm,CMU05,calibration,known,up,angry,sunglasses,True,CMU05,0.9429131597392433,,18.383099999937258
+samples/CMU05/018.pgm,CMU05,calibration,known,up,happy,sunglasses,True,CMU05,0.9335300926333855,,14.097299999775714
+samples/CMU05/019.pgm,CMU05,calibration,known,straight,happy,sunglasses,True,CMU05,0.9565425428457751,,18.137900000056106
+samples/CMU05/020.pgm,CMU05,calibration,known,up,happy,open,True,CMU05,0.9219577395694053,,13.707499999782158
+samples/CMU05/021.pgm,CMU05,calibration,known,up,angry,open,True,CMU05,0.9417197175741164,,13.150400000085938
+samples/CMU05/022.pgm,CMU05,calibration,known,left,happy,sunglasses,True,CMU05,0.9587045078838883,,11.032500000055734
+samples/CMU05/023.pgm,CMU05,calibration,known,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.763399999774265
+samples/CMU05/024.pgm,CMU05,calibration,known,left,neutral,open,True,CMU05,0.9301618943266797,,9.02989999985948
+samples/CMU06/001.pgm,CMU06,enroll,known,left,neutral,open,True,,,,8.924900000238267
+samples/CMU06/002.pgm,CMU06,enroll,known,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),3.944699999919976
+samples/CMU06/003.pgm,CMU06,enroll,known,up,neutral,open,True,,,,8.628699999917444
+samples/CMU06/004.pgm,CMU06,enroll,known,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.6743000000569737
+samples/CMU06/005.pgm,CMU06,enroll,known,up,sad,open,False,,,Exactly one detectable face is required (found 2),4.6679000001859094
+samples/CMU06/006.pgm,CMU06,enroll,known,up,angry,open,True,,,,8.94479999988107
+samples/CMU06/007.pgm,CMU06,enroll,known,straight,sad,sunglasses,True,,,,9.843900000305439
+samples/CMU06/008.pgm,CMU06,enroll,known,left,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.8882999997440493
+samples/CMU06/009.pgm,CMU06,enroll,known,straight,angry,open,True,,,,9.8243000002185
+samples/CMU06/010.pgm,CMU06,enroll,known,left,sad,open,False,,,Exactly one detectable face is required (found 2),4.293200000120123
+samples/CMU06/011.pgm,CMU06,enroll,known,left,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.635700000108045
+samples/CMU06/012.pgm,CMU06,enroll,known,left,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),3.7451000002874935
+samples/CMU06/013.pgm,CMU06,enroll,known,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),3.3468000001448672
+samples/CMU06/014.pgm,CMU06,enroll,known,right,sad,open,False,,,Exactly one detectable face is required (found 0),3.576100000373117
+samples/CMU06/015.pgm,CMU06,enroll,known,straight,angry,sunglasses,True,,,,8.324500000071566
+samples/CMU06/016.pgm,CMU06,enroll,known,right,neutral,open,False,,,Exactly one detectable face is required (found 0),4.941799999869545
+samples/CMU06/017.pgm,CMU06,calibration,known,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.772400000092603
+samples/CMU06/018.pgm,CMU06,calibration,known,straight,happy,open,False,,,Exactly one detectable face is required (found 2),7.480399999622023
+samples/CMU06/019.pgm,CMU06,calibration,known,straight,neutral,sunglasses,True,CMU06,0.7554325359534658,,9.436700000151177
+samples/CMU06/020.pgm,CMU06,calibration,known,straight,neutral,open,True,CMU06,0.829764585556655,,11.220099999718514
+samples/CMU06/021.pgm,CMU06,calibration,known,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.252199999882578
+samples/CMU06/022.pgm,CMU06,calibration,known,straight,sad,open,True,CMU06,0.6174864879053511,,11.330699999689386
+samples/CMU06/023.pgm,CMU06,calibration,known,left,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),5.81819999979416
+samples/CMU06/024.pgm,CMU06,calibration,known,left,angry,open,False,,,Exactly one detectable face is required (found 2),5.826600000091275
+samples/CMU07/001.pgm,CMU07,enroll,known,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.542399999991176
+samples/CMU07/002.pgm,CMU07,enroll,known,right,happy,open,True,,,,9.242299999641546
+samples/CMU07/003.pgm,CMU07,enroll,known,up,happy,open,True,,,,8.493599999837897
+samples/CMU07/004.pgm,CMU07,enroll,known,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),4.302600000301027
+samples/CMU07/005.pgm,CMU07,enroll,known,straight,sad,sunglasses,True,,,,8.202899999560032
+samples/CMU07/006.pgm,CMU07,enroll,known,straight,happy,open,True,,,,10.165799999867886
+samples/CMU07/007.pgm,CMU07,enroll,known,left,happy,sunglasses,True,,,,8.794500000021799
+samples/CMU07/008.pgm,CMU07,enroll,known,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.702400000041962
+samples/CMU07/009.pgm,CMU07,enroll,known,right,neutral,open,False,,,Exactly one detectable face is required (found 0),4.3331999995643855
+samples/CMU07/010.pgm,CMU07,enroll,known,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.207899999983056
+samples/CMU07/011.pgm,CMU07,enroll,known,left,sad,sunglasses,True,,,,8.552199999940058
+samples/CMU07/012.pgm,CMU07,enroll,known,left,neutral,sunglasses,True,,,,8.750699999836797
+samples/CMU07/013.pgm,CMU07,enroll,known,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),4.592900000261579
+samples/CMU07/014.pgm,CMU07,enroll,known,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.5757000002595305
+samples/CMU07/015.pgm,CMU07,enroll,known,left,neutral,open,True,,,,8.82610000007844
+samples/CMU07/016.pgm,CMU07,enroll,known,up,sad,open,True,,,,8.725799999865558
+samples/CMU07/017.pgm,CMU07,calibration,known,straight,angry,open,True,CMU07,0.9199927107245991,,11.204500000076223
+samples/CMU07/018.pgm,CMU07,calibration,known,right,sad,open,False,,,Exactly one detectable face is required (found 0),4.757600000175444
+samples/CMU07/019.pgm,CMU07,calibration,known,left,sad,open,True,CMU07,0.6344649843081862,,9.62840000011056
+samples/CMU07/020.pgm,CMU07,calibration,known,left,angry,open,True,CMU07,0.5975617719210294,,9.417399999620102
+samples/CMU07/021.pgm,CMU07,calibration,known,up,happy,sunglasses,True,CMU07,0.7817122363553483,,8.513599999787402
+samples/CMU07/022.pgm,CMU07,calibration,known,up,neutral,open,True,CMU07,0.9117883010979748,,9.255599999960396
+samples/CMU07/023.pgm,CMU07,calibration,known,up,angry,open,True,CMU07,0.9401895717646603,,8.786500000041997
+samples/CMU07/024.pgm,CMU07,calibration,known,left,happy,open,True,CMU07,0.6108706197330388,,9.212799999659183
+samples/CMU08/001.pgm,CMU08,enroll,known,right,angry,open,False,,,Exactly one detectable face is required (found 0),3.7038000000393367
+samples/CMU08/002.pgm,CMU08,enroll,known,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),3.7316999996619415
+samples/CMU08/003.pgm,CMU08,enroll,known,right,sad,open,False,,,Exactly one detectable face is required (found 0),3.565600000001723
+samples/CMU08/004.pgm,CMU08,enroll,known,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),3.6800000002585875
+samples/CMU08/005.pgm,CMU08,enroll,known,straight,angry,open,True,,,,9.16750000033062
+samples/CMU08/006.pgm,CMU08,enroll,known,left,sad,sunglasses,True,,,,7.55780000008599
+samples/CMU08/007.pgm,CMU08,enroll,known,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),3.6210999996910687
+samples/CMU08/008.pgm,CMU08,enroll,known,up,sad,open,False,,,Exactly one detectable face is required (found 0),4.034699999920122
+samples/CMU08/009.pgm,CMU08,enroll,known,straight,neutral,open,True,,,,8.99459999982355
+samples/CMU08/010.pgm,CMU08,enroll,known,straight,sad,open,True,,,,9.520399999928486
+samples/CMU08/011.pgm,CMU08,enroll,known,left,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.935699999805365
+samples/CMU08/012.pgm,CMU08,enroll,known,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),3.9145999999163905
+samples/CMU08/013.pgm,CMU08,enroll,known,left,neutral,open,True,,,,8.480099999815138
+samples/CMU08/014.pgm,CMU08,enroll,known,right,happy,open,False,,,Exactly one detectable face is required (found 0),3.9824999998927524
+samples/CMU08/015.pgm,CMU08,enroll,known,left,sad,open,True,,,,8.74500000008993
+samples/CMU08/016.pgm,CMU08,enroll,known,left,happy,sunglasses,True,,,,7.66250000015134
+samples/CMU08/017.pgm,CMU08,calibration,known,straight,sad,sunglasses,True,CMU03,0.6486147850921544,,9.060599999884289
+samples/CMU08/018.pgm,CMU08,calibration,known,left,angry,open,False,,,Exactly one detectable face is required (found 0),4.116900000099122
+samples/CMU08/019.pgm,CMU08,calibration,known,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.899199999978009
+samples/CMU08/020.pgm,CMU08,calibration,known,up,neutral,open,False,,,Exactly one detectable face is required (found 2),4.022400000394555
+samples/CMU08/021.pgm,CMU08,calibration,known,right,neutral,open,False,,,Exactly one detectable face is required (found 0),3.54879999986224
+samples/CMU08/022.pgm,CMU08,calibration,known,up,angry,open,False,,,Exactly one detectable face is required (found 0),3.600999999889609
+samples/CMU08/023.pgm,CMU08,calibration,known,left,happy,open,False,,,Exactly one detectable face is required (found 0),4.13010000011127
+samples/CMU08/024.pgm,CMU08,calibration,known,straight,angry,sunglasses,True,CMU04,0.673659558677113,,9.006600000248
+samples/CMU09/001.pgm,CMU09,enroll,known,left,sad,open,False,,,Exactly one detectable face is required (found 0),5.114300000059302
+samples/CMU09/002.pgm,CMU09,enroll,known,straight,happy,sunglasses,True,,,,11.139599999751226
+samples/CMU09/003.pgm,CMU09,enroll,known,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),3.9993000000322354
+samples/CMU09/004.pgm,CMU09,enroll,known,right,happy,open,False,,,Exactly one detectable face is required (found 0),5.499200000031124
+samples/CMU09/005.pgm,CMU09,enroll,known,up,happy,open,False,,,Exactly one detectable face is required (found 2),4.997500000172295
+samples/CMU09/006.pgm,CMU09,enroll,known,left,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.40100000014354
+samples/CMU09/007.pgm,CMU09,enroll,known,straight,neutral,open,True,,,,10.42029999962324
+samples/CMU09/008.pgm,CMU09,enroll,known,left,happy,open,True,,,,10.451699999975972
+samples/CMU09/009.pgm,CMU09,enroll,known,straight,happy,open,True,,,,11.096100000031583
+samples/CMU09/010.pgm,CMU09,enroll,known,right,angry,open,False,,,Exactly one detectable face is required (found 0),4.778600000008737
+samples/CMU09/011.pgm,CMU09,enroll,known,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),5.723199999920325
+samples/CMU09/012.pgm,CMU09,enroll,known,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.644899999926565
+samples/CMU09/013.pgm,CMU09,enroll,known,right,happy,sunglasses,True,,,,7.994400000370661
+samples/CMU09/014.pgm,CMU09,enroll,known,right,neutral,open,False,,,Exactly one detectable face is required (found 0),4.727800000182469
+samples/CMU09/015.pgm,CMU09,enroll,known,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.9672000000100525
+samples/CMU09/016.pgm,CMU09,enroll,known,left,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),4.950600000029226
+samples/CMU09/017.pgm,CMU09,calibration,known,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),5.7250999998359475
+samples/CMU09/018.pgm,CMU09,calibration,known,straight,sad,open,True,CMU09,0.8597031327579963,,12.153299999681622
+samples/CMU09/019.pgm,CMU09,calibration,known,up,sad,open,True,CMU06,0.604385380438111,,9.524699999928998
+samples/CMU09/020.pgm,CMU09,calibration,known,straight,angry,sunglasses,True,CMU09,0.8988281084279296,,11.627599999883387
+samples/CMU09/021.pgm,CMU09,calibration,known,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),6.42249999964406
+samples/CMU09/022.pgm,CMU09,calibration,known,straight,neutral,sunglasses,True,CMU09,0.9115437494622503,,15.942500000164728
+samples/CMU09/023.pgm,CMU09,calibration,known,left,neutral,open,True,CMU09,0.8085492413804026,,11.345400000209338
+samples/CMU09/024.pgm,CMU09,calibration,known,up,angry,open,True,CMU06,0.6502126782879738,,8.909000000130618
+samples/CMU10/001.pgm,CMU10,enroll,known,straight,happy,sunglasses,True,,,,9.067200000117737
+samples/CMU10/002.pgm,CMU10,enroll,known,right,angry,open,False,,,Exactly one detectable face is required (found 0),3.318099999887636
+samples/CMU10/003.pgm,CMU10,enroll,known,left,happy,open,True,,,,9.355300000152056
+samples/CMU10/004.pgm,CMU10,enroll,known,straight,neutral,open,True,,,,9.914199999911943
+samples/CMU10/005.pgm,CMU10,enroll,known,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.494699999668228
+samples/CMU10/006.pgm,CMU10,enroll,known,left,sad,open,True,,,,8.890900000096735
+samples/CMU10/007.pgm,CMU10,enroll,known,straight,neutral,sunglasses,True,,,,8.069299999988289
+samples/CMU10/008.pgm,CMU10,enroll,known,right,neutral,open,False,,,Exactly one detectable face is required (found 0),3.6066000002392684
+samples/CMU10/009.pgm,CMU10,enroll,known,straight,sad,sunglasses,True,,,,8.448799999769108
+samples/CMU10/010.pgm,CMU10,enroll,known,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.614900000433408
+samples/CMU10/011.pgm,CMU10,enroll,known,straight,sad,open,True,,,,7.951500000217493
+samples/CMU10/012.pgm,CMU10,enroll,known,left,neutral,open,True,,,,7.81360000019049
+samples/CMU10/013.pgm,CMU10,enroll,known,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),4.497899999932997
+samples/CMU10/014.pgm,CMU10,enroll,known,up,happy,open,True,,,,8.3809999996447
+samples/CMU10/015.pgm,CMU10,enroll,known,right,sad,open,False,,,Exactly one detectable face is required (found 0),4.2048000000249885
+samples/CMU10/016.pgm,CMU10,enroll,known,up,angry,open,True,,,,5.470199999763281
+samples/CMU10/017.pgm,CMU10,calibration,known,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),3.092599999945378
+samples/CMU10/018.pgm,CMU10,calibration,known,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.309699999794248
+samples/CMU10/019.pgm,CMU10,calibration,known,left,happy,sunglasses,True,CMU10,0.6580146586850512,,7.6383000000532775
+samples/CMU10/020.pgm,CMU10,calibration,known,straight,angry,open,True,CMU10,0.9176137752160605,,9.672200000295561
+samples/CMU10/021.pgm,CMU10,calibration,known,left,neutral,sunglasses,True,CMU10,0.7508582631421689,,8.004600000276696
+samples/CMU10/022.pgm,CMU10,calibration,known,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),3.9503999996668426
+samples/CMU10/023.pgm,CMU10,calibration,known,straight,angry,sunglasses,True,CMU10,0.9261067193202697,,11.66079999984504
+samples/CMU10/024.pgm,CMU10,calibration,known,left,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),5.202099999678467
+samples/CMU11/001.pgm,CMU11,enroll,known,left,neutral,open,False,,,Exactly one detectable face is required (found 0),4.736599999887403
+samples/CMU11/002.pgm,CMU11,enroll,known,left,angry,open,False,,,Exactly one detectable face is required (found 0),3.8862999999764725
+samples/CMU11/003.pgm,CMU11,enroll,known,straight,happy,open,False,,,Exactly one detectable face is required (found 2),5.399499999839463
+samples/CMU11/004.pgm,CMU11,enroll,known,up,neutral,sunglasses,True,,,,8.18249999974796
+samples/CMU11/005.pgm,CMU11,enroll,known,up,sad,sunglasses,True,,,,8.877299999767274
+samples/CMU11/006.pgm,CMU11,enroll,known,straight,angry,sunglasses,True,,,,9.69680000025619
+samples/CMU11/007.pgm,CMU11,enroll,known,left,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.10039999997025
+samples/CMU11/008.pgm,CMU11,enroll,known,straight,angry,open,False,,,Exactly one detectable face is required (found 2),4.923200000121142
+samples/CMU11/009.pgm,CMU11,enroll,known,left,sad,open,False,,,Exactly one detectable face is required (found 0),4.50810000029378
+samples/CMU11/010.pgm,CMU11,enroll,known,up,neutral,open,False,,,Exactly one detectable face is required (found 2),5.549900000005437
+samples/CMU11/011.pgm,CMU11,enroll,known,straight,sad,sunglasses,True,,,,8.488999999826774
+samples/CMU11/012.pgm,CMU11,enroll,known,up,sad,open,False,,,Exactly one detectable face is required (found 2),4.990800000086892
+samples/CMU11/013.pgm,CMU11,enroll,known,up,angry,sunglasses,True,,,,8.505799999966257
+samples/CMU11/014.pgm,CMU11,enroll,known,right,neutral,open,True,,,,7.942500000353903
+samples/CMU11/015.pgm,CMU11,enroll,known,right,angry,open,False,,,Exactly one detectable face is required (found 0),4.400100000111706
+samples/CMU11/016.pgm,CMU11,enroll,known,up,happy,sunglasses,True,,,,8.441700000275887
+samples/CMU11/017.pgm,CMU11,calibration,known,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),3.4436000000823697
+samples/CMU11/018.pgm,CMU11,calibration,known,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),3.28140000010535
+samples/CMU11/019.pgm,CMU11,calibration,known,left,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),3.8263999999799125
+samples/CMU11/020.pgm,CMU11,calibration,known,up,angry,open,False,,,Exactly one detectable face is required (found 2),5.107900000439258
+samples/CMU11/021.pgm,CMU11,calibration,known,straight,sad,open,True,CMU01,0.7167863470664768,,9.471899999880407
+samples/CMU11/022.pgm,CMU11,calibration,known,left,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.7977000001774286
+samples/CMU11/023.pgm,CMU11,calibration,known,straight,neutral,open,False,,,Exactly one detectable face is required (found 2),5.684200000359851
+samples/CMU11/024.pgm,CMU11,calibration,known,right,happy,open,True,CMU11,0.7669646768615977,,8.447000000160187
+samples/CMU12/001.pgm,CMU12,enroll,known,right,sad,sunglasses,True,,,,9.314399999766465
+samples/CMU12/002.pgm,CMU12,enroll,known,left,sad,open,True,,,,11.297100000319915
+samples/CMU12/003.pgm,CMU12,enroll,known,straight,angry,open,True,,,,12.846099999933358
+samples/CMU12/004.pgm,CMU12,enroll,known,straight,neutral,open,True,,,,12.738500000068598
+samples/CMU12/005.pgm,CMU12,enroll,known,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 2),3.9501000001109787
+samples/CMU12/006.pgm,CMU12,enroll,known,right,neutral,sunglasses,True,,,,7.870899999943504
+samples/CMU12/007.pgm,CMU12,enroll,known,up,neutral,open,False,,,Exactly one detectable face is required (found 2),5.778699999609671
+samples/CMU12/008.pgm,CMU12,enroll,known,straight,sad,open,True,,,,12.398300000313611
+samples/CMU12/009.pgm,CMU12,enroll,known,straight,happy,sunglasses,True,,,,9.821300000112387
+samples/CMU12/010.pgm,CMU12,enroll,known,straight,neutral,sunglasses,True,,,,9.825399999954243
+samples/CMU12/011.pgm,CMU12,enroll,known,right,happy,open,True,,,,9.810600000037084
+samples/CMU12/012.pgm,CMU12,enroll,known,straight,sad,sunglasses,True,,,,9.845000000041182
+samples/CMU12/013.pgm,CMU12,enroll,known,left,angry,open,True,,,,10.986699999648408
+samples/CMU12/014.pgm,CMU12,enroll,known,left,happy,sunglasses,False,,,Exactly one detectable face is required (found 2),6.938900000022841
+samples/CMU12/015.pgm,CMU12,enroll,known,right,happy,sunglasses,True,,,,8.58010000001741
+samples/CMU12/016.pgm,CMU12,enroll,known,up,sad,open,False,,,Exactly one detectable face is required (found 2),4.888299999947776
+samples/CMU12/017.pgm,CMU12,calibration,known,left,angry,sunglasses,True,CMU12,0.728943233075582,,10.023199999977805
+samples/CMU12/018.pgm,CMU12,calibration,known,right,sad,open,True,CMU12,0.8767495219051075,,10.486199999832024
+samples/CMU12/019.pgm,CMU12,calibration,known,up,angry,open,False,,,Exactly one detectable face is required (found 2),5.291699999816046
+samples/CMU12/020.pgm,CMU12,calibration,known,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 2),4.219899999952759
+samples/CMU12/021.pgm,CMU12,calibration,known,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 2),4.902499999843712
+samples/CMU12/022.pgm,CMU12,calibration,known,left,sad,sunglasses,True,CMU02,0.6502037063351771,,10.755199999948672
+samples/CMU12/023.pgm,CMU12,calibration,known,right,neutral,open,True,CMU12,0.869903786897862,,10.833500000444474
+samples/CMU12/024.pgm,CMU12,calibration,known,up,happy,sunglasses,True,CMU11,0.5428947463395174,,8.619199999884586
+samples/CMU13/001.pgm,CMU13,calibration,unknown,right,angry,open,False,,,Exactly one detectable face is required (found 0),4.024000000299566
+samples/CMU13/002.pgm,CMU13,calibration,unknown,left,happy,open,False,,,Exactly one detectable face is required (found 0),4.4060000000172295
+samples/CMU13/003.pgm,CMU13,calibration,unknown,left,sad,open,False,,,Exactly one detectable face is required (found 0),3.967600000123639
+samples/CMU13/004.pgm,CMU13,calibration,unknown,up,sad,open,True,CMU06,0.7338526454980334,,10.138800000277115
+samples/CMU13/005.pgm,CMU13,calibration,unknown,straight,neutral,sunglasses,True,CMU05,0.741434427827315,,9.312300000146934
+samples/CMU13/006.pgm,CMU13,calibration,unknown,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),5.115100000239181
+samples/CMU13/007.pgm,CMU13,calibration,unknown,straight,angry,open,True,CMU10,0.7447947814203384,,10.1238000002013
+samples/CMU13/008.pgm,CMU13,calibration,unknown,straight,happy,open,True,CMU08,0.7482400854888656,,11.09470000028523
+samples/CMU13/009.pgm,CMU13,calibration,unknown,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),3.9036000002852234
+samples/CMU13/010.pgm,CMU13,calibration,unknown,left,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),3.8919000003261317
+samples/CMU13/011.pgm,CMU13,calibration,unknown,left,neutral,open,False,,,Exactly one detectable face is required (found 0),4.484200000206329
+samples/CMU13/012.pgm,CMU13,calibration,unknown,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),3.413399999772082
+samples/CMU13/013.pgm,CMU13,calibration,unknown,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.436299999975745
+samples/CMU13/014.pgm,CMU13,calibration,unknown,straight,happy,sunglasses,True,CMU12,0.7363083312930284,,7.897800000137067
+samples/CMU13/015.pgm,CMU13,calibration,unknown,right,happy,open,False,,,Exactly one detectable face is required (found 0),3.4582999996928265
+samples/CMU13/016.pgm,CMU13,calibration,unknown,up,happy,open,True,CMU06,0.7295433516415354,,8.530800000244199
+samples/CMU13/017.pgm,CMU13,calibration,unknown,up,neutral,open,True,CMU06,0.7109445347323304,,8.38290000001507
+samples/CMU13/018.pgm,CMU13,calibration,unknown,left,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.67759999971895
+samples/CMU13/019.pgm,CMU13,calibration,unknown,left,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),3.76349999987724
+samples/CMU13/020.pgm,CMU13,calibration,unknown,straight,angry,sunglasses,True,CMU07,0.7205781216816658,,7.882500000050641
+samples/CMU13/021.pgm,CMU13,calibration,unknown,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),3.5455000002002635
+samples/CMU13/022.pgm,CMU13,calibration,unknown,straight,sad,open,True,CMU08,0.7349619999615158,,9.931499999765947
+samples/CMU13/023.pgm,CMU13,calibration,unknown,right,neutral,open,False,,,Exactly one detectable face is required (found 0),3.8028999997550272
+samples/CMU13/024.pgm,CMU13,calibration,unknown,straight,neutral,open,True,CMU08,0.7770407780974579,,10.083499999836931
+samples/CMU13/025.pgm,CMU13,calibration,unknown,left,angry,open,False,,,Exactly one detectable face is required (found 0),3.6368000000948086
+samples/CMU13/026.pgm,CMU13,calibration,unknown,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.0779000000839005
+samples/CMU13/027.pgm,CMU13,calibration,unknown,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.960099999607337
+samples/CMU13/028.pgm,CMU13,calibration,unknown,up,angry,open,True,CMU06,0.7206613815753456,,8.495900000070833
+samples/CMU13/029.pgm,CMU13,calibration,unknown,left,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.287800000383868
+samples/CMU13/030.pgm,CMU13,calibration,unknown,right,sad,open,False,,,Exactly one detectable face is required (found 0),3.8812000002508285
+samples/CMU14/001.pgm,CMU14,calibration,unknown,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),4.621699999916018
+samples/CMU14/002.pgm,CMU14,calibration,unknown,straight,sad,open,True,CMU08,0.7438243197860197,,11.131599999771424
+samples/CMU14/003.pgm,CMU14,calibration,unknown,up,neutral,open,False,,,Exactly one detectable face is required (found 2),5.440100000214443
+samples/CMU14/004.pgm,CMU14,calibration,unknown,straight,neutral,sunglasses,True,CMU02,0.7545427860754119,,9.364999999888823
+samples/CMU14/005.pgm,CMU14,calibration,unknown,left,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),4.590399999869987
+samples/CMU14/006.pgm,CMU14,calibration,unknown,up,sad,open,True,CMU06,0.6653923780497356,,9.974099999908503
+samples/CMU14/007.pgm,CMU14,calibration,unknown,left,neutral,open,True,CMU08,0.6253505645266827,,9.651000000303611
+samples/CMU14/008.pgm,CMU14,calibration,unknown,right,neutral,open,False,,,Exactly one detectable face is required (found 0),4.800600000180566
+samples/CMU14/009.pgm,CMU14,calibration,unknown,up,angry,open,True,CMU06,0.7069576727509043,,9.709400000247115
+samples/CMU14/010.pgm,CMU14,calibration,unknown,right,happy,sunglasses,True,CMU12,0.7293886780293651,,4.121000000395725
+samples/CMU14/011.pgm,CMU14,calibration,unknown,right,angry,open,False,,,Exactly one detectable face is required (found 0),4.2907000001832785
+samples/CMU14/012.pgm,CMU14,calibration,unknown,straight,neutral,open,True,CMU08,0.714746601190546,,12.114500000279804
+samples/CMU14/013.pgm,CMU14,calibration,unknown,left,happy,sunglasses,True,CMU02,0.7291986522571114,,9.413400000084948
+samples/CMU14/014.pgm,CMU14,calibration,unknown,straight,happy,sunglasses,True,CMU02,0.7561484563807527,,9.131199999956152
+samples/CMU14/015.pgm,CMU14,calibration,unknown,straight,happy,open,True,CMU08,0.7394498945766401,,14.060400000289519
+samples/CMU14/016.pgm,CMU14,calibration,unknown,straight,angry,sunglasses,True,CMU02,0.7752400147283309,,9.242099999937636
+samples/CMU14/017.pgm,CMU14,calibration,unknown,left,happy,open,False,,,Exactly one detectable face is required (found 2),7.510000000365835
+samples/CMU14/018.pgm,CMU14,calibration,unknown,up,sad,sunglasses,True,CMU11,0.6019374014986315,,9.309999999913998
+samples/CMU14/019.pgm,CMU14,calibration,unknown,left,sad,open,False,,,Exactly one detectable face is required (found 2),7.3583999997026694
+samples/CMU14/020.pgm,CMU14,calibration,unknown,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),6.454400000166061
+samples/CMU14/021.pgm,CMU14,calibration,unknown,up,happy,open,False,,,Exactly one detectable face is required (found 2),7.761899999877642
+samples/CMU14/022.pgm,CMU14,calibration,unknown,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),5.348600000161241
+samples/CMU14/023.pgm,CMU14,calibration,unknown,left,angry,sunglasses,False,,,Exactly one detectable face is required (found 2),7.313099999919359
+samples/CMU14/024.pgm,CMU14,calibration,unknown,left,neutral,sunglasses,True,CMU02,0.7524514510862635,,18.462900000031368
+samples/CMU14/025.pgm,CMU14,calibration,unknown,right,happy,open,False,,,Exactly one detectable face is required (found 0),9.618499999760388
+samples/CMU14/026.pgm,CMU14,calibration,unknown,straight,sad,sunglasses,True,CMU02,0.7408576001400256,,22.071200000027602
+samples/CMU14/027.pgm,CMU14,calibration,unknown,right,sad,open,False,,,Exactly one detectable face is required (found 0),11.4264999997431
+samples/CMU14/028.pgm,CMU14,calibration,unknown,left,angry,open,True,CMU10,0.7404053877319166,,20.332000000053085
+samples/CMU15/001.pgm,CMU15,calibration,unknown,right,sad,open,True,CMU09,0.6457357465756728,,24.348299999928713
+samples/CMU15/002.pgm,CMU15,calibration,unknown,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),10.849300000245421
+samples/CMU15/003.pgm,CMU15,calibration,unknown,right,neutral,open,True,CMU09,0.6824418356598404,,24.49800000022151
+samples/CMU15/004.pgm,CMU15,calibration,unknown,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),10.919899999862537
+samples/CMU15/005.pgm,CMU15,calibration,unknown,straight,angry,open,True,CMU08,0.7810992437359952,,25.263099999847327
+samples/CMU15/006.pgm,CMU15,calibration,unknown,right,neutral,sunglasses,True,CMU09,0.5852927413159398,,17.33399999966423
+samples/CMU15/007.pgm,CMU15,calibration,unknown,right,sad,sunglasses,True,CMU09,0.5908411295738186,,18.914400000085152
+samples/CMU15/008.pgm,CMU15,calibration,unknown,up,sad,open,True,CMU06,0.7462418454495365,,11.611099999754515
+samples/CMU15/009.pgm,CMU15,calibration,unknown,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),6.656399999883433
+samples/CMU15/010.pgm,CMU15,calibration,unknown,straight,happy,sunglasses,True,CMU02,0.7642961314159388,,18.918199999916396
+samples/CMU15/011.pgm,CMU15,calibration,unknown,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),12.121799999931682
+samples/CMU15/012.pgm,CMU15,calibration,unknown,left,neutral,open,True,CMU08,0.6854291628661809,,26.401000000078056
+samples/CMU15/013.pgm,CMU15,calibration,unknown,straight,angry,sunglasses,True,CMU12,0.750617903128879,,16.771199999766395
+samples/CMU15/014.pgm,CMU15,calibration,unknown,up,neutral,open,True,CMU04,0.7255409975148974,,26.06759999980568
+samples/CMU15/015.pgm,CMU15,calibration,unknown,straight,sad,open,True,CMU08,0.7608810415659126,,25.69290000019464
+samples/CMU15/016.pgm,CMU15,calibration,unknown,left,sad,sunglasses,True,CMU07,0.7502280086876771,,20.31070000020918
+samples/CMU15/017.pgm,CMU15,calibration,unknown,left,happy,sunglasses,True,CMU03,0.7492835294020327,,25.88869999999588
+samples/CMU15/018.pgm,CMU15,calibration,unknown,left,sad,open,True,CMU08,0.623033408204257,,26.187999999820022
+samples/CMU15/019.pgm,CMU15,calibration,unknown,left,angry,open,True,CMU08,0.5941498439405573,,26.005300000178977
+samples/CMU15/020.pgm,CMU15,calibration,unknown,up,happy,open,True,CMU06,0.733672153974532,,17.47960000011517
+samples/CMU15/021.pgm,CMU15,calibration,unknown,left,neutral,sunglasses,True,CMU03,0.7597447487361789,,25.395300000127463
+samples/CMU15/022.pgm,CMU15,calibration,unknown,straight,neutral,open,True,CMU08,0.7945931602066024,,25.45369999961622
+samples/CMU15/023.pgm,CMU15,calibration,unknown,up,angry,open,True,CMU06,0.7117297752663717,,21.757199999683507
+samples/CMU15/024.pgm,CMU15,calibration,unknown,straight,neutral,sunglasses,True,CMU02,0.7608869616333701,,18.803400000251713
+samples/CMU15/025.pgm,CMU15,calibration,unknown,straight,sad,sunglasses,True,CMU12,0.7335635750338905,,10.514399999919988
+samples/CMU15/026.pgm,CMU15,calibration,unknown,left,happy,open,True,CMU02,0.6470421371715861,,9.03840000000855
+samples/CMU15/027.pgm,CMU15,calibration,unknown,right,angry,sunglasses,True,CMU09,0.5592107144529315,,12.971199999810779
+samples/CMU15/028.pgm,CMU15,calibration,unknown,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 2),10.836200000085228
+samples/CMU15/029.pgm,CMU15,calibration,unknown,right,happy,open,True,CMU09,0.6629639915979215,,21.86200000005556
+samples/CMU15/030.pgm,CMU15,calibration,unknown,left,angry,sunglasses,True,CMU03,0.7400901262662213,,25.794199999836565
+samples/CMU15/031.pgm,CMU15,calibration,unknown,straight,happy,open,True,CMU12,0.7552736475051396,,24.60709999968458
+samples/CMU15/032.pgm,CMU15,calibration,unknown,right,angry,open,True,CMU09,0.6213011313346263,,17.49259999996866
+samples/CMU16/001.pgm,CMU16,calibration,unknown,left,happy,open,False,,,Exactly one detectable face is required (found 2),9.333800000149495
+samples/CMU16/002.pgm,CMU16,calibration,unknown,left,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),5.238899999767455
+samples/CMU16/003.pgm,CMU16,calibration,unknown,right,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.06650000013542
+samples/CMU16/004.pgm,CMU16,calibration,unknown,straight,neutral,open,True,CMU02,0.6948297807499699,,12.219400000049063
+samples/CMU16/005.pgm,CMU16,calibration,unknown,right,happy,open,True,CMU03,0.633860385224678,,10.080000000016298
+samples/CMU16/006.pgm,CMU16,calibration,unknown,right,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),5.013500000131899
+samples/CMU16/007.pgm,CMU16,calibration,unknown,straight,sad,open,True,CMU02,0.6747776092047737,,18.15119999992021
+samples/CMU16/008.pgm,CMU16,calibration,unknown,up,angry,open,False,,,Exactly one detectable face is required (found 0),12.27229999994961
+samples/CMU16/009.pgm,CMU16,calibration,unknown,left,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),12.334799999734969
+samples/CMU16/010.pgm,CMU16,calibration,unknown,up,neutral,open,True,CMU06,0.6888212250639822,,12.870100000327511
+samples/CMU16/011.pgm,CMU16,calibration,unknown,straight,angry,sunglasses,True,CMU12,0.6460649105472954,,18.82930000010674
+samples/CMU16/012.pgm,CMU16,calibration,unknown,straight,sad,sunglasses,False,,,Exactly one detectable face is required (found 2),10.947000000214757
+samples/CMU16/013.pgm,CMU16,calibration,unknown,right,angry,open,False,,,Exactly one detectable face is required (found 0),7.181899999977759
+samples/CMU16/014.pgm,CMU16,calibration,unknown,right,neutral,open,False,,,Exactly one detectable face is required (found 0),7.74779999983366
+samples/CMU16/015.pgm,CMU16,calibration,unknown,up,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),4.2490999999245105
+samples/CMU16/016.pgm,CMU16,calibration,unknown,left,neutral,open,True,CMU02,0.6362056818415984,,12.244099999861646
+samples/CMU16/017.pgm,CMU16,calibration,unknown,right,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),4.364899999927729
+samples/CMU16/018.pgm,CMU16,calibration,unknown,right,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),3.7029999998594576
+samples/CMU16/019.pgm,CMU16,calibration,unknown,up,happy,sunglasses,False,,,Exactly one detectable face is required (found 0),4.480000000057771
+samples/CMU16/020.pgm,CMU16,calibration,unknown,left,neutral,sunglasses,False,,,Exactly one detectable face is required (found 0),5.287699999826145
+samples/CMU16/021.pgm,CMU16,calibration,unknown,straight,neutral,sunglasses,True,CMU02,0.6376224300938846,,10.156700000152341
+samples/CMU16/022.pgm,CMU16,calibration,unknown,up,angry,sunglasses,False,,,Exactly one detectable face is required (found 0),6.905700000061188
+samples/CMU16/023.pgm,CMU16,calibration,unknown,up,sad,open,True,CMU02,0.6759906049442799,,13.086200000088866
+samples/CMU16/024.pgm,CMU16,calibration,unknown,left,sad,open,True,CMU12,0.6235115858374252,,22.676200000205426
+samples/CMU16/025.pgm,CMU16,calibration,unknown,straight,happy,open,True,CMU02,0.6975601929297918,,21.942099999705533
+samples/CMU16/026.pgm,CMU16,calibration,unknown,left,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),8.610800000042218
+samples/CMU16/027.pgm,CMU16,calibration,unknown,straight,angry,open,True,CMU08,0.6522597556299791,,26.778900000408612
+samples/CMU16/028.pgm,CMU16,calibration,unknown,straight,happy,sunglasses,False,,,Exactly one detectable face is required (found 2),14.278399999966496
+samples/CMU16/029.pgm,CMU16,calibration,unknown,right,sad,open,False,,,Exactly one detectable face is required (found 0),11.126600000352482
+samples/CMU16/030.pgm,CMU16,calibration,unknown,up,sad,sunglasses,False,,,Exactly one detectable face is required (found 0),13.075800000024174
+samples/CMU16/031.pgm,CMU16,calibration,unknown,up,happy,open,True,CMU06,0.6821274970753495,,16.86599999993632

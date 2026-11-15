@@ -24,23 +24,26 @@ BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR.parents[1] / "week5" / "scripts"))
 from preprocess_face import preprocess_face
 from lbp_face import extract_feature, match
+from face_detection import DEFAULT_DETECTOR, create_detector, crop_single_face
 
 
 class FacePipeline:
     """Library detection followed by two custom image-processing stages."""
-    def __init__(self):
-        self.detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    def __init__(self, detector_backend=None):
+        self.detector = create_detector(detector_backend or os.environ.get('FACE_DETECTOR', DEFAULT_DETECTOR))
+        self.profile = self.detector.profile
 
     def __call__(self, content):
-        image = cv2.imdecode(np.frombuffer(content, np.uint8), cv2.IMREAD_COLOR)
+        if not content:
+            raise ValueError("Invalid or oversized image")
+        try:
+            image = cv2.imdecode(np.frombuffer(content, np.uint8), cv2.IMREAD_COLOR)
+        except cv2.error as exc:
+            raise ValueError("Invalid or oversized image") from exc
         if image is None or image.size > 24_000_000:
             raise ValueError("Invalid or oversized image")
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        boxes = self.detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(60, 60))
-        if len(boxes) != 1:
-            raise ValueError("Exactly one detectable face is required")
-        x, y, w, h = boxes[0]
-        return extract_feature(preprocess_face(image[y:y+h, x:x+w]))
+        crop = crop_single_face(image, self.detector.detect(image))
+        return extract_feature(preprocess_face(crop))
 
 
 def simulation_door_control(base_url):
@@ -65,6 +68,8 @@ def create_app(config=None, pipeline=None, controller=None):
         FACE_DATA_DIR=os.environ.get("FACE_DATA_DIR", str(BASE_DIR / "local_face_data")),
         FACE_ADMIN_TOKEN=os.environ.get("FACE_ADMIN_TOKEN", ""),
         FACE_THRESHOLD=os.environ.get("FACE_THRESHOLD"),
+        FACE_THRESHOLD_PROFILE=os.environ.get("FACE_THRESHOLD_PROFILE", ""),
+        FACE_DETECTOR=os.environ.get("FACE_DETECTOR", DEFAULT_DETECTOR),
         FACE_POLICY_PATH=os.environ.get("FACE_POLICY_PATH", ""),
         FACE_DEVICE_URL=os.environ.get("FACE_DEVICE_URL", "http://127.0.0.1:5058"),
     )
@@ -72,7 +77,11 @@ def create_app(config=None, pipeline=None, controller=None):
     CORS(app, origins=["http://localhost:5173", "http://127.0.0.1:5173"])
     data_dir = Path(app.config["FACE_DATA_DIR"])
     lock = threading.Lock()
-    extract = pipeline or FacePipeline()
+    extract = pipeline or FacePipeline(app.config['FACE_DETECTOR'])
+    # Injected test extractors do not represent a deployed calibration contract.
+    profile = getattr(extract, 'profile', None)
+    real_pipeline = isinstance(profile, str)
+    profile = profile if real_pipeline else 'injected-test-v1'
     control = controller or (lambda: simulation_door_control(app.config["FACE_DEVICE_URL"]))
 
     def gallery():
@@ -80,6 +89,8 @@ def create_app(config=None, pipeline=None, controller=None):
         if data_dir.exists():
             for path in data_dir.glob("*.json"):
                 item = json.loads(path.read_text(encoding="utf-8"))
+                if item.get('feature_profile') != profile:
+                    raise ValueError('人脸特征版本不匹配，请按当前检测流程重新登记和标定')
                 vectors = [np.asarray(v, dtype=float) for v in item["features"]]
                 if any(v.shape != (2891,) or not np.isfinite(v).all() for v in vectors):
                     raise ValueError("Invalid gallery feature")
@@ -119,7 +130,9 @@ def create_app(config=None, pipeline=None, controller=None):
 
     @app.get("/health")
     def health():
-        return jsonify(status="ok", model_name="custom-uniform-LBP", detector_backend="opencv-haar",
+        return jsonify(status="ok", model_name="custom-uniform-LBP",
+                       detector_backend=extract.detector.backend if real_pipeline else 'injected-test',
+                       feature_profile=profile, threshold_profile=app.config['FACE_THRESHOLD_PROFILE'],
                        threshold=app.config["FACE_THRESHOLD"], calibrated=False,
                        mode="simulation-only", enrollment_enabled=bool(app.config["FACE_ADMIN_TOKEN"]),
                        note="Threshold requires authorized calibration; no liveness detection")
@@ -140,6 +153,8 @@ def create_app(config=None, pipeline=None, controller=None):
                 threshold = float(threshold)
                 if not 0 <= threshold <= 1:
                     raise ValueError("Invalid threshold")
+                if real_pipeline and app.config['FACE_THRESHOLD_PROFILE'] != profile:
+                    raise ValueError('阈值与当前人脸流程不匹配，请重新标定并设置 FACE_THRESHOLD_PROFILE')
                 identity, similarity, _ = match(gallery(), feature)
                 result.update(matched=identity is not None and similarity >= threshold,
                               similarity=similarity if identity else None)
@@ -188,7 +203,9 @@ def create_app(config=None, pipeline=None, controller=None):
                 feature = upload_feature()
                 data_dir.mkdir(parents=True, exist_ok=True)
                 path = data_dir / (identity + ".json")
-                item = json.loads(path.read_text()) if path.exists() else {"features": []}
+                item = json.loads(path.read_text()) if path.exists() else {"features": [], 'feature_profile': profile}
+                if item.get('feature_profile') != profile:
+                    raise ValueError('旧特征版本不匹配，请先删除该身份后重新登记')
                 if len(item["features"]) >= 30:
                     raise ValueError("最多保留30条特征；请先删除旧身份数据")
                 item["features"].append(feature.tolist())

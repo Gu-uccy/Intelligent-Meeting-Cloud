@@ -1,0 +1,9 @@
+{
+  "scope": "Clarification of the archived pre-test selection metadata; original selection and frozen threshold remain unchanged",
+  "original_file": "selection.json",
+  "original_field": "test_images_read_in_this_stage",
+  "correction": "The value 0 refers to test feature extraction/inference, not byte reads. load_manifest reads all 624 image files to validate their hashes, including test files. Candidate detection, feature extraction, matching and selection only use enrollment/calibration rows.",
+  "test_features_extracted_in_selection_stage": 0,
+  "all_manifest_file_hashes_checked_before_selection": true,
+  "future_script": "week5/scripts/compare_face_detectors.py uses the accurate field test_features_extracted_in_this_stage"
+}

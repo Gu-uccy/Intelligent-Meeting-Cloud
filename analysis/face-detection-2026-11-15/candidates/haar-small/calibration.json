@@ -1,0 +1,30 @@
+{
+  "backend": "haar-small",
+  "feature_profile": "haar-front-s105-n5-min24-bbox-lbp-v1",
+  "threshold": 0.7669646768615977,
+  "calibration": {
+    "accuracy": 0.695852534562212,
+    "far": 0.03305785123966942,
+    "frr": 0.6458333333333334,
+    "known_identification_accuracy": 0.3541666666666667,
+    "known_count": 96,
+    "unknown_count": 121,
+    "known_correct": 34,
+    "known_rejected": 62,
+    "wrong_identity": 0,
+    "unknown_accepted": 4,
+    "unknown_rejected": 117,
+    "known_detection_failures": 39,
+    "unknown_detection_failures": 56,
+    "conditional_on_detection": {
+      "known_count": 57,
+      "unknown_count": 65,
+      "known_identification_accuracy": 0.5964912280701754,
+      "far": 0.06153846153846154
+    }
+  },
+  "development_extraction": {
+    "False": 180,
+    "True": 229
+  }
+}

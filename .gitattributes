@@ -5,3 +5,5 @@ analysis/taskbook-v3-2026-11-14/backend-integration/** -text whitespace=cr-at-eo
 BackEnd/MeetingRoom-Parent/mvnw text eol=lf
 BackEnd/MeetingRoom-Parent/mvnw.cmd text eol=crlf
 analysis/cmu-faces-2026-11-15/** -text whitespace=cr-at-eol
+analysis/face-detection-2026-11-15/** -text whitespace=cr-at-eol
+MachineLearning/human_face/models/** -text whitespace=cr-at-eol

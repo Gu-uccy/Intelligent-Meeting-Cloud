@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-11-15T06:24:32.267992+00:00",
+  "scope": "New localhost process; real YuNet blank image, missing image and admin rejection; no face enrollment or hardware",
+  "health": {
+    "calibrated": false,
+    "detector_backend": "opencv-yunet-2023mar",
+    "enrollment_enabled": false,
+    "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1",
+    "mode": "simulation-only",
+    "model_name": "custom-uniform-LBP",
+    "note": "Threshold requires authorized calibration; no liveness detection",
+    "status": "ok",
+    "threshold": null,
+    "threshold_profile": ""
+  },
+  "records": [
+    {
+      "name": "new process reports real YuNet/profile and uncalibrated simulation",
+      "status": "PASS"
+    },
+    {
+      "name": "missing image HTTP422 access denied",
+      "status": "PASS"
+    },
+    {
+      "name": "real DNN blank image HTTP422 access denied",
+      "status": "PASS"
+    },
+    {
+      "name": "enrollment without admin token HTTP403",
+      "status": "PASS"
+    },
+    {
+      "name": "no gallery identity written and no physical controller invoked",
+      "status": "PASS"
+    }
+  ],
+  "test_process_stopped": true
+}
