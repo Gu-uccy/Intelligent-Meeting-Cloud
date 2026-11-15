@@ -1,17 +1,17 @@
 # 当前人脸识别流程（2026-11-15）
 
-主路径为YuNet检测→自研预处理→自研LBP→余弦比对→标定阈值→预约核验→统一模拟设备确认。早期DeepFace/retinaface与直接GPIO流程是历史方案，当前服务不使用。
+主路径为YuNet检测→五点对齐→自研预处理→自研Root-LBP→余弦比对→标定阈值→预约核验→统一模拟设备确认。早期DeepFace/retinaface与直接GPIO流程是历史方案，当前服务不使用。
 
 | 步骤 | 输入与处理 | 输出/判定依据 | 当前源码 |
 |---|---|---|---|
 | 1 采集/登记 | 许可或授权图像，经管理员接口提交匿名编号和授权确认 | 仅保存特征及feature_profile，不保存上传原图；旧私人文件不自动入库 | MachineLearning/human_face/face_api.py |
 | 2 解码与尺寸检查 | 原始上传字节解码BGR，拒绝无效或过大图像 | 有效图像；不先把整图缩成112×112 | FacePipeline |
-| 3 人脸检测与裁剪 | YuNet检测分数0.6，长边限制320–960等比例缩放，框映射回原图 | 恰好一脸才继续；多脸/无脸拒绝，不用整图兜底 | face_detection.py |
-| 4 自研预处理与特征 | 裁剪人脸→灰度→双线性112×112→均衡化→7×7 uniform LBP | L2归一化2891维向量 | week5/scripts/preprocess_face.py、lbp_face.py |
+| 3 人脸检测与裁剪 | YuNet检测分数0.6，长边限制320–960等比例缩放，框映射回原图 | 恰好一脸才继续并按五点对齐到112×112；多脸/无脸/无效关键点拒绝，不用整图兜底 | face_detection.py |
+| 4 自研预处理与特征 | 对齐人脸→灰度→双线性112×112→均衡化→7×7 uniform LBP→每块L1归一化/开平方→L2 | L2归一化2891维向量 | week5/scripts/preprocess_face.py、lbp_face.py |
 | 5 比对 | 当前向量与登记库逐人比对，每人取多个特征最大余弦相似度 | 最高分候选；特征版本不一致拒绝 | lbp_face.match、face_api.gallery |
 | 6 阈值 | 标定集合扫描身份阈值，冻结后再评估；未知标定和测试身份隔离 | 检测分数与身份阈值不同；运行阈值及FACE_THRESHOLD_PROFILE必须匹配当前流程 | cmu_faces.py、face_api.py |
 | 7 业务与设备 | 识别后按服务端有效预约核验名单、时间、审核、房间 | 仅source=simulation且设备确认才返回模拟签到；错误拒绝，不控制实物门 | face_api.py、unified_meeting_room_system.py |
 
 自研范围为预处理、uniform LBP、余弦比对与标定逻辑；YuNet预训练检测来自OpenCV Zoo/MIT，不宣称自研。服务默认空底库/无阈值/无预约，识别拒绝符合当前配置。CMU公开教学许可不是新收集的个人同意书；正式样本和现场设备仍须按课程规范确认。
 
-本轮在已查看CMU数据上仅用登记和标定特征选择检测方案，test划分作开发对比，不能称为新独立验证。单脸提取579/624，原test已知正确59/90、未知误接受5/125；完整过程、指标口径与复现见 [检测改进记录](../../analysis/face-detection-2026-11-15/README.md)。
+本轮在已查看CMU数据上仅用登记和标定特征选择检测方案，test划分作开发对比，不能称为新独立验证。单脸提取579/624；当前五点对齐/Root-LBP原test已知正确64/90、未知误接受4/125，完整过程与复现见 [识别改进记录](../../analysis/face-recognition-2026-11-15/README.md)。

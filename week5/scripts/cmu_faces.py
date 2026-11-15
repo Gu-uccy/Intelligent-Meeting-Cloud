@@ -251,7 +251,8 @@ def evaluate(args):
     rows, provenance = load_manifest(data)
     out.mkdir(parents=True, exist_ok=True)
     detector = getattr(args, 'detector', 'haar')
-    pipeline = FacePipeline(detector_backend=detector)
+    feature_mode = getattr(args,'feature_mode','bbox-lbp')
+    pipeline = FacePipeline(detector_backend=detector,feature_mode=feature_mode)
     diagnostic = args.pipeline == 'portrait-descriptor'
     # Descriptor-only is a separate diagnostic of complete supplied portraits.
     # It never substitutes for face detection or exports a threshold to the service.
@@ -301,6 +302,7 @@ def evaluate(args):
               'created_before_test_extraction': True, 'created_at': datetime.now(timezone.utc).isoformat(),
               'detector': None if diagnostic else detector,
               'feature_profile': getattr(pipeline, 'profile', None),
+              'feature_mode': feature_mode,
               'development_selection_sha256': selection_hash,
               'production_use': False}
     write_json(out / 'frozen_threshold.json', frozen)
@@ -314,6 +316,7 @@ def evaluate(args):
               'scope': 'Complete portrait preprocessing/LBP/matching diagnostic; NO detection' if diagnostic else f'Service FacePipeline: decode -> {detector} -> custom preprocessing -> uniform LBP -> cosine',
               'detector': None if diagnostic else detector,
               'feature_profile': getattr(pipeline, 'profile', None),
+              'feature_mode': feature_mode,
               'test_is_new_independent_evidence': False,
               'comparison_scope': 'Previously inspected CMU data reused for development comparison; test is a partition name, not new independent validation',
               'device': {'platform': platform.platform(), 'machine': platform.machine(), 'python': platform.python_version(),
@@ -354,6 +357,7 @@ def main():
     p.add_argument('--detector', choices=['haar','haar-small','yunet','yunet-07','yunet-06'], default='haar',
                    help='Explicit detector; Haar default reproduces the historical benchmark, service now defaults to YuNet')
     p.add_argument('--selection', help='Frozen development selection JSON; verify it before reading test images')
+    p.add_argument('--feature-mode',choices=['bbox-lbp','aligned-lbp','bbox-root-lbp','aligned-root-lbp'],default='bbox-lbp')
     p.set_defaults(action=evaluate)
     args = parser.parse_args()
     args.action(args)

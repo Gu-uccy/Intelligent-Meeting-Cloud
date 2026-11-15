@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-11-15T06:56:05.362891+00:00",
+  "status": "PASS",
+  "scope": "Consistency/regression check; not independent recognition or device acceptance",
+  "candidate_selection_reproduced": true,
+  "final_predictions_reproduced": true,
+  "csv_metrics_match_json": true,
+  "frozen_selection_hash_matches": true,
+  "old_evidence_unchanged": true,
+  "local_links_valid": true,
+  "regression_tests_passed": 69,
+  "localhost_http_checks_passed": 5
+}

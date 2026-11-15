@@ -39,7 +39,7 @@ class YuNetDetector:
         scale = min(cls.max_long_side, max(cls.min_long_side, longest)) / longest
         return max(1, round(width * scale)), max(1, round(height * scale))
 
-    def detect(self, image):
+    def detect_faces(self, image):
         height, width = image.shape[:2]
         size = self.input_size(width, height)
         resized = cv2.resize(image, size, interpolation=cv2.INTER_LINEAR) if size != (width, height) else image
@@ -48,15 +48,18 @@ class YuNetDetector:
             self._detector.setInputSize(size)
             _, faces = self._detector.detect(resized)
         if faces is None:
-            return np.empty((0, 4), dtype=float)
+            return np.empty((0, 15), dtype=float)
         faces = np.asarray(faces, dtype=float)
         if faces.ndim != 2 or faces.shape[1] < 15 or not np.isfinite(faces).all():
             raise ValueError('Invalid face detector output')
         # Retain every above-threshold face. Do not pick the largest and hide a second person.
         faces = faces[faces[:, 14] >= self.score_threshold]
-        boxes = faces[:, :4].copy()
-        boxes *= np.array([width / size[0], height / size[1]] * 2)
-        return boxes
+        faces = faces.copy()
+        faces[:, :14] *= np.array([width / size[0], height / size[1]] * 7)
+        return faces
+
+    def detect(self, image):
+        return self.detect_faces(image)[:, :4]
 
 
 class HaarDetector:

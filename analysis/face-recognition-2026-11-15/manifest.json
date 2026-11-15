@@ -1,0 +1,263 @@
+{
+  "generated_at": "2026-11-15T06:56:05.443907+00:00",
+  "source_baseline": "e1d66d2c080f8ee5220d43b23b224bf6826b6447",
+  "scope": "Five-point alignment/Root-LBP development comparison on previously seen CMU data; no independent/physical validation",
+  "photos_or_gallery_features_in_commit": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "fb7d21819089b2e0c38e04f074be61290f6e2cc6a6196edc4f2d23e7ba274d1b",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_api.py",
+      "sha256": "1c3734f6ab2b1ebde0fb683f371d76e8fa329a671163be91deff5427319c18fd",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_detection.py",
+      "sha256": "cc19c0e98082072c58f6b61dbe063046ecaf5b6657e4465d60a8f7dd83768def",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_alignment.py",
+      "sha256": "dd802a27b8d6df87df9022200065684160006679f698581571bf6a94d4d51f20",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/cmu_faces.py",
+      "sha256": "eaac2ea2214d2fb980004099b3af566e586eb102ead11f2d5f8ecdace851fe12",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/compare_face_features.py",
+      "sha256": "6f5a0508e67508544793c6577cc638cca2beb5ca793a35f8f34455a85ff7d2ea",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/compare_face_detectors.py",
+      "sha256": "5764e778c45ba5f2e51756fbb9c907981ae8663132d68407f7a5923417aafa0e",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/lbp_face.py",
+      "sha256": "36ca7daeb26a7520036364d6b4fa336935ea57f4c1f498c9dea84edc5444a2c4",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/preprocess_face.py",
+      "sha256": "41b2fc12df1f2c14cf9d104af55689caace56c05f77ae2bb453e0d103cdb0066",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_face_recognition.py",
+      "sha256": "46b6106f4c3353789929e9300a7a1f7ff3f59436c7fa267688566f49ac0de8b4",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_face_detection.py",
+      "sha256": "071e4d1073f8a0e8959066c965e92133bc1da0e2ef4c808245ac10aa2e22dd2a",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_face_pipeline.py",
+      "sha256": "3a365133a27f53100c7fddae66bf962c1b49adff865fe834bbd8799904111852",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_cmu_faces.py",
+      "sha256": "247a846e1be117c51c305f6adbe58fa78a9100583726e666dbfa9d45f09da960",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/README_FACE_API.md",
+      "sha256": "96fb03829faea3c54fb90628f996559ddf7915727c7ea853e3a4cf5a526f874b",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/README.md",
+      "sha256": "1665b571c78e279a5cc0c671557f45cb8486e2414e8734405b7d061443009f87",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/docs/algorithm_notes.md",
+      "sha256": "9079b1e461a272d4f80b7dff602a2cc229ac47d6ad294ed253a7dd1200f11229",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/docs/data_authorization.md",
+      "sha256": "5de2fe8dbf52cb41253716b6f626ad68b564e2807b6a7dc01ef21787838fa3f1",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/docs/face_recognition_flow.md",
+      "sha256": "df0169254a716d85b62225bd35e672a6eb165687523ad00433bce8fef2efbf2c",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/tests/face_test_record.md",
+      "sha256": "4023bc6b139de53921b6a4374558857b43042cca6b00343b8bf56656292918ad",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/final-2026-11-14/README.md",
+      "sha256": "3688273ceaa53005a1a8ee5f2a371709de268c336e1427ddb9d7da926bb081eb",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "analysis/taskbook-v3-2026-11-14/\u7eed\u4f5c\u9a8c\u6536\u8bb0\u5f55.md",
+      "sha256": "512b8cf03430cd8f440c69ec70fb739c01bada5ae6cf44de18310db7600b466b",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/candidates/aligned-lbp/calibration.json",
+      "sha256": "3a393ba77b21e04caacde0f199790e759bb1c5a32ca5c593a75ee74c7edf2527",
+      "bytes": 905,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/candidates/aligned-lbp/development_results.csv",
+      "sha256": "26b9747487825a4070a8aa8442e3f4ded92b914465793c50abc1ec903c6467b6",
+      "bytes": 43633,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/candidates/aligned-root-lbp/calibration.json",
+      "sha256": "5111234ad8f0639dae410f5b320aee889809f4b0627312667231e4e8c2c403c0",
+      "bytes": 891,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/candidates/aligned-root-lbp/development_results.csv",
+      "sha256": "b306a4e363c718826f11f640536e18e302e0f62908a05d4a6612e44f6aef4fa5",
+      "bytes": 43608,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/candidates/bbox-lbp/calibration.json",
+      "sha256": "cbcafefefbc1062105fb8e0caa80ddd73aca4dadc5433d60e2d7f3539025e679",
+      "bytes": 850,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/candidates/bbox-lbp/development_results.csv",
+      "sha256": "405034d4a71e178a25bd01ad0ff6f2f6df0488e8fc71fb2f3d80e6531c9d7daa",
+      "bytes": 43506,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/candidates/bbox-root-lbp/calibration.json",
+      "sha256": "bcbc71cd0493bfc4ae0eaaca60ccec7b982331d6f99b7173ba1a1ce0697437c8",
+      "bytes": 884,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/candidates/bbox-root-lbp/development_results.csv",
+      "sha256": "04c404f0383cb1ae1118efa298c569fd061fb7050e3f4f3b98e70eb6063d2dd9",
+      "bytes": 43620,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/comparison/selection.json",
+      "sha256": "8dd70f7d8603f4f70814b2d8db84e4e80bdd33ba9253e9b08368cb0e8bbf8c05",
+      "bytes": 5445,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/protocol.md",
+      "sha256": "2a4489876099a6a07bf9edd0a299b837dbfc4fb3b2fd82cbc37be394fbada61b",
+      "bytes": 1970,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/README.md",
+      "sha256": "21db80136b6de3dc7fcd04fe0fae0587de7bae9117bb5f34060917f7dfded589",
+      "bytes": 6414,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/runtime-smoke.json",
+      "sha256": "85d31fe2ba4cf5d0381c47475f8f1404d0e9c1067316326dfa48457e859faf50",
+      "bytes": 1273,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/selected/calibration_curve.csv",
+      "sha256": "7ef45353f8005bf107ef169a46efac6b7c5f5a25ee08d5be252b9e7bd3087a12",
+      "bytes": 42238,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/selected/face_eval_result.json",
+      "sha256": "09a6fac3683bc0c2718e56793f628b816e157d404cfdbb703d4e748bf57ac758",
+      "bytes": 6837,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/selected/frozen_threshold.json",
+      "sha256": "3d0eb3e362ffdaecd7357eb63f5d53111bbb2985b9f87e2c25967a71a5863cbf",
+      "bytes": 656,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/selected/per_image_results.csv",
+      "sha256": "f3739ed585be1689a6afe7eaa413eb725a1d6d61b34d358c184ec980d4efb4ef",
+      "bytes": 67548,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/tests/cmu-protocol-tests.json",
+      "sha256": "e043d1cd41c662b68e2e29d55ebb6771e103f1b00c9e797baea7684dcda1faa7",
+      "bytes": 1642,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/tests/face-detection-tests.json",
+      "sha256": "4c1aa5275ca78bf6d5be436ede0803aada50b787dae904df11716339da4a9530",
+      "bytes": 2445,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/tests/face-recognition-tests.json",
+      "sha256": "c80cd7e6e2283ce5630207ce18e4e0f8bbbe592d1814325aa1db3aad6802fa55",
+      "bytes": 2116,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/tests/face-tests.json",
+      "sha256": "c933ec3294a0a03a58c1c0500efb0c1eea7b15edc1f4e55c534c067c574fc81c",
+      "bytes": 3615,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/face-recognition-2026-11-15/verification.json",
+      "sha256": "f608131882f7067b7b3828e4743656465ebb7b847e611f1fa0d4d179a4e12b40",
+      "bytes": 471,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "MachineLearning/human_face/models/face_detection_yunet_2023mar.onnx",
+      "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+      "bytes": 232589,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "MachineLearning/human_face/models/LICENSE-YuNet.txt",
+      "sha256": "c83b8120c50ccbd4c4f96edf53141bdd566ebb8f8e9227e415326aa1b1aba958",
+      "bytes": 1085,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "MachineLearning/human_face/models/README.md",
+      "sha256": "06b776c7da368aec74310a3fa8b18c268b2a8c784363be38da2bdb15c6a7f4ae",
+      "bytes": 1044,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "MachineLearning/human_face/models/yunet-provenance.json",
+      "sha256": "e3d8cd239b4e6f21be83cc2baf287ec5d7bea0c8d03262700cdc29eb28436e9c",
+      "bytes": 958,
+      "hash_mode": "exact bytes; Git -text"
+    }
+  ]
+}

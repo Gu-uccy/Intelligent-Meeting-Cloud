@@ -1,0 +1,164 @@
+{
+  "scope": "Development comparison on previously seen CMU; not new independent validation",
+  "manifest_sha256": "fcf1bdac7e9f0e8a618c150b2d9349a1cd889dc0829a7746167f699596348353",
+  "model_sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+  "protocol_sha256": "2a4489876099a6a07bf9edd0a299b837dbfc4fb3b2fd82cbc37be394fbada61b",
+  "test_features_extracted_in_selection_stage": 0,
+  "selected": {
+    "backend": "yunet-06",
+    "feature_mode": "aligned-root-lbp",
+    "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1",
+    "threshold": 0.7936409785305589,
+    "calibration": {
+      "accuracy": 0.8433179723502304,
+      "far": 0.03305785123966942,
+      "frr": 0.3125,
+      "known_identification_accuracy": 0.6875,
+      "known_count": 96,
+      "unknown_count": 121,
+      "known_correct": 66,
+      "known_rejected": 30,
+      "wrong_identity": 0,
+      "unknown_accepted": 4,
+      "unknown_rejected": 117,
+      "known_detection_failures": 6,
+      "unknown_detection_failures": 15,
+      "conditional_on_detection": {
+        "known_count": 90,
+        "unknown_count": 106,
+        "known_identification_accuracy": 0.7333333333333333,
+        "far": 0.03773584905660377
+      }
+    },
+    "development_extraction": {
+      "True": 378,
+      "False": 31
+    }
+  },
+  "candidates": [
+    {
+      "backend": "yunet-06",
+      "feature_mode": "bbox-lbp",
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1",
+      "threshold": 0.7756757458169413,
+      "calibration": {
+        "accuracy": 0.8248847926267281,
+        "far": 0.04132231404958678,
+        "frr": 0.34375,
+        "known_identification_accuracy": 0.65625,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 63,
+        "known_rejected": 33,
+        "wrong_identity": 0,
+        "unknown_accepted": 5,
+        "unknown_rejected": 116,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7,
+          "far": 0.04716981132075472
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-lbp",
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-lbp-v1",
+      "threshold": 0.771919949448983,
+      "calibration": {
+        "accuracy": 0.8248847926267281,
+        "far": 0.049586776859504134,
+        "frr": 0.3333333333333333,
+        "known_identification_accuracy": 0.6666666666666666,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 64,
+        "known_rejected": 32,
+        "wrong_identity": 0,
+        "unknown_accepted": 6,
+        "unknown_rejected": 115,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7111111111111111,
+          "far": 0.05660377358490566
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "bbox-root-lbp",
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-bbox-root-lbp-v1",
+      "threshold": 0.802482016806067,
+      "calibration": {
+        "accuracy": 0.8387096774193549,
+        "far": 0.04132231404958678,
+        "frr": 0.3125,
+        "known_identification_accuracy": 0.6875,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 66,
+        "known_rejected": 30,
+        "wrong_identity": 0,
+        "unknown_accepted": 5,
+        "unknown_rejected": 116,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7333333333333333,
+          "far": 0.04716981132075472
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1",
+      "threshold": 0.7936409785305589,
+      "calibration": {
+        "accuracy": 0.8433179723502304,
+        "far": 0.03305785123966942,
+        "frr": 0.3125,
+        "known_identification_accuracy": 0.6875,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 66,
+        "known_rejected": 30,
+        "wrong_identity": 0,
+        "unknown_accepted": 4,
+        "unknown_rejected": 117,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7333333333333333,
+          "far": 0.03773584905660377
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    }
+  ]
+}

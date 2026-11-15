@@ -85,6 +85,19 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b))
 
 
+def extract_root_feature(gray):
+    """Per-cell L1 normalization and square-root histogram embedding, 2891 dims.
+
+    Dot products then compare square-root histogram distributions, reducing the
+    dominance of large bins. Does not alter the historical extract_feature API.
+    """
+    feature = extract_feature(gray).reshape(GRID*GRID,UNIFORM_BINS)
+    sums = feature.sum(axis=1,keepdims=True)
+    feature = np.sqrt(np.divide(feature,sums,out=np.zeros_like(feature),where=sums>0)).ravel()
+    norm = np.linalg.norm(feature)
+    return feature/norm if norm>0 else feature
+
+
 def match(gallery, probe_feature):
     """与注册库比对：返回 (最佳身份, 最高相似度, 全部相似度)"""
     best_id, best_sim = None, -1.0

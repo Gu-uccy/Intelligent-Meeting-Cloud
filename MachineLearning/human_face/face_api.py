@@ -23,15 +23,26 @@ from flask_cors import CORS
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR.parents[1] / "week5" / "scripts"))
 from preprocess_face import preprocess_face
-from lbp_face import extract_feature, match
+from lbp_face import extract_feature, extract_root_feature, match
 from face_detection import DEFAULT_DETECTOR, create_detector, crop_single_face
+from face_alignment import align_single_face
+
+DEFAULT_FEATURE_MODE = 'aligned-root-lbp'
+FEATURE_MODES = ('bbox-lbp','aligned-lbp','bbox-root-lbp','aligned-root-lbp')
 
 
 class FacePipeline:
     """Library detection followed by two custom image-processing stages."""
-    def __init__(self, detector_backend=None):
+    def __init__(self, detector_backend=None, feature_mode=None):
         self.detector = create_detector(detector_backend or os.environ.get('FACE_DETECTOR', DEFAULT_DETECTOR))
+        self.feature_mode = feature_mode or os.environ.get('FACE_FEATURE_MODE', DEFAULT_FEATURE_MODE)
+        if self.feature_mode not in FEATURE_MODES:
+            raise ValueError('Invalid FACE_FEATURE_MODE')
+        if self.feature_mode.startswith('aligned') and not hasattr(self.detector,'detect_faces'):
+            raise ValueError('Aligned features require a landmark detector')
         self.profile = self.detector.profile
+        if self.feature_mode != 'bbox-lbp':
+            self.profile = self.profile + '-' + self.feature_mode + '-v1'
 
     def __call__(self, content):
         if not content:
@@ -42,8 +53,10 @@ class FacePipeline:
             raise ValueError("Invalid or oversized image") from exc
         if image is None or image.size > 24_000_000:
             raise ValueError("Invalid or oversized image")
-        crop = crop_single_face(image, self.detector.detect(image))
-        return extract_feature(preprocess_face(crop))
+        crop = (align_single_face(image,self.detector.detect_faces(image)) if self.feature_mode.startswith('aligned')
+                else crop_single_face(image,self.detector.detect(image)))
+        gray = preprocess_face(crop)
+        return extract_root_feature(gray) if 'root' in self.feature_mode else extract_feature(gray)
 
 
 def simulation_door_control(base_url):
@@ -70,6 +83,7 @@ def create_app(config=None, pipeline=None, controller=None):
         FACE_THRESHOLD=os.environ.get("FACE_THRESHOLD"),
         FACE_THRESHOLD_PROFILE=os.environ.get("FACE_THRESHOLD_PROFILE", ""),
         FACE_DETECTOR=os.environ.get("FACE_DETECTOR", DEFAULT_DETECTOR),
+        FACE_FEATURE_MODE=os.environ.get('FACE_FEATURE_MODE', DEFAULT_FEATURE_MODE),
         FACE_POLICY_PATH=os.environ.get("FACE_POLICY_PATH", ""),
         FACE_DEVICE_URL=os.environ.get("FACE_DEVICE_URL", "http://127.0.0.1:5058"),
     )
@@ -77,7 +91,7 @@ def create_app(config=None, pipeline=None, controller=None):
     CORS(app, origins=["http://localhost:5173", "http://127.0.0.1:5173"])
     data_dir = Path(app.config["FACE_DATA_DIR"])
     lock = threading.Lock()
-    extract = pipeline or FacePipeline(app.config['FACE_DETECTOR'])
+    extract = pipeline or FacePipeline(app.config['FACE_DETECTOR'],app.config['FACE_FEATURE_MODE'])
     # Injected test extractors do not represent a deployed calibration contract.
     profile = getattr(extract, 'profile', None)
     real_pipeline = isinstance(profile, str)
@@ -133,6 +147,7 @@ def create_app(config=None, pipeline=None, controller=None):
         return jsonify(status="ok", model_name="custom-uniform-LBP",
                        detector_backend=extract.detector.backend if real_pipeline else 'injected-test',
                        feature_profile=profile, threshold_profile=app.config['FACE_THRESHOLD_PROFILE'],
+                       feature_mode=extract.feature_mode if isinstance(extract, FacePipeline) else 'injected-test',
                        threshold=app.config["FACE_THRESHOLD"], calibrated=False,
                        mode="simulation-only", enrollment_enabled=bool(app.config["FACE_ADMIN_TOKEN"]),
                        note="Threshold requires authorized calibration; no liveness detection")
