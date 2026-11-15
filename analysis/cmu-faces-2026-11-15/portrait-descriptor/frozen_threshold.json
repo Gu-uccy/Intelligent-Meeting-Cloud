@@ -1,0 +1,9 @@
+{
+  "threshold": 0.8993704511012635,
+  "selection": "calibration only; FAR <= 0.05, then minimum known errors, then lower FAR/higher threshold",
+  "manifest_sha256": "fcf1bdac7e9f0e8a618c150b2d9349a1cd889dc0829a7746167f699596348353",
+  "pipeline": "portrait-descriptor",
+  "created_before_test_extraction": true,
+  "created_at": "2026-11-15T06:00:51.982394+00:00",
+  "production_use": false
+}

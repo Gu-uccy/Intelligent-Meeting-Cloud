@@ -1,5 +1,7 @@
 # 第5-6周项目实践作业提交说明（week5）
 
+> 2026-11-15更新：已完成CMU公开图像离线评估（20人624张），见 [CMU报告与复现命令](../analysis/cmu-faces-2026-11-15/README.md)。主流程已知正确14/90、FAR2/125、FRR76/90，检测效果待改进；肖像特征诊断85/90不能替代主流程。现场相机、目标树莓派及实体门禁仍待验。下文保留早期交付结构和历史结果，当前实现/状态以新报告及 [续作验收记录](../analysis/taskbook-v3-2026-11-14/续作验收记录.md) 为准。
+
 本文件夹为《智能会议室管理系统III》第5周与第6周（验收周）人脸识别 + 3D 优化任务的全部提交内容，与本组综II人脸识别服务（`human_face/face_api.py`）、门禁系统（`chapter9/10 smart_door_system*.py`）、3D 场景（`Room3D`）配套。
 
 ```
@@ -67,13 +69,13 @@ week5/
 ```powershell
 # 算法自测评估（已运行，可重跑）
 cd week5
-python scripts/run_face_eval.py
+python scripts/run_face_eval.py --self-test --output-dir ../.codex-run-logs/face-synthetic-recheck
 
 # 3D 场景初版（浏览器直接打开）
 start 3d/scene_preview.html
 
 # 真实人脸评估（需本地测试集，见 tests/face_test_protocol.md）
-python scripts/run_face_eval.py --data-dir D:\face_data\test_set
+python scripts/run_face_eval.py --data-dir D:/AuthorizedFaces --manifest D:/AuthorizedFaces/manifest.csv --authorized --output-dir ../.codex-run-logs/face-authorized-recheck
 
 # Blender 建模（需安装 Blender 3.x）
 blender --background --python scripts/blender_modify_scene.py

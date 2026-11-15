@@ -1,0 +1,167 @@
+{
+  "generated_at": "2026-11-15T06:06:08.183516+00:00",
+  "source_baseline": "b84a750f3085b9d3501dd7837cc7234fcc2ca35c",
+  "scope": "CMU educational offline experiments and synthetic regressions; production configuration unchanged",
+  "dataset_images_and_features_in_repository": false,
+  "files": [
+    {
+      "path": "week5/scripts/cmu_faces.py",
+      "sha256": "356f88e2e63a424d56c7c6e16e028de4998d6f759b50edc009398fccfa998b2a",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/run_face_eval.py",
+      "sha256": "f9991baf247364434daaf9acb689f621022272ff00c4bf4454de0925de2493ff",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/preprocess_face.py",
+      "sha256": "41b2fc12df1f2c14cf9d104af55689caace56c05f77ae2bb453e0d103cdb0066",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/lbp_face.py",
+      "sha256": "cd0dc79ed0afcf49093f92543dcbb8925ca523aaac85919041567b3302cde275",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_api.py",
+      "sha256": "24fc2991c8cda1197caced6b7609cc58ca1297e317793893a514976b6841c1bb",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/requirements.txt",
+      "sha256": "cf3871b65712576d1e089d4807bcad716ace10b2cda1f1eee301bd5bbc311c64",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_cmu_faces.py",
+      "sha256": "247a846e1be117c51c305f6adbe58fa78a9100583726e666dbfa9d45f09da960",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_face_pipeline.py",
+      "sha256": "3a365133a27f53100c7fddae66bf962c1b49adff865fe834bbd8799904111852",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "a2893563e7ff162c66517162c9723a155455f779d1b9abba0c951ecbb172f0fc",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/README_FACE_API.md",
+      "sha256": "24c497fb73b87bca5980c6ffee687e655bccdc275f36e2926e9d685743fb9555",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/docs/data_authorization.md",
+      "sha256": "30094d411d528dc2b2adc8599334187f9a1fb6d50a3997800b00418ad5ce038e",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/tests/face_test_record.md",
+      "sha256": "8fccc97c6c4d6f36c439b10b2ea79a8aed49a97769eb49c37a434e15cb4635be",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/README.md",
+      "sha256": "d3617c34280d6277bab8b9dae2cd9838fb498c2056da33e39cdd3fefbfb99c7d",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "analysis/taskbook-v3-2026-11-14/续作验收记录.md",
+      "sha256": "e4d9fc32760e283af1136c8275cd9910bcb0909e51b654d4f4c968264fba0d8c",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/final-2026-11-14/README.md",
+      "sha256": "1ca45c05f5e0b56db80253cbcbc77ccc27b89e87fc793d1df5864a370a87613c",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/dataset-manifest.csv",
+      "sha256": "fcf1bdac7e9f0e8a618c150b2d9349a1cd889dc0829a7746167f699596348353",
+      "bytes": 80290,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/portrait-descriptor/calibration_curve.csv",
+      "sha256": "b041243b6f50afb880e4d47a0afcc03634cc5154fb3f3b41a3355c35ca3f6d5c",
+      "bytes": 41181,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/portrait-descriptor/face_eval_result.json",
+      "sha256": "0d63e841454f1fee34557cdc5da196190f7d295a48b6bd823656d8402cd4f781",
+      "bytes": 6243,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/portrait-descriptor/frozen_threshold.json",
+      "sha256": "b8ddac727adc2369c7082734b668a7be657d3a1a53544b4807bd51b03e3ed645",
+      "bytes": 400,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/portrait-descriptor/per_image_results.csv",
+      "sha256": "772bcafcf9b00238f865f3dd942c07a9dfec8ec6ce1518fe640b6bebbfa47028",
+      "bytes": 66292,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/provenance.json",
+      "sha256": "5fc21f33afc4bdff63e23d33c06dede514bc379317b4720af7d5d29be7e5ddbe",
+      "bytes": 2111,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/README.md",
+      "sha256": "37cc84f12247378ac0cadc4800e59e2bf01a04d7693064ca266e9cca12f69831",
+      "bytes": 7603,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/service/calibration_curve.csv",
+      "sha256": "0e22cd975a4694e7bdd130edab50432381ac0ced2d84bbc2b595c3c4dac89bf0",
+      "bytes": 13918,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/service/face_eval_result.json",
+      "sha256": "0dae2f6ae2f03efe6a9327cfe87a2d2ff997b7bda00a65147f1e234293f77933",
+      "bytes": 6481,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/service/frozen_threshold.json",
+      "sha256": "a784e0051364cdc721c7556f77cfab2efd31e48a11667e8d47cd46c2cc160ead",
+      "bytes": 388,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/service/per_image_results.csv",
+      "sha256": "b8e6e1368204e64eefff819b3bf8d6ad7a3fce471fe11963a9a41953f3740cf2",
+      "bytes": 77632,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/tests/cmu-protocol-tests.json",
+      "sha256": "8c877c599fe1d70cc6bf78437f4d8c46da9ce85294bbfece70569efd5f82eb4a",
+      "bytes": 1642,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/tests/face-tests.json",
+      "sha256": "be18674dd6556fdee554f36f9a2d80ca4bb9d21a07d7a6035d9bb1983a158658",
+      "bytes": 3621,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-faces-2026-11-15/verification.json",
+      "sha256": "1f7aed7d8b01740402a1ec31605d47308bbef18ea1b5e30fd81a77fea2c67247",
+      "bytes": 2066,
+      "hash_mode": "exact bytes; Git -text"
+    }
+  ]
+}

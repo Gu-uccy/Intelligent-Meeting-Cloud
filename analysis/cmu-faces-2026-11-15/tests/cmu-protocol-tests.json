@@ -1,0 +1,50 @@
+{
+  "scope": "Synthetic CMU protocol regression; no photographs or GPIO",
+  "generated_at": "2026-11-15T06:02:00.299252+00:00",
+  "records": [
+    {
+      "name": "test_all_detection_failures_are_rejections_and_stay_in_denominators (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_all_failed_calibration_cannot_claim_useful_recognition (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_archive_rejects_traversal_absolute_links_and_special_members (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_calibration_balances_correct_accepts_under_far_constraint (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_missing_gallery_prediction_cannot_accept (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_no_eligible_calibration_does_not_invent_threshold (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_originals_exclude_scaled_and_bad_variants (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_partitions_are_reproducible_disjoint_and_keep_every_image (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_tampered_manifest_is_rejected_before_evaluation (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_test_images_are_processed_after_freeze_and_cannot_change_threshold (__main__.Protocol)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_wrong_known_identity_is_not_a_correct_accept (__main__.Protocol)",
+      "status": "PASS"
+    }
+  ]
+}

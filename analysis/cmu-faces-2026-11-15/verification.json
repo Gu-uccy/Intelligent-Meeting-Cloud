@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-11-15T06:06:08.127281+00:00",
+  "status": "PASS",
+  "scope": "Evidence consistency audit, not a recognition quality or device acceptance pass",
+  "experiments": {
+    "service": {
+      "held_out_test": {
+        "accuracy": 0.6372093023255814,
+        "far": 0.016,
+        "frr": 0.8444444444444444,
+        "known_identification_accuracy": 0.15555555555555556,
+        "known_count": 90,
+        "unknown_count": 125,
+        "known_correct": 14,
+        "known_rejected": 76,
+        "wrong_identity": 0,
+        "unknown_accepted": 2,
+        "unknown_rejected": 123,
+        "known_detection_failures": 69,
+        "unknown_detection_failures": 96,
+        "conditional_on_detection": {
+          "known_count": 21,
+          "unknown_count": 29,
+          "known_identification_accuracy": 0.6666666666666666,
+          "far": 0.06896551724137931
+        }
+      },
+      "attempted": 624,
+      "dataset_hash_verified": true,
+      "csv_metrics_match_json": true,
+      "threshold_recomputed_using_calibration_only": true
+    },
+    "portrait-descriptor": {
+      "held_out_test": {
+        "accuracy": 0.9767441860465116,
+        "far": 0.0,
+        "frr": 0.05555555555555555,
+        "known_identification_accuracy": 0.9444444444444444,
+        "known_count": 90,
+        "unknown_count": 125,
+        "known_correct": 85,
+        "known_rejected": 5,
+        "wrong_identity": 0,
+        "unknown_accepted": 0,
+        "unknown_rejected": 125,
+        "known_detection_failures": 0,
+        "unknown_detection_failures": 0,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 125,
+          "known_identification_accuracy": 0.9444444444444444,
+          "far": 0.0
+        }
+      },
+      "attempted": 624,
+      "dataset_hash_verified": true,
+      "csv_metrics_match_json": true,
+      "threshold_recomputed_using_calibration_only": true
+    }
+  },
+  "regression_tests_passed": 36,
+  "new_local_report_links_valid": true
+}
