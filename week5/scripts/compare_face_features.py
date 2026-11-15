@@ -22,7 +22,7 @@ def compare(args):
     development=[r for r in rows if r['split']=='enroll']+[r for r in rows if r['split']=='calibration']
     candidates=[]
     for feature_mode in FEATURE_MODES:
-        pipeline=FacePipeline(detector_backend='yunet-06',feature_mode=feature_mode)
+        pipeline=FacePipeline(detector_backend='yunet-06',feature_mode=feature_mode,alignment_scale=1.0,lbp_grid=7)
         gallery,records={},[]
         for row in development:
             start=time.perf_counter();feature=prediction=score=None;error=''

@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-11-15T07:08:39.490593+00:00",
+  "status": "PASS",
+  "scope": "Consistency/regression verification of same-dataset tuning; not independent or device acceptance",
+  "nine_candidate_selection_reproduced": true,
+  "final_predictions_reproduced": true,
+  "csv_json_metrics_match": true,
+  "frozen_selection_hash_matches": true,
+  "old_three_evidence_directories_unchanged": true,
+  "regression_tests_passed": 80,
+  "localhost_http_checks_passed": 5,
+  "new_report_links_valid": true
+}

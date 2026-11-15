@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-11-15T07:04:56.493595+00:00",
+  "scope": "Synthetic similarity geometry, Root-LBP, feature versions and development-selection isolation; no private data or GPIO",
+  "records": [
+    {
+      "name": "test_alignment_does_not_fall_back_to_bbox (__main__.Alignment)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_bad_or_degenerate_landmarks_rejected (__main__.Alignment)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_feature_modes_and_versions_are_explicit (__main__.Alignment)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_identity_alignment_preserves_pixels (__main__.Alignment)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_identity_and_known_similarity_transform (__main__.Alignment)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_landmarks_map_back_with_boxes (__main__.Alignment)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_missing_multiple_and_outside_landmarks_rejected (__main__.Alignment)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_no_reflection_even_for_mirrored_landmarks (__main__.Alignment)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_previous_yunet_features_and_threshold_do_not_mix (__main__.FeatureContract)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_empty_bins_do_not_divide_by_zero (__main__.RootHistogram)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_finite_normalized_features_and_equal_cell_weights (__main__.RootHistogram)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_histogram_square_root_matches_hand_calculation (__main__.RootHistogram)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_historical_feature_unchanged (__main__.RootHistogram)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_feature_selection_uses_only_development_features_and_fixed_order (__main__.Selection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_selection_feature_version_mismatch_stops_before_test (__main__.Selection)",
+      "status": "PASS"
+    }
+  ]
+}

@@ -23,26 +23,46 @@ from flask_cors import CORS
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR.parents[1] / "week5" / "scripts"))
 from preprocess_face import preprocess_face
-from lbp_face import extract_feature, extract_root_feature, match
+from lbp_face import extract_feature, extract_root_grid_feature, match
 from face_detection import DEFAULT_DETECTOR, create_detector, crop_single_face
 from face_alignment import align_single_face
 
 DEFAULT_FEATURE_MODE = 'aligned-root-lbp'
+DEFAULT_ALIGNMENT_SCALE = .85
+DEFAULT_LBP_GRID = 4
 FEATURE_MODES = ('bbox-lbp','aligned-lbp','bbox-root-lbp','aligned-root-lbp')
 
 
 class FacePipeline:
     """Library detection followed by two custom image-processing stages."""
-    def __init__(self, detector_backend=None, feature_mode=None):
+    def __init__(self, detector_backend=None, feature_mode=None, alignment_scale=None, lbp_grid=None):
         self.detector = create_detector(detector_backend or os.environ.get('FACE_DETECTOR', DEFAULT_DETECTOR))
         self.feature_mode = feature_mode or os.environ.get('FACE_FEATURE_MODE', DEFAULT_FEATURE_MODE)
         if self.feature_mode not in FEATURE_MODES:
             raise ValueError('Invalid FACE_FEATURE_MODE')
         if self.feature_mode.startswith('aligned') and not hasattr(self.detector,'detect_faces'):
             raise ValueError('Aligned features require a landmark detector')
+        mode_defaults=(DEFAULT_ALIGNMENT_SCALE,DEFAULT_LBP_GRID) if self.feature_mode=='aligned-root-lbp' else (1.0,7)
+        try:
+            self.alignment_scale=float(alignment_scale if alignment_scale is not None else os.environ.get('FACE_ALIGNMENT_SCALE',mode_defaults[0]))
+        except (TypeError,ValueError) as exc:
+            raise ValueError('Invalid FACE_ALIGNMENT_SCALE') from exc
+        raw_grid=lbp_grid if lbp_grid is not None else os.environ.get('FACE_LBP_GRID',mode_defaults[1])
+        try:
+            grid_number=float(raw_grid)
+            self.lbp_grid=int(grid_number)
+        except (TypeError,ValueError,OverflowError) as exc:
+            raise ValueError('Invalid FACE_LBP_GRID') from exc
+        if self.alignment_scale not in (.85,1.0,1.15) or (not self.feature_mode.startswith('aligned') and self.alignment_scale!=1):
+            raise ValueError('Invalid FACE_ALIGNMENT_SCALE for this feature mode')
+        if grid_number!=self.lbp_grid or self.lbp_grid not in (4,7,8) or ('root' not in self.feature_mode and self.lbp_grid!=7):
+            raise ValueError('Invalid FACE_LBP_GRID for this feature mode')
+        self.feature_dimensions=self.lbp_grid**2*59
         self.profile = self.detector.profile
         if self.feature_mode != 'bbox-lbp':
             self.profile = self.profile + '-' + self.feature_mode + '-v1'
+        if self.alignment_scale!=1.0 or self.lbp_grid!=7:
+            self.profile+=f'-align{self.alignment_scale:g}-grid{self.lbp_grid}-v1'
 
     def __call__(self, content):
         if not content:
@@ -53,10 +73,10 @@ class FacePipeline:
             raise ValueError("Invalid or oversized image") from exc
         if image is None or image.size > 24_000_000:
             raise ValueError("Invalid or oversized image")
-        crop = (align_single_face(image,self.detector.detect_faces(image)) if self.feature_mode.startswith('aligned')
+        crop = (align_single_face(image,self.detector.detect_faces(image),self.alignment_scale) if self.feature_mode.startswith('aligned')
                 else crop_single_face(image,self.detector.detect(image)))
         gray = preprocess_face(crop)
-        return extract_root_feature(gray) if 'root' in self.feature_mode else extract_feature(gray)
+        return extract_root_grid_feature(gray,self.lbp_grid) if 'root' in self.feature_mode else extract_feature(gray)
 
 
 def simulation_door_control(base_url):
@@ -84,6 +104,8 @@ def create_app(config=None, pipeline=None, controller=None):
         FACE_THRESHOLD_PROFILE=os.environ.get("FACE_THRESHOLD_PROFILE", ""),
         FACE_DETECTOR=os.environ.get("FACE_DETECTOR", DEFAULT_DETECTOR),
         FACE_FEATURE_MODE=os.environ.get('FACE_FEATURE_MODE', DEFAULT_FEATURE_MODE),
+        FACE_ALIGNMENT_SCALE=os.environ.get('FACE_ALIGNMENT_SCALE'),
+        FACE_LBP_GRID=os.environ.get('FACE_LBP_GRID'),
         FACE_POLICY_PATH=os.environ.get("FACE_POLICY_PATH", ""),
         FACE_DEVICE_URL=os.environ.get("FACE_DEVICE_URL", "http://127.0.0.1:5058"),
     )
@@ -91,11 +113,14 @@ def create_app(config=None, pipeline=None, controller=None):
     CORS(app, origins=["http://localhost:5173", "http://127.0.0.1:5173"])
     data_dir = Path(app.config["FACE_DATA_DIR"])
     lock = threading.Lock()
-    extract = pipeline or FacePipeline(app.config['FACE_DETECTOR'],app.config['FACE_FEATURE_MODE'])
+    extract = pipeline or FacePipeline(app.config['FACE_DETECTOR'],app.config['FACE_FEATURE_MODE'],
+                                      app.config['FACE_ALIGNMENT_SCALE'],app.config['FACE_LBP_GRID'])
     # Injected test extractors do not represent a deployed calibration contract.
     profile = getattr(extract, 'profile', None)
     real_pipeline = isinstance(profile, str)
     profile = profile if real_pipeline else 'injected-test-v1'
+    feature_dimensions=getattr(extract,'feature_dimensions',2891)
+    feature_dimensions=feature_dimensions if isinstance(feature_dimensions,int) else 2891
     control = controller or (lambda: simulation_door_control(app.config["FACE_DEVICE_URL"]))
 
     def gallery():
@@ -106,7 +131,7 @@ def create_app(config=None, pipeline=None, controller=None):
                 if item.get('feature_profile') != profile:
                     raise ValueError('人脸特征版本不匹配，请按当前检测流程重新登记和标定')
                 vectors = [np.asarray(v, dtype=float) for v in item["features"]]
-                if any(v.shape != (2891,) or not np.isfinite(v).all() for v in vectors):
+                if any(v.shape != (feature_dimensions,) or not np.isfinite(v).all() for v in vectors):
                     raise ValueError("Invalid gallery feature")
                 result[path.stem] = vectors
         return result
@@ -148,6 +173,9 @@ def create_app(config=None, pipeline=None, controller=None):
                        detector_backend=extract.detector.backend if real_pipeline else 'injected-test',
                        feature_profile=profile, threshold_profile=app.config['FACE_THRESHOLD_PROFILE'],
                        feature_mode=extract.feature_mode if isinstance(extract, FacePipeline) else 'injected-test',
+                       feature_dimensions=feature_dimensions,
+                       alignment_scale=extract.alignment_scale if isinstance(extract,FacePipeline) else None,
+                       lbp_grid=extract.lbp_grid if isinstance(extract,FacePipeline) else None,
                        threshold=app.config["FACE_THRESHOLD"], calibrated=False,
                        mode="simulation-only", enrollment_enabled=bool(app.config["FACE_ADMIN_TOKEN"]),
                        note="Threshold requires authorized calibration; no liveness detection")

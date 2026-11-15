@@ -34,7 +34,9 @@ def similarity_transform(source, target=REFERENCE_POINTS):
     return transform
 
 
-def align_single_face(image, faces):
+def align_single_face(image, faces, template_scale=1.0):
+    if template_scale not in (.85,1.0,1.15):
+        raise ValueError('Alignment scale must be 0.85, 1.0 or 1.15')
     if len(faces) != 1:
         raise ValueError(f'Exactly one detectable face is required (found {len(faces)})')
     face = np.asarray(faces[0],dtype=float)
@@ -46,6 +48,7 @@ def align_single_face(image, faces):
         raise ValueError('Face landmarks outside the image')
     if np.linalg.norm(points[0]-points[1]) < 1:
         raise ValueError('Degenerate face landmarks')
-    transform=similarity_transform(points)
+    target=56+(REFERENCE_POINTS-56)*template_scale
+    transform=similarity_transform(points,target)
     return cv2.warpAffine(image,transform,(112,112),flags=cv2.INTER_LINEAR,
                           borderMode=cv2.BORDER_CONSTANT,borderValue=0)

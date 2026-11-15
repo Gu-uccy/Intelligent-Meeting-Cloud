@@ -1,0 +1,339 @@
+{
+  "generated_at": "2026-11-15T07:08:39.579291+00:00",
+  "source_baseline": "1a701588b315c122bea07afa2397f9886a32b710",
+  "scope": "User-requested same-CMU alignment/grid tuning; development evidence only",
+  "photos_or_gallery_features_in_commit": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "0e935c2b8cf6a959fa22bd9149dee02401c313ac5278544c2729d1bfbe015e79",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_alignment.py",
+      "sha256": "b99c7a2239bef2fc440e4f88a51039e8041bef756f758c07037c39c90bed44df",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_api.py",
+      "sha256": "2f59afe62cab1855c13caa7b8250a491e0b843466fc85998896bd3c3a6a29cec",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_detection.py",
+      "sha256": "cc19c0e98082072c58f6b61dbe063046ecaf5b6657e4465d60a8f7dd83768def",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/lbp_face.py",
+      "sha256": "c6beaf4cda109d48b9b0b077ec84d8a4f42d37d6c41de8142ddc303c342e7540",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/preprocess_face.py",
+      "sha256": "41b2fc12df1f2c14cf9d104af55689caace56c05f77ae2bb453e0d103cdb0066",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/cmu_faces.py",
+      "sha256": "c643f3a2aee6bd2233b114aa4e2c9efd1b51601e1828af173ccfa23a820e207b",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/tune_cmu_parameters.py",
+      "sha256": "edbc3149691e55983c6207be125544042c037ac7ed7c37978759dc3febdb7d50",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/compare_face_features.py",
+      "sha256": "f6841f497ef38ea20ce682b63409b85ce69f7a2f74be435f8b24fecab95760ab",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/compare_face_detectors.py",
+      "sha256": "b709ac659de9c088224d0e94742eced11bf55aded0694112ea83457bea5eb664",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_cmu_tuning.py",
+      "sha256": "cd890e1f6e57e3b2a765e33c5cd79dda5154e85f48ae410160c9565eba6d6a6f",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_face_recognition.py",
+      "sha256": "46b6106f4c3353789929e9300a7a1f7ff3f59436c7fa267688566f49ac0de8b4",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_face_detection.py",
+      "sha256": "071e4d1073f8a0e8959066c965e92133bc1da0e2ef4c808245ac10aa2e22dd2a",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_face_pipeline.py",
+      "sha256": "3a365133a27f53100c7fddae66bf962c1b49adff865fe834bbd8799904111852",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_cmu_faces.py",
+      "sha256": "247a846e1be117c51c305f6adbe58fa78a9100583726e666dbfa9d45f09da960",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/README_FACE_API.md",
+      "sha256": "88970292deaefd87281b00edb35f8d1117ecdd92eddf9e1ed23ef02593da4c35",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/README.md",
+      "sha256": "86675c92bbb815200a6014ba129940fd21bba5041fdd733fe9481f9e92864ee5",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/docs/algorithm_notes.md",
+      "sha256": "5a5f9deaf4b914276a5a7abfe54310a41f0a5a34e3662dd0820dbdd7b33f2fef",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/docs/data_authorization.md",
+      "sha256": "59b32df3be475ed97c8c28bc31c8ec61a5622cf28388f4d97204b435892e2058",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/docs/face_recognition_flow.md",
+      "sha256": "fc3304d599a5fb7ca465c506e8896f5cfa25ffb6eeec10cfa8fe7f19a4ae37e6",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/tests/face_test_record.md",
+      "sha256": "360c252c437965802ce46b60da9a99e89680d10a5a6ee8d406afb3cf7c43b00c",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/final-2026-11-14/README.md",
+      "sha256": "d55e051bc4d7dcd628663592cac5fc54467924a10c3627261dff954cf2b272bb",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "analysis/taskbook-v3-2026-11-14/\u7eed\u4f5c\u9a8c\u6536\u8bb0\u5f55.md",
+      "sha256": "bb9ec28988795c0df5e2e37ecff8213740f10615710dd881e8254244916b2158",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align0.85-grid4/calibration.json",
+      "sha256": "7ce1b0ab81261eed9e346cc5630398fde54689c8d2faf07ccbc50742b90fcf98",
+      "bytes": 1012,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align0.85-grid4/development_results.csv",
+      "sha256": "68d605c26c6599baa4d1b58bce6f7f78fd776d1417fd47a77e66701226e84589",
+      "bytes": 43593,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align0.85-grid7/calibration.json",
+      "sha256": "d8b0d2f55bb5666f74cb788dfbcbf809486037e698955a37246c78bb8296424e",
+      "bytes": 989,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align0.85-grid7/development_results.csv",
+      "sha256": "729846b27e6813643e2b5c0407ef19f33e7cae422b043df8ab5c3dc8bca25275",
+      "bytes": 43628,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align0.85-grid8/calibration.json",
+      "sha256": "7483774c22b745e92fffa3edd33f27aa3383a63e96e819a0c1c808c1380369b9",
+      "bytes": 990,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align0.85-grid8/development_results.csv",
+      "sha256": "dc9ed01052300d7e191e0f595d9de8da94197f30c82869512f3f959b09a7cef9",
+      "bytes": 43605,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1-grid4/calibration.json",
+      "sha256": "6a3969c92c33ec73480f1d15ffaae09a5012437c93b0b173d6d702119fc57139",
+      "bytes": 1007,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1-grid4/development_results.csv",
+      "sha256": "4b7df26c22d25b9a5a60955ac4ae1c13d0f0b61e0e4b69ede73d52cc8dc16af4",
+      "bytes": 43620,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1-grid7/calibration.json",
+      "sha256": "7f4fca3b57c5f7fb0b5c0898f61f5d452aac32e7cfe8208c201eee226d02af83",
+      "bytes": 967,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1-grid7/development_results.csv",
+      "sha256": "5a1e663b38bd8020d68319802fcf549cdb6599b58b1602ac95b288b6d11320ad",
+      "bytes": 43492,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1-grid8/calibration.json",
+      "sha256": "5c66cba58b7d5ae5fb152f951102d3b8b37ece8876783505508c245a4934a904",
+      "bytes": 984,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1-grid8/development_results.csv",
+      "sha256": "4db8cb0588e501bc48099d7aff98c16a7be8792c08e4812cef6f8d7af69e8d31",
+      "bytes": 43607,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1.15-grid4/calibration.json",
+      "sha256": "9ef3cf17920bcb89f09512a4c7ba410d36e9b5957e7d8169f0e5dab99173d537",
+      "bytes": 974,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1.15-grid4/development_results.csv",
+      "sha256": "6c895b79589cd34002faa57085624072694ab7f6d4a2f7f0bab331a14e6fd4a5",
+      "bytes": 43606,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1.15-grid7/calibration.json",
+      "sha256": "d28d7889b213dc4c31ff2d10a0964b88ba217401bd01697dbcbeaa36972d9304",
+      "bytes": 973,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1.15-grid7/development_results.csv",
+      "sha256": "980a39f123358947ece5c9369f0039aa01fa9f20472614a607b0465a3c173928",
+      "bytes": 43627,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1.15-grid8/calibration.json",
+      "sha256": "4efea69bc98225d5f7bf93abcab0d9fd703320c7ec96729e248b1c81a120b44f",
+      "bytes": 971,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/candidates/align1.15-grid8/development_results.csv",
+      "sha256": "dd304a9a0ba3d78bc13a1ceda631b3522740f582e2015781bc069d88193e0fd8",
+      "bytes": 43623,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/comparison/selection.json",
+      "sha256": "8950a6b7dd01b0c8df5bb6682e08a780cc0e7a57ac8a1b5c6fc1a8f7543e42f1",
+      "bytes": 11668,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/protocol.md",
+      "sha256": "4b8d27e322f492dc97fa8474ff0e79ca2f5a1f1ad4b2aea5ae5f1fb1248c3f79",
+      "bytes": 1786,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/README.md",
+      "sha256": "a1dcf8731c27fab877156cadeedfb059c4c6c635537408b9386b525b3088a1ff",
+      "bytes": 5753,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/runtime-smoke.json",
+      "sha256": "68f9c61f33e317bb980ad489a9a377275b5db1f557b28332c0a482dd644decd9",
+      "bytes": 1374,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/selected/calibration_curve.csv",
+      "sha256": "c0f242624cd174218dc6ae95415d61aed1341735db6ad864e65eaa6d54fa7191",
+      "bytes": 41456,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/selected/face_eval_result.json",
+      "sha256": "3e4072bd7988a7926723b8c36390d74206262ee2204a1db67133a7732560f64f",
+      "bytes": 6929,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/selected/frozen_threshold.json",
+      "sha256": "cc0bf3c94d6b4eadeb3f991f995a121fda90f45ce841dd18cca18cceb4493389",
+      "bytes": 721,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/selected/per_image_results.csv",
+      "sha256": "20d28941e21f2a8adda25064c04be8837b725b52b08a4dc889c0ef86bf88b2da",
+      "bytes": 67558,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/tests/cmu-protocol-tests.json",
+      "sha256": "0993d5b4a62b00749d47af3c48ebe26deefd4d474034104fb3c784a017bc9aa5",
+      "bytes": 1642,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/tests/cmu-tuning-tests.json",
+      "sha256": "8e36d3cbfe46d745ab3439e0ed094008a5e43d5eae720f0f5f35a3747930006f",
+      "bytes": 1699,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/tests/face-detection-tests.json",
+      "sha256": "da545561b747b2a6d62f3eaebc1abe429650a3ed7b291dd6c39be4b38622e6d2",
+      "bytes": 2445,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/tests/face-recognition-tests.json",
+      "sha256": "c83ceaba80a932153abe8931628c7fc95148d51c8c81558fd5aa9ceff47bba39",
+      "bytes": 2116,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/tests/face-tests.json",
+      "sha256": "28633bbae0dda7e677827d37ed809f19e1aadb05a06b7c41602f4d4180277fa4",
+      "bytes": 3617,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/cmu-tuning-2026-11-15/verification.json",
+      "sha256": "081933314b1f71b29ad2f841bb5240bcff50c65229fb435df32480fad5518a0f",
+      "bytes": 517,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "MachineLearning/human_face/models/face_detection_yunet_2023mar.onnx",
+      "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+      "bytes": 232589,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "MachineLearning/human_face/models/LICENSE-YuNet.txt",
+      "sha256": "c83b8120c50ccbd4c4f96edf53141bdd566ebb8f8e9227e415326aa1b1aba958",
+      "bytes": 1085,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "MachineLearning/human_face/models/README.md",
+      "sha256": "06b776c7da368aec74310a3fa8b18c268b2a8c784363be38da2bdb15c6a7f4ae",
+      "bytes": 1044,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "MachineLearning/human_face/models/yunet-provenance.json",
+      "sha256": "e3d8cd239b4e6f21be83cc2baf287ec5d7bea0c8d03262700cdc29eb28436e9c",
+      "bytes": 958,
+      "hash_mode": "exact bytes; Git -text"
+    }
+  ]
+}

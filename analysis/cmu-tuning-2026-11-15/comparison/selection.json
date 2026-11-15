@@ -1,0 +1,349 @@
+{
+  "scope": "User-requested tuning on previously seen CMU; development results, not independent validation",
+  "manifest_sha256": "fcf1bdac7e9f0e8a618c150b2d9349a1cd889dc0829a7746167f699596348353",
+  "model_sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+  "protocol_sha256": "4b8d27e322f492dc97fa8474ff0e79ca2f5a1f1ad4b2aea5ae5f1fb1248c3f79",
+  "test_features_extracted_in_selection_stage": 0,
+  "selected": {
+    "backend": "yunet-06",
+    "feature_mode": "aligned-root-lbp",
+    "alignment_scale": 0.85,
+    "lbp_grid": 4,
+    "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid4-v1",
+    "feature_dimensions": 944,
+    "threshold": 0.9311644386168618,
+    "calibration": {
+      "accuracy": 0.8986175115207373,
+      "far": 0.049586776859504134,
+      "frr": 0.16666666666666666,
+      "known_identification_accuracy": 0.8333333333333334,
+      "known_count": 96,
+      "unknown_count": 121,
+      "known_correct": 80,
+      "known_rejected": 16,
+      "wrong_identity": 0,
+      "unknown_accepted": 6,
+      "unknown_rejected": 115,
+      "known_detection_failures": 6,
+      "unknown_detection_failures": 15,
+      "conditional_on_detection": {
+        "known_count": 90,
+        "unknown_count": 106,
+        "known_identification_accuracy": 0.8888888888888888,
+        "far": 0.05660377358490566
+      }
+    },
+    "development_extraction": {
+      "True": 378,
+      "False": 31
+    }
+  },
+  "candidates": [
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 1.0,
+      "lbp_grid": 7,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1",
+      "feature_dimensions": 2891,
+      "threshold": 0.7936409785305589,
+      "calibration": {
+        "accuracy": 0.8433179723502304,
+        "far": 0.03305785123966942,
+        "frr": 0.3125,
+        "known_identification_accuracy": 0.6875,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 66,
+        "known_rejected": 30,
+        "wrong_identity": 0,
+        "unknown_accepted": 4,
+        "unknown_rejected": 117,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7333333333333333,
+          "far": 0.03773584905660377
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 0.85,
+      "lbp_grid": 4,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid4-v1",
+      "feature_dimensions": 944,
+      "threshold": 0.9311644386168618,
+      "calibration": {
+        "accuracy": 0.8986175115207373,
+        "far": 0.049586776859504134,
+        "frr": 0.16666666666666666,
+        "known_identification_accuracy": 0.8333333333333334,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 80,
+        "known_rejected": 16,
+        "wrong_identity": 0,
+        "unknown_accepted": 6,
+        "unknown_rejected": 115,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.8888888888888888,
+          "far": 0.05660377358490566
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 0.85,
+      "lbp_grid": 7,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid7-v1",
+      "feature_dimensions": 2891,
+      "threshold": 0.8112047132353015,
+      "calibration": {
+        "accuracy": 0.8571428571428571,
+        "far": 0.03305785123966942,
+        "frr": 0.28125,
+        "known_identification_accuracy": 0.71875,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 69,
+        "known_rejected": 27,
+        "wrong_identity": 0,
+        "unknown_accepted": 4,
+        "unknown_rejected": 117,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7666666666666667,
+          "far": 0.03773584905660377
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 0.85,
+      "lbp_grid": 8,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid8-v1",
+      "feature_dimensions": 3776,
+      "threshold": 0.7549988021587485,
+      "calibration": {
+        "accuracy": 0.8755760368663594,
+        "far": 0.049586776859504134,
+        "frr": 0.21875,
+        "known_identification_accuracy": 0.78125,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 75,
+        "known_rejected": 21,
+        "wrong_identity": 0,
+        "unknown_accepted": 6,
+        "unknown_rejected": 115,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.8333333333333334,
+          "far": 0.05660377358490566
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 1.0,
+      "lbp_grid": 4,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align1-grid4-v1",
+      "feature_dimensions": 944,
+      "threshold": 0.9260255512472741,
+      "calibration": {
+        "accuracy": 0.8525345622119815,
+        "far": 0.049586776859504134,
+        "frr": 0.2708333333333333,
+        "known_identification_accuracy": 0.7291666666666666,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 70,
+        "known_rejected": 26,
+        "wrong_identity": 0,
+        "unknown_accepted": 6,
+        "unknown_rejected": 115,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7777777777777778,
+          "far": 0.05660377358490566
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 1.0,
+      "lbp_grid": 8,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align1-grid8-v1",
+      "feature_dimensions": 3776,
+      "threshold": 0.7462974021874702,
+      "calibration": {
+        "accuracy": 0.8341013824884793,
+        "far": 0.049586776859504134,
+        "frr": 0.3125,
+        "known_identification_accuracy": 0.6875,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 66,
+        "known_rejected": 30,
+        "wrong_identity": 0,
+        "unknown_accepted": 6,
+        "unknown_rejected": 115,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7333333333333333,
+          "far": 0.05660377358490566
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 1.15,
+      "lbp_grid": 4,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align1.15-grid4-v1",
+      "feature_dimensions": 944,
+      "threshold": 0.9210034989567657,
+      "calibration": {
+        "accuracy": 0.8341013824884793,
+        "far": 0.024793388429752067,
+        "frr": 0.34375,
+        "known_identification_accuracy": 0.65625,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 63,
+        "known_rejected": 33,
+        "wrong_identity": 0,
+        "unknown_accepted": 3,
+        "unknown_rejected": 118,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.7,
+          "far": 0.02830188679245283
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 1.15,
+      "lbp_grid": 7,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align1.15-grid7-v1",
+      "feature_dimensions": 2891,
+      "threshold": 0.7956370486717805,
+      "calibration": {
+        "accuracy": 0.7788018433179723,
+        "far": 0.049586776859504134,
+        "frr": 0.4375,
+        "known_identification_accuracy": 0.5625,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 54,
+        "known_rejected": 42,
+        "wrong_identity": 0,
+        "unknown_accepted": 6,
+        "unknown_rejected": 115,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.6,
+          "far": 0.05660377358490566
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    },
+    {
+      "backend": "yunet-06",
+      "feature_mode": "aligned-root-lbp",
+      "alignment_scale": 1.15,
+      "lbp_grid": 8,
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align1.15-grid8-v1",
+      "feature_dimensions": 3776,
+      "threshold": 0.7530776266962836,
+      "calibration": {
+        "accuracy": 0.783410138248848,
+        "far": 0.04132231404958678,
+        "frr": 0.4375,
+        "known_identification_accuracy": 0.5625,
+        "known_count": 96,
+        "unknown_count": 121,
+        "known_correct": 54,
+        "known_rejected": 42,
+        "wrong_identity": 0,
+        "unknown_accepted": 5,
+        "unknown_rejected": 116,
+        "known_detection_failures": 6,
+        "unknown_detection_failures": 15,
+        "conditional_on_detection": {
+          "known_count": 90,
+          "unknown_count": 106,
+          "known_identification_accuracy": 0.6,
+          "far": 0.04716981132075472
+        }
+      },
+      "development_extraction": {
+        "True": 378,
+        "False": 31
+      }
+    }
+  ]
+}

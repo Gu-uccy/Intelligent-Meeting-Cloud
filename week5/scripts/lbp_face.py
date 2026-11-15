@@ -98,6 +98,26 @@ def extract_root_feature(gray):
     return feature/norm if norm>0 else feature
 
 
+def extract_root_grid_feature(gray, grid=7):
+    """Root-LBP at a fixed supported grid; cover every pixel with equal partitions."""
+    if grid not in (4,7,8):
+        raise ValueError('Root-LBP grid must be 4, 7 or 8')
+    if gray.shape != (112,112):
+        raise ValueError('LBP requires a preprocessed 112x112 grayscale image')
+    if grid == 7:
+        return extract_root_feature(gray)  # preserve the recorded baseline exactly
+    edges=np.linspace(0,112,grid+1,dtype=int)
+    histograms=[]
+    for gy in range(grid):
+        for gx in range(grid):
+            histogram=lbp_histogram(gray[edges[gy]:edges[gy+1],edges[gx]:edges[gx+1]])
+            total=histogram.sum()
+            histograms.append(np.sqrt(histogram/total) if total>0 else np.zeros(UNIFORM_BINS))
+    feature=np.concatenate(histograms)
+    norm=np.linalg.norm(feature)
+    return feature/norm if norm>0 else feature
+
+
 def match(gallery, probe_feature):
     """与注册库比对：返回 (最佳身份, 最高相似度, 全部相似度)"""
     best_id, best_sim = None, -1.0

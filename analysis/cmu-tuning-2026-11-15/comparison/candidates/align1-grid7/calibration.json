@@ -1,0 +1,34 @@
+{
+  "backend": "yunet-06",
+  "feature_mode": "aligned-root-lbp",
+  "alignment_scale": 1.0,
+  "lbp_grid": 7,
+  "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1",
+  "feature_dimensions": 2891,
+  "threshold": 0.7936409785305589,
+  "calibration": {
+    "accuracy": 0.8433179723502304,
+    "far": 0.03305785123966942,
+    "frr": 0.3125,
+    "known_identification_accuracy": 0.6875,
+    "known_count": 96,
+    "unknown_count": 121,
+    "known_correct": 66,
+    "known_rejected": 30,
+    "wrong_identity": 0,
+    "unknown_accepted": 4,
+    "unknown_rejected": 117,
+    "known_detection_failures": 6,
+    "unknown_detection_failures": 15,
+    "conditional_on_detection": {
+      "known_count": 90,
+      "unknown_count": 106,
+      "known_identification_accuracy": 0.7333333333333333,
+      "far": 0.03773584905660377
+    }
+  },
+  "development_extraction": {
+    "True": 378,
+    "False": 31
+  }
+}

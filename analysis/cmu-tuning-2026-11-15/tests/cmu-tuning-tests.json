@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-11-15T07:07:11.868336+00:00",
+  "scope": "Synthetic grid coverage, parameters, feature dimensions/versions and tuning isolation; no private data or GPIO",
+  "records": [
+    {
+      "name": "test_current_grid_enroll_verify_and_dimensions_validate (__main__.ApiContract)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_old_profile_threshold_and_matching_dimension_do_not_bypass_versions (__main__.ApiContract)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_alignment_template_scale_has_known_mapping (__main__.Parameters)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_all_nonbaseline_grid_pixels_are_covered_once (__main__.Parameters)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_fixed_grid_dimension_finite_norm_and_cell_weights (__main__.Parameters)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_grid7_preserves_prior_root_features_exactly (__main__.Parameters)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_invalid_scales_and_grids_are_rejected_not_rounded (__main__.Parameters)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_nine_parameter_sets_have_distinct_versions_and_baseline_reproduces (__main__.Parameters)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_all_nine_candidates_use_development_only_and_tie_keeps_baseline (__main__.Tuning)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_descriptor_diagnostic_cannot_mislabel_tuned_features (__main__.Tuning)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_parameter_profile_mismatch_stops_before_test (__main__.Tuning)",
+      "status": "PASS"
+    }
+  ]
+}
