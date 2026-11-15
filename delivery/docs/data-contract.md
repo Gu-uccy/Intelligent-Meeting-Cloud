@@ -25,3 +25,5 @@ POST /api/control 的开门示例：
 关门用 false，照明 device=lighting，可传 brightness=0..100。state 必须布尔值；非法类型、越界亮度、未知设备/阈值返回 400。硬件舵机未初始化或 PWM 报错返回 503 和 success=false，不回写成功状态。一台成功而另一台失败时实物可能部分动作，接口没有机械回滚，需现场核对。
 
 MEETING_DATA_MODE=hardware 强制要求硬件库，simulation 强制模拟，auto 默认自动检测。硬件模式不再用模拟空调逻辑修改真实温湿度。缺失时仍提供门灯；断线页面保留最近状态并显示断连提示。
+
+2026-11-15补充：`MEETING_ENABLE_SERVOS=0`可禁止舵机初始化与动作（请求返回503，不回写成功）；`MEETING_ENABLE_ULTRASONIC=0`可禁用测距（硬件模式distance=null、sensor_status.distance=disabled，不填随机值）。开关只接受0/1，默认保留1。health.hardware_config报告配置启用状态，不代表接线与实物健康验证。DHT全零、非有限/非法湿度不会刷新有效值与成功时间。

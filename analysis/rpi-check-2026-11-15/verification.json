@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-11-15T08:05:04.141485+00:00",
+  "status": "PASS",
+  "scope": "Physical Pi execution, LAN API and user-confirmed LED; no servo movement or live face accuracy claim",
+  "face_csv_json_match": true,
+  "threshold_frozen_before_test_extraction": true,
+  "actual_deployed_source_hashes_match_workspace": true,
+  "target_device_identity_verified": true,
+  "led_confirmed_by_user": true,
+  "export_history_all_columns_match": true,
+  "regression_tests_passed": 138,
+  "runtime_threshold_unconfigured": true,
+  "runtime_gallery_empty": true
+}

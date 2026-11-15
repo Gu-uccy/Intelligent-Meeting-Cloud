@@ -1,0 +1,300 @@
+{
+  "generated_at": "2026-11-15T08:05:04.200869+00:00",
+  "source_baseline": "9402b574f6c82ec15b071f216100ea59b99455fb",
+  "scope": "Physical Pi tests; CMU reused development data, not independent face validation",
+  "photos_or_face_features_committed": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "a8882df5851096401735d60aae3b06cfd7d1905b1ef5584458579feca04e9dcc",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "Flask/unified_meeting_room_system.py",
+      "sha256": "2691314b80645d9f7e17a2b6a6416472cf4beceeabb5dead72afdfe4a341cddb",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/cmu_faces.py",
+      "sha256": "03393d2e899f0f37d42a08eef801a41d7d85a2e350665e0e5e76a370a780aea9",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/run_face_eval.py",
+      "sha256": "f9991baf247364434daaf9acb689f621022272ff00c4bf4454de0925de2493ff",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/lbp_face.py",
+      "sha256": "46ee230e971f231f60c46b7f5ca7486d9fc363adccc162007255568a733ee12e",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "week5/scripts/preprocess_face.py",
+      "sha256": "41b2fc12df1f2c14cf9d104af55689caace56c05f77ae2bb453e0d103cdb0066",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_api.py",
+      "sha256": "dcbca6e906fe036df3e26097c854bb48b27960f14e5e5385ef6cad72beb58d19",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_detection.py",
+      "sha256": "cc19c0e98082072c58f6b61dbe063046ecaf5b6657e4465d60a8f7dd83768def",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/face_alignment.py",
+      "sha256": "b99c7a2239bef2fc440e4f88a51039e8041bef756f758c07037c39c90bed44df",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "MachineLearning/human_face/README_FACE_API.md",
+      "sha256": "2ff28d0d0cb9b7883f5c78e2ec13705525f9d2e8030ff170fafe9438101acc89",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_sensor_contract.py",
+      "sha256": "f631bf0e70c90c73a8b1d2b9442cfe802d62ec15f3398bdfdcc19acb823439cf",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/tests/test_cmu_faces.py",
+      "sha256": "89aa2a35f27f5acc12bd1e5de75316c0ac2a2f85cbb599e7a023c9fcfdefc929",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/docs/data-contract.md",
+      "sha256": "7d7716fbf917db21d2215ae146a91bd6175a08b518d9161d69b251d546e10860",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "delivery/docs/hardware-acceptance.md",
+      "sha256": "214b4c664da50ed06c67a52d5696d6821a2b0e227b3d2561fa75b30f390e72dd",
+      "hash_mode": "text normalized CRLF to LF"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/attempts.json",
+      "sha256": "c87ec4b1d6c0e560b48a0c19da8bf8dcc2271440ef204735588801157ebdee78",
+      "bytes": 938,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/camera-probe.json",
+      "sha256": "5a4e957e12fe6aa1b5809588a7a597ddbd7aa621aba8aea727973763897a5d8d",
+      "bytes": 589,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/deployment.json",
+      "sha256": "dcb47222ff0b3b533225ad8bc034d50514d859f242f2ada5437fee7797758da2",
+      "bytes": 4394,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/export-verification.json",
+      "sha256": "4b29306e58bb62c0af1ff725535f61261a6a6113c2a59806d8ca4148a2699c3a",
+      "bytes": 175,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-evaluation/calibration_curve.csv",
+      "sha256": "c12d3bf8711c38a2f4fa963edd00e0da708eed73f2d4c9ebfb013dcdcc452fae",
+      "bytes": 41386,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-evaluation/face_eval_result.json",
+      "sha256": "a078787e2370879e1b560179bf0061e45386b2de8d3b153669718d269fb00f3c",
+      "bytes": 6875,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-evaluation/frozen_threshold.json",
+      "sha256": "ec6026c01c1be38a2472f47cb7c1ef49246bd1d0965fc8cd0ab6c13e1208d1e8",
+      "bytes": 672,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-evaluation/per_image_results.csv",
+      "sha256": "60320e99bcb9e8d193857f30703775bf5c2a88f008218a1c82dd526bb2b937a9",
+      "bytes": 67463,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-evaluation-initial/calibration_curve.csv",
+      "sha256": "c12d3bf8711c38a2f4fa963edd00e0da708eed73f2d4c9ebfb013dcdcc452fae",
+      "bytes": 41386,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-evaluation-initial/face_eval_result.json",
+      "sha256": "ffba0c1757f5a91b9581a1aee80f7215687fef1ff3b253032a472bf6b0aec1ba",
+      "bytes": 6790,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-evaluation-initial/frozen_threshold.json",
+      "sha256": "34b78e25a1bb0c1b1ddbb059d872f0a92f498c9a506998132134fce13331c82e",
+      "bytes": 672,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-evaluation-initial/per_image_results.csv",
+      "sha256": "fd3e90f22b4884ab558180b00879a54acecfbf9126a88a4ac150b9273de36f89",
+      "bytes": 67499,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/face-http-probe.json",
+      "sha256": "d46a06c424d5678a08d5827525c100420eaf9302d643d5e9e54f272bcdaa60c4",
+      "bytes": 664,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/history-snapshot.json",
+      "sha256": "e0cb91b439afc441f04e3cf17f2c32c020752f6f6ec1817aea42fd35664f5a90",
+      "bytes": 55682,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/lan-probe.json",
+      "sha256": "1c09ee8cd16c7a3f7f3b5e03070cb85023d69d589529c965ac5a47c9de22cac6",
+      "bytes": 19832,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/platform-comparison.json",
+      "sha256": "1973fb13dd3cdab4c2ab0b361cf28ca69b5d249edcb898cd562e935286b83441",
+      "bytes": 3180,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/README.md",
+      "sha256": "c70049b52f0b0c1b23f2dff6086f0f30174d2668d18870ca253a963a31dad78c",
+      "bytes": 7051,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/sensor-export-initial.csv",
+      "sha256": "67165a684470ce8865305e2dd3d1699f61fc0af7244386c4dce53c11f7fa951a",
+      "bytes": 1100,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/sensor-export-lan.csv",
+      "sha256": "c2ca621bee683973f1262e0a6051967b6484d07417ac273622545d109eace674",
+      "bytes": 2418,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/sensor-export-verified.csv",
+      "sha256": "83d66052e7796f0c26a61a3647ccc1f2cc6301f513aace3af29f17b6dbd07097",
+      "bytes": 11442,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/sensor-probe-initial.json",
+      "sha256": "3135aec27849ce9b36be3ec6f14895fa10927889ababea140bb7a5357657e1b9",
+      "bytes": 7310,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/api_performance.csv",
+      "sha256": "6e8cfefccb22b6538e1388c75f069a6b35cb451f9fefda4035a35e83c42b23c3",
+      "bytes": 3812,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/api_performance.json",
+      "sha256": "91b695a6b062caa68f6db9379a66fd1f5dfa388393d67da599445ed0706b87fc",
+      "bytes": 145,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/backend_tests.json",
+      "sha256": "d56a82d35c7cf78d882a22e69f130a03b117fea08d5157a85589e685b8db97ca",
+      "bytes": 7997,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/cmu-protocol-tests.json",
+      "sha256": "4b7d0cf49a0c8740ce9889ab5fd119c9928b8458cd5e35648cc67fd3df2c6d6e",
+      "bytes": 1779,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/cmu-tuning-tests.json",
+      "sha256": "9cfb74cbe69b44694e465387c84756aac0bcc12846fcce7b798efff2090306f0",
+      "bytes": 1699,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/face-detection-tests.json",
+      "sha256": "70162a30828ff4886654d63b23a1e8985813851258d4b0ce37095a7c26779cdb",
+      "bytes": 2445,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/face-recognition-tests.json",
+      "sha256": "b954ee853cbfaf589b2cca715ccfe0c7ba137a6cc19117603ae1cf10ab940884",
+      "bytes": 2116,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/face-tests.json",
+      "sha256": "ea132e331f71ad71f2a2f77ebe3672a7be3f19fcf6f2ca7215189927f94373c7",
+      "bytes": 3619,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/multiscale-tests.json",
+      "sha256": "c90a968447d52942cb311a3f19d735ecc439bbd2d79713f4d2f71e61831c53d4",
+      "bytes": 2361,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tests/sample_export.csv",
+      "sha256": "1d3e87f6ba81b1fbea31f786cfa1bd8d6b2ee59e11a329407e267deb1da32280",
+      "bytes": 260,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tools/camera_probe.py",
+      "sha256": "60b3f21e0cad97338a85428130dc21867964e192b3d5e0a63e47ab321771d485",
+      "bytes": 1638,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tools/lan_probe.py",
+      "sha256": "0028e28794fedeb6f4261c30d7848568ad24d7ac45e9727b8d421c7185c7bf45",
+      "bytes": 3609,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tools/sensor_probe.py",
+      "sha256": "63a8a9f7fbfa868d33a5e01488ab7e987c733cdf375e71afa29e4fc810cfa483",
+      "bytes": 3267,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/tools/start_services.py",
+      "sha256": "16e35c3b8549d58bf780d8b2b9046c14cb1f736bd31b095bf45c8db2746dda19",
+      "bytes": 1479,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/user-observation.json",
+      "sha256": "f5df43c06fbe1d42ab156404e7eee6d7edc1abfea12a736edbe2044362b3ce55",
+      "bytes": 311,
+      "hash_mode": "exact bytes; Git -text"
+    },
+    {
+      "path": "analysis/rpi-check-2026-11-15/verification.json",
+      "sha256": "597ee4b85132683a1262482378ba12b2fa901d1e01bb92b2de8d3f23d0d408d2",
+      "bytes": 572,
+      "hash_mode": "exact bytes; Git -text"
+    }
+  ]
+}

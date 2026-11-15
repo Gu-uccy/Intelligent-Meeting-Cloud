@@ -1,0 +1,217 @@
+{
+  "status": "EXPERIMENT_COMPLETED",
+  "generated_at": "2026-11-15T08:00:02.521087+00:00",
+  "dataset": {
+    "dataset": "CMU Machine Learning Chapter 4 faces",
+    "prepared_at": "2026-11-15T05:59:38.669543+00:00",
+    "official_page": "https://www.cs.cmu.edu/~tom/faces.html",
+    "archive_url": "https://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-8/faceimages/faces.tar.Z",
+    "documentation_url": "https://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-8/faceimages/docs/hw97.tex",
+    "archive_sha256": "74a1c594babd985515be58c0c679df283e6b1b9ec0a84d3fc32f9f88c27713f4",
+    "source_page_sha256": "56ff0d729ad7cfa667b22246abfc496539f9374bb3e18bf076335bf3895b545d",
+    "documentation_sha256": "8ca88e46d698ae06c6f9b5c577c1b7cdb21c86ec2ec723ada1e6b8501b9e744e",
+    "attribution": "CMU / Tom M. Mitchell, Machine Learning Chapter 4 educational face-image materials; initial implementation credited by the source to Jeff Shufelt.",
+    "permission_basis": "Official free educational use with attribution; not new participant consent or teacher acceptance",
+    "original_resolution": [
+      128,
+      120
+    ],
+    "people": 20,
+    "unique_originals": 624,
+    "per_identity": {
+      "CMU01": 32,
+      "CMU02": 32,
+      "CMU03": 32,
+      "CMU04": 32,
+      "CMU05": 32,
+      "CMU06": 32,
+      "CMU07": 31,
+      "CMU08": 31,
+      "CMU09": 30,
+      "CMU10": 31,
+      "CMU11": 31,
+      "CMU12": 32,
+      "CMU13": 30,
+      "CMU14": 28,
+      "CMU15": 32,
+      "CMU16": 31,
+      "CMU17": 32,
+      "CMU18": 32,
+      "CMU19": 31,
+      "CMU20": 30
+    },
+    "excluded": {
+      "archive_metadata": 1,
+      "scaled_versions": 1248,
+      "marked_bad": 16
+    },
+    "known_identities": 12,
+    "unknown_calibration_identities": 4,
+    "unknown_test_identities": 4,
+    "split_counts": {
+      "enroll/known": 192,
+      "calibration/known": 96,
+      "test/known": 90,
+      "calibration/unknown": 121,
+      "test/unknown": 125
+    },
+    "seed": 20261115,
+    "manifest_sha256": "fcf1bdac7e9f0e8a618c150b2d9349a1cd889dc0829a7746167f699596348353",
+    "split_limitations": "Same historical controlled collection; no capture-session metadata or independent camera/device validation. No detection-based selection.",
+    "production_gallery_changed": false
+  },
+  "pipeline": "service",
+  "scope": "Service FacePipeline: decode -> yunet-06 -> aligned-root-lbp (alignment scale 0.85, grid 4) -> cosine",
+  "detector": "yunet-06",
+  "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid4-v1",
+  "feature_mode": "aligned-root-lbp",
+  "alignment_scale": 0.85,
+  "lbp_grid": 4,
+  "lbp_variant": "single",
+  "test_is_new_independent_evidence": false,
+  "comparison_scope": "Previously inspected CMU data reused for development comparison; test is a partition name, not new independent validation",
+  "device": {
+    "platform": "Linux-6.12.75+rpt-rpi-v8-aarch64-with-glibc2.41",
+    "machine": "aarch64",
+    "python": "3.13.5",
+    "opencv": "4.13.0",
+    "numpy": "2.4.4",
+    "opencv_threads": 4,
+    "hardware_model": "Raspberry Pi 4 Model B Rev 1.5",
+    "target_raspberry_pi": true
+  },
+  "selected_threshold": 0.9311644386168607,
+  "calibration": {
+    "accuracy": 0.9032258064516129,
+    "far": 0.04132231404958678,
+    "frr": 0.16666666666666666,
+    "known_identification_accuracy": 0.8333333333333334,
+    "known_count": 96,
+    "unknown_count": 121,
+    "known_correct": 80,
+    "known_rejected": 16,
+    "wrong_identity": 0,
+    "unknown_accepted": 5,
+    "unknown_rejected": 116,
+    "known_detection_failures": 6,
+    "unknown_detection_failures": 15,
+    "conditional_on_detection": {
+      "known_count": 90,
+      "unknown_count": 106,
+      "known_identification_accuracy": 0.8888888888888888,
+      "far": 0.04716981132075472
+    }
+  },
+  "held_out_test": {
+    "accuracy": 0.8976744186046511,
+    "far": 0.016,
+    "frr": 0.2222222222222222,
+    "known_identification_accuracy": 0.7777777777777778,
+    "known_count": 90,
+    "unknown_count": 125,
+    "known_correct": 70,
+    "known_rejected": 20,
+    "wrong_identity": 0,
+    "unknown_accepted": 2,
+    "unknown_rejected": 123,
+    "known_detection_failures": 6,
+    "unknown_detection_failures": 8,
+    "conditional_on_detection": {
+      "known_count": 84,
+      "unknown_count": 117,
+      "known_identification_accuracy": 0.8333333333333334,
+      "far": 0.017094017094017096
+    }
+  },
+  "calibration_has_correct_accepts": true,
+  "gallery_enrollment": {
+    "CMU01": {
+      "attempted": 16,
+      "accepted": 16
+    },
+    "CMU02": {
+      "attempted": 16,
+      "accepted": 15
+    },
+    "CMU03": {
+      "attempted": 16,
+      "accepted": 16
+    },
+    "CMU04": {
+      "attempted": 16,
+      "accepted": 15
+    },
+    "CMU05": {
+      "attempted": 16,
+      "accepted": 16
+    },
+    "CMU06": {
+      "attempted": 16,
+      "accepted": 16
+    },
+    "CMU07": {
+      "attempted": 16,
+      "accepted": 16
+    },
+    "CMU08": {
+      "attempted": 16,
+      "accepted": 14
+    },
+    "CMU09": {
+      "attempted": 16,
+      "accepted": 12
+    },
+    "CMU10": {
+      "attempted": 16,
+      "accepted": 14
+    },
+    "CMU11": {
+      "attempted": 16,
+      "accepted": 16
+    },
+    "CMU12": {
+      "attempted": 16,
+      "accepted": 16
+    }
+  },
+  "extraction": {
+    "attempted": 624,
+    "successful": 579,
+    "failed": 45
+  },
+  "probe_pipeline_latency_ms": {
+    "all_probes": {
+      "samples": 432,
+      "mean": 40.627200854166134,
+      "p50": 40.71283649994939,
+      "p95": 46.194955350000555,
+      "max": 69.21329199997217
+    },
+    "successful_detection": {
+      "samples": 397,
+      "mean": 41.50036803274407,
+      "p50": 40.732577999960995,
+      "p95": 46.23334220000288,
+      "max": 69.21329199997217
+    },
+    "failed_detection": {
+      "samples": 35,
+      "mean": 30.722990285724855,
+      "p50": 30.366316000026927,
+      "p95": 32.54496229995993,
+      "max": 35.719772999982524
+    }
+  },
+  "latency_scope": "disk read + decode + detection/alignment (service mode as configured) + preprocessing + LBP + matching; includes failed attempts; excludes HTTP and actuators",
+  "feature_dimensions": 944,
+  "production_gallery_changed": false,
+  "production_threshold_exported": false,
+  "notes": [
+    "Failed detections are retained and count as rejections, including unknown failures in FAR denominator.",
+    "Conditional-on-detection metrics accompany full denominators; low FAR alone is not useful recognition.",
+    "Known enrollment failures may leave empty identities; none are silently excluded.",
+    "Historical low-resolution controlled data; no session-disjoint or live-camera/device claim.",
+    "Public educational permission is not participant consent or confirmation of teacher acceptance.",
+    "Descriptor diagnostic does not prove end-to-end service recognition or door access."
+  ]
+}

@@ -9,6 +9,7 @@ MQ-2 digital smoke input, RGB lighting and two door servo outputs.
 
 import csv
 import io
+import math
 import os
 import random
 import socket
@@ -71,6 +72,16 @@ SMOKE_DO_PIN = 24
 ULTRASONIC_TRIG = 20
 ULTRASONIC_ECHO = 21
 RGB_LED_PINS = {"red": 19, "green": 27, "blue": 22}
+
+
+def env_flag(name, default):
+    value = os.environ.get(name, "1" if default else "0")
+    if value not in ("0", "1"):
+        raise ValueError(f"{name} must be 0 or 1")
+    return value == "1"
+
+
+SERVOS_ENABLED = env_flag("MEETING_ENABLE_SERVOS", True)
 # Two SG90/TS90A-style servo signals for the left and right door leaves.
 # BCM GPIO13/12 are physical pins 33/32 and are unused by the current wiring.
 # Power both servos from a separate 5V supply and connect its GND to Pi GND.
@@ -84,7 +95,7 @@ SERVO_OPEN_DUTY = float(os.environ.get("SERVO_OPEN_DUTY", "7.5"))
 
 # Keep this false until HC-SR04 ECHO is protected with a resistor divider or
 # level shifter. ECHO can output 5V, while Raspberry Pi GPIO is 3.3V only.
-USE_ULTRASONIC = True
+USE_ULTRASONIC = env_flag("MEETING_ENABLE_ULTRASONIC", True)
 
 # PCF8591 ADC module. The current chapter 7/8 wiring uses AIN0 for the
 # photoresistor module AO. MQ-2 smoke uses DO on GPIO24 until a divider is added.
@@ -136,7 +147,7 @@ devices = {
     "alarm": False,
     "presence": False,
     "door_open": False,
-    "door_source": "hardware" if ON_RASPBERRY_PI else "simulation",
+    "door_source": ("hardware" if SERVOS_ENABLED else "disabled") if ON_RASPBERRY_PI else "simulation",
     "auto_mode": True,
 }
 
@@ -205,7 +216,7 @@ def setup_gpio():
         except Exception as e:
             log_message(f"RGB LED {color} 初始化失败: {e}")
 
-    for side, pin in SERVO_DOOR_PINS.items():
+    for side, pin in (SERVO_DOOR_PINS.items() if SERVOS_ENABLED else []):
         try:
             GPIO.setup(pin, GPIO.OUT)
             servo = GPIO.PWM(pin, SERVO_FREQUENCY)
@@ -273,6 +284,8 @@ def set_rgb_brightness(enabled, brightness=100):
 def set_door_servo(opened, source="manual"):
     """Move the physical door servo and publish the same state to the API."""
     if ON_RASPBERRY_PI:
+        if not SERVOS_ENABLED:
+            raise RuntimeError("Door servos disabled by MEETING_ENABLE_SERVOS")
         if len(door_servos) != len(SERVO_DOOR_PINS):
             raise RuntimeError("Door servo output is unavailable")
         duty = SERVO_OPEN_DUTY if opened else SERVO_CLOSED_DUTY
@@ -308,6 +321,9 @@ def read_dht_sensor():
             temperature = dht_device.temperature
             humidity = dht_device.humidity
             if temperature is not None and humidity is not None:
+                if (not math.isfinite(temperature) or not math.isfinite(humidity)
+                        or not 0 <= humidity <= 100 or (temperature == 0 and humidity == 0)):
+                    raise ValueError("Invalid DHT sample; retain last valid reading without refreshing timestamp")
                 current_temp = round(temperature, 1)
                 current_humidity = round(humidity, 1)
                 last_dht_success = time.time()
@@ -330,6 +346,9 @@ def read_dht_sensor():
 def read_distance_sensor():
     global current_distance
 
+    if ON_RASPBERRY_PI and not USE_ULTRASONIC:
+        current_distance = None
+        return None
     if ON_RASPBERRY_PI and USE_ULTRASONIC:
         try:
             GPIO.output(ULTRASONIC_TRIG, GPIO.LOW)
@@ -667,6 +686,8 @@ def health():
                         "source": "sensor" if ON_RASPBERRY_PI else "simulation",
                         "uptime_seconds": round(time.time() - STARTED_AT, 1),
                         "climate_sample_age_seconds": round(age, 1) if age is not None else None,
+                        "hardware_config": {"servos_enabled": SERVOS_ENABLED,
+                                            "ultrasonic_enabled": USE_ULTRASONIC},
                         "health_scope": "climate only; other sensors not health-verified"})
 
 
@@ -679,7 +700,9 @@ def get_current_data():
         return jsonify({
             "source": "sensor" if ON_RASPBERRY_PI else "simulation",
             "quality": "normal" if climate_ready and not climate_stale else "partial",
-            "sensor_status": {"climate": "stale" if climate_stale else "ok" if climate_ready else "unavailable"},
+            "sensor_status": {"climate": "stale" if climate_stale else "ok" if climate_ready else "unavailable",
+                              "distance": "disabled" if ON_RASPBERRY_PI and not USE_ULTRASONIC else
+                                          "sample_available" if current_distance is not None else "unavailable"},
             "sampled_at": datetime.fromtimestamp(last_dht_success).isoformat() if last_dht_success else None,
             "door_state_kind": "commanded",
             "temperature": current_temp,

@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-11-15T08:01:25.800135+00:00",
+  "host": "192.168.43.206",
+  "hardware_model": "Raspberry Pi 4 Model B Rev 1.5",
+  "source_files": [
+    {
+      "path": "Flask/unified_meeting_room_system.py",
+      "sha256": "2691314b80645d9f7e17a2b6a6416472cf4beceeabb5dead72afdfe4a341cddb"
+    },
+    {
+      "path": "MachineLearning/human_face/face_api.py",
+      "sha256": "dcbca6e906fe036df3e26097c854bb48b27960f14e5e5385ef6cad72beb58d19"
+    },
+    {
+      "path": "MachineLearning/human_face/face_detection.py",
+      "sha256": "cc19c0e98082072c58f6b61dbe063046ecaf5b6657e4465d60a8f7dd83768def"
+    },
+    {
+      "path": "MachineLearning/human_face/face_alignment.py",
+      "sha256": "b99c7a2239bef2fc440e4f88a51039e8041bef756f758c07037c39c90bed44df"
+    },
+    {
+      "path": "MachineLearning/human_face/models/face_detection_yunet_2023mar.onnx",
+      "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4"
+    },
+    {
+      "path": "week5/scripts/lbp_face.py",
+      "sha256": "becd61e400dc1686e12801bfcaf40e8b6b2523245d72e3144967faf4c0042edb"
+    },
+    {
+      "path": "week5/scripts/preprocess_face.py",
+      "sha256": "feebfea4014c77e8457e95ab2ae34aeb33f13f09e4785751559bce159adc5c1b"
+    },
+    {
+      "path": "week5/scripts/cmu_faces.py",
+      "sha256": "f6744d3417a38b87c84ea253d10d35dc1f4ab26217719e6fe384337b8015ebd9"
+    },
+    {
+      "path": "week5/scripts/run_face_eval.py",
+      "sha256": "f9991baf247364434daaf9acb689f621022272ff00c4bf4454de0925de2493ff"
+    }
+  ],
+  "source_baseline": "9402b57 plus recorded hardware-check working-tree changes",
+  "services": [
+    {
+      "name": "sensors",
+      "pid": 2158,
+      "command": [
+        "/home/guuccy/meeting-room-venv/bin/python",
+        "/home/guuccy/meeting-room-check-20261115/sensor_server.py"
+      ]
+    },
+    {
+      "name": "face",
+      "pid": 2159,
+      "command": [
+        "/home/guuccy/human_face/.venv/bin/python",
+        "MachineLearning/human_face/face_api.py"
+      ]
+    }
+  ],
+  "sensor_env": {
+    "MEETING_DATA_MODE": "hardware",
+    "MEETING_ENABLE_SERVOS": "0",
+    "MEETING_ENABLE_ULTRASONIC": "0",
+    "MEETING_PORT": "5000"
+  },
+  "face_env": {
+    "FACE_API_PORT": "5001",
+    "FACE_THRESHOLD": null,
+    "FACE_ADMIN_TOKEN": "unset",
+    "FACE_POLICY_PATH": "unset"
+  },
+  "throttled": "throttled=0x0",
+  "temperature": "temp=44.8'C",
+  "sensor_health": {
+    "climate_sample_age_seconds": 2.6,
+    "hardware_config": {
+      "servos_enabled": false,
+      "ultrasonic_enabled": false
+    },
+    "health_scope": "climate only; other sensors not health-verified",
+    "service": "meeting-room-sensors",
+    "source": "sensor",
+    "status": "ok",
+    "uptime_seconds": 310.9
+  },
+  "sensor_current": {
+    "devices": {
+      "alarm": false,
+      "auto_mode": false,
+      "cooling": false,
+      "dehumidifier": false,
+      "door_open": false,
+      "door_source": "disabled",
+      "heating": false,
+      "humidifier": false,
+      "lighting": false,
+      "lighting_brightness": 0,
+      "lighting_source": "lan-check",
+      "presence": true
+    },
+    "distance": null,
+    "door_open": false,
+    "door_source": "disabled",
+    "door_state_kind": "commanded",
+    "humidity": 22,
+    "humidity_max": 60,
+    "humidity_min": 40,
+    "last_motion": "5 \u5206\u949f\u524d",
+    "light": 18,
+    "motion": true,
+    "motion_count": 1,
+    "presence": true,
+    "quality": "normal",
+    "sampled_at": "2026-11-15T16:01:23.261712",
+    "sensor_status": {
+      "climate": "ok",
+      "distance": "disabled"
+    },
+    "smoke": 20,
+    "smoke_threshold": 100,
+    "source": "sensor",
+    "temp_max": 26,
+    "temp_min": 20,
+    "temperature": 26.0,
+    "timestamp": "2026-11-15 16:01:25"
+  },
+  "face_health": {
+    "alignment_scale": 0.85,
+    "calibrated": false,
+    "detector_backend": "opencv-yunet-2023mar",
+    "enrollment_enabled": false,
+    "feature_dimensions": 944,
+    "feature_mode": "aligned-root-lbp",
+    "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid4-v1",
+    "lbp_grid": 4,
+    "lbp_variant": "single",
+    "mode": "simulation-only",
+    "model_name": "custom-uniform-LBP",
+    "note": "Threshold requires authorized calibration; no liveness detection",
+    "status": "ok",
+    "threshold": null,
+    "threshold_profile": ""
+  },
+  "face_gallery_json_count": 0
+}

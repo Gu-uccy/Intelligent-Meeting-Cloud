@@ -1,0 +1,9 @@
+{
+  "source": "human user reply in this session",
+  "observation": "LED成功亮灭",
+  "led_visual_confirmed": true,
+  "pir_transition_confirmed": false,
+  "light_cover_response_confirmed": false,
+  "servo_power": "Powered from Raspberry Pi; no external supply confirmed",
+  "servos_exercised": false
+}

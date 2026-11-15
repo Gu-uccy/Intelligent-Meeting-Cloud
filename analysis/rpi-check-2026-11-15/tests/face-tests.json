@@ -1,0 +1,131 @@
+{
+  "scope": "Synthetic vectors and injected detection; no private photos or physical GPIO",
+  "generated_at": "2026-11-15T07:59:04.715035+00:00",
+  "records": [
+    {
+      "name": "test_corrupt_policy_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 198.912
+    },
+    {
+      "name": "test_delete_removes_features (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 17.498
+    },
+    {
+      "name": "test_device_down_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 82.574
+    },
+    {
+      "name": "test_empty_gallery_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 10.461
+    },
+    {
+      "name": "test_enrollment_appends_features_no_photo (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 36.544
+    },
+    {
+      "name": "test_enrollment_requires_admin (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 8.615
+    },
+    {
+      "name": "test_enrollment_requires_consent (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 7.344
+    },
+    {
+      "name": "test_expired_reservation_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 46.178
+    },
+    {
+      "name": "test_no_face_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 16.44
+    },
+    {
+      "name": "test_no_threshold_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 15.938
+    },
+    {
+      "name": "test_pending_reservation_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 50.593
+    },
+    {
+      "name": "test_real_unified_simulation_control (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 700.637
+    },
+    {
+      "name": "test_recognized_authorized_and_acknowledged (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 48.975
+    },
+    {
+      "name": "test_recognized_but_not_on_list_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 37.71
+    },
+    {
+      "name": "test_unacknowledged_device_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 52.721
+    },
+    {
+      "name": "test_unknown_feature_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 33.453
+    },
+    {
+      "name": "test_wrong_room_denied (__main__.Access)",
+      "status": "PASS",
+      "duration_ms": 44.177
+    },
+    {
+      "name": "test_constant_image_no_divide_by_zero (__main__.Algorithm)",
+      "status": "PASS",
+      "duration_ms": 59.5
+    },
+    {
+      "name": "test_full_preprocess_finite (__main__.Algorithm)",
+      "status": "PASS",
+      "duration_ms": 2.139
+    },
+    {
+      "name": "test_manifest_duplicate_content_rejected (__main__.Algorithm)",
+      "status": "PASS",
+      "duration_ms": 22.381
+    },
+    {
+      "name": "test_manifest_path_escape_rejected (__main__.Algorithm)",
+      "status": "PASS",
+      "duration_ms": 12.139
+    },
+    {
+      "name": "test_metrics_unknown_denominator_and_wrong_identity (__main__.Algorithm)",
+      "status": "PASS",
+      "duration_ms": 0.081
+    },
+    {
+      "name": "test_no_face_rejected (__main__.Algorithm)",
+      "status": "PASS",
+      "duration_ms": 33.838
+    },
+    {
+      "name": "test_resize_single_pixel_and_boundary (__main__.Algorithm)",
+      "status": "PASS",
+      "duration_ms": 0.631
+    },
+    {
+      "name": "test_uniform_bins_are_fixed (__main__.Algorithm)",
+      "status": "PASS",
+      "duration_ms": 3.82
+    }
+  ]
+}

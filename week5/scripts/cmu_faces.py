@@ -238,6 +238,14 @@ def latency(records):
             'failed_detection': values([r for r in records if not r['detected']])}
 
 
+def device_model(path=None):
+    """Read hardware identity when available; architecture alone cannot identify a Pi."""
+    try:
+        return Path(path or '/proc/device-tree/model').read_text(encoding='utf-8').rstrip('\x00\n') or None
+    except OSError:
+        return None
+
+
 def evaluate(args):
     import cv2
     import numpy as np
@@ -319,6 +327,7 @@ def evaluate(args):
     test_metrics = summarize(test, threshold) if threshold is not None else None
     cal_metrics = summarize(calibration, threshold) if threshold is not None else None
     usable = threshold is not None and cal_metrics['known_correct'] > 0
+    model = device_model()
     result = {'status': 'EXPERIMENT_COMPLETED', 'generated_at': datetime.now(timezone.utc).isoformat(),
               'dataset': provenance, 'pipeline': args.pipeline,
               'scope': 'Complete portrait preprocessing/LBP/matching diagnostic; NO detection' if diagnostic else f'Service FacePipeline: decode -> {detector} -> {feature_mode} (alignment scale {alignment_scale}, grid {lbp_grid}) -> cosine',
@@ -330,7 +339,8 @@ def evaluate(args):
               'test_is_new_independent_evidence': False,
               'comparison_scope': 'Previously inspected CMU data reused for development comparison; test is a partition name, not new independent validation',
               'device': {'platform': platform.platform(), 'machine': platform.machine(), 'python': platform.python_version(),
-                         'opencv': cv2.__version__, 'numpy': np.__version__, 'target_raspberry_pi': False},
+                         'opencv': cv2.__version__, 'numpy': np.__version__, 'opencv_threads': cv2.getNumThreads(),
+                         'hardware_model': model, 'target_raspberry_pi': bool(model and model.startswith('Raspberry Pi '))},
               'selected_threshold': threshold, 'calibration': cal_metrics, 'held_out_test': test_metrics,
               'calibration_has_correct_accepts': usable,
               'gallery_enrollment': {r: {'attempted': sum(x['identity'] == r and x['split'] == 'enroll' for x in rows),

@@ -1,0 +1,98 @@
+{
+  "scope": "Same CMU development images on Windows and physical Pi; not new identity validation",
+  "windows_threshold": 0.9311644386168618,
+  "rpi_threshold": 0.9311644386168607,
+  "threshold_difference": -1.1102230246251565e-15,
+  "max_similarity_absolute_difference": 0.0002875174698019345,
+  "predicted_identity_changes": 0,
+  "extraction_outcome_changes": 0,
+  "rpi_with_windows_threshold": {
+    "calibration": {
+      "accuracy": 0.8986175115207373,
+      "far": 0.04132231404958678,
+      "frr": 0.17708333333333334,
+      "known_identification_accuracy": 0.8229166666666666,
+      "known_count": 96,
+      "unknown_count": 121,
+      "known_correct": 79,
+      "known_rejected": 17,
+      "wrong_identity": 0,
+      "unknown_accepted": 5,
+      "unknown_rejected": 116,
+      "known_detection_failures": 6,
+      "unknown_detection_failures": 15,
+      "conditional_on_detection": {
+        "known_count": 90,
+        "unknown_count": 106,
+        "known_identification_accuracy": 0.8777777777777778,
+        "far": 0.04716981132075472
+      }
+    },
+    "test": {
+      "accuracy": 0.8976744186046511,
+      "far": 0.016,
+      "frr": 0.2222222222222222,
+      "known_identification_accuracy": 0.7777777777777778,
+      "known_count": 90,
+      "unknown_count": 125,
+      "known_correct": 70,
+      "known_rejected": 20,
+      "wrong_identity": 0,
+      "unknown_accepted": 2,
+      "unknown_rejected": 123,
+      "known_detection_failures": 6,
+      "unknown_detection_failures": 8,
+      "conditional_on_detection": {
+        "known_count": 84,
+        "unknown_count": 117,
+        "known_identification_accuracy": 0.8333333333333334,
+        "far": 0.017094017094017096
+      }
+    }
+  },
+  "rpi_native_threshold": {
+    "calibration": {
+      "accuracy": 0.9032258064516129,
+      "far": 0.04132231404958678,
+      "frr": 0.16666666666666666,
+      "known_identification_accuracy": 0.8333333333333334,
+      "known_count": 96,
+      "unknown_count": 121,
+      "known_correct": 80,
+      "known_rejected": 16,
+      "wrong_identity": 0,
+      "unknown_accepted": 5,
+      "unknown_rejected": 116,
+      "known_detection_failures": 6,
+      "unknown_detection_failures": 15,
+      "conditional_on_detection": {
+        "known_count": 90,
+        "unknown_count": 106,
+        "known_identification_accuracy": 0.8888888888888888,
+        "far": 0.04716981132075472
+      }
+    },
+    "test": {
+      "accuracy": 0.8976744186046511,
+      "far": 0.016,
+      "frr": 0.2222222222222222,
+      "known_identification_accuracy": 0.7777777777777778,
+      "known_count": 90,
+      "unknown_count": 125,
+      "known_correct": 70,
+      "known_rejected": 20,
+      "wrong_identity": 0,
+      "unknown_accepted": 2,
+      "unknown_rejected": 123,
+      "known_detection_failures": 6,
+      "unknown_detection_failures": 8,
+      "conditional_on_detection": {
+        "known_count": 84,
+        "unknown_count": 117,
+        "known_identification_accuracy": 0.8333333333333334,
+        "far": 0.017094017094017096
+      }
+    }
+  },
+  "thresholds_exported_to_service": false
+}

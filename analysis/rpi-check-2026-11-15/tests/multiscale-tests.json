@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-11-15T07:58:56.217708+00:00",
+  "scope": "Synthetic geometry, radius sampling, multiscale runtime/version contracts and selection isolation; no private data or GPIO",
+  "records": [
+    {
+      "name": "test_all_variants_have_expected_dimensions_and_unit_norm (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_branch_squared_norms_equal_weights (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_constant_block_places_every_interior_pixel_in_all_ones_bin (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_cosine_is_weighted_sum_for_same_enrollment_photo (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_invalid_branch_variant_image_or_radius_fails (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_matching_cannot_pick_a_different_photo_for_each_branch (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_radius1_is_historical_histogram_exactly (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_radius2_matches_scalar_square_lattice_reference (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_single_preserves_baseline_feature_exactly (__main__.Geometry)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_app_config_and_environment_report_experimental_variant (__main__.Runtime)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_default_remains_single_after_non_improving_experiment (__main__.Runtime)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_equal_dimensions_have_different_profiles_and_invalid_combinations_fail (__main__.Runtime)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_experimental_enrollment_verify_and_version_dimension_guards (__main__.Runtime)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_all_failed_candidates_cannot_produce_a_selection (__main__.Selection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_fixed_eight_candidates_never_extract_test_and_tie_keeps_baseline (__main__.Selection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_variant_profile_mismatch_stops_before_test_extraction (__main__.Selection)",
+      "status": "PASS"
+    }
+  ]
+}

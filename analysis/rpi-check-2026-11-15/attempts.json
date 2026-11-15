@@ -1,0 +1,23 @@
+{
+  "scope": "Deployment attempts retained; no tolerance change or test-based retuning",
+  "attempts": [
+    {
+      "result": "ModuleNotFoundError: run_face_eval",
+      "resolution": "Transferred required repository module; no packages changed"
+    },
+    {
+      "result": "Selected detector, dataset or calibration threshold changed; do not read test images",
+      "resolution": "Exact threshold equality failed; fresh Pi calibration-only freeze with same fixed single pipeline before test extraction"
+    },
+    {
+      "result": "Initial successful Pi run",
+      "output": "face-evaluation-initial",
+      "metadata_limitation": "Old evaluator hardcoded target_raspberry_pi=false; physical execution verified by SSH device tree"
+    },
+    {
+      "result": "Final successful Pi run",
+      "output": "face-evaluation",
+      "metadata_fix": "device tree model recorded; target_raspberry_pi=true"
+    }
+  ]
+}

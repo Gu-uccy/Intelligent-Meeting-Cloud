@@ -24,6 +24,17 @@ def probe(identity='A', kind='known', prediction='A', score=.95, detected=True):
 
 
 class Protocol(unittest.TestCase):
+    def test_hardware_model_comes_from_device_tree_not_architecture(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            model = Path(tmp)/'model'
+            self.assertIsNone(cmu.device_model(model))
+            model.write_bytes(b'Raspberry Pi 4 Model B Rev 1.5\x00')
+            self.assertEqual(cmu.device_model(model), 'Raspberry Pi 4 Model B Rev 1.5')
+            model.write_text('Other ARM board\n')
+            self.assertEqual(cmu.device_model(model), 'Other ARM board')
+            model.write_bytes(b'')
+            self.assertIsNone(cmu.device_model(model))
+
     def test_originals_exclude_scaled_and_bad_variants(self):
         self.assertIsNotNone(cmu.IMAGE_NAME.fullmatch('synthetic_straight_happy_open.pgm'))
         for suffix in ['_2.pgm', '_4.pgm', '.pgm.bad', '_2.pgm.bad']:

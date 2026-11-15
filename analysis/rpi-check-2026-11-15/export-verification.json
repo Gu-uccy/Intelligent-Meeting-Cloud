@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "scope": "Exact same timestamp sequence and all 17 exported columns compared with live physical Pi history",
+  "rows": 120,
+  "source": "sensor"
+}

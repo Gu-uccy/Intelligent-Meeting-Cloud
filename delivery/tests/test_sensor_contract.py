@@ -33,6 +33,8 @@ class Contract(unittest.TestCase):
         m.current_temp = m.current_humidity = m.current_distance = None
         m.last_dht_success = None
         m.door_servos = {}
+        m.SERVOS_ENABLED = True
+        m.USE_ULTRASONIC = True
         m.dht_device = None
         m.TEMP_MIN, m.TEMP_MAX, m.HUMIDITY_MIN, m.HUMIDITY_MAX = 20, 26, 40, 60
         self.client = m.app.test_client()
@@ -204,6 +206,71 @@ class Contract(unittest.TestCase):
         self.post(action='set_params', temp_max=29, humidity_min=45)
         data = self.client.get('/api/current').json
         self.assertEqual((data['temp_max'], data['humidity_min'], data['smoke_threshold']), (29, 45, m.SMOKE_THRESHOLD))
+
+
+    def test_36_disabled_hardware_distance_never_simulates(self):
+        m.ON_RASPBERRY_PI = True
+        m.USE_ULTRASONIC = False
+        m.current_distance = 120.0
+        with patch.object(m.random, 'uniform', side_effect=AssertionError('must not fabricate')):
+            self.assertIsNone(m.read_distance_sensor())
+        current = self.client.get('/api/current').json
+        self.assertIsNone(current['distance'])
+        self.assertEqual(current['sensor_status']['distance'], 'disabled')
+        self.assertEqual(current['source'], 'sensor')
+
+    def test_37_disabled_servos_reject_without_state_writeback(self):
+        m.ON_RASPBERRY_PI = True
+        m.SERVOS_ENABLED = False
+        servo = Mock()
+        m.door_servos = {'left':servo, 'right':servo}
+        response = self.post(action='manual', device='door', state=True)
+        self.assertEqual(response.status_code, 503)
+        self.assertFalse(response.json['success'])
+        self.assertFalse(m.devices['door_open'])
+        servo.ChangeDutyCycle.assert_not_called()
+        self.assertFalse(self.client.get('/api/health').json['hardware_config']['servos_enabled'])
+
+    def test_38_hardware_flags_are_explicit_and_strict(self):
+        for value, expected in [('0',False),('1',True)]:
+            with patch.dict(os.environ, {'MEETING_TEST_FLAG':value}):
+                self.assertEqual(m.env_flag('MEETING_TEST_FLAG',True), expected)
+        with patch.dict(os.environ, {'MEETING_TEST_FLAG':'false'}), self.assertRaises(ValueError):
+            m.env_flag('MEETING_TEST_FLAG',True)
+
+    def test_40_zero_dht_startup_sample_does_not_mark_ready(self):
+        m.ON_RASPBERRY_PI = True
+        m.dht_device = Mock(temperature=0.0, humidity=0)
+        self.assertEqual(m.read_dht_sensor(), (None, None))
+        self.assertIsNone(m.last_dht_success)
+        self.assertEqual(self.client.get('/api/health').json['status'], 'degraded')
+
+    def test_41_invalid_dht_keeps_last_sample_and_original_age(self):
+        m.ON_RASPBERRY_PI = True
+        m.current_temp, m.current_humidity, m.last_dht_success = 26, 22, time.time()-20
+        timestamp = m.last_dht_success
+        for temp, humidity in [(float('nan'),22), (26,float('inf')), (26,101), (26,-1), (0,0)]:
+            m.dht_device = Mock(temperature=temp, humidity=humidity)
+            self.assertEqual(m.read_dht_sensor(), (26,22))
+            self.assertEqual(m.last_dht_success, timestamp)
+            self.assertEqual(self.client.get('/api/current').json['sensor_status']['climate'], 'stale')
+        m.dht_device = Mock(temperature=27.0, humidity=23)
+        self.assertEqual(m.read_dht_sensor(), (27.0,23))
+        self.assertGreater(m.last_dht_success, timestamp)
+        self.assertEqual(self.client.get('/api/health').json['status'], 'ok')
+
+    def test_39_disabled_servos_are_not_initialized(self):
+        m.ON_RASPBERRY_PI = True
+        m.SERVOS_ENABLED = False
+        with patch.object(m,'GPIO',create=True) as gpio, \
+             patch.object(m,'adafruit_dht',create=True), \
+             patch.object(m,'USE_PCF8591_LIGHT',False), \
+             patch.object(m.os,'system'), patch.object(m.time,'sleep'):
+            m.setup_gpio()
+        output_pins = [call.args[0] for call in gpio.setup.call_args_list]
+        self.assertNotIn(12, output_pins)
+        self.assertNotIn(13, output_pins)
+        self.assertEqual(m.door_servos, {})
 
 
 class EvidenceResult(unittest.TextTestResult):

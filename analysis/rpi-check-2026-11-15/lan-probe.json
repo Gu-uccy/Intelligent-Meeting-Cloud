@@ -1,0 +1,706 @@
+{
+  "generated_at": "2026-11-15T07:57:04.037924+00:00",
+  "scope": "Windows LAN HTTP to physical Pi; GPIO outputs exercised; visual response requires user confirmation",
+  "sensor_health": {
+    "status": 200,
+    "body": {
+      "climate_sample_age_seconds": 2.9,
+      "hardware_config": {
+        "servos_enabled": false,
+        "ultrasonic_enabled": false
+      },
+      "health_scope": "climate only; other sensors not health-verified",
+      "service": "meeting-room-sensors",
+      "source": "sensor",
+      "status": "ok",
+      "uptime_seconds": 49.3
+    },
+    "lan_ms": 210.75420000124723
+  },
+  "face_health": {
+    "status": 200,
+    "body": {
+      "alignment_scale": 0.85,
+      "calibrated": false,
+      "detector_backend": "opencv-yunet-2023mar",
+      "enrollment_enabled": false,
+      "feature_dimensions": 944,
+      "feature_mode": "aligned-root-lbp",
+      "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid4-v1",
+      "lbp_grid": 4,
+      "lbp_variant": "single",
+      "mode": "simulation-only",
+      "model_name": "custom-uniform-LBP",
+      "note": "Threshold requires authorized calibration; no liveness detection",
+      "status": "ok",
+      "threshold": null,
+      "threshold_profile": ""
+    },
+    "lan_ms": 28.321300000243355
+  },
+  "led_transitions": [
+    {
+      "state": true,
+      "response": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": true,
+          "lighting_brightness": 100,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "door_state_kind": "commanded",
+        "source": "sensor",
+        "success": true
+      },
+      "status": 200,
+      "lan_ms": 30.22450000025856
+    },
+    {
+      "state": false,
+      "response": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "door_state_kind": "commanded",
+        "source": "sensor",
+        "success": true
+      },
+      "status": 200,
+      "lan_ms": 35.8816999996634
+    },
+    {
+      "state": true,
+      "response": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": true,
+          "lighting_brightness": 100,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "door_state_kind": "commanded",
+        "source": "sensor",
+        "success": true
+      },
+      "status": 200,
+      "lan_ms": 52.835600001344574
+    },
+    {
+      "state": false,
+      "response": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "door_state_kind": "commanded",
+        "source": "sensor",
+        "success": true
+      },
+      "status": 200,
+      "lan_ms": 31.108400000448455
+    }
+  ],
+  "samples": [
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": true,
+          "lighting_brightness": 100,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "50 秒前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:04.604448",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.7,
+        "timestamp": "2026-11-15 15:57:06"
+      },
+      "lan_ms": 40.587999999843305
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": true,
+          "lighting_brightness": 100,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "52 秒前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:07.859975",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.0,
+        "timestamp": "2026-11-15 15:57:08"
+      },
+      "lan_ms": 32.42870000030962
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "54 秒前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:07.859975",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.0,
+        "timestamp": "2026-11-15 15:57:10"
+      },
+      "lan_ms": 55.13070000051812
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "56 秒前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:11.115364",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.2,
+        "timestamp": "2026-11-15 15:57:12"
+      },
+      "lan_ms": 28.38510000037786
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": true,
+          "lighting_brightness": 100,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "58 秒前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:14.370926",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.8,
+        "timestamp": "2026-11-15 15:57:14"
+      },
+      "lan_ms": 34.63050000027579
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": true,
+          "lighting_brightness": 100,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "1 分钟前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:14.370926",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.8,
+        "timestamp": "2026-11-15 15:57:16"
+      },
+      "lan_ms": 48.35490000004938
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "1 分钟前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:17.626479",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.4,
+        "timestamp": "2026-11-15 15:57:20"
+      },
+      "lan_ms": 1740.12810000022
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "1 分钟前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:17.626479",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.4,
+        "timestamp": "2026-11-15 15:57:22"
+      },
+      "lan_ms": 46.93959999895014
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "1 分钟前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:23.738709",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.0,
+        "timestamp": "2026-11-15 15:57:25"
+      },
+      "lan_ms": 268.1594000005134
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "1 分钟前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:26.994339",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.7,
+        "timestamp": "2026-11-15 15:57:29"
+      },
+      "lan_ms": 250.68069999906584
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "1 分钟前",
+        "light": 19,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:30.249822",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.8,
+        "timestamp": "2026-11-15 15:57:32"
+      },
+      "lan_ms": 61.08229999881587
+    },
+    {
+      "body": {
+        "devices": {
+          "alarm": false,
+          "auto_mode": false,
+          "cooling": false,
+          "dehumidifier": false,
+          "door_open": false,
+          "door_source": "disabled",
+          "heating": false,
+          "humidifier": false,
+          "lighting": false,
+          "lighting_brightness": 0,
+          "lighting_source": "lan-check",
+          "presence": true
+        },
+        "distance": null,
+        "door_open": false,
+        "door_source": "disabled",
+        "door_state_kind": "commanded",
+        "humidity": 22,
+        "humidity_max": 60,
+        "humidity_min": 40,
+        "last_motion": "1 分钟前",
+        "light": 18,
+        "motion": true,
+        "motion_count": 1,
+        "presence": true,
+        "quality": "normal",
+        "sampled_at": "2026-11-15T15:57:33.505464",
+        "sensor_status": {
+          "climate": "ok",
+          "distance": "disabled"
+        },
+        "smoke": 20,
+        "smoke_threshold": 100,
+        "source": "sensor",
+        "temp_max": 26,
+        "temp_min": 20,
+        "temperature": 26.4,
+        "timestamp": "2026-11-15 15:57:35"
+      },
+      "lan_ms": 63.50560000100813
+    }
+  ],
+  "export": {
+    "status": 200,
+    "rows": 24,
+    "lan_ms": 34.336100001382874,
+    "all_sensor_source": true
+  },
+  "door_disabled": {
+    "status": 503,
+    "body": {
+      "error": "Door servo unavailable",
+      "success": false
+    }
+  },
+  "face_missing_image": {
+    "status": 422,
+    "body": {
+      "access": {
+        "allowed": false,
+        "mode": "simulation",
+        "reason": "Missing upload field: image"
+      },
+      "algorithm": "custom-uniform-LBP",
+      "error": "Missing upload field: image",
+      "identity": null,
+      "matched": false,
+      "pipeline_ms": 0.24,
+      "similarity": null,
+      "threshold": null
+    }
+  },
+  "face_admin_rejection": {
+    "status": 403,
+    "body": {
+      "enrolled": false,
+      "error": "管理员令牌缺失或无效"
+    }
+  }
+}

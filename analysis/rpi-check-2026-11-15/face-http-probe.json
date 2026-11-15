@@ -1,0 +1,20 @@
+{
+  "scope": "Real CMU sample through physical Pi LAN face HTTP; extraction succeeds, unconfigured identity threshold denies access; no enrollment or GPIO",
+  "sample": "samples/CMU01/001.pgm",
+  "status": 422,
+  "response": {
+    "access": {
+      "allowed": false,
+      "mode": "simulation",
+      "reason": "尚未设置授权样本标定阈值，门禁保持关闭"
+    },
+    "algorithm": "custom-uniform-LBP",
+    "error": "尚未设置授权样本标定阈值，门禁保持关闭",
+    "identity": null,
+    "matched": false,
+    "pipeline_ms": 132.25,
+    "similarity": null,
+    "threshold": null
+  },
+  "lan_ms": 206.96529999986524
+}
