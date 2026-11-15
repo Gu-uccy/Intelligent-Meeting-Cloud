@@ -254,11 +254,12 @@ def evaluate(args):
     feature_mode = getattr(args,'feature_mode','bbox-lbp')
     alignment_scale=getattr(args,'alignment_scale',1.0)
     lbp_grid=getattr(args,'lbp_grid',7)
+    lbp_variant=getattr(args,'lbp_variant','single')
     diagnostic = args.pipeline == 'portrait-descriptor'
-    if diagnostic and (feature_mode!='bbox-lbp' or alignment_scale!=1.0 or lbp_grid!=7):
+    if diagnostic and (feature_mode!='bbox-lbp' or alignment_scale!=1.0 or lbp_grid!=7 or lbp_variant!='single'):
         raise ValueError('Portrait diagnostic preserves the historical bbox-lbp/scale1/grid7 configuration')
     pipeline = FacePipeline(detector_backend=detector,feature_mode=feature_mode,
-                            alignment_scale=alignment_scale,lbp_grid=lbp_grid)
+                            alignment_scale=alignment_scale,lbp_grid=lbp_grid,lbp_variant=lbp_variant)
     # Descriptor-only is a separate diagnostic of complete supplied portraits.
     # It never substitutes for face detection or exports a threshold to the service.
     def extract(content):
@@ -309,6 +310,7 @@ def evaluate(args):
               'feature_profile': getattr(pipeline, 'profile', None),
               'feature_mode': feature_mode,
               'alignment_scale': alignment_scale, 'lbp_grid': lbp_grid,
+              'lbp_variant': lbp_variant,
               'development_selection_sha256': selection_hash,
               'production_use': False}
     write_json(out / 'frozen_threshold.json', frozen)
@@ -324,6 +326,7 @@ def evaluate(args):
               'feature_profile': getattr(pipeline, 'profile', None),
               'feature_mode': feature_mode,
               'alignment_scale': alignment_scale, 'lbp_grid': lbp_grid,
+              'lbp_variant': lbp_variant,
               'test_is_new_independent_evidence': False,
               'comparison_scope': 'Previously inspected CMU data reused for development comparison; test is a partition name, not new independent validation',
               'device': {'platform': platform.platform(), 'machine': platform.machine(), 'python': platform.python_version(),
@@ -336,7 +339,8 @@ def evaluate(args):
                              'failed': sum(not r['detected'] for r in records)},
               'probe_pipeline_latency_ms': latency(calibration + test),
               'latency_scope': 'disk read + decode + detection/alignment (service mode as configured) + preprocessing + LBP + matching; includes failed attempts; excludes HTTP and actuators',
-              'feature_dimensions': 59*lbp_grid**2, 'production_gallery_changed': False, 'production_threshold_exported': False,
+              'feature_dimensions': (getattr(pipeline,'feature_dimensions',None) if isinstance(getattr(pipeline,'feature_dimensions',None),int) else 59*lbp_grid**2),
+              'production_gallery_changed': False, 'production_threshold_exported': False,
               'notes': ['Failed detections are retained and count as rejections, including unknown failures in FAR denominator.',
                         'Conditional-on-detection metrics accompany full denominators; low FAR alone is not useful recognition.',
                         'Known enrollment failures may leave empty identities; none are silently excluded.',
@@ -367,6 +371,7 @@ def main():
     p.add_argument('--feature-mode',choices=['bbox-lbp','aligned-lbp','bbox-root-lbp','aligned-root-lbp'],default='bbox-lbp')
     p.add_argument('--alignment-scale',type=float,choices=[.85,1.0,1.15],default=1.0)
     p.add_argument('--lbp-grid',type=int,choices=[4,7,8],default=7)
+    p.add_argument('--lbp-variant',choices=['single','coarse-80','coarse-50','pyramid-80','pyramid-50','radius-80','radius-50','mixed'],default='single')
     p.set_defaults(action=evaluate)
     args = parser.parse_args()
     args.action(args)

@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-11-15T07:19:25.031027+00:00",
+  "scope": "Synthetic coordinates, detection failures, real model blank image, concurrency and feature contracts; no private images or GPIO",
+  "records": [
+    {
+      "name": "test_bounds_are_clamped_without_negative_index_wrapping (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_concurrent_requests_keep_input_dimensions_isolated (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_coordinates_map_to_original_image (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_corrupt_detector_output_rejected (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_default_and_real_blank_image (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_detector_filters_only_by_detection_score (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_empty_and_invalid_uploads (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_invalid_and_outside_boxes_rejected (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_missing_or_tampered_model_never_silently_falls_back (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_size_limits_keep_aspect_ratio (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_two_faces_never_choose_only_largest (__main__.Detection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_health_exposes_actual_backend_and_profile (__main__.FeatureVersions)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_new_features_store_profile_and_match (__main__.FeatureVersions)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_old_feature_schema_cannot_match (__main__.FeatureVersions)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unbound_threshold_cannot_grant_access (__main__.FeatureVersions)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_wrong_profile_cannot_append_or_overwrite (__main__.FeatureVersions)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_candidate_selection_never_extracts_test_features (__main__.Selection)",
+      "status": "PASS"
+    },
+    {
+      "name": "test_selection_mismatch_blocks_test_extraction (__main__.Selection)",
+      "status": "PASS"
+    }
+  ]
+}

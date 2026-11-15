@@ -1,0 +1,16 @@
+{
+  "threshold": 0.9568763123663867,
+  "selection": "calibration only; FAR <= 0.05, then minimum known errors, then lower FAR/higher threshold",
+  "manifest_sha256": "fcf1bdac7e9f0e8a618c150b2d9349a1cd889dc0829a7746167f699596348353",
+  "pipeline": "service",
+  "created_before_test_extraction": true,
+  "created_at": "2026-11-15T07:17:01.480949+00:00",
+  "detector": "yunet-06",
+  "feature_profile": "yunet-8f2383e4dd3c-s0.6-n03-resize320-960-bbox-lbp-v1-aligned-root-lbp-v1-align0.85-grid4-v1-coarse-50-v1",
+  "feature_mode": "aligned-root-lbp",
+  "alignment_scale": 0.85,
+  "lbp_grid": 4,
+  "lbp_variant": "coarse-50",
+  "development_selection_sha256": "73334a435f65c18ce02ed62f86ee58c4a1d7d8a8f5ef4f900a396f74797fdc3f",
+  "production_use": false
+}

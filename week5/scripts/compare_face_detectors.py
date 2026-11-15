@@ -23,7 +23,7 @@ def compare(args):
     out.mkdir(parents=True, exist_ok=True)
     candidates = []
     for backend in CANDIDATES:
-        pipeline = FacePipeline(detector_backend=backend,feature_mode='bbox-lbp',alignment_scale=1.0,lbp_grid=7)
+        pipeline = FacePipeline(detector_backend=backend,feature_mode='bbox-lbp',alignment_scale=1.0,lbp_grid=7,lbp_variant='single')
         gallery, records = {}, []
         # Preserve enrollment-before-probe even if an external manifest is reordered.
         development = [r for r in rows if r['split'] == 'enroll'] + [r for r in rows if r['split'] == 'calibration']

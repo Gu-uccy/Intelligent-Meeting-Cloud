@@ -118,6 +118,70 @@ def extract_root_grid_feature(gray, grid=7):
     return feature/norm if norm>0 else feature
 
 
+MULTISCALE_BRANCHES = {
+    'single': ((4,1,1.0),),
+    'coarse-80': ((4,1,.8),(2,1,.2)),
+    'coarse-50': ((4,1,.5),(2,1,.5)),
+    'pyramid-80': ((4,1,.8),(7,1,.2)),
+    'pyramid-50': ((4,1,.5),(7,1,.5)),
+    'radius-80': ((4,1,.8),(4,2,.2)),
+    'radius-50': ((4,1,.5),(4,2,.5)),
+    'mixed': ((4,1,.7),(2,1,.15),(4,2,.15)),
+}
+
+
+def lbp_histogram_radius(gray, radius=1):
+    """Eight square lattice neighbors at integer radius; radius1 is historical LBP."""
+    if radius not in (1,2):
+        raise ValueError('LBP radius must be 1 or 2')
+    if gray.ndim!=2 or min(gray.shape)<=2*radius:
+        raise ValueError('LBP block too small for the radius')
+    if radius==1:
+        return lbp_histogram(gray)
+    h,w=gray.shape
+    center=gray[radius:h-radius,radius:w-radius].astype(np.int32)
+    code=np.zeros_like(center,dtype=np.int32)
+    offsets=[(-1,-1),(-1,0),(-1,1),(0,1),(1,1),(1,0),(1,-1),(0,-1)]
+    for bit,(dy,dx) in enumerate(offsets):
+        neighbor=gray[radius+radius*dy:h-radius+radius*dy,radius+radius*dx:w-radius+radius*dx].astype(np.int32)
+        code|=((neighbor>=center).astype(np.int32)<<bit)
+    return np.bincount(_uniform_mapping_table()[code].ravel(),minlength=UNIFORM_BINS).astype(float)
+
+
+def root_lbp_branch(gray, grid, radius):
+    if grid not in (2,4,7) or radius not in (1,2):
+        raise ValueError('Unsupported multiscale LBP branch')
+    if gray.shape!=(112,112):
+        raise ValueError('LBP requires a preprocessed 112x112 grayscale image')
+    if radius==1 and grid in (4,7):
+        return extract_root_grid_feature(gray,grid)
+    edges=np.linspace(0,112,grid+1,dtype=int)
+    parts=[]
+    for gy in range(grid):
+        for gx in range(grid):
+            hist=lbp_histogram_radius(gray[edges[gy]:edges[gy+1],edges[gx]:edges[gx+1]],radius)
+            total=hist.sum()
+            parts.append(np.sqrt(hist/total) if total>0 else np.zeros(UNIFORM_BINS))
+    feature=np.concatenate(parts);norm=np.linalg.norm(feature)
+    return feature/norm if norm>0 else feature
+
+
+def multiscale_dimensions(variant):
+    if variant not in MULTISCALE_BRANCHES:
+        raise ValueError('Invalid FACE_LBP_VARIANT')
+    return sum(grid**2*UNIFORM_BINS for grid,_,_ in MULTISCALE_BRANCHES[variant])
+
+
+def extract_multiscale_feature(gray, variant):
+    if variant not in MULTISCALE_BRANCHES:
+        raise ValueError('Invalid FACE_LBP_VARIANT')
+    if variant == 'single':
+        return extract_root_grid_feature(gray,4)
+    parts=[np.sqrt(weight)*root_lbp_branch(gray,grid,radius) for grid,radius,weight in MULTISCALE_BRANCHES[variant]]
+    feature=np.concatenate(parts);norm=np.linalg.norm(feature)
+    return feature/norm if norm>0 else feature
+
+
 def match(gallery, probe_feature):
     """与注册库比对：返回 (最佳身份, 最高相似度, 全部相似度)"""
     best_id, best_sim = None, -1.0

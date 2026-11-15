@@ -24,7 +24,7 @@ def tune(args):
     development=[r for r in rows if r['split']=='enroll']+[r for r in rows if r['split']=='calibration']
     candidates=[]
     for scale,grid in CANDIDATES:
-        pipeline=FacePipeline(detector_backend='yunet-06',feature_mode='aligned-root-lbp',alignment_scale=scale,lbp_grid=grid)
+        pipeline=FacePipeline(detector_backend='yunet-06',feature_mode='aligned-root-lbp',alignment_scale=scale,lbp_grid=grid,lbp_variant='single')
         gallery,records={},[]
         for row in development:
             started=time.perf_counter();feature=prediction=score=None;error=''

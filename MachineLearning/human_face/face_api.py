@@ -23,19 +23,21 @@ from flask_cors import CORS
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR.parents[1] / "week5" / "scripts"))
 from preprocess_face import preprocess_face
-from lbp_face import extract_feature, extract_root_grid_feature, match
+from lbp_face import (extract_feature, extract_root_grid_feature, extract_multiscale_feature,
+                      multiscale_dimensions, MULTISCALE_BRANCHES, match)
 from face_detection import DEFAULT_DETECTOR, create_detector, crop_single_face
 from face_alignment import align_single_face
 
 DEFAULT_FEATURE_MODE = 'aligned-root-lbp'
 DEFAULT_ALIGNMENT_SCALE = .85
 DEFAULT_LBP_GRID = 4
+DEFAULT_LBP_VARIANT = 'single'
 FEATURE_MODES = ('bbox-lbp','aligned-lbp','bbox-root-lbp','aligned-root-lbp')
 
 
 class FacePipeline:
     """Library detection followed by two custom image-processing stages."""
-    def __init__(self, detector_backend=None, feature_mode=None, alignment_scale=None, lbp_grid=None):
+    def __init__(self, detector_backend=None, feature_mode=None, alignment_scale=None, lbp_grid=None, lbp_variant=None):
         self.detector = create_detector(detector_backend or os.environ.get('FACE_DETECTOR', DEFAULT_DETECTOR))
         self.feature_mode = feature_mode or os.environ.get('FACE_FEATURE_MODE', DEFAULT_FEATURE_MODE)
         if self.feature_mode not in FEATURE_MODES:
@@ -57,12 +59,20 @@ class FacePipeline:
             raise ValueError('Invalid FACE_ALIGNMENT_SCALE for this feature mode')
         if grid_number!=self.lbp_grid or self.lbp_grid not in (4,7,8) or ('root' not in self.feature_mode and self.lbp_grid!=7):
             raise ValueError('Invalid FACE_LBP_GRID for this feature mode')
+        variant_default=DEFAULT_LBP_VARIANT if self.feature_mode=='aligned-root-lbp' and self.lbp_grid==4 else 'single'
+        self.lbp_variant=lbp_variant or os.environ.get('FACE_LBP_VARIANT',variant_default)
+        if self.lbp_variant not in MULTISCALE_BRANCHES or (self.lbp_variant!='single' and (self.feature_mode!='aligned-root-lbp' or self.lbp_grid!=4)):
+            raise ValueError('Invalid FACE_LBP_VARIANT for this feature mode/grid')
         self.feature_dimensions=self.lbp_grid**2*59
+        if self.lbp_variant!='single':
+            self.feature_dimensions=multiscale_dimensions(self.lbp_variant)
         self.profile = self.detector.profile
         if self.feature_mode != 'bbox-lbp':
             self.profile = self.profile + '-' + self.feature_mode + '-v1'
         if self.alignment_scale!=1.0 or self.lbp_grid!=7:
             self.profile+=f'-align{self.alignment_scale:g}-grid{self.lbp_grid}-v1'
+        if self.lbp_variant!='single':
+            self.profile+=f'-{self.lbp_variant}-v1'
 
     def __call__(self, content):
         if not content:
@@ -76,6 +86,8 @@ class FacePipeline:
         crop = (align_single_face(image,self.detector.detect_faces(image),self.alignment_scale) if self.feature_mode.startswith('aligned')
                 else crop_single_face(image,self.detector.detect(image)))
         gray = preprocess_face(crop)
+        if self.lbp_variant!='single':
+            return extract_multiscale_feature(gray,self.lbp_variant)
         return extract_root_grid_feature(gray,self.lbp_grid) if 'root' in self.feature_mode else extract_feature(gray)
 
 
@@ -106,6 +118,7 @@ def create_app(config=None, pipeline=None, controller=None):
         FACE_FEATURE_MODE=os.environ.get('FACE_FEATURE_MODE', DEFAULT_FEATURE_MODE),
         FACE_ALIGNMENT_SCALE=os.environ.get('FACE_ALIGNMENT_SCALE'),
         FACE_LBP_GRID=os.environ.get('FACE_LBP_GRID'),
+        FACE_LBP_VARIANT=os.environ.get('FACE_LBP_VARIANT'),
         FACE_POLICY_PATH=os.environ.get("FACE_POLICY_PATH", ""),
         FACE_DEVICE_URL=os.environ.get("FACE_DEVICE_URL", "http://127.0.0.1:5058"),
     )
@@ -114,7 +127,7 @@ def create_app(config=None, pipeline=None, controller=None):
     data_dir = Path(app.config["FACE_DATA_DIR"])
     lock = threading.Lock()
     extract = pipeline or FacePipeline(app.config['FACE_DETECTOR'],app.config['FACE_FEATURE_MODE'],
-                                      app.config['FACE_ALIGNMENT_SCALE'],app.config['FACE_LBP_GRID'])
+                                      app.config['FACE_ALIGNMENT_SCALE'],app.config['FACE_LBP_GRID'],app.config['FACE_LBP_VARIANT'])
     # Injected test extractors do not represent a deployed calibration contract.
     profile = getattr(extract, 'profile', None)
     real_pipeline = isinstance(profile, str)
@@ -176,6 +189,7 @@ def create_app(config=None, pipeline=None, controller=None):
                        feature_dimensions=feature_dimensions,
                        alignment_scale=extract.alignment_scale if isinstance(extract,FacePipeline) else None,
                        lbp_grid=extract.lbp_grid if isinstance(extract,FacePipeline) else None,
+                       lbp_variant=extract.lbp_variant if isinstance(extract,FacePipeline) else None,
                        threshold=app.config["FACE_THRESHOLD"], calibrated=False,
                        mode="simulation-only", enrollment_enabled=bool(app.config["FACE_ADMIN_TOKEN"]),
                        note="Threshold requires authorized calibration; no liveness detection")

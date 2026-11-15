@@ -1,0 +1,39 @@
+{
+  "scope": "Post-selection descriptive diagnostic only; no further candidate or threshold changes",
+  "baseline_variant": "single",
+  "experimental_variant": "coarse-50",
+  "test_rows_compared": 215,
+  "changed_outcomes": [
+    {
+      "path": "samples/CMU02/031.pgm",
+      "identity": "CMU02",
+      "kind": "known",
+      "pose": "left",
+      "expression": "angry",
+      "eyes": "open",
+      "baseline": "rejected",
+      "multiscale": "correct"
+    },
+    {
+      "path": "samples/CMU12/030.pgm",
+      "identity": "CMU12",
+      "kind": "known",
+      "pose": "right",
+      "expression": "angry",
+      "eyes": "open",
+      "baseline": "correct",
+      "multiscale": "rejected"
+    },
+    {
+      "path": "samples/CMU19/003.pgm",
+      "identity": "CMU19",
+      "kind": "unknown",
+      "pose": "straight",
+      "expression": "happy",
+      "eyes": "open",
+      "baseline": "rejected",
+      "multiscale": "unknown_accepted"
+    }
+  ],
+  "deployment_decision": "Retain existing single default; experimental variant is opt-in only; test was not used to select another candidate"
+}

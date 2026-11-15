@@ -9,3 +9,4 @@ analysis/face-detection-2026-11-15/** -text whitespace=cr-at-eol
 MachineLearning/human_face/models/** -text whitespace=cr-at-eol
 analysis/face-recognition-2026-11-15/** -text whitespace=cr-at-eol
 analysis/cmu-tuning-2026-11-15/** -text whitespace=cr-at-eol
+analysis/cmu-multiscale-2026-11-15/** -text whitespace=cr-at-eol

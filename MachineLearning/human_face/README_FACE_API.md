@@ -6,6 +6,8 @@
 
 ## 同批CMU参数调优（当前默认）
 
+最新多尺度实验比较8种组合，标定入选4×4+2×2/1180维，但原test仍正确70/90、未知误接受增至3/125。因此默认保持 `FACE_LBP_VARIANT=single` / 944维，多尺度为显式实验选项；`/health`报告分支和维度，版本与阈值须重新匹配。96项回归及5项HTTP检查通过，见 [多尺度实验与保留默认的依据](../../analysis/cmu-multiscale-2026-11-15/README.md)。同批开发结果不能替代独立验证。
+
 默认 `FACE_ALIGNMENT_SCALE=0.85`、`FACE_LBP_GRID=4`，特征944维。在固定9组登记/标定选型后，原test已知正确从64/90增至70/90、未知误接受从4/125降至2/125；标定误接受则从4/121升至6/121。较宽范围可能利用头发/背景，以上仅同批数据开发调优，见 [本轮报告](../../analysis/cmu-tuning-2026-11-15/README.md)。重启服务生效，旧特征和阈值需重新登记/标定，不自动导入离线阈值。显式比例1.0、网格7可复现上一版；以下小节保留历史记录。
 
 ## 2026-11-15识别改进（上一版）
@@ -47,7 +49,7 @@ python week5/scripts/run_face_eval.py --data-dir D:/AuthorizedFaces --manifest D
 
 ## 配置与接口
 
-所有设置在启动服务前通过环境变量配置：`FACE_DATA_DIR`（特征和匿名日志私有目录）、`FACE_ADMIN_TOKEN`（录入/删除管理令牌）、`FACE_THRESHOLD`（授权标定后才填写）、`FACE_THRESHOLD_PROFILE`（与当前feature_profile一致）、`FACE_DETECTOR`（默认yunet-06；复现haar时同时设置bbox-lbp特征）、`FACE_FEATURE_MODE`（默认aligned-root-lbp）、`FACE_ALIGNMENT_SCALE`（默认0.85，可选1.0/1.15）、`FACE_LBP_GRID`（默认4，可选7/8；旧非Root模式固定7）、`FACE_POLICY_PATH`（私有预约策略 JSON）、`FACE_DEVICE_URL`（默认 http://127.0.0.1:5058）、`FACE_API_PORT`、`FACE_HOST`（默认仅本机）。不要把管理令牌写进前端 VITE 环境变量、截图或 Git。
+所有设置在启动服务前通过环境变量配置：`FACE_DATA_DIR`（特征和匿名日志私有目录）、`FACE_ADMIN_TOKEN`（录入/删除管理令牌）、`FACE_THRESHOLD`（授权标定后才填写）、`FACE_THRESHOLD_PROFILE`（与当前feature_profile一致）、`FACE_DETECTOR`（默认yunet-06；复现haar时同时设置bbox-lbp特征）、`FACE_FEATURE_MODE`（默认aligned-root-lbp）、`FACE_ALIGNMENT_SCALE`（默认0.85，可选1.0/1.15）、`FACE_LBP_GRID`（默认4，可选7/8；旧非Root模式固定7）、`FACE_LBP_VARIANT`（默认single，实验coarse-50等非single仅支持aligned-root-lbp与grid4）、`FACE_POLICY_PATH`（私有预约策略 JSON）、`FACE_DEVICE_URL`（默认 http://127.0.0.1:5058）、`FACE_API_PORT`、`FACE_HOST`（默认仅本机）。不要把管理令牌写进前端 VITE 环境变量、截图或 Git。
 
 `POST /api/face/enroll`：multipart image、identity（匿名编号）、consent=true，header `X-Face-Admin-Token`。每次追加一条特征，最多30条，不覆盖整个身份。不返回磁盘路径。网页录入需勾选已有授权并手动输入令牌，令牌仅保存在当前组件内存。
 
